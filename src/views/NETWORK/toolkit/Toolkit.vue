@@ -20,26 +20,18 @@
                 <el-divider content-position="left"><h3>{{lang.ping_and_traceroute}}</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.interface_help"></div>
-                                    <span>{{lang.interface}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="interface_value" :placeholder="lang.select_placeholder" style="width: 100%;">
-                                    <el-option
-                                            v-for="item in interface_value_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.interface_help"></span>
+                        <span slot="param_name" >{{lang.interface}}</span>
+                        <el-select slot="param" v-model="interface_value" :placeholder="lang.select_placeholder" style="width: 100%;">
+                            <el-option
+                                    v-for="item in interface_value_options"
+                                    :label="item.label"
+                                    :key="item.value"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row>
@@ -119,97 +111,56 @@
                 <el-divider content-position="left"><h3>{{lang.channel_recording}}</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.interface_help"></div>
-                                    <span>{{lang.interface}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="tcpdump_interface"
-                                          style="width: 100%;"
-                                          size="small">
-                                    <el-option
-                                            v-for="item in tcpdump_interface_value_options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value"
-                                    ></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.interface_help"></span>
+                        <span slot="param_name" >{{lang.interface}}</span>
+                        <el-select slot="param" v-model="tcpdump_interface"
+                                   style="width: 100%;"
+                                   size="small">
+                            <el-option
+                                    v-for="item in tcpdump_interface_value_options"
+                                    :key="item.value"
+                                    :label="item.label"
+                                    :value="item.value"
+                            ></el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.source_host_help"></div>
-                                    <span>{{lang.source_host}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="source_host" type="textarea"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.source_host_help"></span>
+                        <span slot="param_name" >{{lang.source_host}}</span>
+                        <el-input slot="param" v-model="source_host" type="textarea"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.destination_host_help"></div>
-                                    <span>{{lang.destination_host}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="destination_host" type="textarea"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.destination_host_help"></span>
+                        <span slot="param_name" >{{lang.destination_host}}</span>
+                        <el-input slot="param" v-model="destination_host" type="textarea"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.port_help"></div>
-                                    <span>{{lang.port}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="port" size="small"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.port_help"></span>
+                        <span slot="param_name" >{{lang.port}}</span>
+                        <el-input slot="param" v-model="port" size="small"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.add_tcpdump_option"></div>
-                                    <span>{{lang.add_tcpdump_option}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-row>
-                                <el-col :lg="18">
-                                    <el-button type="primary"
-                                               size="small"
-                                               @click="add_tcpdump_option"
-                                               style="width: 100%">{{lang.add_tcpdump_option}}</el-button>
-                                </el-col>
-                            </el-row>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.add_tcpdump_option"></span>
+                        <span slot="param_name" >{{lang.add_tcpdump_option}}</span>
+                        <el-button type="primary"
+                                   slot="param"
+                                   size="small"
+                                   @click="add_tcpdump_option"
+                                   style="width: 100%">{{lang.add_tcpdump_option}}</el-button>
+                    </form_item>
                 </el-row>
 
                 <el-row>

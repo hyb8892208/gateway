@@ -24,178 +24,97 @@
                 <el-divider content-position="left"><h3>{{lang.web_login_settings}}</h3></el-divider>
 
                 <el-row>
-                    <el-col :span="12">
-                        <el-form-item prop="username">
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.username_help"></div>
-                                    <span>{{lang.username}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input id="username" v-model="ruleForm.username"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.username_help"></span>
+                        <span slot="param_name" >{{lang.username}}</span>
+                        <el-input slot="param" id="username" v-model="ruleForm.username"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :span="12">
-                        <el-form-item prop="pass">
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.password_help"></div>
-                                    <span>{{lang.password}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input id="pass" show-password v-model="ruleForm.pass"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.password_help"></span>
+                        <span slot="param_name" >{{lang.password}}</span>
+                        <el-input slot="param" id="pass" show-password v-model="ruleForm.pass"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :span="12">
-                        <el-form-item prop="confirm_password">
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.confirm_password_help"></div>
-                                    <span>{{lang.confirm_password}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input id="confirm_password" show-password v-model="ruleForm.confirm_password"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.confirm_password_help"></span>
+                        <span slot="param_name" >{{lang.confirm_password}}</span>
+                        <el-input slot="param" id="confirm_password" show-password v-model="ruleForm.confirm_password"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :span="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.login_mode_help"></div>
-                                    <span>{{lang.login_mode}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select
-                                        v-model="login_mode_value"
-                                        :placeholder="lang.select_placeholder"
-                                        @change="change_login_mode"
-                                        style="width: 100%;">
-                                    <el-option
-                                            v-for="item in login_modes"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.login_mode_help"></span>
+                        <span slot="param_name" >{{lang.login_mode}}</span>
+                        <el-select
+                                slot="param"
+                                v-model="login_mode_value"
+                                :placeholder="lang.select_placeholder"
+                                @change="change_login_mode"
+                                style="width: 100%;">
+                            <el-option
+                                    v-for="item in login_modes"
+                                    :label="item.label"
+                                    :key="item.value"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :span="12">
-                        <el-form-item prop="http_port">
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.https_port_help"></div>
-                                    <span>{{lang.http_port}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input id="http_port" v-model.number="ruleForm.http_port" :disabled="http_disabled"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.https_port_help"></span>
+                        <span slot="param_name" >{{lang.http_port}}</span>
+                        <el-input slot="param" id="http_port" v-model.number="ruleForm.http_port" :disabled="http_disabled"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :span="12">
-                        <el-form-item prop="https_port">
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.https_port_help"></div>
-                                    <span>{{lang.https_port}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input id="https_port" v-model.number="ruleForm.https_port" :disabled="https_disabled"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.https_port_help"></span>
+                        <span slot="param_name" >{{lang.https_port}}</span>
+                        <el-input slot="param" id="https_port" v-model.number="ruleForm.https_port" :disabled="https_disabled"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-divider content-position="left"><h3>{{lang.ssh_login_settings}}</h3></el-divider>
 
                 <el-row>
-                    <el-col :span="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.enable_help"></div>
-                                    <span>{{lang.enable}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-checkbox v-model="ssh_sw"></el-checkbox>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.enable_help"></span>
+                        <span slot="param_name" >{{lang.enable}}</span>
+                        <el-checkbox slot="param" v-model="ssh_sw"></el-checkbox>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :span="12">
-                        <el-form-item prop="ssh_username">
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.username_help"></div>
-                                    <span>{{lang.username}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input id="ssh_username" v-model="ruleForm.ssh_username"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.username_help"></span>
+                        <span slot="param_name" >{{lang.username}}</span>
+                        <el-input slot="param" id="ssh_username" v-model="ruleForm.ssh_username"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :span="12">
-                        <el-form-item prop="ssh_password">
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.password_help"></div>
-                                    <span>{{lang.password}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input id="ssh_password" show-password v-model="ruleForm.ssh_password"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.password_help"></span>
+                        <span slot="param_name" >{{lang.password}}</span>
+                        <el-input slot="param" id="ssh_password" show-password v-model="ruleForm.ssh_password"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :span="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content">
-                                        {{lang.port_help}}
-                                    </div>
-                                    <span>{{lang.port}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <p>{{ssh_port}}</p>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.port_help"></span>
+                        <span slot="param_name" >{{lang.port}}</span>
+                        <p slot="param">{{ssh_port}}</p>
+                    </form_item>
                 </el-row>
             </el-form>
         </el-card>

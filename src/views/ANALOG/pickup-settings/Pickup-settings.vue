@@ -19,51 +19,27 @@
 
         <el-card shadow="never" style="margin:auto;padding: 20px;overflow: visible;" :style=$store.state.page.card_width>
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.enable_help"></div>
-                                <span>{{lang.enable}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="pickupenable"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.enable_help"></span>
+                    <span slot="param_name" >{{lang.enable}}</span>
+                    <el-checkbox slot="param" v-model="pickupenable"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.timeout_help"></div>
-                                <span>{{lang.timeout}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="pickuptimeout" ></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.timeout_help"></span>
+                    <span slot="param_name" >{{lang.timeout}}</span>
+                    <el-input slot="param" v-model="pickuptimeout"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.number_help"></div>
-                                <span>{{lang.number}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="pickupnumber" ></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.number_help"></span>
+                    <span slot="param_name" >{{lang.number}}</span>
+                    <el-input slot="param" v-model="pickupnumber"></el-input>
+                </form_item>
             </el-row>
 
             <el-row v-for="chn_item in pickchn">

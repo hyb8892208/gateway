@@ -22,373 +22,195 @@
             <el-divider content-position="left"><h3>{{lang.general}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.tone_duration_help"></div>
-                                <span>{{lang.tone_duration}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="toneduration" ></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.tone_duration_help"></span>
+                    <span slot="param_name" >{{lang.tone_duration}}</span>
+                    <el-input slot="param" v-model="toneduration"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.tone_interval_help"></div>
-                                <span>{{lang.tone_interval}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="toneinterval" ></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.tone_interval_help"></span>
+                    <span slot="param_name" >{{lang.tone_interval}}</span>
+                    <el-input slot="param" v-model="toneinterval"></el-input>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-row>
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.dial_timeout_help"></div>
-                                    <span>{{lang.dial_timeout}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="dialtimeout" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-row>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.dial_timeout_help"></span>
+                    <span slot="param_name" >{{lang.dial_timeout}}</span>
+                    <el-input slot="param" v-model="dialtimeout"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-row>
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.echo_type_help"></div>
-                                    <span>{{lang.echo_type}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="echotype" style="width: 100%;">
-                                    <el-option
-                                        v-for="item in echotype_options"
-                                        :label="item.label"
-                                        :key="item.value"
-                                        :value="item.value"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-row>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.echo_type_help"></span>
+                    <span slot="param_name" >{{lang.echo_type}}</span>
+                    <el-select slot="param" v-model="echotype" style="width: 100%;">
+                        <el-option
+                                v-for="item in echotype_options"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-row>
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.echo_cancel_tap_length_help"></div>
-                                    <span>{{lang.echo_cancel_tap_length}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-if="echotype == 0" v-model="echocancel"></el-input>
+                <form_item>
+                    <span slot="param_help" v-html="lang.echo_cancel_tap_length_help"></span>
+                    <span slot="param_name" >{{lang.echo_cancel_tap_length}}</span>
+                    <span slot="param">
+                        <el-input v-if="echotype == 0" v-model="echocancel"></el-input>
 
-                                <el-select v-else v-model="echocancel" style="width: 100%;">
-                                    <el-option
-                                        v-for="item in echocancel_options"
-                                        :label="item"
-                                        :key="item"
-                                        :value="item"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-row>
-                </el-col>
+                        <el-select v-else v-model="echocancel" style="width: 100%;">
+                            <el-option
+                                    v-for="item in echocancel_options"
+                                    :label="item"
+                                    :key="item"
+                                    :value="item"></el-option>
+                        </el-select>
+                    </span>
+                </form_item>
             </el-row>
 
             <el-divider content-position="left"><h3>{{lang.fax}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-row>
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.mode_help"></div>
-                                    <span>{{lang.mode}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="mode" style="width: 100%;">
-                                    <el-option
-                                        v-for="item in mode_options"
-                                        :label="lang[item.label]"
-                                        :key="item.value"
-                                        :value="item.value"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-row>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.mode_help"></span>
+                    <span slot="param_name" >{{lang.mode}}</span>
+                    <el-select slot="param" v-model="mode" style="width: 100%;">
+                        <el-option
+                                v-for="item in mode_options"
+                                :label="lang[item.label]"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-row>
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.rate_help"></div>
-                                    <span>{{lang.rate}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="rate" style="width: 100%;">
-                                    <el-option
-                                        v-for="item in rate_options"
-                                        :label="item.label"
-                                        :key="item.value"
-                                        :value="item.value"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-row>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.rate_help"></span>
+                    <span slot="param_name" >{{lang.rate}}</span>
+                    <el-select slot="param" v-model="rate" style="width: 100%;">
+                        <el-option
+                                v-for="item in rate_options"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-row>
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.ecm_help"></div>
-                                    <span>{{lang.ecm}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-checkbox v-model="ecm"></el-checkbox>
-                            </el-col>
-                        </el-form-item>
-                    </el-row>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.ecm_help"></span>
+                    <span slot="param_name" >{{lang.ecm}}</span>
+                    <el-checkbox slot="param" v-model="ecm"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-divider content-position="left"><h3>{{lang.country}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-row>
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.country_help"></div>
-                                    <span>{{lang.country}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="country"
-                                           @change="country_change"
-                                           style="width: 100%;">
-                                    <el-option
-                                        v-for="item in country_options"
-                                        :label="lang[item.label]"
-                                        :key="item.value"
-                                        :value="item.value"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-row>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.country_help"></span>
+                    <span slot="param_name" >{{lang.country}}</span>
+                    <el-select slot="param" v-model="country"
+                               @change="country_change"
+                               style="width: 100%;">
+                        <el-option
+                                v-for="item in country_options"
+                                :label="lang[item.label]"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-row>
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.ring_cadence_help"></div>
-                                    <span>{{lang.ring_cadence}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="ind_ringcadence"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-row>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.ring_cadence_help"></span>
+                    <span slot="param_name" >{{lang.ring_cadence}}</span>
+                    <el-input slot="param" v-model="ind_ringcadence"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-row>
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.dial_tone_help"></div>
-                                    <span>{{lang.dial_tone}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="ind_dial"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-row>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.dial_tone_help"></span>
+                    <span slot="param_name" >{{lang.dial_tone}}</span>
+                    <el-input slot="param" v-model="ind_dial"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-row>
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.ring_tone_help"></div>
-                                    <span>{{lang.ring_tone}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="ind_ring"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-row>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.ring_tone_help"></span>
+                    <span slot="param_name" >{{lang.ring_tone}}</span>
+                    <el-input slot="param" v-model="ind_ring"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-row>
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.busy_tone_help"></div>
-                                    <span>{{lang.busy_tone}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="ind_busy"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-row>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.busy_tone_help"></span>
+                    <span slot="param_name" >{{lang.busy_tone}}</span>
+                    <el-input slot="param" v-model="ind_busy"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-row>
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.call_waiting_tone_help"></div>
-                                    <span>{{lang.call_waiting_tone}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="ind_callwaiting"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-row>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.busy_tone_help"></span>
+                    <span slot="param_name" >{{lang.busy_tone}}</span>
+                    <el-input slot="param" v-model="ind_busy"></el-input>
+                </form_item>
+
+                <form_item>
+                    <span slot="param_help" v-html="lang.call_waiting_tone_help"></span>
+                    <span slot="param_name" >{{lang.call_waiting_tone}}</span>
+                    <el-input slot="param" v-model="ind_callwaiting"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-row>
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.congestion_tone_help"></div>
-                                    <span>{{lang.congestion_tone}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="ind_congestion"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-row>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.congestion_tone_help"></span>
+                    <span slot="param_name" >{{lang.congestion_tone}}</span>
+                    <el-input slot="param" v-model="ind_congestion"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-row>
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.dial_recall_tone_help"></div>
-                                    <span>{{lang.dial_recall_tone}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="ind_dialrecall"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-row>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.dial_recall_tone_help"></span>
+                    <span slot="param_name" >{{lang.dial_recall_tone}}</span>
+                    <el-input slot="param" v-model="ind_dialrecall"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-row>
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.record_tone_help"></div>
-                                    <span>{{lang.record_tone}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="ind_record"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-row>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.record_tone_help"></span>
+                    <span slot="param_name" >{{lang.record_tone}}</span>
+                    <el-input slot="param" v-model="ind_record"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-row>
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.info_tone_help"></div>
-                                    <span>{{lang.info_tone}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="ind_info"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-row>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.info_tone_help"></span>
+                    <span slot="param_name" >{{lang.info_tone}}</span>
+                    <el-input slot="param" v-model="ind_info"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-row>
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.stutter_tone_help"></div>
-                                    <span>{{lang.stutter_tone}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="ind_stutter"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-row>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.stutter_tone_help"></span>
+                    <span slot="param_name" >{{lang.stutter_tone}}</span>
+                    <el-input slot="param" v-model="ind_stutter"></el-input>
+                </form_item>
             </el-row>
         </el-card>
     </el-form>

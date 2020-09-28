@@ -16,127 +16,71 @@
 
     <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom:50px;overflow: visible;" :style=$store.state.page.card_width>
         <el-row>
-            <el-col :lg="12">
-                <el-form-item>
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.system_time_help"></div>
-                            <span>{{lang.system_time}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <span>{{currenttime}}</span>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.system_time_help"></span>
+                <span slot="param_name" >{{lang.system_time}}</span>
+                <span slot="param">{{currenttime}}</span>
+            </form_item>
         </el-row>
 
         <el-row>
-            <el-col :lg="12">
-                <el-form-item>
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.time_zone_help"></div>
-                            <span>{{lang.time_zone}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <el-select v-model="timezone_value" style="width: 100%;" @change="timeout_change" :placeholder="lang.select_placeholder" >
-                            <el-option-group
-                                    v-for="timezone in timezones"
-                                    :key="timezone.label"
-                                    :label="lang[timezone.label]">
-                                <el-option
-                                        v-for="item in timezone.options"
-                                        :key="item.value"
-                                        :label="lang[item.label]"
-                                        :value="item.value">
-                                </el-option>
-                            </el-option-group>
-                        </el-select>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.time_zone_help"></span>
+                <span slot="param_name" >{{lang.time_zone}}</span>
+                <el-select slot="param" v-model="timezone_value" style="width: 100%;" @change="timeout_change" :placeholder="lang.select_placeholder" >
+                    <el-option-group
+                            v-for="timezone in timezones"
+                            :key="timezone.label"
+                            :label="lang[timezone.label]">
+                        <el-option
+                                v-for="item in timezone.options"
+                                :key="item.value"
+                                :label="lang[item.label]"
+                                :value="item.value">
+                        </el-option>
+                    </el-option-group>
+                </el-select>
+            </form_item>
         </el-row>
 
         <el-row>
-            <el-col :lg="12">
-                <el-form-item label="">
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.posix_tz_string_help"></div>
-                            <span>{{lang.posix_tz_string}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <el-input :disabled="true" value="fff" v-model="show_TZ" ></el-input>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.posix_tz_string_help"></span>
+                <span slot="param_name" >{{lang.posix_tz_string}}</span>
+                <el-input slot="param" :disabled="true" value="fff" v-model="show_TZ" ></el-input>
+            </form_item>
         </el-row>
 
         <el-row>
-            <el-col :lg="12">
-                <el-form-item prop="ntp_server1">
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.ntp_server1_help"></div>
-                            <span>{{lang.ntp_server1}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <el-input id="ntp_server1" v-model="ntp_server1" ></el-input>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.ntp_server1_help"></span>
+                <span slot="param_name" >{{lang.ntp_server1}}</span>
+                <el-input slot="param" id="ntp_server1" v-model="ntp_server1" ></el-input>
+            </form_item>
         </el-row>
 
         <el-row>
-            <el-col :lg="12">
-                <el-form-item prop="ntp_server2">
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.ntp_server2_help"></div>
-                            <span>{{lang.ntp_server2}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <el-input id="ntp_server2" v-model="ntp_server2" ></el-input>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.ntp_server2_help"></span>
+                <span slot="param_name" >{{lang.ntp_server2}}</span>
+                <el-input slot="param" id="ntp_server2" v-model="ntp_server2" ></el-input>
+            </form_item>
         </el-row>
 
         <el-row>
-            <el-col :lg="12">
-                <el-form-item prop="ntp_server3">
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.ntp_server3_help"></div>
-                            <span>{{lang.ntp_server3}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <el-input id="ntp_server3" v-model="ntp_server3" ></el-input>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.ntp_server3_help"></span>
+                <span slot="param_name" >{{lang.ntp_server3}}</span>
+                <el-input slot="param" id="ntp_server3" v-model="ntp_server3" ></el-input>
+            </form_item>
         </el-row>
 
         <el-row>
-            <el-col :lg="12">
-                <el-form-item>
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.auto_sync_from_ntp_help"></div>
-                            <span>{{lang.auto_sync_from_ntp}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <el-checkbox v-model="auto_sync_sw"></el-checkbox>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.auto_sync_from_ntp_help"></span>
+                <span slot="param_name" >{{lang.auto_sync_from_ntp}}</span>
+                <el-checkbox slot="param" v-model="auto_sync_sw"></el-checkbox>
+            </form_item>
         </el-row>
     </el-card>
 

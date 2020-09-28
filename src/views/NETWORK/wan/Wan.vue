@@ -20,108 +20,60 @@
             <el-divider content-position="left"><h3>{{lang.wan_ipv4}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" open-delay="200">
-                                <div slot="content" v-html="lang.interface_help"></div>
-                                <span>{{lang.interface}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <span>{{interface}}</span>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.interface_help"></span>
+                    <span slot="param_name" >{{lang.interface}}</span>
+                    <span slot="param">{{interface}}</span>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" open-delay="200">
-                                <div slot="content" v-html="lang.type_help"></div>
-                                <span>{{lang.type}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="wan_type" style="width: 100%">
-                                <el-option
-                                    v-for="item in wan_type_options"
-                                    :label="item.label"
-                                    :key="item.value"
-                                    :value="item.value"></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.type_help"></span>
+                    <span slot="param_name" >{{lang.type}}</span>
+                    <el-select slot="param" v-model="wan_type" style="width: 100%">
+                        <el-option
+                                v-for="item in wan_type_options"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-row v-if="wan_type != 3">
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" open-delay="200">
-                                <div slot="content" v-html="lang.mac_help"></div>
-                                <span>{{lang.mac}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="mac" disabled></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.mac_help"></span>
+                    <span slot="param_name" >{{lang.mac}}</span>
+                    <el-input slot="param" v-model="mac" disabled></el-input>
+                </form_item>
             </el-row>
 
             <el-row v-if="wan_type == 1">
                 <el-divider content-position="left"><h3>{{lang.ipv4_settings}}</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" open-delay="200">
-                                    <div slot="content" v-html="lang.address_help"></div>
-                                    <span>{{lang.address}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="address"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.address_help"></span>
+                        <span slot="param_name" >{{lang.address}}</span>
+                        <el-input slot="param" v-model="address"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" open-delay="200">
-                                    <div slot="content" v-html="lang.netmask_help"></div>
-                                    <span>{{lang.netmask}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="netmask"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.netmask_help"></span>
+                        <span slot="param_name" >{{lang.netmask}}</span>
+                        <el-input slot="param" v-model="netmask"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" open-delay="200">
-                                    <div slot="content" v-html="lang.default_gateway_help"></div>
-                                    <span>{{lang.default_gateway}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="gateway"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.default_gateway_help"></span>
+                        <span slot="param_name" >{{lang.default_gateway}}</span>
+                        <el-input slot="param" v-model="gateway"></el-input>
+                    </form_item>
                 </el-row>
             </el-row>
 

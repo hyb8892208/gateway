@@ -19,55 +19,33 @@
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.none_keys_blind_transfer_help"></div>
-                                <span>{{lang.none_keys_blind_transfer}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox @change="enable_change" v-model="enable"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.none_keys_blind_transfer_help"></span>
+                    <span slot="param_name" >{{lang.none_keys_blind_transfer}}</span>
+                    <el-checkbox slot="param" @change="enable_change" v-model="enable"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.blind_transfer_help"></div>
-                                <span>{{lang.blind_transfer}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="blindtransfer"
-                                      size="small"
-                                      :disabled="blindtransfer_disabled"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.blind_transfer_help"></span>
+                    <span slot="param_name" >{{lang.blind_transfer}}</span>
+                    <el-input v-model="blindtransfer"
+                              slot="param"
+                              size="small"
+                              :disabled="blindtransfer_disabled"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.asked_transfer_help"></div>
-                                <span>{{lang.asked_transfer}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="askedtransfer"
-                                      size="small"
-                                      :disabled="askedtransfer_disabled"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.asked_transfer_help"></span>
+                    <span slot="param_name" >{{lang.asked_transfer}}</span>
+                    <el-input v-model="askedtransfer"
+                              slot="param"
+                              size="small"
+                              :disabled="askedtransfer_disabled"></el-input>
+                </form_item>
             </el-row>
         </el-card>
     </el-form>

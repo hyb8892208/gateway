@@ -3,83 +3,43 @@
         <el-divider content-position="left"><h3>{{lang.openvpn_settings}}</h3></el-divider>
 
         <el-row>
-            <el-col :lg="12">
-                <el-form-item>
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.server_help"></div>
-                            <span>{{lang.server}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <el-input v-model="server"></el-input>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.server_help"></span>
+                <span slot="param_name" >{{lang.server}}</span>
+                <el-input slot="param" v-model="server"></el-input>
+            </form_item>
         </el-row>
 
         <el-row>
-            <el-col :lg="12">
-                <el-form-item>
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.account_help"></div>
-                            <span>{{lang.account}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <el-input v-model="account"></el-input>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.account_help"></span>
+                <span slot="param_name" >{{lang.account}}</span>
+                <el-input slot="param" v-model="account"></el-input>
+            </form_item>
         </el-row>
 
         <el-row>
-            <el-col :lg="12">
-                <el-form-item>
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.password_help"></div>
-                            <span>{{lang.password}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <el-input v-model="password"></el-input>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.password_help"></span>
+                <span slot="param_name" >{{lang.password}}</span>
+                <el-input slot="param" v-model="password" show-password></el-input>
+            </form_item>
         </el-row>
 
         <el-row>
-            <el-col :lg="12">
-                <el-form-item>
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.domain_help"></div>
-                            <span>{{lang.domain}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <el-input v-model="domain"></el-input>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.domain_help"></span>
+                <span slot="param_name" >{{lang.domain}}</span>
+                <el-input slot="param" v-model="domain"></el-input>
+            </form_item>
         </el-row>
 
         <el-row>
-            <el-col :lg="12">
-                <el-form-item>
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.use_mppe_help"></div>
-                            <span>{{lang.use_mppe}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <el-checkbox v-model="mppe"></el-checkbox>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.use_mppe_help"></span>
+                <span slot="param_name" >{{lang.use_mppe}}</span>
+                <el-checkbox slot="param" v-model="mppe"></el-checkbox>
+            </form_item>
         </el-row>
     </el-row>
 </template>

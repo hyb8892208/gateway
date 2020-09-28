@@ -19,344 +19,208 @@
                 <el-divider content-position="left"><h3>{{lang.language_settings}}</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.language"></div>
-                                    <span>{{lang.language}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="language_value" :placeholder="lang.select_placeholder" style="width: 100%;">
-                                    <el-option
-                                            v-for="item in languages"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.language"></span>
+                        <span slot="param_name" >{{lang.language}}</span>
+                        <el-select slot="param" v-model="language_value" :placeholder="lang.select_placeholder" style="width: 100%;">
+                            <el-option
+                                    v-for="item in languages"
+                                    :label="item.label"
+                                    :key="item.value"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.language_download_help"></div>
-                                    <span>{{lang.download}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <form action='/service' method='post' enctype='multipart/form-data' >
-                                    <input type="hidden" name="action" value="download"/>
-                                    <input type='hidden' id="downloadfile_val" name='downloadfile' :value="language_value" />
-                                    <input type='hidden' name='page_name' value='system-general' />
-                                    <button type="primary"
-                                               size="small"
-                                               class="el-button el-button--primary el-button--small"
-                                               style="width: 100%;">{{lang.download}}</button>
-                                </form>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.language_download_help"></span>
+                        <span slot="param_name" >{{lang.download}}</span>
+                        <form slot="param" action='/service' method='post' enctype='multipart/form-data' >
+                            <input type="hidden" name="action" value="download"/>
+                            <input type='hidden' id="downloadfile_val" name='downloadfile' :value="language_value" />
+                            <input type='hidden' name='page_name' value='system-general' />
+                            <button type="primary"
+                                    size="small"
+                                    class="el-button el-button--primary el-button--small"
+                                    style="width: 100%;">{{lang.download}}</button>
+                        </form>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.delete_language_help"></div>
-                                    <span>{{lang.delete}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-button type="primary"
-                                           size="small"
-                                           @click="Delete_language"
-                                           style="width: 100%;">{{lang.delete}}</el-button>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.delete_language_help"></span>
+                        <span slot="param_name" >{{lang.delete}}</span>
+                        <el-button type="primary"
+                                   slot="param"
+                                   size="small"
+                                   @click="Delete_language"
+                                   style="width: 100%;">{{lang.delete}}</el-button>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.add_new_language"></div>
-                                    <span>{{lang.add_new_language}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-upload
-                                        class="upload-demo"
-                                        action="/service"
-                                        name="uploadfile1"
-                                        :data="{action:'upload',page_name:'system-general',type:'upload'}"
-                                        :show-file-list=false
-                                        :on-success="upload_succeed"
-                                        style="width: 100%;">
-                                    <el-button type="button" style="width: 100%;">
-                                        <i class="el-icon-folder-opened"></i>
-                                        <span> </span>
-                                        <span>{{lang.select_file}}</span>
-                                    </el-button>
-                                </el-upload>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.add_new_language"></span>
+                        <span slot="param_name" >{{lang.add_new_language}}</span>
+                        <el-upload
+                                class="upload-demo"
+                                slot="param"
+                                action="/service"
+                                name="uploadfile1"
+                                :data="{action:'upload',page_name:'system-general',type:'upload'}"
+                                :show-file-list=false
+                                :on-success="upload_succeed"
+                                style="width: 100%;">
+                            <el-button type="button" style="width: 100%;">
+                                <i class="el-icon-folder-opened"></i>
+                                <span> </span>
+                                <span>{{lang.select_file}}</span>
+                            </el-button>
+                        </el-upload>
+                    </form_item>
                 </el-row>
 
                 <el-divider content-position="left"><h3>{{lang.scheduled_reboot}}</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.enable_help"></div>
-                                    <span>{{lang.enable}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-checkbox v-model="reboot_sw"></el-checkbox>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.enable_help"></span>
+                        <span slot="param_name" >{{lang.enable}}</span>
+                        <el-checkbox slot="param" v-model="reboot_sw"></el-checkbox>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content">
-                                        <span v-html="lang.reboot_type_help"></span>
-                                    </div>
-                                    <span>{{lang.reboot_type}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="reboot_type_value" :placeholder="lang.select_placeholder" style="width: 100%;">
-                                    <el-option
-                                        v-for="item in reboot_type"
-                                        :label="lang[item.label]"
-                                        :key="item.value"
-                                        :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.reboot_type_help"></span>
+                        <span slot="param_name" >{{lang.reboot_type}}</span>
+                        <el-select slot="param" v-model="reboot_type_value" :placeholder="lang.select_placeholder" style="width: 100%;">
+                            <el-option
+                                    v-for="item in reboot_type"
+                                    :label="lang[item.label]"
+                                    :key="item.value"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row v-show="reboot_type_value == 'by_day'"><!-- By Day -->
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.hour"></div>
-                                    <span>{{lang.hour}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="d_hour" :placeholder="lang.select_placeholder" style="width: 100%">
-                                    <el-option v-for="i in 24" :value="i">{{i-1}}</el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.hour"></span>
+                        <span slot="param_name" >{{lang.hour}}</span>
+                        <el-select slot="param" v-model="d_hour" :placeholder="lang.select_placeholder" style="width: 100%">
+                            <el-option v-for="i in 24" :value="i">{{i-1}}</el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row v-show="reboot_type_value == 'by_day'"><!-- By Day -->
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.minute"></div>
-                                    <span>{{lang.minute}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="d_minute" :placeholder="lang.select_placeholder" style="width: 100%">
-                                    <el-option v-for="i in 60" :value="i">{{i-1}}</el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.minute"></span>
+                        <span slot="param_name" >{{lang.minute}}</span>
+                        <el-select slot="param" v-model="d_minute" :placeholder="lang.select_placeholder" style="width: 100%">
+                            <el-option v-for="i in 60" :value="i">{{i-1}}</el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row v-show="reboot_type_value == 'by_week'"><!-- By Week -->
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.week"></div>
-                                    <span>{{lang.week}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="w_week_value" style="width: 100%">
-                                    <el-option
-                                            v-for="item in w_week"
-                                            :label="lang[item.label]"
-                                            :key="item.value"
-                                            :value="item.value"
-                                    ></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.week"></span>
+                        <span slot="param_name" >{{lang.week}}</span>
+                        <el-select slot="param" v-model="w_week_value" style="width: 100%">
+                            <el-option
+                                    v-for="item in w_week"
+                                    :label="lang[item.label]"
+                                    :key="item.value"
+                                    :value="item.value"
+                            ></el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row v-show="reboot_type_value == 'by_week'"><!-- By Week -->
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.hour"></div>
-                                    <span>{{lang.hour}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="w_hour" :placeholder="lang.select_placeholder" style="width: 100%">
-                                    <el-option v-for="i in 24" :value="i">{{i-1}}</el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.hour"></span>
+                        <span slot="param_name" >{{lang.hour}}</span>
+                        <el-select slot="param" v-model="w_hour" :placeholder="lang.select_placeholder" style="width: 100%">
+                            <el-option v-for="i in 24" :value="i">{{i-1}}</el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row v-show="reboot_type_value == 'by_week'"><!-- By Week -->
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.minute"></div>
-                                    <span>{{lang.minute}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="w_minute" :placeholder="lang.select_placeholder" style="width: 100%">
-                                    <el-option v-for="i in 60" :value="i">{{i-1}}</el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.minute"></span>
+                        <span slot="param_name" >{{lang.minute}}</span>
+                        <el-select slot="param" v-model="w_minute" :placeholder="lang.select_placeholder" style="width: 100%">
+                            <el-option v-for="i in 60" :value="i">{{i-1}}</el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row v-show="reboot_type_value == 'by_month'"><!-- By Month -->
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.date"></div>
-                                    <span>{{lang.date}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="m_month" :placeholder="lang.select_placeholder" style="width: 100%">
-                                    <el-option v-for="i in 32" :value="i">{{i-1}}</el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.date"></span>
+                        <span slot="param_name" >{{lang.date}}</span>
+                        <el-select slot="param" v-model="m_month" :placeholder="lang.select_placeholder" style="width: 100%">
+                            <el-option v-for="i in 32" :value="i">{{i-1}}</el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row v-show="reboot_type_value == 'by_month'"><!-- By Month -->
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.hour"></div>
-                                    <span>{{lang.hour}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="m_hour" :placeholder="lang.select_placeholder" style="width: 100%">
-                                    <el-option v-for="i in 24" :value="i">{{i-1}}</el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.hour"></span>
+                        <span slot="param_name" >{{lang.hour}}</span>
+                        <el-select slot="param" v-model="m_hour" :placeholder="lang.select_placeholder" style="width: 100%">
+                            <el-option v-for="i in 24" :value="i">{{i-1}}</el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row v-show="reboot_type_value == 'by_month'"><!-- By Month -->
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.minute"></div>
-                                    <span>{{lang.minute}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="m_minute" :placeholder="lang.select_placeholder" style="width: 100%">
-                                    <el-option v-for="i in 60" :value="i">{{i-1}}</el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.minute"></span>
+                        <span slot="param_name" >{{lang.minute}}</span>
+                        <el-select slot="param" v-model="m_minute" :placeholder="lang.select_placeholder" style="width: 100%">
+                            <el-option v-for="i in 60" :value="i">{{i-1}}</el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row v-show="reboot_type_value == 'by_run_time'"><!-- By Running Time -->
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.day"></div>
-                                    <span>{{lang.day}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="r_day" :placeholder="lang.select_placeholder" style="width: 100%">
-                                    <el-option v-for="i in 32" :value="i">{{i-1}}</el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.day"></span>
+                        <span slot="param_name" >{{lang.day}}</span>
+                        <el-select slot="param" v-model="r_day" :placeholder="lang.select_placeholder" style="width: 100%">
+                            <el-option v-for="i in 32" :value="i">{{i-1}}</el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row v-show="reboot_type_value == 'by_run_time'"><!-- By Running Time -->
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.hour"></div>
-                                    <span>{{lang.hour}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="r_hour" :placeholder="lang.select_placeholder" style="width: 100%">
-                                    <el-option v-for="i in 24" :value="i">{{i-1}}</el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.hour"></span>
+                        <span slot="param_name" >{{lang.hour}}</span>
+                        <el-select slot="param" v-model="r_hour" :placeholder="lang.select_placeholder" style="width: 100%">
+                            <el-option v-for="i in 24" :value="i">{{i-1}}</el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row v-show="reboot_type_value == 'by_run_time'"><!-- By Running Time -->
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.minute"></div>
-                                    <span>{{lang.minute}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="r_minute" :placeholder="lang.select_placeholder" style="width: 100%">
-                                    <el-option v-for="i in 60" :value="i">{{i-1}}</el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.minute"></span>
+                        <span slot="param_name" >{{lang.minute}}</span>
+                        <el-select slot="param" v-model="r_minute" :placeholder="lang.select_placeholder" style="width: 100%">
+                            <el-option v-for="i in 60" :value="i">{{i-1}}</el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
             </el-form>
         </el-card>

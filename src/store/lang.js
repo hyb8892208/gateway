@@ -35,6 +35,7 @@ export default {
     sip_account_security: language('SIP Account Security'),
 
     call_routing_ruls: language('Call Routing Rules'),
+    group: language('Group'),
     groups: language('Groups'),
     batch_create_rules: language('Batch Create Rules'),
 

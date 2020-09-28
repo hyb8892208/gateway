@@ -21,179 +21,107 @@
             <el-divider content-position="left"><h3>{{lang.call_routing_rule}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.routing_name_help"></div>
-                                <span>{{lang.routing_name}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="routing_name"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.routing_name_help"></span>
+                    <span slot="param_name" >{{lang.routing_name}}</span>
+                    <el-input slot="param" v-model="routing_name"></el-input>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.call_comes_in_from_help"></div>
-                                <span>{{lang.call_comes_in_from}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="from_channel" style="width: 100%">
-                                <el-option-group
-                                    v-for="type in selective_end"
-                                    :key="type.label"
-                                    :label="type.label">
-                                    <el-option
-                                        v-for="item in type.options"
-                                        :key="item.value"
-                                        :label="item.value"
-                                        :value="item.value">
-                                    </el-option>
-                                </el-option-group>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.call_comes_in_from_help"></span>
+                    <span slot="param_name" >{{lang.call_comes_in_from}}</span>
+                    <el-select slot="param" v-model="from_channel" style="width: 100%">
+                        <el-option-group
+                                v-for="type in selective_end"
+                                :key="type.label"
+                                :label="type.label">
+                            <el-option
+                                    v-for="item in type.options"
+                                    :key="item.value"
+                                    :label="item.value"
+                                    :value="item.value">
+                            </el-option>
+                        </el-option-group>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.send_call_throuth_help"></div>
-                                <span>{{lang.send_call_throuth}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="to_channel" style="width: 100%">
-                                <el-option-group
-                                        v-for="type in selective_end"
-                                        :key="type.label"
-                                        :label="type.label">
-                                    <el-option
-                                            v-for="item in type.options"
-                                            :key="item.value"
-                                            :label="item.value"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-option-group>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.send_call_throuth_help"></span>
+                    <span slot="param_name" >{{lang.send_call_throuth}}</span>
+                    <el-select slot="param" v-model="to_channel" style="width: 100%">
+                        <el-option-group
+                                v-for="type in selective_end"
+                                :key="type.label"
+                                :label="type.label">
+                            <el-option
+                                    v-for="item in type.options"
+                                    :key="item.value"
+                                    :label="item.value"
+                                    :value="item.value">
+                            </el-option>
+                        </el-option-group>
+                    </el-select>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.forceanswer_help"></div>
-                                <span>{{lang.forceanswer}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="forceanswer"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.forceanswer_help"></span>
+                    <span slot="param_name" >{{lang.forceanswer}}</span>
+                    <el-checkbox slot="param" v-model="forceanswer"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-divider content-position="left"><h3>{{lang.disa_settings}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.authentication_help"></div>
-                                <span>{{lang.authentication}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="disa_sw"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.authentication_help"></span>
+                    <span slot="param_name" >{{lang.authentication}}</span>
+                    <el-checkbox slot="param" v-model="disa_sw"></el-checkbox>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.secondary_dialing_help"></div>
-                                <span>{{lang.secondary_dialing}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="second_dial_sw"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.secondary_dialing_help"></span>
+                    <span slot="param_name" >{{lang.secondary_dialing}}</span>
+                    <el-checkbox slot="param" v-model="second_dial_sw"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.disa_timeout_help"></div>
-                                <span>{{lang.disa_timeout}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="disa_timeout" style="width: 100%">
-                                <el-option
-                                    v-for="i in 10"
-                                    :key="i"
-                                    :value="i"
-                                    :label="i+' s'"
-                                ></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.disa_timeout_help"></span>
+                    <span slot="param_name" >{{lang.disa_timeout}}</span>
+                    <el-select slot="param" v-model="disa_timeout" style="width: 100%">
+                        <el-option
+                                v-for="i in 10"
+                                :key="i"
+                                :value="i"
+                                :label="i+' s'"
+                        ></el-option>
+                    </el-select>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.max_password_digits_help"></div>
-                                <span>{{lang.max_password_digits}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="disa_password_digits" style="width: 100%">
-                                <el-option
-                                        v-for="i in 10"
-                                        :key="i"
-                                        :value="i"
-                                        :label="i"
-                                ></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.max_password_digits_help"></span>
+                    <span slot="param_name" >{{lang.max_password_digits}}</span>
+                    <el-select slot="param" v-model="disa_password_digits" style="width: 100%">
+                        <el-option
+                                v-for="i in 10"
+                                :key="i"
+                                :value="i"
+                                :label="i"
+                        ></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.password_help"></div>
-                                <span>{{lang.password}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="revc_secret" show-password></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.password_help"></span>
+                    <span slot="param_name" >{{lang.password}}</span>
+                    <el-input slot="param" v-model="revc_secret" show-password></el-input>
+                </form_item>
             </el-row>
 
             <el-divider content-position="left"><h3>{{lang.advance_routing_rule}}</h3></el-divider>
@@ -465,35 +393,19 @@
             <el-divider content-position="left"><h3>{{lang.change_rules}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.forward_number_help"></div>
-                                <span>{{lang.forward_number}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="forwardnumber"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.forward_number_help"></span>
+                    <span slot="param_name" >{{lang.forward_number}}</span>
+                    <el-input slot="param" v-model="forwardnumber"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.dialing_delay_help"></div>
-                                <span>{{lang.dialing_delay}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="dialing_delay"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.dialing_delay_help"></span>
+                    <span slot="param_name" >{{lang.dialing_delay}}</span>
+                    <el-input slot="param" v-model="dialing_delay"></el-input>
+                </form_item>
             </el-row>
 
             <el-card class="box-card" style="padding: 10px;margin-top: 20px;">
@@ -516,31 +428,23 @@
                        @click="remove_failover_number(index)"></i>
 
                     <el-row>
-                        <el-col :lg="12">
-                            <el-form-item style="margin-bottom: 0 !important;">
-                                <label slot="label">
-                                    <el-tooltip placement="top" :open-delay=200>
-                                        <div slot="content" v-html="lang.failover_call_through_number_help"></div>
-                                        <span>{{lang.failover_call_through_number}}</span>
-                                    </el-tooltip>:
-                                </label>
-                                <el-col :lg="18">
-                                    <el-select v-model="failover_number[index]">
-                                        <el-option-group
-                                                v-for="type in selective_end"
-                                                :key="type.label"
-                                                :label="type.label">
-                                            <el-option
-                                                    v-for="item in type.options"
-                                                    :key="item.value"
-                                                    :label="item.value"
-                                                    :value="item.value">
-                                            </el-option>
-                                        </el-option-group>
-                                    </el-select>
-                                </el-col>
-                            </el-form-item>
-                        </el-col>
+                        <form_item>
+                            <span slot="param_help" v-html="lang.failover_call_through_number_help"></span>
+                            <span slot="param_name" >{{lang.failover_call_through_number}}</span>
+                            <el-select slot="param" v-model="failover_number[index]">
+                                <el-option-group
+                                        v-for="type in selective_end"
+                                        :key="type.label"
+                                        :label="type.label">
+                                    <el-option
+                                            v-for="item in type.options"
+                                            :key="item.value"
+                                            :label="item.value"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-option-group>
+                            </el-select>
+                        </form_item>
                     </el-row>
                 </el-card>
 
@@ -559,19 +463,11 @@
                 <el-divider content-position="left"><h3>{{lang.change_rules}}</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.cid_number_help"></div>
-                                    <span>{{lang.cid_number}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="cidNumber"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.cid_number_help"></span>
+                        <span slot="param_name" >{{lang.cid_number}}</span>
+                        <el-input slot="param" v-model="cidNumber"></el-input>
+                    </form_item>
                 </el-row>
             </el-row>
 

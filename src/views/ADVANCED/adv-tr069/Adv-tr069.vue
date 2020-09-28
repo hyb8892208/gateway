@@ -21,199 +21,109 @@
             <el-divider content-position="left"><h3>{{lang.general}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.tr069_help"></div>
-                                <span>{{lang.tr069}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="tr069_sw"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <el-row>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.tr069_help"></span>
+                        <span slot="param_name" >{{lang.tr069}}</span>
+                        <el-checkbox slot="param" v-model="tr069_sw"></el-checkbox>
+                    </form_item>
+                </el-row>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.server_help"></div>
-                                <span>{{lang.server}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="server"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <el-row>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.server_help"></span>
+                        <span slot="param_name" >{{lang.server}}</span>
+                        <el-input slot="param" v-model="server"></el-input>
+                    </form_item>
+                </el-row>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.username_help"></div>
-                                <span>{{lang.username}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="username"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.username_help"></span>
+                    <span slot="param_name" >{{lang.username}}</span>
+                    <el-input slot="param" v-model="username"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.password_help"></div>
-                                <span>{{lang.password}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="password" show-password></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.password_help"></span>
+                    <span slot="param_name" >{{lang.password}}</span>
+                    <el-input slot="param" v-model="password" show-password ></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.provisioning_code_help"></div>
-                                <span>{{lang.provisioning_code}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="provisioning_code"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.provisioning_code_help"></span>
+                    <span slot="param_name" >{{lang.provisioning_code}}</span>
+                    <el-input slot="param" v-model="provisioning_code" ></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.model_name_help"></div>
-                                <span>{{lang.model_name}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="model_name"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.model_name_help"></span>
+                    <span slot="param_name" >{{lang.model_name}}</span>
+                    <el-input slot="param" v-model="model_name" ></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.periodic_inform_enable_help"></div>
-                                <span>{{lang.periodic_inform_enable}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="periodic_inform_enable"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.periodic_inform_enable_help"></span>
+                    <span slot="param_name" >{{lang.periodic_inform_enable}}</span>
+                    <el-checkbox slot="param" v-model="periodic_inform_enable" ></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.periodic_inform_interval_help"></div>
-                                <span>{{lang.periodic_inform_interval}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="periodic_inform_interval"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.periodic_inform_interval_help"></span>
+                    <span slot="param_name" >{{lang.periodic_inform_interval}}</span>
+                    <el-input slot="param" v-model="periodic_inform_interval" ></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.connection_request_url_help"></div>
-                                <span>{{lang.connection_request_url}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="connection_request_url"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.connection_request_url_help"></span>
+                    <span slot="param_name" >{{lang.connection_request_url}}</span>
+                    <el-input slot="param" v-model="connection_request_url" ></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.connection_request_username_help"></div>
-                                <span>{{lang.connection_request_username}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="connection_request_username"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.connection_request_username_help"></span>
+                    <span slot="param_name" >{{lang.connection_request_username}}</span>
+                    <el-input slot="param" v-model="connection_request_username" ></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.connection_request_password_help"></div>
-                                <span>{{lang.connection_request_password}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="connection_request_password" show-password></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.connection_request_password_help"></span>
+                    <span slot="param_name" >{{lang.connection_request_password}}</span>
+                    <el-input slot="param" v-model="connection_request_password" show-password ></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.connection_status_help"></div>
-                                <span>{{lang.connection_status}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <i class="el-icon-loading" v-show="connection_status_icon" style="font-size: 20px;"></i>
-                            <span v-show="!connection_status_icon">
-                                <b v-if="connect_code == 200" style="color: #67C23A;">{{connection_status}}</b>
-                                <b v-else style="color: #F56C6C;">{{failed_to_connect}}</b>
-                            </span>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.connection_status_help"></span>
+                    <span slot="param_name" >{{lang.connection_status}}</span>
+                    <div slot="param">
+                        <i class="el-icon-loading" v-show="connection_status_icon" style="font-size: 20px;"></i>
+                        <span v-show="!connection_status_icon">
+                            <b v-if="connect_code == 200" style="color: #67C23A;">{{connection_status}}</b>
+                            <b v-else style="color: #F56C6C;">{{failed_to_connect}}</b>
+                        </span>
+                    </div>
+                </form_item>
             </el-row>
         </el-card>
     </el-form>

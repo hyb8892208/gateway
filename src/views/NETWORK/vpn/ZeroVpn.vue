@@ -3,19 +3,11 @@
         <el-divider content-position="left"><h3>{{lang.zerotier_vpn_settings}}</h3></el-divider>
 
         <el-row>
-            <el-col :lg="12">
-                <el-form-item>
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.network_id_help"></div>
-                            <span>{{lang.network_id}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <el-input v-model="network_id"></el-input>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.network_id_help"></span>
+                <span slot="param_name" >{{lang.network_id}}</span>
+                <el-input slot="param" v-model="network_id"></el-input>
+            </form_item>
         </el-row>
     </el-row>
 </template>

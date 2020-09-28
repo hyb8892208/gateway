@@ -21,69 +21,37 @@
             <el-divider content-position="left"><h3>{{lang.tls_setting}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.tls_enable_help"></div>
-                                <span>{{lang.tls_enable}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="tls_enable"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.tls_enable_help"></span>
+                    <span slot="param_name" >{{lang.tls_enable}}</span>
+                    <el-checkbox slot="param" v-model="tls_enable"></el-checkbox>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.tls_verify_server_help"></div>
-                                <span>{{lang.tls_verify_server}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="tls_verify_server"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.tls_verify_server_help"></span>
+                    <span slot="param_name" >{{lang.tls_verify_server}}</span>
+                    <el-checkbox slot="param" v-model="tls_verify_server"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row style="margin-bottom: 50px;">
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.port_help"></div>
-                                <span>{{lang.port}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="port"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.port_help"></span>
+                    <span slot="param_name" >{{lang.port}}</span>
+                    <el-input slot="param" v-model="port"></el-input>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.tls_client_method_help"></div>
-                                <span>{{lang.tls_client_method}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="tls_client_method" style="width: 100%;">
-                                <el-option
-                                    v-for="item in tls_client_method_options"
-                                    :label="item.label"
-                                    :key="item.value"
-                                    :value="item.value"></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.tls_client_method_help"></span>
+                    <span slot="param_name" >{{lang.tls_client_method}}</span>
+                    <el-select slot="param" v-model="tls_client_method" style="width: 100%;">
+                        <el-option
+                                v-for="item in tls_client_method_options"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-divider content-position="left" ><h3>{{lang.tls_key}}</h3></el-divider>

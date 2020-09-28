@@ -3,99 +3,51 @@
         <el-divider content-position="left"><h3>{{lang.l2tp_vpn_settings}}</h3></el-divider>
 
         <el-row>
-            <el-col :lg="12">
-                <el-form-item>
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.enable_help"></div>
-                            <span>{{lang.enable}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <el-checkbox v-model="enable"></el-checkbox>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.enable_help"></span>
+                <span slot="param_name" >{{lang.enable}}</span>
+                <el-checkbox slot="param" v-model="enable"></el-checkbox>
+            </form_item>
         </el-row>
 
         <el-row>
-            <el-col :lg="12">
-                <el-form-item>
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.server_help"></div>
-                            <span>{{lang.server}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <el-input v-model="server"></el-input>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.server_help"></span>
+                <span slot="param_name" >{{lang.server}}</span>
+                <el-input slot="param" v-model="server"></el-input>
+            </form_item>
         </el-row>
 
         <el-row>
-            <el-col :lg="12">
-                <el-form-item>
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.username_help"></div>
-                            <span>{{lang.username}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <el-input v-model="username"></el-input>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.username_help"></span>
+                <span slot="param_name" >{{lang.username}}</span>
+                <el-input slot="param" v-model="username"></el-input>
+            </form_item>
         </el-row>
 
         <el-row>
-            <el-col :lg="12">
-                <el-form-item>
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.password_help"></div>
-                            <span>{{lang.password}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <el-input v-model="password" show-password></el-input>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.password_help"></span>
+                <span slot="param_name" >{{lang.password}}</span>
+                <el-input slot="param" v-model="password" show-password></el-input>
+            </form_item>
         </el-row>
 
         <el-row>
-            <el-col :lg="12">
-                <el-form-item>
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.ipsec_help"></div>
-                            <span>{{lang.ipsec}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <el-checkbox v-model="ipsec"></el-checkbox>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.ipsec_help"></span>
+                <span slot="param_name" >{{lang.ipsec}}</span>
+                <el-checkbox slot="param" v-model="ipsec"></el-checkbox>
+            </form_item>
         </el-row>
 
         <el-row>
-            <el-col :lg="12">
-                <el-form-item>
-                    <label slot="label">
-                        <el-tooltip placement="top" :open-delay=200>
-                            <div slot="content" v-html="lang.ipsec_password_help"></div>
-                            <span>{{lang.ipsec_password}}</span>
-                        </el-tooltip>:
-                    </label>
-                    <el-col :lg="18">
-                        <el-input v-model="ipsec_password" show-password></el-input>
-                    </el-col>
-                </el-form-item>
-            </el-col>
+            <form_item>
+                <span slot="param_help" v-html="lang.ipsec_password_help"></span>
+                <span slot="param_name" >{{lang.ipsec_password}}</span>
+                <el-input slot="param" v-model="ipsec_password" show-password></el-input>
+            </form_item>
         </el-row>
     </el-row>
 </template>

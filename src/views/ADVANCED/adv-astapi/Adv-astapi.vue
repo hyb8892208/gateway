@@ -21,135 +21,75 @@
             <el-divider content-position="left"><h3>{{lang.general}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.enable_help"></div>
-                                <span>{{lang.enable}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="enabled"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.enable_help"></span>
+                    <span slot="param_name" >{{lang.enable}}</span>
+                    <el-checkbox slot="param" v-model="enabled"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.port_help"></div>
-                                <span>{{lang.port}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <span>{{port}}</span>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.port_help"></span>
+                    <span slot="param_name" >{{lang.port}}</span>
+                    <span slot="param">{{port}}</span>
+                </form_item>
             </el-row>
 
             <el-divider content-position="left"><h3>{{lang.manager}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.manager_name_help"></div>
-                                <span>{{lang.manager_name}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="manager_name"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.manager_name_help"></span>
+                    <span slot="param_name" >{{lang.manager_name}}</span>
+                    <el-input slot="param" v-model="manager_name"></el-input>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.manager_secret_help"></div>
-                                <span>{{lang.manager_secret}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="manager_pass"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.manager_secret_help"></span>
+                    <span slot="param_name" >{{lang.manager_secret}}</span>
+                    <el-input slot="param" v-model="manager_pass"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.deny_help"></div>
-                                <span>{{lang.deny}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="deny"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.deny_help"></span>
+                    <span slot="param_name" >{{lang.deny}}</span>
+                    <el-input slot="param" v-model="deny"></el-input>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.permit_help"></div>
-                                <span>{{lang.permit}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="permit"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.permit_help"></span>
+                    <span slot="param_name" >{{lang.permit}}</span>
+                    <el-input slot="param" v-model="permit"></el-input>
+                </form_item>
             </el-row>
 
             <el-divider content-position="left"><h3>{{lang.rights}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12" v-for="(item,index) in rights_val_options">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="rights_options[index].name_help"></div>
-                                <span>{{rights_options[index].name}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="item.read"
-                                         :disabled="item.read_disabled">{{lang.read}}</el-checkbox>
-                            <el-checkbox v-model="item.write"
-                                         :disabled="item.write_disabled">{{lang.write}}</el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item v-for="(item,index) in rights_val_options">
+                    <span slot="param_help" v-html="rights_options[index].name_help"></span>
+                    <span slot="param_name" >{{rights_options[index].name}}</span>
+                    <span slot="param">
+                         <el-checkbox v-model="item.read"
+                                      :disabled="item.read_disabled">{{lang.read}}</el-checkbox>
+                        <el-checkbox v-model="item.write"
+                                     :disabled="item.write_disabled">{{lang.write}}</el-checkbox>
+                    </span>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.all_help"></div>
-                                <span>{{lang.all}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="all_read" @change="All_read_change">{{lang.read}}</el-checkbox>
-                            <el-checkbox v-model="all_write" @change="All_write_change">{{lang.write}}</el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.all_help"></span>
+                    <span slot="param_name" >{{lang.all}}</span>
+                    <span slot="param">
+                        <el-checkbox v-model="all_read" @change="All_read_change">{{lang.read}}</el-checkbox>
+                        <el-checkbox v-model="all_write" @change="All_write_change">{{lang.write}}</el-checkbox>
+                    </span>
+                </form_item>
             </el-row>
 
         </el-card>
@@ -324,8 +264,6 @@
                 })
             },
             save_error_back(){
-                console.log('save failed')
-
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',

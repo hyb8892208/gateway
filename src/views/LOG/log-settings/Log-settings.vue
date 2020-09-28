@@ -20,437 +20,236 @@
             <el-divider content-position="left"><h3>{{lang.system_logs}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.system_logs_help"></div>
-                                <span>{{lang.system_logs}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="system_logs"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.system_logs_help"></span>
+                    <span slot="param_name" >{{lang.system_logs}}</span>
+                    <el-checkbox slot="param" v-model="system_logs"></el-checkbox>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.auto_clean_help"></div>
-                                <span>{{lang.auto_clean}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="system_logs_autoclean"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.auto_clean_help"></span>
+                    <span slot="param_name" >{{lang.auto_clean}}</span>
+                    <el-checkbox slot="param" v-model="system_logs_autoclean"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.maxsize_help"></div>
-                                <span>{{lang.maxsize}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="system_logs_maxsize" style="width: 100%">
-                                <el-option
-                                        v-for="item in maxsize_options1"
-                                        :label="item.label"
-                                        :key="item.value"
-                                        :value="item.value"></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.maxsize_help"></span>
+                    <span slot="param_name" >{{lang.maxsize}}</span>
+                    <el-select slot="param" v-model="system_logs_maxsize" style="width: 100%">
+                        <el-option
+                                v-for="item in maxsize_options1"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-divider content-position="left"><h3>{{lang.asterisk_logs}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.verbose_help"></div>
-                                <span>{{lang.verbose}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="asterisk_verbose"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.verbose_help"></span>
+                    <span slot="param_name" >{{lang.verbose}}</span>
+                    <el-checkbox slot="param" v-model="asterisk_verbose"></el-checkbox>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.notice_help"></div>
-                                <span>{{lang.notice}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="asterisk_notice"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.notice_help"></span>
+                    <span slot="param_name" >{{lang.notice}}</span>
+                    <el-checkbox slot="param" v-model="asterisk_notice"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.warning_help"></div>
-                                <span>{{lang.warning}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="asterisk_warning"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.warning_help"></span>
+                    <span slot="param_name" >{{lang.warning}}</span>
+                    <el-checkbox slot="param" v-model="asterisk_warning"></el-checkbox>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.debug_help"></div>
-                                <span>{{lang.debug}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="asterisk_debug"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.debug_help"></span>
+                    <span slot="param_name" >{{lang.debug}}</span>
+                    <el-checkbox slot="param" v-model="asterisk_debug"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.error_help"></div>
-                                <span>{{lang.error}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="asterisk_error"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.error_help"></span>
+                    <span slot="param_name" >{{lang.error}}</span>
+                    <el-checkbox slot="param" v-model="asterisk_error"></el-checkbox>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.dtmf_help"></div>
-                                <span>{{lang.dtmf}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="asterisk_dtmf"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.dtmf_help"></span>
+                    <span slot="param_name" >{{lang.dtmf}}</span>
+                    <el-checkbox slot="param" v-model="asterisk_dtmf"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.auto_clean_help"></div>
-                                <span>{{lang.auto_clean}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="asterisk_autoclean"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.auto_clean_help"></span>
+                    <span slot="param_name" >{{lang.auto_clean}}</span>
+                    <el-checkbox slot="param" v-model="asterisk_autoclean"></el-checkbox>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.maxsize_help"></div>
-                                <span>{{lang.maxsize}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="asterisk_maxsize" style="width: 100%">
-                                <el-option
-                                        v-for="item in maxsize_options1"
-                                        :label="item.label"
-                                        :key="item.value"
-                                        :value="item.value"></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.maxsize_help"></span>
+                    <span slot="param_name" >{{lang.maxsize}}</span>
+                    <el-select slot="param" v-model="asterisk_maxsize" style="width: 100%">
+                        <el-option
+                                v-for="item in maxsize_options1"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-divider content-position="left"><h3>{{lang.sip_logs}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.sip_logs_help"></div>
-                                <span>{{lang.sip_logs}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="sip_logs"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.sip_logs_help"></span>
+                    <span slot="param_name" >{{lang.sip_logs}}</span>
+                    <el-checkbox slot="param" v-model="sip_logs"></el-checkbox>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.auto_clean_help"></div>
-                                <span>{{lang.auto_clean}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="sip_autoclean"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.auto_clean_help"></span>
+                    <span slot="param_name" >{{lang.auto_clean}}</span>
+                    <el-checkbox slot="param" v-model="sip_autoclean"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.maxsize_help"></div>
-                                <span>{{lang.maxsize}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="sip_maxsize" style="width: 100%">
-                                <el-option
-                                        v-for="item in maxsize_options1"
-                                        :label="item.label"
-                                        :key="item.value"
-                                        :value="item.value"></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.maxsize_help"></span>
+                    <span slot="param_name" >{{lang.maxsize}}</span>
+                    <el-select slot="param" v-model="sip_maxsize" style="width: 100%">
+                        <el-option
+                                v-for="item in maxsize_options1"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-divider content-position="left"><h3>{{lang.dahdi_logs}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.dahdi_logs_help"></div>
-                                <span>{{lang.dahdi_logs}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="dahdi_logs"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.dahdi_logs_help"></span>
+                    <span slot="param_name" >{{lang.dahdi_logs}}</span>
+                    <el-checkbox slot="param" v-model="dahdi_logs"></el-checkbox>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.auto_clean_help"></div>
-                                <span>{{lang.auto_clean}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="dahdi_antoclean"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.auto_clean_help"></span>
+                    <span slot="param_name" >{{lang.auto_clean}}</span>
+                    <el-checkbox slot="param" v-model="dahdi_antoclean"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.maxsize_help"></div>
-                                <span>{{lang.maxsize}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="dahdi_maxsize" style="width: 100%">
-                                <el-option
-                                        v-for="item in maxsize_options1"
-                                        :label="item.label"
-                                        :key="item.value"
-                                        :value="item.value"></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.maxsize_help"></span>
+                    <span slot="param_name" >{{lang.maxsize}}</span>
+                    <el-select slot="param" v-model="dahdi_maxsize" style="width: 100%">
+                        <el-option
+                                v-for="item in maxsize_options1"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-divider content-position="left"><h3>{{lang.cdr}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.cdr_help"></div>
-                                <span>{{lang.cdr}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="cdr"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.cdr_help"></span>
+                    <span slot="param_name" >{{lang.cdr}}</span>
+                    <el-checkbox slot="param" v-model="cdr"></el-checkbox>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.auto_clean_help"></div>
-                                <span>{{lang.auto_clean}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="cdr_autoclean"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.auto_clean_help"></span>
+                    <span slot="param_name" >{{lang.auto_clean}}</span>
+                    <el-checkbox slot="param" v-model="cdr_autoclean"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.maxsize_help"></div>
-                                <span>{{lang.maxsize}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="cdr_maxsize" style="width: 100%">
-                                <el-option
-                                        v-for="item in maxsize_options2"
-                                        :label="item.label"
-                                        :key="item.value"
-                                        :value="item.value"></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.maxsize_help"></span>
+                    <span slot="param_name" >{{lang.maxsize}}</span>
+                    <el-select slot="param" v-model="cdr_maxsize" style="width: 100%">
+                        <el-option
+                                v-for="item in maxsize_options2"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-divider content-position="left"><h3>{{lang.syslog}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.local_syslog_help"></div>
-                                <span>{{lang.local_syslog}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="local_syslog"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.local_syslog_help"></span>
+                    <span slot="param_name" >{{lang.local_syslog}}</span>
+                    <el-checkbox slot="param" v-model="local_syslog"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.server_address_help"></div>
-                                <span>{{lang.server_address}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="server_address"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.server_address_help"></span>
+                    <span slot="param_name" >{{lang.server_address}}</span>
+                    <el-input slot="param" v-model="server_address"></el-input>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.server_port_help"></div>
-                                <span>{{lang.server_port}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="server_port"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.server_port_help"></span>
+                    <span slot="param_name" >{{lang.server_port}}</span>
+                    <el-input slot="param" v-model="server_port"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.klog_level_help"></div>
-                                <span>{{lang.klog_level}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="klog_level" style="width: 100%">
-                                <el-option
-                                        v-for="item in klog_level_options"
-                                        :label="item.label"
-                                        :key="item.value"
-                                        :value="item.value"></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.klog_level_help"></span>
+                    <span slot="param_name" >{{lang.klog_level}}</span>
+                    <el-select slot="param" v-model="klog_level" style="width: 100%">
+                        <el-option
+                                v-for="item in klog_level_options"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.cdr_level_help"></div>
-                                <span>{{lang.cdr_level}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="cdr_level" style="width: 100%">
-                                <el-option
-                                        v-for="item in cdr_level_options"
-                                        :label="item.label"
-                                        :key="item.value"
-                                        :value="item.value"></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.cdr_level_help"></span>
+                    <span slot="param_name" >{{lang.cdr_level}}</span>
+                    <el-select slot="param" v-model="cdr_level" style="width: 100%">
+                        <el-option
+                                v-for="item in cdr_level_options"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
-
         </el-card>
     </el-form>
 </template>

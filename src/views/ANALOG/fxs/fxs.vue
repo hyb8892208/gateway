@@ -22,139 +22,75 @@
             <el-divider content-position="left"><h3>{{lang.callerid}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.the_pattern_of_sending_cid_help"></div>
-                                <span>{{lang.the_pattern_of_sending_cid}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="sendcalleridafter" style="width: 100%;">
-                                <el-option
-                                    v-for="item in sendcalleridafter_options"
-                                    :label="item.label"
-                                    :key="item.value"
-                                    :value="item.value"></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.the_pattern_of_sending_cid_help"></span>
+                    <span slot="param_name" >{{lang.the_pattern_of_sending_cid}}</span>
+                    <el-select slot="param" v-model="sendcalleridafter" style="width: 100%;">
+                        <el-option
+                                v-for="item in sendcalleridafter_options"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.waiting_time_before_sending_cid_help"></div>
-                                <span>{{lang.waiting_time_before_sending_cid}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="sendcalleridaftertime"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.waiting_time_before_sending_cid_help"></span>
+                    <span slot="param_name" >{{lang.waiting_time_before_sending_cid}}</span>
+                    <el-input slot="param" v-model="sendcalleridaftertime"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.flash_wink_help"></div>
-                                <span>{{lang.flash_wink}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox @change="flashwink_change" v-model="flashwink"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.flash_wink_help"></span>
+                    <span slot="param_name" >{{lang.flash_wink}}</span>
+                    <el-checkbox slot="param" @change="flashwink_change" v-model="flashwink"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.min_flash_time_help"></div>
-                                <span>{{lang.min_flash_time}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="rxminflash" :disabled="rxminflash_disabled"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.min_flash_time_help"></span>
+                    <span slot="param_name" >{{lang.min_flash_time}}</span>
+                    <el-input slot="param" v-model="rxminflash" :disabled="rxminflash_disabled"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.max_flash_time_help"></div>
-                                <span>{{lang.max_flash_time}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="rxflash" :disabled="rxflash_disabled"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.max_flash_time_help"></span>
+                    <span slot="param_name" >{{lang.max_flash_time}}</span>
+                    <el-input slot="param" v-model="rxflash" :disabled="rxflash_disabled"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.as_ending_dial_key_help"></div>
-                                <span>{{lang.as_ending_dial_key}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="enddialkey"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.as_ending_dial_key_help"></span>
+                    <span slot="param_name" >{{lang.as_ending_dial_key}}</span>
+                    <el-input slot="param" v-model="enddialkey"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.display_extension_number_help"></div>
-                                <span>{{lang.display_extension_number}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="ciddisplay"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.display_extension_number_help"></span>
+                    <span slot="param_name" >{{lang.display_extension_number}}</span>
+                    <el-input slot="param" v-model="ciddisplay"></el-input>
+                </form_item>
             </el-row>
 
             <el-divider content-position="left"><h3>{{lang.callerid}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.offhook_antishake_help"></div>
-                                <span>{{lang.offhook_antishake}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="dialdebounce"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.offhook_antishake_help"></span>
+                    <span slot="param_name" >{{lang.offhook_antishake}}</span>
+                    <el-input slot="param" v-model="dialdebounce"></el-input>
+                </form_item>
             </el-row>
         </el-card>
 

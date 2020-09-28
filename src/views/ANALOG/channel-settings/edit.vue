@@ -22,560 +22,299 @@
             <el-divider content-position="left"><h3>{{lang.general}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.port_type_help"></div>
-                                <span>{{lang.port_type}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <span>{{port_type}}</span>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.port_type_help"></span>
+                    <span slot="param_name" >{{lang.port_type}}</span>
+                    <span slot="param">{{port_type}}</span>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.name_help"></div>
-                                <span>{{lang.name}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="name"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.name_help"></span>
+                    <span slot="param_name" >{{lang.name}}</span>
+                    <el-input slot="param" v-model="name"></el-input>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.rx_gain_help"></div>
-                                <span>{{lang.rx_gain}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="rx_gain"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.rx_gain_help"></span>
+                    <span slot="param_name" >{{lang.rx_gain}}</span>
+                    <el-input slot="param" v-model="rx_gain"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.tx_gain_help"></div>
-                                <span>{{lang.tx_gain}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="tx_gain"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.tx_gain_help"></span>
+                    <span slot="param_name" >{{lang.tx_gain}}</span>
+                    <el-input slot="param" v-model="tx_gain"></el-input>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.ring_timeout_help"></div>
-                                <span>{{lang.ring_timeout}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="ringtimeout"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.ring_timeout_help"></span>
+                    <span slot="param_name" >{{lang.ring_timeout}}</span>
+                    <el-input slot="param" v-model="ringtimeout"></el-input>
+                </form_item>
             </el-row>
 
             <el-row v-if="port_type == 'FXS'"><!-- FXS -->
-                <el-col :lg="12" v-if="$store.state.FlexRoutingSw == 0 && $store.state.type == 1">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.failover_fxo_help"></div>
-                                <span>{{lang.failover_fxo}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="failover_fxo"
-                                       style="width: 100%"
-                                       :placeholder="lang.select_placeholder">
-                                <el-option label="None" value=""></el-option>
-                                <el-option
-                                        v-for="item in failover_fxo_options"
-                                        :label="item"
-                                        :value="item"
-                                    ></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item v-if="$store.state.FlexRoutingSw == 0 && $store.state.type == 1">
+                    <span slot="param_help" v-html="lang.failover_fxo_help"></span>
+                    <span slot="param_name" >{{lang.failover_fxo}}</span>
+                    <el-select slot="param" v-model="failover_fxo"
+                               style="width: 100%"
+                               :placeholder="lang.select_placeholder">
+                        <el-option label="None" value=""></el-option>
+                        <el-option
+                                v-for="item in failover_fxo_options"
+                                :label="item"
+                                :value="item"
+                        ></el-option>
+                    </el-select>
+                </form_item>
 
-                <el-col :lg="12" v-if="$store.state.FlexRoutingSw == 0">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.sip_account_help"></div>
-                                <span>{{lang.sip_account}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select
-                                    @change="associated_change"
-                                    v-model="associated_chnnl"
-                                    style="width: 100%">
-                                <el-option label="None" value="none"></el-option>
-                                <el-option
-                                        v-for="item in associated_chnnl_options"
-                                        :label="item"
-                                        :value="item"
-                                    ></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item v-if="$store.state.FlexRoutingSw == 0">
+                    <span slot="param_help" v-html="lang.sip_account_help"></span>
+                    <span slot="param_name" >{{lang.sip_account}}</span>
+                    <el-select
+                            slot="param"
+                            @change="associated_change"
+                            v-model="associated_chnnl"
+                            style="width: 100%">
+                        <el-option label="None" value="none"></el-option>
+                        <el-option
+                                v-for="item in associated_chnnl_options"
+                                :label="item"
+                                :value="item"
+                        ></el-option>
+                    </el-select>
+                </form_item>
             </el-row><!-- FXS -->
 
             <el-row v-if="port_type == 'FXO'"><!-- FXO -->
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.immediate_send_cid_help"></div>
-                                <span>{{lang.immediate_send_cid}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="immediatesendcid"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.immediate_send_cid_help"></span>
+                    <span slot="param_name" >{{lang.immediate_send_cid}}</span>
+                    <el-checkbox slot="param" v-model="immediatesendcid"></el-checkbox>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.callout_min_interval_help"></div>
-                                <span>{{lang.callout_min_interval}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="calloutmininterval"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.callout_min_interval_help"></span>
+                    <span slot="param_name" >{{lang.callout_min_interval}}</span>
+                    <el-input slot="param" v-model="calloutmininterval"></el-input>
+                </form_item>
             </el-row><!-- FXO -->
 
             <el-divider content-position="left"><h3>{{lang.caller_id}}</h3></el-divider>
 
             <el-row v-if="port_type == 'FXO'"><!-- FXO -->
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.use_callerid_help"></div>
-                                <span>{{lang.use_callerid}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="usecallerid"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.use_callerid_help"></span>
+                    <span slot="param_name" >{{lang.use_callerid}}</span>
+                    <el-checkbox slot="param" v-model="usecallerid"></el-checkbox>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.hide_callerid_help"></div>
-                                <span>{{lang.hide_callerid}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="hidecallerid"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.hide_callerid_help"></span>
+                    <span slot="param_name" >{{lang.hide_callerid}}</span>
+                    <el-checkbox slot="param" v-model="hidecallerid"></el-checkbox>
+                </form_item>
             </el-row><!-- FXO -->
 
             <el-row v-if="port_type == 'FXS'"><!-- FXS -->
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content">
-                                    <span v-if="$store.state.FlexRoutingSw == 0" v-html="lang.caller_id_help"></span>
-                                    <span v-else v-html="lang.extension_number_help"></span>
-                                </div>
-                                <span v-if="$store.state.FlexRoutingSw == 0">{{lang.caller_id}}</span>
-                                <span v-else>{{lang.extension_number}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="cid_number"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help">
+                         <span v-if="$store.state.FlexRoutingSw == 0" v-html="lang.caller_id_help"></span>
+                         <span v-else v-html="lang.extension_number_help"></span>
+                    </span>
+                    <span slot="param_name" >
+                         <span v-if="$store.state.FlexRoutingSw == 0">{{lang.caller_id}}</span>
+                         <span v-else>{{lang.extension_number}}</span>
+                    </span>
+                    <el-input slot="param" v-model="cid_number"></el-input>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.full_name_help"></div>
-                                <span>{{lang.full_name}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="fullname"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.full_name_help"></span>
+                    <span slot="param_name" >{{lang.full_name}}</span>
+                    <el-input slot="param" v-model="fullname"></el-input>
+                </form_item>
 
-                <el-col :lg="12" v-if="$store.state.FlexRoutingSw == 0">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.internal_exten_number_help"></div>
-                                <span>{{lang.internal_exten_number}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="internalnumber"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item v-if="$store.state.FlexRoutingSw == 0">
+                    <span slot="param_help" v-html="lang.internal_exten_number_help"></span>
+                    <span slot="param_name" >{{lang.internal_exten_number}}</span>
+                    <el-input slot="param" v-model="internalnumber"></el-input>
+                </form_item>
             </el-row><!-- FXS -->
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.cid_signalling_help"></div>
-                                <span>{{lang.cid_signalling}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="cidsignalling" style="width: 100%">
-                                <el-option
-                                    v-for="item in cidsignalling_options"
-                                    :label="item.label"
-                                    :key="item.value"
-                                    :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.cid_signalling_help"></span>
+                    <span slot="param_name" >{{lang.cid_signalling}}</span>
+                    <el-select slot="param" v-model="cidsignalling" style="width: 100%">
+                        <el-option
+                                v-for="item in cidsignalling_options"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value">
+                        </el-option>
+                    </el-select>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.dnd_help"></div>
-                                <span>{{lang.dnd}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="dnd"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.dnd_help"></span>
+                    <span slot="param_name" >{{lang.dnd}}</span>
+                    <el-checkbox slot="param" v-model="dnd"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row v-if="port_type == 'FXO'"><!-- FXO -->
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.cid_start_signal_help"></div>
-                                <span>{{lang.cid_start_signal}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="cidstart" style="width: 100%">
-                                <el-option
-                                    v-for="item in cidstart_options"
-                                    :label="item.label"
-                                    :key="item.value"
-                                    :value="item.value">
-                                </el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.cid_start_signal_help"></span>
+                    <span slot="param_name" >{{lang.cid_start_signal}}</span>
+                    <el-select slot="param" v-model="cidstart" style="width: 100%">
+                        <el-option
+                                v-for="item in cidstart_options"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value">
+                        </el-option>
+                    </el-select>
+                </form_item>
             </el-row><!-- FXO -->
 
             <el-divider content-position="left"><h3>{{lang.polarity}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.answer_on_polarity_switch_help"></div>
-                                <span>{{lang.answer_on_polarity_switch}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="answeronpolarityswitch"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.answer_on_polarity_switch_help"></span>
+                    <span slot="param_name" >{{lang.answer_on_polarity_switch}}</span>
+                    <el-checkbox slot="param" v-model="answeronpolarityswitch"></el-checkbox>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.hangup_on_polarity_switch_help"></div>
-                                <span>{{lang.hangup_on_polarity_switch}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="hanguponpolarityswitch"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.hangup_on_polarity_switch_help"></span>
+                    <span slot="param_name" >{{lang.hangup_on_polarity_switch}}</span>
+                    <el-checkbox slot="param" v-model="hanguponpolarityswitch"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row v-if="port_type == 'FXO'"><!-- FXO -->
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.polarity_on_answer_delay_help"></div>
-                                <span>{{lang.polarity_on_answer_delay}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="polarityonanswerdelay"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.polarity_on_answer_delay_help"></span>
+                    <span slot="param_name" >{{lang.polarity_on_answer_delay}}</span>
+                    <el-input slot="param" v-model="polarityonanswerdelay"></el-input>
+                </form_item>
             </el-row><!-- FXO -->
 
             <el-row v-if="port_type == 'FXO'"><!-- FXO -->
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.delay_reply_200_ok_switch_help"></div>
-                                <span>{{lang.delay_reply_200_ok_switch}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="delay_reply_200ok_enable"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.delay_reply_200_ok_switch_help"></span>
+                    <span slot="param_name" >{{lang.delay_reply_200_ok_switch}}</span>
+                    <el-checkbox slot="param" v-model="delay_reply_200ok_enable"></el-checkbox>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.delay_reply_200_ok_timer_help"></div>
-                                <span>{{lang.delay_reply_200_ok_timer}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="delay_reply_200ok_timer"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.delay_reply_200_ok_timer_help"></span>
+                    <span slot="param_name" >{{lang.delay_reply_200_ok_timer}}</span>
+                    <el-input slot="param" v-model="delay_reply_200ok_timer"></el-input>
+                </form_item>
             </el-row><!-- FXO -->
 
             <div v-if="port_type == 'FXS'"><!-- FXS -->
             <el-divider content-position="left"><h3>{{lang.call_feature}}</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.call_waiting_help"></div>
-                                    <span>{{lang.call_waiting}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-checkbox v-model="callwaiting"></el-checkbox>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.call_waiting_help"></span>
+                        <span slot="param_name" >{{lang.call_waiting}}</span>
+                        <el-checkbox slot="param" v-model="callwaiting"></el-checkbox>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.three_way_calling_help"></div>
-                                    <span>{{lang.three_way_calling}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-checkbox v-model="threewaycalling"></el-checkbox>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.three_way_calling_help"></span>
+                        <span slot="param_name" >{{lang.three_way_calling}}</span>
+                        <el-checkbox slot="param" v-model="threewaycalling"></el-checkbox>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.call_transfer_help"></div>
-                                    <span>{{lang.call_transfer}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-checkbox v-model="transfer"></el-checkbox>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.call_transfer_help"></span>
+                        <span slot="param_name" >{{lang.call_transfer}}</span>
+                        <el-checkbox slot="param" v-model="transfer"></el-checkbox>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.call_forward_help"></div>
-                                    <span>{{lang.call_forward}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="callforward" style="width: 100%;">
-                                    <el-option
-                                        v-for="item in callforward_options"
-                                        :label="item.label"
-                                        :key="item.value"
-                                        :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.call_forward_help"></span>
+                        <span slot="param_name" >{{lang.call_forward}}</span>
+                        <el-select slot="param" v-model="callforward" style="width: 100%;">
+                            <el-option
+                                    v-for="item in callforward_options"
+                                    :label="item.label"
+                                    :key="item.value"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.call_forward_number_help"></div>
-                                    <span>{{lang.call_forward_number}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="callforwardexten"></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.call_forward_number_help"></span>
+                        <span slot="param_name" >{{lang.call_forward_number}}</span>
+                        <el-input slot="param" v-model="callforwardexten"></el-input>
+                    </form_item>
                 </el-row>
             </div><!-- FXS -->
 
             <el-divider content-position="left"><h3>{{lang.call_limit}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.call_limit_switch_help"></div>
-                                <span>{{lang.call_limit_switch}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="call_limit_switch"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.call_limit_switch_help"></span>
+                    <span slot="param_name" >{{lang.call_limit_switch}}</span>
+                    <el-checkbox slot="param" v-model="call_limit_switch"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.limit_call_time_help"></div>
-                                <span>{{lang.limit_call_time}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="call_time_settings"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.limit_call_time_help"></span>
+                    <span slot="param_name" >{{lang.limit_call_time}}</span>
+                    <el-input slot="param" v-model="call_time_settings"></el-input>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.limit_daily_call_times_help"></div>
-                                <span>{{lang.limit_daily_call_times}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="day_calls_settings"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.limit_daily_call_times_help"></span>
+                    <span slot="param_name" >{{lang.limit_daily_call_times}}</span>
+                    <el-input slot="param" v-model="day_calls_settings"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.limit_daily_answer_times_help"></div>
-                                <span>{{lang.limit_daily_answer_times}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="day_answer_setting"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.limit_daily_answer_times_help"></span>
+                    <span slot="param_name" >{{lang.limit_daily_answer_times}}</span>
+                    <el-input slot="param" v-model="day_answer_setting"></el-input>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.limit_hour_call_times_help"></div>
-                                <span>{{lang.limit_hour_call_times}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="hour_calls_settings"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.limit_hour_call_times_help"></span>
+                    <span slot="param_name" >{{lang.limit_hour_call_times}}</span>
+                    <el-input slot="param" v-model="hour_calls_settings"></el-input>
+                </form_item>
             </el-row>
 
             <el-row v-if="port_type == 'FXO'">
                 <el-divider content-position="left"><h3>{{lang.callerid_detect}}</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.cidbeforering_help"></div>
-                                    <span>{{lang.cidbeforering}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-checkbox v-model="cidbeforering"></el-checkbox>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.cidbeforering_help"></span>
+                        <span slot="param_name" >{{lang.cidbeforering}}</span>
+                        <el-checkbox slot="param" v-model="cidbeforering"></el-checkbox>
+                    </form_item>
                 </el-row>
             </el-row>
         </el-card>

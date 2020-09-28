@@ -48,8 +48,8 @@
                     min-width="150"
                     v-if="modulecol[1].istrue">
                 <template slot-scope="scope">
-                                <span v-if="scope.row.type == 'FXS' || (scope.row.type == 'FXO' && scope.row.line_status == 'Connected')"
-                                      style="color: #00A030;">{{scope.row.type}}</span>
+                    <span v-if="scope.row.type == 'FXS' || (scope.row.type == 'FXO' && scope.row.line_status == 'Connected')"
+                          style="color: #00A030;">{{scope.row.type}}</span>
                     <span v-else style="color: #ff0000;">{{scope.row.type}}</span>
                 </template>
             </el-table-column>
@@ -60,8 +60,8 @@
                     min-width="200"
                     v-if="modulecol[2].istrue">
                 <template slot-scope="scope">
-                                <span v-if="scope.row.type == 'FXS' && scope.row.line_status == 'Connected' && CheckFXSCurrSta == 1"
-                                      style="color:#00A030">{{scope.row.line_status}} / {{scope.row.callerid}}</span>
+                    <span v-if="scope.row.type == 'FXS' && scope.row.line_status == 'Connected' && $store.state.CheckFXSCurrSta == 1"
+                          style="color:#00A030">{{scope.row.line_status}} / {{scope.row.callerid}}</span>
                     <span v-else-if="scope.row.type == 'FXS'" style="color:#FF0000">{{scope.row.callerid}}</span>
                     <span v-else-if="scope.row.type == 'FXO'">{{scope.row.callerid}}</span>
                 </template>
@@ -74,7 +74,7 @@
                     v-if="modulecol[3].istrue">
                 <template slot-scope="scope">
                     <span v-if="scope.row.port_status == 'OnHook'" style="color: #00A030">{{scope.row.port_status}}</span>
-                    <span v-if="scope.row.port_status == 'OffHook'" style="color: #FF0000">{{scope.row.port_status}}</span>
+                    <span v-else-if="scope.row.port_status == 'OffHook'" style="color: #FF0000">{{scope.row.port_status}}</span>
                 </template>
             </el-table-column>
 

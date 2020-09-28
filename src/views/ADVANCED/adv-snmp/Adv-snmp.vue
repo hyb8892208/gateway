@@ -22,304 +22,161 @@
             <el-divider content-position="left"><h3>{{lang.snmp_parameter}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.snmp_enable_help"></div>
-                                <span>{{lang.snmp_enable}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="enable" ></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.snmp_enable_help"></span>
+                    <span slot="param_name" >{{lang.snmp_enable}}</span>
+                    <el-checkbox slot="param" v-model="enable"></el-checkbox>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.system_contact_help"></div>
-                                <span>{{lang.system_contact}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="system_contact" ></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.system_contact_help"></span>
+                    <span slot="param_name" >{{lang.system_contact}}</span>
+                    <el-input slot="param" v-model="system_contact"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.system_location_help"></div>
-                                <span>{{lang.system_location}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="system_location" ></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.system_location_help"></span>
+                    <span slot="param_name" >{{lang.system_location}}</span>
+                    <el-input slot="param" v-model="system_location"></el-input>
+                </form_item>
 
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.support_snmp_version_help"></div>
-                                <span>{{lang.support_snmp_version}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox-group v-model="support_snmp_version">
-                                <el-checkbox label="v1"></el-checkbox>
-                                <el-checkbox label="v2c"></el-checkbox>
-                                <el-checkbox label="v3"></el-checkbox>
-                            </el-checkbox-group>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.support_snmp_version_help"></span>
+                    <span slot="param_name" >{{lang.support_snmp_version}}</span>
+                    <el-checkbox-group slot="param" v-model="support_snmp_version">
+                        <el-checkbox label="v1"></el-checkbox>
+                        <el-checkbox label="v2c"></el-checkbox>
+                        <el-checkbox label="v3"></el-checkbox>
+                    </el-checkbox-group>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.snmp_version_help"></div>
-                                <span>{{lang.snmp_version}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="snmp_version" style="width: 100%;">
-                                <el-option label="v1" :value=0 key=0></el-option>
-                                <el-option label="v2c" :value=1 key=1></el-option>
-                                <el-option label="v3" :value=2 key=2></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.snmp_version_help"></span>
+                    <span slot="param_name" >{{lang.snmp_version}}</span>
+                    <el-select slot="param" v-model="snmp_version" style="width: 100%;">
+                        <el-option label="v1" :value=0 key=0></el-option>
+                        <el-option label="v2c" :value=1 key=1></el-option>
+                        <el-option label="v3" :value=2 key=2></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <div v-if="snmp_version == '0'">
                 <el-divider content-position="left"><h3>{{lang.community_configuration}}(V1)</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.security_name_help"></div>
-                                    <span>{{lang.security_name}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="security_name_v1" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.security_name_help"></span>
+                        <span slot="param_name" >{{lang.security_name}}</span>
+                        <el-input slot="param" v-model="security_name_v1"></el-input>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.souce_help"></div>
-                                    <span>{{lang.souce}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="souce_v1" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.souce_help"></span>
+                        <span slot="param_name" >{{lang.souce}}</span>
+                        <el-input slot="param" v-model="souce_v1"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.community_help"></div>
-                                    <span>{{lang.community}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="community_v1" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.community_help"></span>
+                        <span slot="param_name" >{{lang.community}}</span>
+                        <el-input slot="param" v-model="community_v1"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-divider content-position="left"><h3>{{lang.group_configuration}}(V1)</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.group_help"></div>
-                                    <span>{{lang.group}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="group_v1" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.group_help"></span>
+                        <span slot="param_name" >{{lang.group}}</span>
+                        <el-input slot="param" v-model="group_v1"></el-input>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.security_name_help"></div>
-                                    <span>{{lang.security_name}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="security_name_v1" disabled ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.security_name_help"></span>
+                        <span slot="param_name" >{{lang.security_name}}</span>
+                        <el-input slot="param" v-model="security_name_v1" disabled ></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-divider content-position="left"><h3>{{lang.view_configuration}}(V1)</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.viewname_help"></div>
-                                    <span>{{lang.viewname}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="viewname_v1" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.viewname_help"></span>
+                        <span slot="param_name" >{{lang.viewname}}</span>
+                        <el-input slot="param" v-model="viewname_v1"></el-input>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.viewtype_help"></div>
-                                    <span>{{lang.viewtype}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="viewtype_v1" style="width: 100%">
-                                    <el-option label="included" :value=0 key="0"></el-option>
-                                    <el-option label="excluded" :value=1 key="1"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.viewtype_help"></span>
+                        <span slot="param_name" >{{lang.viewtype}}</span>
+
+                        <el-select slot="param" v-model="viewtype_v1" style="width: 100%">
+                            <el-option label="included" :value=0 key="0"></el-option>
+                            <el-option label="excluded" :value=1 key="1"></el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.viewsubtree_help"></div>
-                                    <span>{{lang.viewsubtree}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="viewsubtree_v1" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.viewsubtree_help"></span>
+                        <span slot="param_name" >{{lang.viewsubtree}}</span>
+                        <el-input slot="param" v-model="viewsubtree_v1"></el-input>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.viewmask_help"></div>
-                                    <span>{{lang.viewmask}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="viewmask_v1" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.viewmask_help"></span>
+                        <span slot="param_name" >{{lang.viewmask}}</span>
+                        <el-input slot="param" v-model="viewmask_v1"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-divider content-position="left"><h3>{{lang.access_configuration}}(V1)</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.group_help"></div>
-                                    <span>{{lang.group}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="group_v1" disabled ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.group_help"></span>
+                        <span slot="param_name" >{{lang.group}}</span>
+                        <el-input slot="param" v-model="group_v1" disabled ></el-input>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.read_help"></div>
-                                    <span>{{lang.read}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="read_v1" style="width: 100%">
-                                    <el-option :label="viewname_v1" :value=0 key="0"></el-option>
-                                    <el-option :label="'none'" :value=1 key="1"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.read_help"></span>
+                        <span slot="param_name" >{{lang.read}}</span>
+                        <el-select slot="param" v-model="group_v1" style="width: 100%">
+                            <el-option :label="viewname_v1" :value=0 key="0"></el-option>
+                            <el-option :label="'none'" :value=1 key="1"></el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.write_help"></div>
-                                    <span>{{lang.write}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="write_v1" style="width: 100%">
-                                    <el-option :label="viewname_v1" :value=0 key="0"></el-option>
-                                    <el-option :label="'none'" :value=1 key="1"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.write_help"></span>
+                        <span slot="param_name" >{{lang.write}}</span>
+                        <el-select slot="param" v-model="write_v1" style="width: 100%">
+                            <el-option :label="viewname_v1" :value=0 key="0"></el-option>
+                            <el-option :label="'none'" :value=1 key="1"></el-option>
+                        </el-select>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.notify_help"></div>
-                                    <span>{{lang.notify}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="notify_v1" style="width: 100%">
-                                    <el-option :label="viewname_v1" :value=0 key="0"></el-option>
-                                    <el-option :label="'none'" :value=1 key="1"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.notify_help"></span>
+                        <span slot="param_name" >{{lang.notify}}</span>
+                        <el-select slot="param" v-model="notify_v1" style="width: 100%">
+                            <el-option :label="viewname_v1" :value=0 key="0"></el-option>
+                            <el-option :label="'none'" :value=1 key="1"></el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
             </div>
 
@@ -327,217 +184,113 @@
                 <el-divider content-position="left"><h3>{{lang.community_configuration}}(V2)</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.security_name_help"></div>
-                                    <span>{{lang.security_name}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="security_name_v2" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.security_name_help"></span>
+                        <span slot="param_name" >{{lang.security_name}}</span>
+                        <el-input slot="param" v-model="security_name_v2"></el-input>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.souce_help"></div>
-                                    <span>{{lang.souce}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="souce_v2" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.souce_help"></span>
+                        <span slot="param_name" >{{lang.souce}}</span>
+                        <el-input slot="param" v-model="souce_v2"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.community_help"></div>
-                                    <span>{{lang.community}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="community_v2" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.community_help"></span>
+                        <span slot="param_name" >{{lang.community}}</span>
+                        <el-input slot="param" v-model="community_v2"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-divider content-position="left"><h3>{{lang.group_configuration}}(V2)</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.group_help"></div>
-                                    <span>{{lang.group}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="group_v2" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.group_help"></span>
+                        <span slot="param_name" >{{lang.group}}</span>
+                        <el-input slot="param" v-model="group_v2"></el-input>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.security_name_help"></div>
-                                    <span>{{lang.security_name}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="security_name_v2" disabled ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.security_name_help"></span>
+                        <span slot="param_name" >{{lang.security_name}}</span>
+                        <el-input slot="param" v-model="security_name_v2" disabled ></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-divider content-position="left"><h3>{{lang.view_configuration}}(V2)</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.viewname_help"></div>
-                                    <span>{{lang.viewname}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="viewname_v2" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.viewname_help"></span>
+                        <span slot="param_name" >{{lang.viewname}}</span>
+                        <el-input slot="param" v-model="viewname_v2"></el-input>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.viewtype_help"></div>
-                                    <span>{{lang.viewtype}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="viewtype_v2" style="width: 100%">
-                                    <el-option label="included" :value=0 key="0"></el-option>
-                                    <el-option label="excluded" :value=1 key="1"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.viewtype_help"></span>
+                        <span slot="param_name" >{{lang.viewtype}}</span>
+                        <el-select slot="param" v-model="viewtype_v2" style="width: 100%">
+                            <el-option label="included" :value=0 key="0"></el-option>
+                            <el-option label="excluded" :value=1 key="1"></el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.viewsubtree_help"></div>
-                                    <span>{{lang.viewsubtree}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="viewsubtree_v2" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.viewsubtree_help"></span>
+                        <span slot="param_name" >{{lang.viewsubtree}}</span>
+                        <el-input slot="param" v-model="viewsubtree_v2"></el-input>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.viewmask_help"></div>
-                                    <span>{{lang.viewmask}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="viewmask_v2" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.viewmask_help"></span>
+                        <span slot="param_name" >{{lang.viewmask}}</span>
+                        <el-input slot="param" v-model="viewmask_v2"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-divider content-position="left"><h3>{{lang.access_configuration}}(V2)</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.group_help"></div>
-                                    <span>{{lang.group}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="group_v2" disabled ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.group_help"></span>
+                        <span slot="param_name" >{{lang.group}}</span>
+                        <el-input slot="param" v-model="group_v2" disabled ></el-input>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.read_help"></div>
-                                    <span>{{lang.read}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="read_v2" style="width: 100%">
-                                    <el-option :label="viewname_v2" :value=0 key="0"></el-option>
-                                    <el-option :label="'none'" :value=1 key="1"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.read_help"></span>
+                        <span slot="param_name" >{{lang.read}}</span>
+                        <el-select slot="param" v-model="read_v2" style="width: 100%">
+                            <el-option :label="viewname_v2" :value=0 key="0"></el-option>
+                            <el-option :label="'none'" :value=1 key="1"></el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.write_help"></div>
-                                    <span>{{lang.write}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="write_v2" style="width: 100%">
-                                    <el-option :label="viewname_v2" :value=0 key="0"></el-option>
-                                    <el-option :label="'none'" :value=1 key="1"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.write_help"></span>
+                        <span slot="param_name" >{{lang.write}}</span>
+                        <el-select slot="param" v-model="write_v2" style="width: 100%">
+                            <el-option :label="viewname_v2" :value=0 key="0"></el-option>
+                            <el-option :label="'none'" :value=1 key="1"></el-option>
+                        </el-select>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.notify_help"></div>
-                                    <span>{{lang.notify}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="notify_v2" style="width: 100%">
-                                    <el-option :label="viewname_v2" :value=0 key="0"></el-option>
-                                    <el-option :label="'none'" :value=1 key="1"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.notify_help"></span>
+                        <span slot="param_name" >{{lang.notify}}</span>
+                        <el-select slot="param" v-model="notify_v2" style="width: 100%">
+                            <el-option :label="viewname_v2" :value=0 key="0"></el-option>
+                            <el-option :label="'none'" :value=1 key="1"></el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
             </div>
 
@@ -545,253 +298,133 @@
                 <el-divider content-position="left"><h3>{{lang.user_configuration}}(V3)</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.user_help"></div>
-                                    <span>{{lang.user}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="user_v3" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.user_help"></span>
+                        <span slot="param_name" >{{lang.user}}</span>
+                        <el-input slot="param" v-model="user_v3"></el-input>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.authtype_help"></div>
-                                    <span>{{lang.authtype}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="authtype_v3" style="width: 100%">
-                                    <el-option label="MD5" :value=0 key="0"></el-option>
-                                    <el-option label="SHA" :value=1 key="1"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.authtype_help"></span>
+                        <span slot="param_name" >{{lang.authtype}}</span>
+                        <el-select slot="param" v-model="authtype_v3" style="width: 100%">
+                            <el-option label="MD5" :value=0 key="0"></el-option>
+                            <el-option label="SHA" :value=1 key="1"></el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.autopassword_help"></div>
-                                    <span>{{lang.autopassword}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="autopassword_v3" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.autopassword_help"></span>
+                        <span slot="param_name" >{{lang.autopassword}}</span>
+                        <el-input slot="param" v-model="autopassword_v3"></el-input>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.privacyType_help"></div>
-                                    <span>{{lang.privacyType}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="privacyType_v3" style="width: 100%">
-                                    <el-option label="DES" :value=0 key="0"></el-option>
-                                    <el-option label="AES" :value=1 key="1"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.privacyType_help"></span>
+                        <span slot="param_name" >{{lang.privacyType}}</span>
+                        <el-select slot="param" v-model="privacyType_v3" style="width: 100%">
+                            <el-option label="DES" :value=0 key="0"></el-option>
+                            <el-option label="AES" :value=1 key="1"></el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.privacypassword_help"></div>
-                                    <span>{{lang.privacypassword}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="privacypassword_v3" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.privacypassword_help"></span>
+                        <span slot="param_name" >{{lang.privacypassword}}</span>
+                        <el-input slot="param" v-model="privacypassword_v3"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-divider content-position="left"><h3>{{lang.group_configuration}}(V3)</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.group_help"></div>
-                                    <span>{{lang.group}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="group_v3" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.group_help"></span>
+                        <span slot="param_name" >{{lang.group}}</span>
+                        <el-input slot="param" v-model="group_v3"></el-input>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.user_help"></div>
-                                    <span>{{lang.user}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="user_v3" disabled ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.user_help"></span>
+                        <span slot="param_name" >{{lang.user}}</span>
+                        <el-input slot="param" v-model="user_v3" disabled ></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-divider content-position="left"><h3>{{lang.view_configuration}}(V3)</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.viewname_help"></div>
-                                    <span>{{lang.viewname}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="viewname_v3" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.viewname_help"></span>
+                        <span slot="param_name" >{{lang.viewname}}</span>
+                        <el-input slot="param" v-model="viewname_v3"></el-input>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.viewtype_help"></div>
-                                    <span>{{lang.viewtype}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="viewtype_v3" style="width: 100%">
-                                    <el-option label="included" :value=0 key="0"></el-option>
-                                    <el-option label="excluded" :value=1 key="1"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.viewtype_help"></span>
+                        <span slot="param_name" >{{lang.viewtype}}</span>
+                        <el-select slot="param" v-model="viewtype_v3" style="width: 100%">
+                            <el-option label="included" :value=0 key="0"></el-option>
+                            <el-option label="excluded" :value=1 key="1"></el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.viewsubtree_help"></div>
-                                    <span>{{lang.viewsubtree}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="viewsubtree_v3" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.viewsubtree_help"></span>
+                        <span slot="param_name" >{{lang.viewsubtree}}</span>
+                        <el-input slot="param" v-model="viewsubtree_v3"></el-input>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.viewmask_help"></div>
-                                    <span>{{lang.viewmask}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="viewmask_v3" ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.viewmask_help"></span>
+                        <span slot="param_name" >{{lang.viewmask}}</span>
+                        <el-input slot="param" v-model="viewmask_v3"></el-input>
+                    </form_item>
                 </el-row>
 
                 <el-divider content-position="left"><h3>{{lang.access_configuration}}(V3)</h3></el-divider>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.group_help"></div>
-                                    <span>{{lang.group}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-input v-model="group_v3" disabled ></el-input>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.group_help"></span>
+                        <span slot="param_name" >{{lang.group}}</span>
+                        <el-input slot="param" v-model="group_v3" disabled ></el-input>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.read_help"></div>
-                                    <span>{{lang.read}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="read_v3" style="width: 100%">
-                                    <el-option :label="viewname_v3" :value=0 key="0"></el-option>
-                                    <el-option :label="'none'" :value=1 key="1"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.read_help"></span>
+                        <span slot="param_name" >{{lang.read}}</span>
+                        <el-select slot="param" v-model="read_v3" style="width: 100%">
+                            <el-option :label="viewname_v3" :value=0 key="0"></el-option>
+                            <el-option :label="'none'" :value=1 key="1"></el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.write_help"></div>
-                                    <span>{{lang.write}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="write_v3" style="width: 100%">
-                                    <el-option :label="viewname_v3" :value=0 key="0"></el-option>
-                                    <el-option :label="'none'" :value=1 key="1"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.write_help"></span>
+                        <span slot="param_name" >{{lang.write}}</span>
+                        <el-select slot="param" v-model="write_v3" style="width: 100%">
+                            <el-option :label="viewname_v3" :value=0 key="0"></el-option>
+                            <el-option :label="'none'" :value=1 key="1"></el-option>
+                        </el-select>
+                    </form_item>
 
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.notify_help"></div>
-                                    <span>{{lang.notify}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-select v-model="notify_v3" style="width: 100%">
-                                    <el-option :label="viewname_v3" :value=0 key="0"></el-option>
-                                    <el-option :label="'none'" :value=1 key="1"></el-option>
-                                </el-select>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
+                    <form_item>
+                        <span slot="param_help" v-html="lang.notify_help"></span>
+                        <span slot="param_name" >{{lang.notify}}</span>
+                        <el-select slot="param" v-model="notify_v3" style="width: 100%">
+                            <el-option :label="viewname_v3" :value=0 key="0"></el-option>
+                            <el-option :label="'none'" :value=1 key="1"></el-option>
+                        </el-select>
+                    </form_item>
                 </el-row>
             </div>
         </el-card>

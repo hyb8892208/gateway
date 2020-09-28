@@ -19,53 +19,28 @@
             <el-divider content-position="left"><h3>{{lang.general}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.flex_routing_switch_help"></div>
-                                <span>{{lang.flex_routing_switch}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="flex_routing_sw"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.flex_routing_switch_help"></span>
+                    <span slot="param_name" >{{lang.flex_routing_switch}}</span>
+                    <el-checkbox slot="param" v-model="flex_routing_sw"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.enable_internal_fxs_call_help"></div>
-                                <span>{{lang.enable_internal_fxs_call}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="internalcallsw" :disabled="!flex_routing_sw"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.enable_internal_fxs_call_help"></span>
+                    <span slot="param_name" >{{lang.enable_internal_fxs_call}}</span>
+                    <el-checkbox slot="param" v-model="internalcallsw" :disabled="!flex_routing_sw"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.enable_internal_sip_call_help"></div>
-                                <span>{{lang.enable_internal_sip_call}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="internalsipcallsw"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.enable_internal_sip_call_help"></span>
+                    <span slot="param_name" >{{lang.enable_internal_sip_call}}</span>
+                    <el-checkbox slot="param" v-model="internalsipcallsw"></el-checkbox>
+                </form_item>
             </el-row>
-
         </el-card>
     </el-form>
 </template>

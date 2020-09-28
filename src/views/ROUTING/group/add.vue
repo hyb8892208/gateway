@@ -21,97 +21,67 @@
             <el-divider content-position="left"><h3>{{lang.routing_groups}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.group_name_help"></div>
-                                <span>{{lang.group_name}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="group_name"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.group_name_help"></span>
+                    <span slot="param_name" >{{lang.group_name}}</span>
+                    <el-input slot="param" v-model="group_name"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.type_help"></div>
-                                <span>{{lang.type}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="type" style="width: 100%">
-                                <el-option
-                                    v-for="item in type_options"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value"></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.type_help"></span>
+                    <span slot="param_name" >{{lang.type}}</span>
+                    <el-select slot="param" v-model="type" style="width: 100%">
+                        <el-option
+                                v-for="item in type_options"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.policy_help"></div>
-                                <span>{{lang.policy}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="policy" style="width: 100%">
-                                <el-option :label="lang.ascending" :value=0 :key="0"></el-option>
-                                <el-option :label="lang.descending" :value=1 :key="1"></el-option>
-                                <el-option v-show="type == 1" :label="lang.roundrobin" :value=2 :key="2"></el-option>
-                                <el-option v-show="type == 1" :label="lang.reverse_roundrobin" :value=3 :key="3"></el-option>
-                                <el-option v-show="type == 0" :label="lang.ringall" :value=4 :key="4"></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.policy_help"></span>
+                    <span slot="param_name" >{{lang.policy}}</span>
+                    <el-select slot="param" v-model="policy" style="width: 100%">
+                        <el-option :label="lang.ascending" :value=0 :key="0"></el-option>
+                        <el-option :label="lang.descending" :value=1 :key="1"></el-option>
+                        <el-option v-show="type == 1" :label="lang.roundrobin" :value=2 :key="2"></el-option>
+                        <el-option v-show="type == 1" :label="lang.reverse_roundrobin" :value=3 :key="3"></el-option>
+                        <el-option v-show="type == 0" :label="lang.ringall" :value=4 :key="4"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.members_help"></div>
-                                <span>{{lang.members}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-row v-if="type == 1">
-                                <el-checkbox :indeterminate="isIndeterminate_fxo"
-                                             v-model="checkFXOAll"
-                                             @change="handleFXOCheckAllChange">{{lang.all}}</el-checkbox>
-                                <div style="margin: 15px 0;"></div>
-                                <el-checkbox-group v-model="fxo_members_selected" @change="handleCheckedFXOChange">
-                                    <el-checkbox v-for="item in fxo_members" :label="item" :key="item">{{item}}</el-checkbox>
-                                </el-checkbox-group>
-                            </el-row>
+                <form_item>
+                    <span slot="param_help" v-html="lang.members_help"></span>
+                    <span slot="param_name" >{{lang.members}}</span>
+                    <div slot="param">
+                        <el-row v-if="type == 1">
+                            <el-checkbox :indeterminate="isIndeterminate_fxo"
+                                         v-model="checkFXOAll"
+                                         @change="handleFXOCheckAllChange">{{lang.all}}</el-checkbox>
+                            <div style="margin: 15px 0;"></div>
+                            <el-checkbox-group v-model="fxo_members_selected" @change="handleCheckedFXOChange">
+                                <el-checkbox v-for="item in fxo_members" :label="item" :key="item">{{item}}</el-checkbox>
+                            </el-checkbox-group>
+                        </el-row>
 
-                            <el-row v-if="type == 0">
-                                <el-checkbox :indeterminate="isIndeterminate_sip"
-                                             v-model="checkSIPAll"
-                                             @change="handleSIPCheckAllChange">{{lang.all}}</el-checkbox>
-                                <div style="margin: 15px 0;"></div>
-                                <el-checkbox-group v-model="sip_members_selected" @change="handleCheckedSIPChange">
-                                    <el-checkbox v-for="item in sip_members" :label="item" :key="item">{{item}}</el-checkbox>
-                                </el-checkbox-group>
-                            </el-row>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                        <el-row v-if="type == 0">
+                            <el-checkbox :indeterminate="isIndeterminate_sip"
+                                         v-model="checkSIPAll"
+                                         @change="handleSIPCheckAllChange">{{lang.all}}</el-checkbox>
+                            <div style="margin: 15px 0;"></div>
+                            <el-checkbox-group v-model="sip_members_selected" @change="handleCheckedSIPChange">
+                                <el-checkbox v-for="item in sip_members" :label="item" :key="item">{{item}}</el-checkbox>
+                            </el-checkbox-group>
+                        </el-row>
+                    </div>
+                </form_item>
             </el-row>
 
         </el-card>

@@ -21,105 +21,56 @@
             <el-divider content-position="left"><h3>{{lang.firewall_settings}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" open-delay="200">
-                                <div slot="content" v-html="lang.firewall_enable_help"></div>
-                                <span>{{lang.firewall_enable}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="firewall_enable"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.firewall_enable_help"></span>
+                    <span slot="param_name" >{{lang.firewall_enable}}</span>
+                    <el-checkbox slot="param" v-model="firewall_enable"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" open-delay="200">
-                                <div slot="content" v-html="lang.ping_enable_help"></div>
-                                <span>{{lang.ping_enable}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="ping_enable"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.ping_enable_help"></span>
+                    <span slot="param_name" >{{lang.ping_enable}}</span>
+                    <el-checkbox slot="param" v-model="ping_enable"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-divider content-position="left"><h3>{{lang.white_list_settings}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" open-delay="200">
-                                <div slot="content" v-html="lang.white_list_enable_help"></div>
-                                <span>{{lang.white_list_enable}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="white_list_enable"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.white_list_enable_help"></span>
+                    <span slot="param_name" >{{lang.white_list_enable}}</span>
+                    <el-checkbox slot="param" v-model="white_list_enable"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" open-delay="200">
-                                <div slot="content" v-html="lang.list_ip_settings_help"></div>
-                                <span>{{lang.list_ip_settings}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="white_ip" type="textarea"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.list_ip_settings_help"></span>
+                    <span slot="param_name" >{{lang.list_ip_settings}}</span>
+                    <el-input slot="param" v-model="white_ip" type="textarea"></el-input>
+                </form_item>
             </el-row>
 
             <el-divider content-position="left"><h3>{{lang.black_list_settings}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" open-delay="200">
-                                <div slot="content" v-html="lang.black_list_enable_help"></div>
-                                <span>{{lang.black_list_enable}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="black_list_enable"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.black_list_enable_help"></span>
+                    <span slot="param_name" >{{lang.black_list_enable}}</span>
+                    <el-checkbox slot="param" v-model="black_list_enable"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" open-delay="200">
-                                <div slot="content" v-html="lang.list_ip_settings_help"></div>
-                                <span>{{lang.list_ip_settings}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="black_ip" type="textarea"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.list_ip_settings_help"></span>
+                    <span slot="param_name" >{{lang.list_ip_settings}}</span>
+                    <el-input slot="param" v-model="black_ip" type="textarea"></el-input>
+                </form_item>
             </el-row>
-
         </el-card>
     </el-form>
 </template>

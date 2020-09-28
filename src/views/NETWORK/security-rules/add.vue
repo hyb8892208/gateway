@@ -21,42 +21,26 @@
             <el-divider content-position="left"><h3>{{lang.security_rules}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.rule_name_help"></div>
-                                <span>{{lang.rule_name}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="rule_name" ></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.rule_name_help"></span>
+                    <span slot="param_name" >{{lang.rule_name}}</span>
+                    <el-input slot="param" v-model="rule_name"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.protocol_help"></div>
-                                <span>{{lang.protocol}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="protocol" style="width: 100%">
-                                <el-option
-                                        v-for="item in protocol_options"
-                                        :label="item.label"
-                                        :key="item.value"
-                                        :value="item.value"
-                                ></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.protocol_help"></span>
+                    <span slot="param_name" >{{lang.protocol}}</span>
+                    <el-select slot="param" v-model="protocol" style="width: 100%">
+                        <el-option
+                                v-for="item in protocol_options"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"
+                        ></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-row>
@@ -102,27 +86,18 @@
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.actions_help"></div>
-                                <span>{{lang.actions}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="actions" style="width: 100%">
-                                <el-option
-                                    v-for="item in actions_options"
-                                    :label="item.label"
-                                    :key="item.value"
-                                    :value="item.value"></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.actions_help"></span>
+                    <span slot="param_name" >{{lang.actions}}</span>
+                    <el-select slot="param" v-model="actions" style="width: 100%">
+                        <el-option
+                                v-for="item in actions_options"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
-
         </el-card>
     </el-form>
 </template>

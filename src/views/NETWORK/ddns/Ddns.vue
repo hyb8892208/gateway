@@ -21,89 +21,49 @@
             <el-divider content-position="left"><h3>{{lang.ddns_settings}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.ddns_help"></div>
-                                <span>{{lang.ddns}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="ddns_enable"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.ddns_help"></span>
+                    <span slot="param_name" >{{lang.ddns}}</span>
+                    <el-checkbox slot="param" v-model="ddns_enable"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.type_help"></div>
-                                <span>{{lang.type}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="type" :disabled="!ddns_enable" style="width: 100%">
-                                <el-option
-                                    v-for="item in type_options"
-                                    :label="item.label"
-                                    :key="item.value"
-                                    :value="item.value"></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.type_help"></span>
+                    <span slot="param_name" >{{lang.type}}</span>
+                    <el-select slot="param" v-model="type" :disabled="!ddns_enable" style="width: 100%">
+                        <el-option
+                                v-for="item in type_options"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.username_help"></div>
-                                <span>{{lang.username}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="username[this.type]" :disabled="!ddns_enable"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.username_help"></span>
+                    <span slot="param_name" >{{lang.username}}</span>
+                    <el-input slot="param" v-model="username[this.type]" :disabled="!ddns_enable"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.password_help"></div>
-                                <span>{{lang.password}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="password[this.type]" show-password :disabled="!ddns_enable"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.password_help"></span>
+                    <span slot="param_name" >{{lang.password}}</span>
+                    <el-input slot="param" v-model="password[this.type]" show-password :disabled="!ddns_enable"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.your_domain_help"></div>
-                                <span>{{lang.your_domain}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="host[this.type]" :disabled="!ddns_enable"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.your_domain_help"></span>
+                    <span slot="param_name" >{{lang.your_domain}}</span>
+                    <el-input slot="param" v-model="host[this.type]" :disabled="!ddns_enable"></el-input>
+                </form_item>
             </el-row>
 
         </el-card>

@@ -22,207 +22,119 @@
             <el-divider content-position="left"><h3>{{lang.general}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.codec_help"></div>
-                                <span>{{lang.codec}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="codec" style="width: 100%;">
-                                <el-option
-                                    v-for="item in codec_options"
-                                    :label="item.label"
-                                    :key="item.value"
-                                    :value="item.value"></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.codec_help"></span>
+                    <span slot="param_name" >{{lang.codec}}</span>
+                    <el-select slot="param" v-model="codec" style="width: 100%;">
+                        <el-option
+                                v-for="item in codec_options"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-row v-if="$store.state.CheckFXSCurrSta == 1">
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.current_threshold_help"></div>
-                                <span>{{lang.current_threshold}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="current_threshold"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.current_threshold_help"></span>
+                    <span slot="param_name" >{{lang.current_threshold}}</span>
+                    <el-input slot="param" v-model="current_threshold"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.impedance_help"></div>
-                                <span>{{lang.impedance}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="impedance" style="width: 100%;">
-                                <el-option
-                                    v-for="item in impedance_options"
-                                    :label="item.label"
-                                    :key="item.value"
-                                    :value="item.value"></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.impedance_help"></span>
+                    <span slot="param_name" >{{lang.impedance}}</span>
+                    <el-select slot="param" v-model="impedance" style="width: 100%;">
+                        <el-option
+                                v-for="item in impedance_options"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-divider content-position="left"><h3>{{lang.callerid_detect}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.cidbeforering_help"></div>
-                                <span>{{lang.cidbeforering}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-checkbox v-model="cidbeforering"></el-checkbox>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.cidbeforering_help"></span>
+                    <span slot="param_name" >{{lang.cidbeforering}}</span>
+                    <el-checkbox slot="param" v-model="cidbeforering"></el-checkbox>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.cidbuflen_help"></div>
-                                <span>{{lang.cidbuflen}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="cidbuflen" :disabled="!cidbeforering"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.cidbuflen_help"></span>
+                    <span slot="param_name" >{{lang.cidbuflen}}</span>
+                    <el-input slot="param" v-model="cidbuflen" :disabled="!cidbeforering"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.cutcidbufheadlen_help"></div>
-                                <span>{{lang.cutcidbufheadlen}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="cutcidbufheadlen" :disabled="!cidbeforering"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.cutcidbufheadlen_help"></span>
+                    <span slot="param_name" >{{lang.cutcidbufheadlen}}</span>
+                    <el-input slot="param" v-model="cutcidbufheadlen" :disabled="!cidbeforering"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.fixedtimepolarity_help"></div>
-                                <span>{{lang.fixedtimepolarity}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="fixedtimepolarity" :disabled="!cidbeforering"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.fixedtimepolarity_help"></span>
+                    <span slot="param_name" >{{lang.fixedtimepolarity}}</span>
+                    <el-input slot="param" v-model="fixedtimepolarity" :disabled="!cidbeforering"></el-input>
+                </form_item>
             </el-row>
 
             <el-divider content-position="left"><h3>{{lang.hardware_gain}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.fxo_rx_gain"></div>
-                                <span>{{lang.fxo_rx_gain}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="fxorxgain"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.fxo_rx_gain"></span>
+                    <span slot="param_name" >{{lang.fxo_rx_gain}}</span>
+                    <el-input slot="param" v-model="fxorxgain"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.fxo_tx_gain_help"></div>
-                                <span>{{lang.fxo_tx_gain}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-input v-model="fxotxgain"></el-input>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.fxo_tx_gain_help"></span>
+                    <span slot="param_name" >{{lang.fxo_tx_gain}}</span>
+                    <el-input slot="param" v-model="fxotxgain"></el-input>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.fxs_rx_gain_help"></div>
-                                <span>{{lang.fxs_rx_gain}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="fxsrxgain" style="width: 100%">
-                                <el-option
-                                    v-for="item in fxsgain_options"
-                                    :label="item.label"
-                                    :key="item.value"
-                                    :value="item.value"></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.fxs_rx_gain_help"></span>
+                    <span slot="param_name" >{{lang.fxs_rx_gain}}</span>
+                    <el-select slot="param" v-model="fxsrxgain" style="width: 100%">
+                        <el-option
+                                v-for="item in fxsgain_options"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.fxs_tx_gain_help"></div>
-                                <span>{{lang.fxs_tx_gain}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="fxstxgain" style="width: 100%">
-                                <el-option
-                                    v-for="item in fxsgain_options"
-                                    :label="item.label"
-                                    :key="item.value"
-                                    :value="item.value"></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.fxs_tx_gain_help"></span>
+                    <span slot="param_name" >{{lang.fxs_tx_gain}}</span>
+                    <el-select slot="param" v-model="fxstxgain" style="width: 100%">
+                        <el-option
+                                v-for="item in fxsgain_options"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
         </el-card>
 

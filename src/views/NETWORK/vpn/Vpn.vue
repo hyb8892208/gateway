@@ -21,55 +21,42 @@
             <el-divider content-position="left"><h3>{{lang.vpn_settings}}</h3></el-divider>
 
             <el-row>
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.vpntype_help"></div>
-                                <span>{{lang.vpntype}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <el-select v-model="vpn_type"
-                                    size="small"
-                                    @change="vpn_change"
-                                    style="width: 100%;">
-                                <el-option
-                                        v-for="(item,index) in vpn_options"
-                                        :key="item.value"
-                                        :value="index"
-                                        :label="lang[item.value]"
-                                ></el-option>
-                            </el-select>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                <form_item>
+                    <span slot="param_help" v-html="lang.vpntype_help"></span>
+                    <span slot="param_name" >{{lang.vpntype}}</span>
+                    <el-select v-model="vpn_type"
+                               slot="param"
+                               size="small"
+                               @change="vpn_change"
+                               style="width: 100%;">
+                        <el-option
+                                v-for="(item,index) in vpn_options"
+                                :key="item.value"
+                                :value="index"
+                                :label="lang[item.value]"
+                        ></el-option>
+                    </el-select>
+                </form_item>
             </el-row>
 
             <component :is="current_components" :parent_data="vpn_data" ref="child_vpn"></component>
 
             <el-row v-if="current_components != ''">
-                <el-col :lg="12">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.connection_status_help"></div>
-                                <span>{{lang.connection_status}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-col :lg="18">
-                            <span v-for="(item,index) in vpn_options">
-                                <span v-if="vpn_type == index">
-                                    <i class="el-icon-loading" v-show="item.connection_status_icon" style="font-size: 20px;"></i>
-                                    <span v-show="!item.connection_status_icon">
-                                        <b v-if="item.connection_status === 1" style="color: #67C23A;">{{lang.connected}}</b>
-                                        <b v-else-if="item.connection_status === 0" style="color: #F56C6C;">{{lang.failed_to_connect}}</b>
-                                    </span>
+                <form_item>
+                    <span slot="param_help" v-html="lang.connection_status_help"></span>
+                    <span slot="param_name" >{{lang.connection_status}}</span>
+                    <div slot="param">
+                        <span v-for="(item,index) in vpn_options">
+                            <span v-if="vpn_type == index">
+                                <i class="el-icon-loading" v-show="item.connection_status_icon" style="font-size: 20px;"></i>
+                                <span v-show="!item.connection_status_icon">
+                                    <b v-if="item.connection_status === 1" style="color: #67C23A;">{{lang.connected}}</b>
+                                    <b v-else-if="item.connection_status === 0" style="color: #F56C6C;">{{lang.failed_to_connect}}</b>
                                 </span>
                             </span>
-                        </el-col>
-                    </el-form-item>
-                </el-col>
+                        </span>
+                    </div>
+                </form_item>
             </el-row>
 
         </el-card>
