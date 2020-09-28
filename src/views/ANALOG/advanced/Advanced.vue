@@ -131,7 +131,7 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.ring_cadence_help"></span>
                     <span slot="param_name" >{{lang.ring_cadence}}</span>
-                    <el-input slot="param" v-model="ind_ringcadence"></el-input>
+                    <el-input slot="param" v-model="ind_ringcadence" :readonly="country != 'custom'"></el-input>
                 </form_item>
             </el-row>
 
@@ -139,7 +139,7 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.dial_tone_help"></span>
                     <span slot="param_name" >{{lang.dial_tone}}</span>
-                    <el-input slot="param" v-model="ind_dial"></el-input>
+                    <el-input slot="param" v-model="ind_dial" :readonly="country != 'custom'"></el-input>
                 </form_item>
             </el-row>
 
@@ -147,7 +147,7 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.ring_tone_help"></span>
                     <span slot="param_name" >{{lang.ring_tone}}</span>
-                    <el-input slot="param" v-model="ind_ring"></el-input>
+                    <el-input slot="param" v-model="ind_ring" :readonly="country != 'custom'"></el-input>
                 </form_item>
             </el-row>
 
@@ -155,21 +155,15 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.busy_tone_help"></span>
                     <span slot="param_name" >{{lang.busy_tone}}</span>
-                    <el-input slot="param" v-model="ind_busy"></el-input>
+                    <el-input slot="param" v-model="ind_busy" :readonly="country != 'custom'"></el-input>
                 </form_item>
             </el-row>
 
             <el-row>
-                <form_item>
-                    <span slot="param_help" v-html="lang.busy_tone_help"></span>
-                    <span slot="param_name" >{{lang.busy_tone}}</span>
-                    <el-input slot="param" v-model="ind_busy"></el-input>
-                </form_item>
-
                 <form_item>
                     <span slot="param_help" v-html="lang.call_waiting_tone_help"></span>
                     <span slot="param_name" >{{lang.call_waiting_tone}}</span>
-                    <el-input slot="param" v-model="ind_callwaiting"></el-input>
+                    <el-input slot="param" v-model="ind_callwaiting" :readonly="country != 'custom'"></el-input>
                 </form_item>
             </el-row>
 
@@ -177,7 +171,7 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.congestion_tone_help"></span>
                     <span slot="param_name" >{{lang.congestion_tone}}</span>
-                    <el-input slot="param" v-model="ind_congestion"></el-input>
+                    <el-input slot="param" v-model="ind_congestion" :readonly="country != 'custom'"></el-input>
                 </form_item>
             </el-row>
 
@@ -185,7 +179,7 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.dial_recall_tone_help"></span>
                     <span slot="param_name" >{{lang.dial_recall_tone}}</span>
-                    <el-input slot="param" v-model="ind_dialrecall"></el-input>
+                    <el-input slot="param" v-model="ind_dialrecall" :readonly="country != 'custom'"></el-input>
                 </form_item>
             </el-row>
 
@@ -193,7 +187,7 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.record_tone_help"></span>
                     <span slot="param_name" >{{lang.record_tone}}</span>
-                    <el-input slot="param" v-model="ind_record"></el-input>
+                    <el-input slot="param" v-model="ind_record" :readonly="country != 'custom'"></el-input>
                 </form_item>
             </el-row>
 
@@ -201,7 +195,7 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.info_tone_help"></span>
                     <span slot="param_name" >{{lang.info_tone}}</span>
-                    <el-input slot="param" v-model="ind_info"></el-input>
+                    <el-input slot="param" v-model="ind_info" :readonly="country != 'custom'"></el-input>
                 </form_item>
             </el-row>
 
@@ -209,7 +203,7 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.stutter_tone_help"></span>
                     <span slot="param_name" >{{lang.stutter_tone}}</span>
-                    <el-input slot="param" v-model="ind_stutter"></el-input>
+                    <el-input slot="param" v-model="ind_stutter" :readonly="country != 'custom'"></el-input>
                 </form_item>
             </el-row>
         </el-card>
@@ -217,15 +211,12 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import {MENU} from "../../../store/mutations-types";
 
     export default {
         name: "Advanced",
         data(){
             return {
-                request: null,
-
                 toneduration: '',
                 toneinterval: '',
                 dialtimeout: '1800',
@@ -557,23 +548,35 @@
             change_succeed_back(data){
                 let data_temp = data['_get']['_glb']
 
-                this.ind_ringcadence = data_temp['_ringcadence']
-                this.ind_dial = data_temp['_dial']
-                this.ind_ring = data_temp['_ring']
-                this.ind_ring = data_temp['_busy']
-                this.ind_callwaiting = data_temp['_callwaiting']
-                this.ind_congestion = data_temp['_congestion']
-                this.ind_dialrecall = data_temp['_dialrecall']
-                this.ind_record = data_temp['_record']
-                this.ind_info = data_temp['_info']
-                this.ind_stutter = data_temp['_stutter']
+                if(this.country != 'custom') {
+                    this.ind_ringcadence = data_temp['_ringcadence']
+                    this.ind_dial = data_temp['_dial']
+                    this.ind_ring = data_temp['_ring']
+                    this.ind_busy = data_temp['_busy']
+                    this.ind_callwaiting = data_temp['_callwaiting']
+                    this.ind_congestion = data_temp['_congestion']
+                    this.ind_dialrecall = data_temp['_dialrecall']
+                    this.ind_record = data_temp['_record']
+                    this.ind_info = data_temp['_info']
+                    this.ind_stutter = data_temp['_stutter']
+                }else{
+                    this.ind_ringcadence = ''
+                    this.ind_dial = ''
+                    this.ind_ring = ''
+                    this.ind_busy = ''
+                    this.ind_callwaiting = ''
+                    this.ind_congestion = ''
+                    this.ind_dialrecall = ''
+                    this.ind_record = ''
+                    this.ind_info = ''
+                    this.ind_stutter = ''
+                }
             },
             change_error_back(){
                 console.log('Change country error!')
             }
         },
         created() {
-            this.request = new request()
             this.request.AGUcpAlgGlbSettingGetAll(this.show_succeed_back, this.show_error_back)
         }
     }

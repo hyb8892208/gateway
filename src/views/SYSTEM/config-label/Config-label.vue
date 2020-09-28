@@ -81,8 +81,6 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
-    import {language} from "../../../components/language";
     import {MENU} from "../../../store/mutations-types";
 
     export default {
@@ -136,7 +134,6 @@
             }
         },
         created() {
-            let req = new request()
             this.current_page = this.$route.query.page ? 1 : this.$route.query.page
             req.AGTagList(this.show_succeed_back, this.show_error_back, this.current_page)
         }

@@ -228,7 +228,6 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import {MENU} from "../../../store/mutations-types";
 
     export default {
@@ -236,8 +235,6 @@
         inject:['reload'],
         data(){
             return {
-                request: null,
-
                 language_value: 'english',
                 reboot_sw: false,
                 reboot_type_value: 'by_day',
@@ -421,7 +418,6 @@
             }
         },
         created() {
-            this.request = new request()
             this.request.AGSysGeneralGet(this.show_succeed_back, this.show_error_back)
         }
     }

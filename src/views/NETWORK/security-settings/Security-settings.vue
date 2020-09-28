@@ -76,15 +76,12 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import {MENU} from "../../../store/mutations-types";
 
     export default {
         name: "Security-settings",
         data(){
             return {
-                request: null,
-
                 firewall_enable: false,
                 ping_enable: false,
                 white_list_enable: false,
@@ -146,7 +143,6 @@
             }
         },
         created() {
-            this.request = new request()
             this.request.AGNetworkFirewallGet(this.show_succeed_back, this.show_error_back)
         }
     }

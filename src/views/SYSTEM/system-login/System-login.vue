@@ -122,7 +122,6 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import {MENU} from "../../../store/mutations-types";
 
     export default {
@@ -152,8 +151,6 @@
             };
 
             return{
-                request: null,
-
                 login_mode_value: 'http_https',
                 ssh_sw: false,//0 -> true, 1 -> false
                 ssh_port: '12345',
@@ -286,7 +283,6 @@
             }
         },
         created() {
-            this.request = new request()
             this.request.AGSysLoginGet(this.show_succeed_back, this.show_error_back)
         }
     }

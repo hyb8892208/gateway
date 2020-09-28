@@ -154,15 +154,12 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import {MENU} from "../../../store/mutations-types";
 
     export default {
         name: "fxo",
         data() {
             return {
-                request: null,
-
                 busydetect: false,
                 busycount: '',
                 busycountry: 'cn',
@@ -300,7 +297,6 @@
             }
         },
         created() {
-            this.request = new request()
             this.request.AGUcpAlgFxoparamGetAll(this.show_succeed_back, this.show_error_back)
         }
     }

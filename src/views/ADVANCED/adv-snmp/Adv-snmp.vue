@@ -432,7 +432,6 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import {MENU} from "../../../store/mutations-types";
 
     export default {
@@ -674,7 +673,6 @@
             }
         },
         created() {
-            this.request = new request()
             this.request.AGNetworkSnmpGet(this.show_succeed_back, this.show_error_back)
         }
     }

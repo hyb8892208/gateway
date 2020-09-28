@@ -630,7 +630,6 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import {MENU} from "../../../store/mutations-types";
 
     export default {
@@ -1173,7 +1172,6 @@
         },
 
         created() {
-            this.request = new request()
             if(this.$route.params.section == undefined){
                 this.request.AGSipEndpointsNewGet(this.show_succeed_back, this.show_error_back)
             }else{

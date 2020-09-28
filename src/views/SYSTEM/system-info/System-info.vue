@@ -33,7 +33,6 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import {clock} from "../../../components/clock";
     import {MENU} from "../../../store/mutations-types";
 
@@ -197,7 +196,6 @@
             }
         },
         created() {
-            this.request = new request()
             this.request.AGSystemInfoGet(this.show_succeed_back, this.show_error_back)
         },
         beforeDestroy() {

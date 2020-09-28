@@ -65,8 +65,6 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
-
     import OpenVpn from "./OpenVpn";
     import PPTPVpn from "./PPTPVpn";
     import L2TPVpn from "./L2TPVpn";
@@ -269,7 +267,6 @@
             }
         },
         created() {
-            this.request = new request()
             this.request.AGNetworkOpenvpnGet(this.show_succeed_back, this.show_error_back)
         }
     }

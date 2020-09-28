@@ -561,7 +561,6 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import {MENU} from "../../../store/mutations-types";
 
     const sip_methods = ['ACK','BYE', 'CANCEL', 'INFO', 'INVITE', 'MESSAGE', 'NOTIFY', 'OPTIONS', 'PRACK', 'PUBLISH', 'REFER', 'REGISTER', 'SUBSCRIBE', 'UPDATE']
@@ -932,7 +931,6 @@
             }
         },
         created() {
-            this.request = new request()
             this.request.AGSipAdvSettingGet(this.show_succeed_back, this.show_error_back)
         }
     }

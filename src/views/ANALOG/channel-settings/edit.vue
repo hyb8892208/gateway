@@ -322,7 +322,6 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request"
     import {MENU} from "../../../store/mutations-types";
 
     export default {

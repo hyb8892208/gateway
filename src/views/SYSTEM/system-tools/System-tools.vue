@@ -63,7 +63,6 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import {MENU} from "../../../store/mutations-types";
     import System_reboot from "./system_reboot";
     import Asterisk_reboot from "./asterisk_reboot";
@@ -131,7 +130,6 @@
             },
         },
         created() {
-            this.request = new request()
             this.request.AGSystemToolGet(this.show_succeed_back, this.show_error_back)
         }
     }

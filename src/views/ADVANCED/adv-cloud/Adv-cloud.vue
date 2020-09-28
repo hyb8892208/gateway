@@ -87,14 +87,12 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import {MENU} from "../../../store/mutations-types";
 
     export default {
         name: "Adv-cloud",
         data() {
             return {
-                request: null,
                 cloud_enable: false,
                 server: 'china',
                 customize_server: '',
@@ -251,7 +249,6 @@
             }
         },
         created() {
-            this.request = new request()
             this.request.AGAdvCloudGet(this.show_succeed_back, this.show_error_back)
         },
         beforeDestroy() {

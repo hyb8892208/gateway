@@ -41,7 +41,6 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import Analog from "./Analog";
     import SIP from "./SIP";
     import Routing from "./Routing";
@@ -85,10 +84,7 @@
             },
         },
         created() {
-            //请求数据
-            this.request = new request()
             this.request.AGSystemStatusGet(this.show_succeed_back, this.show_error_back)
-            console.log(this.request)
         }
     }
 </script>

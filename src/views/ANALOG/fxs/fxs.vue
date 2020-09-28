@@ -98,15 +98,12 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import {MENU} from "../../../store/mutations-types";
 
     export default {
         name: "fxs",
         data() {
             return {
-                request: null,
-
                 sendcalleridafter: '',
                 sendcalleridaftertime: '',
                 flashwink: false,
@@ -207,7 +204,6 @@
             }
         },
         created() {
-            this.request = new request()
             this.request.AGUcpAlgFxsparamGet(this.show_succeed_back, this.show_error_back)
         }
     }

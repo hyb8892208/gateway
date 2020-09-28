@@ -89,7 +89,6 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import {MENU} from "../../../store/mutations-types";
 
     export default {
@@ -227,9 +226,6 @@
             }
         },
         created() {
-            this.request = new request()
-
-            console.log()
             if(this.$route.params.group_name != undefined){
                 this.request.AGRoutingGroupGetOne(this.show_succeed_back, this.show_error_back, this.$route.params.group_name)
             }else{

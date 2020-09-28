@@ -37,14 +37,12 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import {MENU} from "../../../store/mutations-types";
 
     export default {
         name: "add",
         data() {
             return {
-                request: null,
                 filename: '',
                 content: '',
 
@@ -97,7 +95,6 @@
             }
         },
         created() {
-            this.request = new request()
             let section = ''
             if(this.$route.params.filename != undefined){
                 this.filename = this.$route.params.filename

@@ -158,7 +158,6 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import {MENU} from "../../../store/mutations-types";
 
     export default {
@@ -166,8 +165,6 @@
         inject:['reload'],
         data() {
             return {
-                request: null,
-
                 flex_routing_sw: false,//灵活路由开关
                 channel_type: 0,//0=>O口，1=>混合口，2=>S口
 
@@ -337,7 +334,6 @@
         created() {
             this.moduleCheckedTitles = this.modulecol.map(n => { return n.name })
 
-            this.request = new request()
             this.request.AGAlgChannelGetAll(this.show_succeed_back, this.show_error_back)
         }
     }

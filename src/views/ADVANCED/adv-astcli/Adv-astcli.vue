@@ -54,15 +54,12 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import {MENU} from "../../../store/mutations-types";
 
     export default {
         name: "Adv-astcli",
         data() {
             return {
-                request: null,
-
                 command: '',
                 command_result: [],
                 command_count: 0,
@@ -127,7 +124,6 @@
             }
         },
         created() {
-            this.request = new request()
             this.request.AGAdvAstcliGet(this.show_succeed_back, this.show_error_back)
         }
     }

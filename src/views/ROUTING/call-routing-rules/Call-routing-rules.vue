@@ -70,7 +70,6 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import {MENU} from "../../../store/mutations-types";
 
     export default {
@@ -183,7 +182,6 @@
         created() {
             this.ruleCheckedTitles = this.rulecol.map(n => { return n.name })
 
-            this.request = new request()
             this.request.AGRoutingRulsGetAll(this.show_succeed_back, this.show_error_back)
         }
     }

@@ -46,15 +46,12 @@
 </template>
 
 <script>
-    import {request} from "../../../network/request";
     import {MENU} from "../../../store/mutations-types";
 
     export default {
         name: "Dialtable",
         data(){
             return {
-                request: null,
-
                 current_rule: '',
 
                 lang: this.$store.state.lang
@@ -116,7 +113,6 @@
             }
         },
         created() {
-            this.request = new request()
             this.request.AGAlgDialtableGet(this.show_succeed_back, this.show_error_back)
         }
     }

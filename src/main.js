@@ -9,6 +9,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/display.css'
 import axios from 'axios'
 import form_item from "./components/form_item";
+import {request} from "./network/request";
 
 Vue.config.productionTip = false
 Vue.prototype.$axios = axios
@@ -16,6 +17,9 @@ let _lang = get_language()
 locale.use(_lang)
 Vue.use(ElementUI)
 Vue.component('form_item',form_item)
+
+//请求放到原型中
+Vue.prototype.request = new request()
 
 //设置cookie,增加到vue实例方便全局调用
 Vue.prototype.setCookie = (c_name, value, expiredays) => {
