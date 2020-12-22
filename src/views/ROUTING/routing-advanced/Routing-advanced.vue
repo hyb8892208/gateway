@@ -16,7 +16,7 @@
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left"><h3>{{lang.general}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.general}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -56,6 +56,8 @@
                 internalcallsw: false,
                 internalsipcallsw: false,
 
+                old_flex_routing_sw: false,
+
                 lang: this.$store.state.lang
             }
         },
@@ -68,6 +70,8 @@
                 this.flex_routing_sw = data['_get']['_FlexRoutingSw'] == 1 ? true : false
                 this.internalcallsw = data['_get']['_InternalCallSw'] == 1 ? true : false
                 this.internalsipcallsw = data['_get']['_InternalSipCallSw'] == 1 ? true : false
+
+                this.old_flex_routing_sw = data['_get']['_FlexRoutingSw'] == 1 ? true : false
             },
             show_error_back(){
                 this.$router.push('/common/error')
@@ -80,20 +84,33 @@
                 RoutingAdvSave._InternalCallSw = this.internalcallsw == true ? 1 : 0
                 RoutingAdvSave._InternalSipCallSw = this.internalsipcallsw == true ? 1 : 0
 
-                console.log(RoutingAdvSave)
-                this.request.AGRoutingAdvSave(this.save_succeed_back, this.save_error_back, RoutingAdvSave)
+                if(this.flex_routing_sw && !this.old_flex_routing_sw){
+                    this.$confirm(this.lang.flex_routing_switch_open_help)
+                        .then(_ => {
+                            this.request.AGRoutingAdvSave(this.save_succeed_back, this.save_error_back, RoutingAdvSave)
+                        })
+                        .catch(_ => {})
+                }else if(!this.flex_routing_sw && this.old_flex_routing_sw){
+                    this.$confirm(this.lang.flex_routing_switch_close_help)
+                        .then(_ => {
+                            this.request.AGRoutingAdvSave(this.save_succeed_back, this.save_error_back, RoutingAdvSave)
+                        })
+                        .catch(_ => {})
+                }else{
+                    this.request.AGRoutingAdvSave(this.save_succeed_back, this.save_error_back, RoutingAdvSave)
+                }
+
             },
             save_succeed_back(data){
-                console.log(data)
-
                 this.$message({
                     message: this.lang.save_successfully,
                     type: 'success',
                     offset: '80'
                 })
+                
+                window.location.reload()
             },
             save_error_back(data){
-                console.log(data)
                 console.log('save failed')
 
                 this.$message({

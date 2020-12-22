@@ -21,10 +21,10 @@
                      ref="ruleForm"
                      size="small">
 
-                <el-divider content-position="left"><h3>{{lang.web_login_settings}}</h3></el-divider>
+                <divider_item><span slot="title">{{lang.web_login_settings}}</span></divider_item>
 
                 <el-row>
-                    <form_item>
+                    <form_item v-bind:param="'username'">
                         <span slot="param_help" v-html="lang.username_help"></span>
                         <span slot="param_name" >{{lang.username}}</span>
                         <el-input slot="param" id="username" v-model="ruleForm.username"></el-input>
@@ -32,7 +32,7 @@
                 </el-row>
 
                 <el-row>
-                    <form_item>
+                    <form_item v-bind:param="'pass'">
                         <span slot="param_help" v-html="lang.password_help"></span>
                         <span slot="param_name" >{{lang.password}}</span>
                         <el-input slot="param" id="pass" show-password v-model="ruleForm.pass"></el-input>
@@ -40,7 +40,7 @@
                 </el-row>
 
                 <el-row>
-                    <form_item>
+                    <form_item v-bind:param="'confirm_password'">
                         <span slot="param_help" v-html="lang.confirm_password_help"></span>
                         <span slot="param_name" >{{lang.confirm_password}}</span>
                         <el-input slot="param" id="confirm_password" show-password v-model="ruleForm.confirm_password"></el-input>
@@ -68,7 +68,7 @@
                 </el-row>
 
                 <el-row>
-                    <form_item>
+                    <form_item v-bind:param="'http_port'">
                         <span slot="param_help" v-html="lang.https_port_help"></span>
                         <span slot="param_name" >{{lang.http_port}}</span>
                         <el-input slot="param" id="http_port" v-model.number="ruleForm.http_port" :disabled="http_disabled"></el-input>
@@ -76,14 +76,14 @@
                 </el-row>
 
                 <el-row>
-                    <form_item>
+                    <form_item v-bind:param="'https_port'">
                         <span slot="param_help" v-html="lang.https_port_help"></span>
                         <span slot="param_name" >{{lang.https_port}}</span>
                         <el-input slot="param" id="https_port" v-model.number="ruleForm.https_port" :disabled="https_disabled"></el-input>
                     </form_item>
                 </el-row>
 
-                <el-divider content-position="left"><h3>{{lang.ssh_login_settings}}</h3></el-divider>
+                <divider_item><span slot="title">{{lang.ssh_login_settings}}</span></divider_item>
 
                 <el-row>
                     <form_item>
@@ -94,7 +94,7 @@
                 </el-row>
 
                 <el-row>
-                    <form_item>
+                    <form_item v-bind:param="'ssh_username'">
                         <span slot="param_help" v-html="lang.username_help"></span>
                         <span slot="param_name" >{{lang.username}}</span>
                         <el-input slot="param" id="ssh_username" v-model="ruleForm.ssh_username"></el-input>
@@ -102,7 +102,7 @@
                 </el-row>
 
                 <el-row>
-                    <form_item>
+                    <form_item v-bind:param="'ssh_password'">
                         <span slot="param_help" v-html="lang.password_help"></span>
                         <span slot="param_name" >{{lang.password}}</span>
                         <el-input slot="param" id="ssh_password" show-password v-model="ruleForm.ssh_password"></el-input>
@@ -128,27 +128,113 @@
         name: "System-login",
         inject:['reload'],
         data(){
-            var validatePass = (rule, value, callback) => {
-                // if (value === '') {
-                //     callback(new Error('请输入密码'));
-                // } else {
-                    if (this.ruleForm.pass !== '') {
-                        this.$refs.ruleForm.validateField('password');
-                    }
-                    callback();
-               // }
-            }
+            var validateUsername = (rule, value, callback) => {
+                let rex=/^[-_+.<>&0-9a-zA-Z]{1,32}$/i;
 
-            var validateConfirmPass = (rule, value, callback) => {
-                // if (value === '') {
-                //     callback(new Error('请输入确认密码'));
-                // } else
-                if (value !== this.ruleForm.pass) {
-                    callback(new Error('两次输入密码不一致!'));
-                } else {
-                    callback();
+                if(value == '' && this.ruleForm.pass == ''){
+                    callback()
+                }else if(value == '' && this.ruleForm.pass != '') {
+                    callback(new Error(this.lang.check_username))
+                }else if(!rex.test(value)){
+                    callback(new Error(this.lang.check_diyname))
+                }else{
+                    callback()
                 }
             };
+
+            var validatePass = (rule, value, callback) => {
+                let rex=/^[-_+.<>&0-9a-zA-Z]{4,32}$/i;
+
+                if(value == '' && this.ruleForm.username == ''){
+                    callback()
+                }else if (value == '' && this.ruleForm.username != '') {
+                    callback(new Error(this.lang.password_should_not_be_null))
+                }else if(!rex.test(value)){
+                    callback(new Error(this.lang.check_diypwd))
+                }else{
+                    callback()
+                }
+            };
+
+            var validateConfirmPass = (rule, value, callback) => {
+                if(value == '' && this.ruleForm.pass == ''){
+                    callback()
+                }else if(value == '' && this.ruleForm.pass != ''){
+                    callback(new Error(this.lang.confirm_password_should_not_be_null))
+                }else if (value !== this.ruleForm.pass) {
+                    callback(new Error(this.lang.confirm_password_warning))
+                } else {
+                    callback()
+                }
+            };
+
+            var validateHttpPort = (rule, value, callback) => {
+                var deny_port_list = new Array(5038,5039,5040,5041,5042,5060,12345,12346,12347,12348,12349,8000,56888);
+                var allow = true;
+                for (var i in deny_port_list){
+                    if(value == deny_port_list[i]){
+                        allow = false;
+                        break;
+                    }
+                }
+
+                if((value < 1024 && value != 80 ) || value > 65535 || allow == false){
+                    callback(new Error(this.lang.webserver_http_help))
+                }else{
+                    callback()
+                }
+            };
+
+            var validateHttpsPort = (rule, value, callback) => {
+                var deny_port_list = new Array(5038,5039,5040,5041,5042,5060,12345,12346,12347,12348,12349,8000,56888);
+                var allow_https = true;
+                for (var i in deny_port_list){
+                    if(value == deny_port_list[i]){
+                        allow_https = false;
+                        break;
+                    }
+                }
+
+                if((value < 1024 && value != 443) || value > 65535 || allow_https == false){
+                    callback(new Error(this.lang.webserver_https_help))
+                }else{
+                    callback()
+                }
+            }
+
+            var validateSSHUsername = (rule, value, callback) => {
+                var rex=/^[-_+.<>&0-9a-zA-Z]{1,25}$/i;
+
+                if(this.ssh_sw){
+                    if(value == ''){
+                        callback(new Error(this.lang.check_username))
+                    }else if(value == 'root'){
+                        callback(new Error(this.lang.check_username_root))
+                    }else if(!rex.test(value)){
+                        callback(new Error(this.lang.check_ssh_diyname))
+                    }else{
+                        callback()
+                    }
+                }else{
+                    callback()
+                }
+            }
+
+            var validateSSHPassword = (rule, value, callback) => {
+                var rex=/^[-_+.<>&0-9a-zA-Z]{4,32}$/i;
+
+                if(this.ssh_sw){
+                    if(value == ''){
+                        callback(new Error(this.lang.password_should_not_be_null))
+                    }else if(!rex.test(value)){
+                        callback(new Error(this.lang.check_diypwd))
+                    }else{
+                        callback()
+                    }
+                }else{
+                    callback()
+                }
+            }
 
             return{
                 login_mode_value: 'http_https',
@@ -181,12 +267,27 @@
                     ssh_password: '',
                 },
                 rules: {
+                    username: [
+                        { validator: validateUsername, trigger: 'blur' }
+                    ],
                     pass: [
                         { validator: validatePass, trigger: 'blur' }
                     ],
                     confirm_password: [
                         { validator: validateConfirmPass, trigger: 'blur' }
                     ],
+                    http_port: [
+                        { validator: validateHttpPort, trigger: 'blur' }
+                    ],
+                    https_port: [
+                        { validator: validateHttpsPort, trigger: 'blur'}
+                    ],
+                    ssh_username: [
+                        { validator: validateSSHUsername, trigger: 'blur'}
+                    ],
+                    ssh_password: [
+                        { validator: validateSSHPassword, trigger: 'blur'}
+                    ]
                 },
 
                 lang: this.$store.state.lang
@@ -267,7 +368,7 @@
                             console.log(res)
 
                             this.$message({
-                                message: '恭喜你，保存成功',
+                                message: this.lang.save_successfully,
                                 type: 'success',
                                 offset: '80'
                             })
@@ -280,6 +381,12 @@
             },
             save_error_back(){
                 console.log('save error')
+
+                this.$message({
+                    message: this.lang.save_failed,
+                    type: 'error',
+                    offset: '80'
+                })
             }
         },
         created() {

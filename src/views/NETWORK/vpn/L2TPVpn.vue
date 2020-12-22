@@ -1,6 +1,6 @@
 <template>
     <el-row>
-        <el-divider content-position="left"><h3>{{lang.l2tp_vpn_settings}}</h3></el-divider>
+        <divider_item><span slot="title">{{lang.l2tp_vpn_settings}}</span></divider_item>
 
         <el-row>
             <form_item>
@@ -12,25 +12,25 @@
 
         <el-row>
             <form_item>
-                <span slot="param_help" v-html="lang.server_help"></span>
+                <span slot="param_help" v-html="lang.l2tpvpn_server"></span>
                 <span slot="param_name" >{{lang.server}}</span>
-                <el-input slot="param" v-model="server"></el-input>
+                <el-input slot="param" v-model="server" :disabled="!enable"></el-input>
             </form_item>
         </el-row>
 
         <el-row>
             <form_item>
-                <span slot="param_help" v-html="lang.username_help"></span>
+                <span slot="param_help" v-html="lang.l2tpvpn_username"></span>
                 <span slot="param_name" >{{lang.username}}</span>
-                <el-input slot="param" v-model="username"></el-input>
+                <el-input slot="param" v-model="username" :disabled="!enable"></el-input>
             </form_item>
         </el-row>
 
         <el-row>
             <form_item>
-                <span slot="param_help" v-html="lang.password_help"></span>
+                <span slot="param_help" v-html="lang.l2tpvpn_password"></span>
                 <span slot="param_name" >{{lang.password}}</span>
-                <el-input slot="param" v-model="password" show-password></el-input>
+                <el-input slot="param" v-model="password" show-password :disabled="!enable"></el-input>
             </form_item>
         </el-row>
 
@@ -38,7 +38,7 @@
             <form_item>
                 <span slot="param_help" v-html="lang.ipsec_help"></span>
                 <span slot="param_name" >{{lang.ipsec}}</span>
-                <el-checkbox slot="param" v-model="ipsec"></el-checkbox>
+                <el-checkbox slot="param" v-model="ipsec" :disabled="!enable"></el-checkbox>
             </form_item>
         </el-row>
 
@@ -46,7 +46,7 @@
             <form_item>
                 <span slot="param_help" v-html="lang.ipsec_password_help"></span>
                 <span slot="param_name" >{{lang.ipsec_password}}</span>
-                <el-input slot="param" v-model="ipsec_password" show-password></el-input>
+                <el-input slot="param" v-model="ipsec_password" show-password :disabled="!enable"></el-input>
             </form_item>
         </el-row>
     </el-row>

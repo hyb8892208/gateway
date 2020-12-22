@@ -3,13 +3,16 @@
           :label-position="$store.state.page.labelPosition"
           label-width="250px"
           class="change-label-class"
+          :rules="rules"
+          :model="ruleForm"
+          ref="ruleForm"
           size="small">
     <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;padding-left: 20px;">
         <h1 style="line-height: 50px;font-size: 18px;">
             {{lang.time_settings}}
             <div style="float: right;line-height: 50px;margin-right: 20px;">
-                <el-button type="primary" size="small" @click="sync_from_ntp">{{lang.sync_ntp}}</el-button>
-                <el-button type="primary" size="small" @click="sync_from_client">{{lang.sync_client}}</el-button>
+                <el-button type="primary" size="small" @click="ntpValidator('ruleForm', 'ntp')">{{lang.sync_ntp}}</el-button>
+                <el-button type="primary" size="small" @click="ntpValidator('ruleForm', 'client')">{{lang.sync_client}}</el-button>
             </div>
         </h1>
     </div>
@@ -52,26 +55,26 @@
         </el-row>
 
         <el-row>
-            <form_item>
+            <form_item v-bind:param="'ntp_server1'">
                 <span slot="param_help" v-html="lang.ntp_server1_help"></span>
                 <span slot="param_name" >{{lang.ntp_server1}}</span>
-                <el-input slot="param" id="ntp_server1" v-model="ntp_server1" ></el-input>
+                <el-input slot="param" id="ntp_server1" v-model="ruleForm.ntp_server1" ></el-input>
             </form_item>
         </el-row>
 
         <el-row>
-            <form_item>
+            <form_item v-bind:param="'ntp_server2'">
                 <span slot="param_help" v-html="lang.ntp_server2_help"></span>
                 <span slot="param_name" >{{lang.ntp_server2}}</span>
-                <el-input slot="param" id="ntp_server2" v-model="ntp_server2" ></el-input>
+                <el-input slot="param" id="ntp_server2" v-model="ruleForm.ntp_server2" ></el-input>
             </form_item>
         </el-row>
 
         <el-row>
-            <form_item>
+            <form_item v-bind:param="'ntp_server3'">
                 <span slot="param_help" v-html="lang.ntp_server3_help"></span>
                 <span slot="param_name" >{{lang.ntp_server3}}</span>
-                <el-input slot="param" id="ntp_server3" v-model="ntp_server3" ></el-input>
+                <el-input slot="param" id="ntp_server3" v-model="ruleForm.ntp_server3" ></el-input>
             </form_item>
         </el-row>
 
@@ -442,13 +445,41 @@
         name: "System-time",
         inject:['reload'],
         data() {
+            var ntpserver = (rule, value, callback) => {
+                let rex1 = /^(([a-z0-9](w|-){0,61}?[a-z0-9]|[a-z0-9]).){1,}(aero|arpa|asia|biz|cat|com|coop|co|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])(.[a-z][a-z]){0,1}$/i;
+                let rex2 = /^((2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)\.){3}(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)$/i;
+                if(value == ''){
+                    callback()
+                }else if(value.length > 31) {
+                    callback(new Error(this.lang.limit_character))
+                }else if(!rex1.test(value) && !rex2.test(value)) {
+                    callback(new Error(this.lang.check_domain))
+                }else{
+                    callback()
+                }
+            };
+
             return {
+                ruleForm: {
+                    ntp_server1: '',
+                    ntp_server2: '',
+                    ntp_server3: ''
+                },
+                rules: {
+                    ntp_server1: [
+                        { validator: ntpserver, trigger: 'blur' }
+                    ],
+                    ntp_server2: [
+                        { validator: ntpserver, trigger: 'blur' }
+                    ],
+                    ntp_server3: [
+                        { validator: ntpserver, trigger: 'blur' }
+                    ]
+                },
+
                 currenttime: '',//时钟
                 timezone_value: '',//时区的值
                 show_TZ: '',//显示时区
-                ntp_server1: '',
-                ntp_server2: '',
-                ntp_server3: '',
                 auto_sync_sw: '',//自动同步开关
 
                 sync_result: '',
@@ -480,9 +511,9 @@
                 let autosync = this.auto_sync_sw == true ? 'on' : 'off'
                 systime._autosync = autosync
 
-                systime._ntp1 = this.ntp_server1
-                systime._ntp2 = this.ntp_server2
-                systime._ntp3 = this.ntp_server3
+                systime._ntp1 = this.ruleForm.ntp_server1
+                systime._ntp2 = this.ruleForm.ntp_server2
+                systime._ntp3 = this.ruleForm.ntp_server3
 
                 let SysTimeSave = new AST_SysTimeSave()
                 SysTimeSave._time = systime
@@ -507,23 +538,41 @@
                 return zonefile
             },
             handleClose(){
-                this.$confirm('确认关闭？')
-                    .then(_ => {
-                        this.dialogVisible = false
-                        //更新页面参数时间
-                        this.reload()
-                    })
+                if(this.sync_result == '') {
+                    this.$confirm(this.lang.dialog_close_confirm)
+                        .then(_ => {
+                            this.dialogVisible = false
+                            //更新页面参数时间
+                            this.reload()
+                        })
+                }else{
+                    this.dialogVisible = false
+                    this.reload()
+                }
             },
             Close_report(){
                 this.dialogVisible = false
                 //更新页面参数时间
                 this.reload()
             },
+            ntpValidator(formName, type){
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        if(type == 'ntp'){
+                            this.sync_from_ntp()
+                        }else{
+                            this.sync_from_client()
+                        }
+                    } else {
+                        return false;
+                    }
+                });
+            },
             sync_from_ntp(){
                 this.dialogVisible = true
                 this.loading = this.$loading({//在dialog容器中增加loading
                     lock: false,
-                    text: this.lang.ntp_running_tip+'...',
+                    text: this.lang.ntp_running_tip + '...',
                     background: '#ffffff',
                     target: '.el-dialog',
                     body: false,
@@ -581,9 +630,9 @@
 
                 this.timezone_value = _time['_timezone']
                 this.show_TZ = this.timezone_value.split('@')[1]
-                this.ntp_server1 = _time['_ntp1']
-                this.ntp_server2 = _time['_ntp2']
-                this.ntp_server3 = _time['_ntp3']
+                this.ruleForm.ntp_server1 = _time['_ntp1']
+                this.ruleForm.ntp_server2 = _time['_ntp2']
+                this.ruleForm.ntp_server3 = _time['_ntp3']
 
                 this.auto_sync_sw = _time['_autosync'] == 'on' ? true : false
             },
@@ -595,11 +644,11 @@
                 this.loading.close()
 
                 if(data['_result'] == 'ok1'){
-                    this.sync_result = `NTP: ${this.ntp_server1} ${this.lang.synchronize_succeeded}`
+                    this.sync_result = `NTP: ${this.ruleForm.ntp_server1} ${this.lang.synchronize_succeeded}`
                 }else if(data['_result'] == 'ok2'){
-                    this.sync_result = `NTP: ${this.ntp_server2} ${this.lang.synchronize_succeeded}`
+                    this.sync_result = `NTP: ${this.ruleForm.ntp_server2} ${this.lang.synchronize_succeeded}`
                 }else if(data['_result'] == 'ok3') {
-                    this.sync_result = `NTP: ${this.ntp_server3} ${this.lang.synchronize_succeeded}`
+                    this.sync_result = `NTP: ${this.ruleForm.ntp_server3} ${this.lang.synchronize_succeeded}`
                 }else {
                     this.sync_result = `NTP: ${this.lang.synchronize_failed}`
                 }
@@ -608,10 +657,9 @@
                 console.log('sync ntp error')
                 this.loading.close()
                 //这里处理为成功，因为同步时间成功的时候会返回失败
-                this.sync_result = `NTP: ${this.ntp_server1} ${this.lang.synchronize_succeeded}`
+                this.sync_result = `NTP: ${this.ruleForm.ntp_server1} ${this.lang.synchronize_succeeded}`
             },
             client_succeed_back(data){
-                console.log(data)
                 this.loading.close()
                 if(data['_result'] == 'ok'){
                     this.sync_result = `Client: ${this.lang.synchronize_succeeded}`

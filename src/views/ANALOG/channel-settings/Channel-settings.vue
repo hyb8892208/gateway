@@ -14,7 +14,7 @@
             </h1>
         </div>
 
-        <el-card shadow="never" style="margin:auto;margin-top:20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
+        <el-card shadow="never" style="margin:auto;margin-top:20px;margin-bottom: 50px;" :style=$store.state.page.card_list_width>
             <div style="background-color: #ffffff ;padding: 8px 20px;border-bottom: 1px solid #999999;">
                 <el-popover
                         placement="bottom"
@@ -133,6 +133,7 @@
                     <template slot-scope="scope">
                         <el-button
                                 type="danger"
+                                @click="Unlimit(scope.row.port)"
                                 v-if="scope.row.call_status == 1"
                                 size="mini">
                             {{lang.limited}}
@@ -269,9 +270,9 @@
                         'name': name,
                         'line_status': line_status,
                         'port_status': port_status,
-                        'hour_call_count': ana_data[i]['_hourtotal'],
-                        'daily_call_count': ana_data[i]['_daytotal'],
-                        'daily_answer_count': ana_data[i]['_answertotal'],
+                        'hour_call_count': limit_sta[i]['_hourtotal'],
+                        'daily_call_count': limit_sta[i]['_daytotal'],
+                        'daily_answer_count': limit_sta[i]['_answertotal'],
                         'call_status': limit_sta[i]['_limitsta']
                     }
 
@@ -290,6 +291,30 @@
 
             edit(port){
                 this.$router.push('/Analog/Channel-settings/edit/'+port)
+            },
+
+            Unlimit(port){
+                this.$confirm(this.lang.unlimit_tip).then(_ => {
+                    this.request.AGAlgChannelUnlimited(this.unlimit_succeed_back, this.unlimit_error_back, port)
+                })
+                .catch(_ => {})
+            },
+
+            unlimit_succeed_back(){
+                this.$message({
+                    message: this.lang.successfully,
+                    type: 'success',
+                    offset: '80'
+                })
+
+                this.reload()
+            },
+            unlimit_error_back(){
+                this.$message({
+                    message: this.lang.FAILED,
+                    type: 'error',
+                    offset: '80'
+                })
             },
 
             Save(){
@@ -320,7 +345,7 @@
                 console.log('error')
 
                 this.$message({
-                    message: '保存失败，发生未知错误',
+                    message: this.lang.save_failed,
                     type: 'error',
                     offset: '80'
                 })

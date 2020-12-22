@@ -19,7 +19,8 @@
         </div>
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
-            <el-divider content-position="left"><h3>{{lang.snmp_parameter}}</h3></el-divider>
+
+            <divider_item><span slot="title">{{lang.snmp_parameter}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -66,7 +67,8 @@
             </el-row>
 
             <div v-if="snmp_version == '0'">
-                <el-divider content-position="left"><h3>{{lang.community_configuration}}(V1)</h3></el-divider>
+
+                <divider_item><span slot="title">{{lang.community_configuration}}(V1)</span></divider_item>
 
                 <el-row>
                     <form_item>
@@ -90,7 +92,7 @@
                     </form_item>
                 </el-row>
 
-                <el-divider content-position="left"><h3>{{lang.group_configuration}}(V1)</h3></el-divider>
+                <divider_item><span slot="title">{{lang.group_configuration}}(V1)</span></divider_item>
 
                 <el-row>
                     <form_item>
@@ -106,7 +108,7 @@
                     </form_item>
                 </el-row>
 
-                <el-divider content-position="left"><h3>{{lang.view_configuration}}(V1)</h3></el-divider>
+                <divider_item><span slot="title">{{lang.view_configuration}}(V1)</span></divider_item>
 
                 <el-row>
                     <form_item>
@@ -140,7 +142,7 @@
                     </form_item>
                 </el-row>
 
-                <el-divider content-position="left"><h3>{{lang.access_configuration}}(V1)</h3></el-divider>
+                <divider_item><span slot="title">{{lang.access_configuration}}(V1)</span></divider_item>
 
                 <el-row>
                     <form_item>
@@ -181,7 +183,8 @@
             </div>
 
             <div v-if="snmp_version == '1'">
-                <el-divider content-position="left"><h3>{{lang.community_configuration}}(V2)</h3></el-divider>
+
+                <divider_item><span slot="title">{{lang.community_configuration}}(V2)</span></divider_item>
 
                 <el-row>
                     <form_item>
@@ -205,7 +208,7 @@
                     </form_item>
                 </el-row>
 
-                <el-divider content-position="left"><h3>{{lang.group_configuration}}(V2)</h3></el-divider>
+                <divider_item><span slot="title">{{lang.group_configuration}}(V2)</span></divider_item>
 
                 <el-row>
                     <form_item>
@@ -221,7 +224,7 @@
                     </form_item>
                 </el-row>
 
-                <el-divider content-position="left"><h3>{{lang.view_configuration}}(V2)</h3></el-divider>
+                <divider_item><span slot="title">{{lang.view_configuration}}(V2)</span></divider_item>
 
                 <el-row>
                     <form_item>
@@ -254,7 +257,7 @@
                     </form_item>
                 </el-row>
 
-                <el-divider content-position="left"><h3>{{lang.access_configuration}}(V2)</h3></el-divider>
+                <divider_item><span slot="title">{{lang.access_configuration}}(V2)</span></divider_item>
 
                 <el-row>
                     <form_item>
@@ -295,7 +298,8 @@
             </div>
 
             <div v-if="snmp_version == '2'">
-                <el-divider content-position="left"><h3>{{lang.user_configuration}}(V3)</h3></el-divider>
+
+                <divider_item><span slot="title">{{lang.user_configuration}}(V3)</span></divider_item>
 
                 <el-row>
                     <form_item>
@@ -339,7 +343,7 @@
                     </form_item>
                 </el-row>
 
-                <el-divider content-position="left"><h3>{{lang.group_configuration}}(V3)</h3></el-divider>
+                <divider_item><span slot="title">{{lang.group_configuration}}(V3)</span></divider_item>
 
                 <el-row>
                     <form_item>
@@ -355,7 +359,7 @@
                     </form_item>
                 </el-row>
 
-                <el-divider content-position="left"><h3>{{lang.view_configuration}}(V3)</h3></el-divider>
+                <divider_item><span slot="title">{{lang.view_configuration}}(V3)</span></divider_item>
 
                 <el-row>
                     <form_item>
@@ -388,7 +392,7 @@
                     </form_item>
                 </el-row>
 
-                <el-divider content-position="left"><h3>{{lang.access_configuration}}(V3)</h3></el-divider>
+                <divider_item><span slot="title">{{lang.access_configuration}}(V3)</span></divider_item>
 
                 <el-row>
                     <form_item>

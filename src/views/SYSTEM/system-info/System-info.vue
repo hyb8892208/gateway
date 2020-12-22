@@ -24,6 +24,15 @@
                         <span v-if="scope.row.key == 'memory_usage'">
                             <el-link type="primary" @click="memory_clean">{{lang.memory_clean}}</el-link>
                         </span>
+
+                        <span v-else-if="scope.row.key == 'e_mail'">
+                            <el-link type="primary" :href="'mailto:'+scope.row.value">{{scope.row.value}}</el-link>
+                        </span>
+
+                        <span v-else-if="scope.row.key == 'web_site'">
+                            <el-link type="primary" :href="scope.row.value" target="_blank">{{scope.row.value}}</el-link>
+                        </span>
+
                         <span v-else>{{scope.row.value}}</span>
                     </template>
                 </el-table-column>

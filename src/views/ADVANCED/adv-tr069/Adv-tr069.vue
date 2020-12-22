@@ -18,7 +18,7 @@
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left"><h3>{{lang.general}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.general}}</span></divider_item>
 
             <el-row>
                 <el-row>
@@ -172,7 +172,7 @@
                 this.model_name = data_temp['_modelname']
                 this.periodic_inform_enable = data_temp['_periodicenable'] == 1 ? true : false
                 this.periodic_inform_interval = data_temp['_periodicinterval']
-                this.connection_request_url = data_temp['_requesturl']
+                this.connection_request_url = data_temp['_requesturl'] == '' ? 'http://'+window.location.host+':7547' : data_temp['_requesturl']
                 this.connection_request_username = data_temp['_requestusername']
                 this.connection_request_password = data_temp['_requestpasswd']
 
@@ -195,8 +195,10 @@
                 console.log(data)
                 let result = data['_tr069status']
                 this.connect_code = result
-                if(result == 200){
+                if(result == 200) {
                     this.connection_status = this.lang.connected
+                }else if(result == -1){
+                    this.failed_to_connect = ''
                 }else{
                     this.failed_to_connect = this.lang.failed_to_connect
                 }

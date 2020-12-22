@@ -13,7 +13,7 @@
             </h1>
         </div>
 
-        <el-card shadow="never" style="margin:auto;margin-top:20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
+        <el-card shadow="never" style="margin:auto;margin-top:20px;margin-bottom: 50px;" :style=$store.state.page.card_list_width>
             <el-table
                     :data="sipData"
                     border
@@ -148,6 +148,7 @@
 
     export default {
         name: "Sip-bendpoints",
+        inject: ['reload'],
         data() {
             return {
                 sipData: [{
@@ -196,6 +197,8 @@
                     value: 'solo'
                 }],
 
+                used_sip_arr: [],
+                autopassword_checked: false,
                 selected_sip: [],//保存多选框选中的选项
 
                 lang: this.$store.state.lang
@@ -215,6 +218,7 @@
                 this.$store.commit(MENU, common_data)
 
                 let _ana = data['_sipbend']['_ana']['_item']
+                this.used_sip_arr = data['_sipbend']['_sections']['_item']
 
                 for(let i=0;i<_ana.length;i++){
                     if(_ana[i]['_signalling'] == 2 || _ana[i]['_signalling'] == 3) continue
@@ -243,14 +247,19 @@
                 this.selected_sip = val
             },
             batch(){
+                console.log(this.autopassword_checked)
                 let n = 0
 
                 this.selected_sip.forEach((item,index) => {
                     this.selected_sip[index].username = isNaN(parseInt(this.sipData[0].username) + n)
                         ? '' : (parseInt(this.sipData[0].username) + n)
 
-                    this.selected_sip[index].password = isNaN(parseInt(this.sipData[0].password) + n)
-                        ? '' : (parseInt(this.sipData[0].password) + n)
+                    if(this.autopassword_checked) {
+                        this.selected_sip[index].password = isNaN(parseInt(this.sipData[0].password) + n)
+                            ? '' : (parseInt(this.sipData[0].password) + n)
+                    }else{
+                        this.selected_sip[index].password = parseInt(this.sipData[0].password)
+                    }
 
                     this.selected_sip[index].host = this.sipData[0].host
                     this.selected_sip[index].back_host = this.sipData[0].back_host
@@ -263,11 +272,6 @@
             },
             autopassword(checked){
                 if(checked){
-                    this.selected_sip.forEach((item,index) => {
-                        this.selected_sip[index].password = isNaN(parseInt(this.sipData[0].password))
-                            ? '' : (parseInt(this.sipData[0].password))
-                    })
-                }else{
                     let n=0
                     this.selected_sip.forEach((item,index) => {
                         this.selected_sip[index].password = isNaN(parseInt(this.sipData[0].password) + n)
@@ -275,11 +279,29 @@
 
                         n++
                     })
+
+                    this.autopassword_checked = true
+                }else{
+                    this.selected_sip.forEach((item,index) => {
+                        this.selected_sip[index].password = isNaN(parseInt(this.sipData[0].password))
+                            ? '' : (parseInt(this.sipData[0].password))
+                    })
+
+                    this.autopassword_checked = false
                 }
             },
             Save(){
                 const SipBendArr = new AST_SipBendArr()
                 const SipAnalogArr = new AST_SipAnalogArr()
+
+                let repeat_sip_arr = []
+                this.selected_sip.forEach(item => {
+                    for(let i=0;i<this.used_sip_arr.length;i++){
+                        if(item.username == this.used_sip_arr[i]._section){
+                            repeat_sip_arr.push(item.username)
+                        }
+                    }
+                })
 
                 //遍历选中选项
                 this.selected_sip.forEach(item => {
@@ -324,8 +346,18 @@
                 SipBendSave._sip = SipBendArr
                 SipBendSave._ana = SipAnalogArr
 
-                console.log(SipBendSave)
-                this.request.AGSipBendpointSave(this.save_succeed_back, this.save_error_back, SipBendSave);
+                if(repeat_sip_arr.length > 0){
+                    let message = repeat_sip_arr.join(',')+ " " +this.lang.port_binding_overwrite_confirm
+
+                    this.$confirm(message)
+                        .then(_ => {
+                            this.request.AGSipBendpointSave(this.save_succeed_back, this.save_error_back, SipBendSave)
+                        })
+                    .catch(_ => {})
+                }else{
+                    this.request.AGSipBendpointSave(this.save_succeed_back, this.save_error_back, SipBendSave)
+                }
+
             },
             save_succeed_back(data){
                 console.log(data)
@@ -335,7 +367,7 @@
                     offset: '80'
                 })
 
-                this.$router.push('/SIP/Voip-endpoints')
+                this.reload()
             },
             save_error_back(){
                 console.log('save failed')

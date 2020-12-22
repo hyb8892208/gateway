@@ -10,7 +10,7 @@
                        @click="Add()">{{lang.add}}</el-button>
         </el-row>
 
-        <el-card shadow="never" style="margin:auto;margin-top:10px;margin-bottom: 50px;" :style=$store.state.page.card_width>
+        <el-card shadow="never" style="margin:auto;margin-top:10px;margin-bottom: 50px;" :style=$store.state.page.card_list_width>
             <div style="background-color: #ffffff ;padding: 8px 20px;border-bottom: 1px solid #999999;">
                 <el-popover
                         placement="bottom"
@@ -124,7 +124,7 @@
                 this.$router.push('/Routing/Group/add/'+group_name)
             },
             Delete(group_name){
-                this.$confirm('确定删除'+group_name+'组吗？')
+                this.$confirm(this.lang.delete_confirm)
                     .then(_ => {
                         let SectionArr = new AST_SectionArr()
                         let section = new AST_Section()
@@ -137,7 +137,7 @@
             },
             del_succeed_back(data){
                 this.$message({
-                    message: '删除成功',
+                    message: this.lang.successfully_deleted,
                     type: 'success',
                     offset: '80'
                 })
@@ -146,7 +146,7 @@
             },
             del_error_back(){
                 this.$message({
-                    message: '删除失败',
+                    message: this.lang.failed_to_delete,
                     type: 'error',
                     offset: '80'
                 })

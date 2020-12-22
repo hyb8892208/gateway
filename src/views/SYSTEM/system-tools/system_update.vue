@@ -18,6 +18,8 @@
                                     :auto-upload="false"
                                     :data="{action:'upload',page_name:'system-tools',type:'system_update'}"
                                     :on-success="system_upload_succeed"
+                                    :before-upload="before_upload"
+                                    limit="1"
                                     style="width: 100%;">
                                 <el-button type="button" style="width: 100%;">
                                     <i class="el-icon-folder-opened"></i>
@@ -131,6 +133,13 @@
             fileware_error_back(){
                 this.loading.close()
                 this.update_result = this.lang.system_update_failed
+            },
+            before_upload(file){
+                if(file.name.indexOf('.bin') == -1){
+                    this.loading.close()
+                    this.update_result = this.lang.fireware_upload_help
+                    return false
+                }
             },
             system_upload_succeed(){
                 this.$message({

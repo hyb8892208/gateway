@@ -4,6 +4,8 @@
             label-width="250px"
             class="change-label-class"
             ref="ruleForm"
+            :rules="rules"
+            :model="ruleForm"
             size="small">
         <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;padding-left: 20px;">
             <h1 style="line-height: 50px;font-size: 18px;">
@@ -12,14 +14,14 @@
                     <el-button
                             type="primary"
                             size="small"
-                            @click="Save()">{{lang.save}}</el-button>
+                            @click="submitValidator('ruleForm')">{{lang.save}}</el-button>
                 </div>
             </h1>
         </div>
 
-        <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
+        <el-card shadow="never" v-loading="loading" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left"><h3>{{lang.general}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.general}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -57,7 +59,7 @@
                 </form_item>
             </el-row>
 
-            <el-divider content-position="left"><h3>{{lang.callerid_detect}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.callerid_detect}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -68,44 +70,44 @@
             </el-row>
 
             <el-row>
-                <form_item>
+                <form_item v-bind:param="'cidbuflen'">
                     <span slot="param_help" v-html="lang.cidbuflen_help"></span>
                     <span slot="param_name" >{{lang.cidbuflen}}</span>
-                    <el-input slot="param" v-model="cidbuflen" :disabled="!cidbeforering"></el-input>
+                    <el-input slot="param" v-model="ruleForm.cidbuflen" :disabled="!cidbeforering"></el-input>
                 </form_item>
             </el-row>
 
             <el-row>
-                <form_item>
+                <form_item v-bind:param="'cutcidbufheadlen'">
                     <span slot="param_help" v-html="lang.cutcidbufheadlen_help"></span>
                     <span slot="param_name" >{{lang.cutcidbufheadlen}}</span>
-                    <el-input slot="param" v-model="cutcidbufheadlen" :disabled="!cidbeforering"></el-input>
+                    <el-input slot="param" v-model="ruleForm.cutcidbufheadlen" :disabled="!cidbeforering"></el-input>
                 </form_item>
             </el-row>
 
             <el-row>
-                <form_item>
+                <form_item v-bind:param="'fixedtimepolarity'">
                     <span slot="param_help" v-html="lang.fixedtimepolarity_help"></span>
                     <span slot="param_name" >{{lang.fixedtimepolarity}}</span>
-                    <el-input slot="param" v-model="fixedtimepolarity" :disabled="!cidbeforering"></el-input>
+                    <el-input slot="param" v-model="ruleForm.fixedtimepolarity" :disabled="!cidbeforering"></el-input>
                 </form_item>
             </el-row>
 
-            <el-divider content-position="left"><h3>{{lang.hardware_gain}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.hardware_gain}}</span></divider_item>
 
             <el-row>
-                <form_item>
+                <form_item v-bind:param="'fxorxgain'">
                     <span slot="param_help" v-html="lang.fxo_rx_gain"></span>
                     <span slot="param_name" >{{lang.fxo_rx_gain}}</span>
-                    <el-input slot="param" v-model="fxorxgain"></el-input>
+                    <el-input slot="param" v-model="ruleForm.fxorxgain"></el-input>
                 </form_item>
             </el-row>
 
             <el-row>
-                <form_item>
+                <form_item v-bind:param="'fxotxgain'">
                     <span slot="param_help" v-html="lang.fxo_tx_gain_help"></span>
                     <span slot="param_name" >{{lang.fxo_tx_gain}}</span>
-                    <el-input slot="param" v-model="fxotxgain"></el-input>
+                    <el-input slot="param" v-model="ruleForm.fxotxgain"></el-input>
                 </form_item>
             </el-row>
 
@@ -147,7 +149,92 @@
     export default {
         name: "Driver",
         data() {
+            var validateCidbuflen = (rule, value, callback) => {
+                if(this.cidbeforering) {
+                    if (String(value).indexOf(".") > -1) {
+                        callback(new Error(this.lang.check_param_int))
+                    } else if (!(parseInt(value) >= 1 && parseInt(value) <= 4000)) {
+                        callback(new Error('Range:1 ~ 4000'))
+                    } else {
+                        callback()
+                    }
+                }else{
+                    callback()
+                }
+            }
+
+            var validateCutcidbufheadlen = (rule, value, callback) => {
+                    if(this.cidbeforering) {
+                        if(String(value).indexOf(".") > -1){
+                            callback(new Error(this.lang.check_param_int))
+                        }else if(!(parseInt(value) >=1 && parseInt(value) <= 2000)){
+                            callback(new Error('Range:1 ~ 2000ms'))
+                        }else{
+                            callback()
+                        }
+                    }else{
+                        callback()
+                    }
+            }
+
+            var validateFixedtimepolarity = (rule, value, callback) => {
+                if(this.cidbeforering) {
+                    if(String(value).indexOf(".") > -1){
+                        callback(new Error(this.lang.check_param_int))
+                    }else if(!(parseInt(value) >= -1 && parseInt(value) <= 2000)){
+                        callback(new Error('Range:-1 ~ 2000'))
+                    }else{
+                        callback()
+                    }
+                }else{
+                    callback()
+                }
+            }
+
+            var validateFxorxgain = (rule, value, callback) => {
+                if(String(value).indexOf(".") > -1) {
+                    callback(new Error(this.lang.check_param_int))
+                }else if(!(parseInt(value) >= -150 && parseInt(value) <= 120)){
+                    callback(new Error('Range:-150 ~ 120'))
+                }else{
+                    callback()
+                }
+            }
+
+            var validateFxotxgain = (rule, value, callback) => {
+                if(String(value).indexOf(".") > -1){
+                    callback(new Error(this.lang.check_param_int))
+                }else if(!(parseInt(value) >= -150 && parseInt(value) <= 120)){
+                    callback(new Error('Range:-150 ~ 120'))
+                }else{
+                    callback()
+                }
+            }
+
+            var validateCurrent_threshold = (rule, value, callback) => {
+                if(!(parseInt(value) >= 1 && parseInt(value) <= 65535)){
+                    callback(new Error('Range:1-65535'))
+                }else{
+                    callback()
+                }
+            }
             return {
+                ruleForm: {
+                    cidbuflen: '',
+                    cutcidbufheadlen: '',
+                    fixedtimepolarity: '',
+                    fxorxgain: '',
+                    fxotxgain: '',
+                    current_threshold: '',
+                },
+                rules: {
+                    cidbuflen: [{ validator: validateCidbuflen, trigger: 'blur' }],
+                    cutcidbufheadlen: [{ validator: validateCutcidbufheadlen, trigger: 'blur' }],
+                    fixedtimepolarity: [{ validator: validateFixedtimepolarity, trigger: 'blur' }],
+                    fxorxgain: [{ validator: validateFxorxgain, trigger: 'blur' }],
+                    fxotxgain: [{ validator: validateFxotxgain, trigger: 'blur' }],
+                    current_threshold: [{ validator: validateCurrent_threshold, trigger: 'blur' }],
+                },
                 opermode: '',
                 codec: '',
                 impedance: '',
@@ -401,6 +488,7 @@
                     value: 'YEMEN'
                 }],
 
+                loading: false,
                 lang: this.$store.state.lang
             }
         },
@@ -415,40 +503,54 @@
                 this.codec = parseInt(_param['_codec'])
                 this.impedance = _param['_opermode']
                 this.cidbeforering = _param['_cidbeforering'] == 1 ? true : false
-                this.cidbuflen = _param['_cidbuflen']
-                this.cutcidbufheadlen = _param['_cutcidbufheadlen']
-                this.fixedtimepolarity = _param['_fixedtimepolarity']
-                this.fxorxgain = _param['_fxorxgain']
-                this.fxotxgain = _param['_fxotxgain']
+                this.ruleForm.cidbuflen = _param['_cidbuflen']
+                this.ruleForm.cutcidbufheadlen = _param['_cutcidbufheadlen']
+                this.ruleForm.fixedtimepolarity = _param['_fixedtimepolarity']
+                this.ruleForm.fxorxgain = _param['_fxorxgain']
+                this.ruleForm.fxotxgain = _param['_fxotxgain']
                 this.fxsrxgain = parseInt(_param['_fxsrxgain'])
                 this.fxstxgain = _param['_fxstxgain']
-                this.current_threshold = _param['_Currentthreshold']
+                this.ruleForm.current_threshold = _param['_Currentthreshold']
             },
             show_error_back(){
                 this.$router.push('/common/error')
             },
 
+            submitValidator(formName){
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.Save()
+                    } else {
+                        return false;
+                    }
+                });
+            },
+
             Save(){
-                let driver = new AST_UcpAlgDriverParam()
+                this.$confirm(this.lang.glbSetting_restart_help)
+                    .then(_ => {
+                        let driver = new AST_UcpAlgDriverParam()
 
-                driver._opermode = this.impedance
-                driver._codec = this.codec
-                driver._cidbuflen = this.cidbuflen == '' ? 3000 : this.cidbuflen
-                driver._cutcidbufheadlen = this.cutcidbufheadlen == '' ? 128 : this.cutcidbufheadlen
-                driver._fixedtimepolarity = this.fixedtimepolarity == '' ? 0 : this.fixedtimepolarity
-                driver._cidbeforering = this.cidbeforering == true ? 1 : 0
-                driver._fxorxgain = this.fxorxgain == '' ? 120 : this.fxorxgain
-                driver._fxotxgain = this.fxotxgain == '' ? 120 : this.fxotxgain
-                driver._fxsrxgain = this.fxsrxgain
-                driver._fxstxgain = this.fxstxgain
-                driver._Currentthreshold = this.current_threshold
+                        driver._opermode = this.impedance
+                        driver._codec = this.codec
+                        driver._cidbuflen = this.ruleForm.cidbuflen == '' ? 3000 : this.ruleForm.cidbuflen
+                        driver._cutcidbufheadlen = this.ruleForm.cutcidbufheadlen == '' ? 128 : this.ruleForm.cutcidbufheadlen
+                        driver._fixedtimepolarity = this.ruleForm.fixedtimepolarity == '' ? 0 : this.ruleForm.fixedtimepolarity
+                        driver._cidbeforering = this.cidbeforering == true ? 1 : 0
+                        driver._fxorxgain = this.ruleForm.fxorxgain == '' ? 120 : this.ruleForm.fxorxgain
+                        driver._fxotxgain = this.ruleForm.fxotxgain == '' ? 120 : this.ruleForm.fxotxgain
+                        driver._fxsrxgain = this.fxsrxgain
+                        driver._fxstxgain = this.fxstxgain
+                        driver._Currentthreshold = this.ruleForm.current_threshold
 
-                console.log(driver)
-                this.request.AGUcpAlgDriverSave(this.save_succeed_back, this.save_error_back, driver)
+                        console.log(driver)
+                        this.loading = true
+                        this.request.AGUcpAlgDriverSave(this.save_succeed_back, this.save_error_back, driver)
+                }).catch(_ => {})
             },
             save_succeed_back(data){
                 console.log(data)
-
+                this.loading = false
                 this.$message({
                     message: this.lang.save_successfully,
                     type: 'success',
@@ -457,7 +559,7 @@
             },
             save_error_back(){
                 console.log('save falied')
-
+                this.loading = false
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',

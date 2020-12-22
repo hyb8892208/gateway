@@ -1,6 +1,6 @@
 <template>
     <div class="footer">
-        @copyright openvox
+        <span style="color: grey;" v-html="this.$store.state.copyright"></span>
     </div>
 </template>
 

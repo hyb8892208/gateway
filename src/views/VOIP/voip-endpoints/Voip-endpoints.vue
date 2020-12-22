@@ -1,7 +1,7 @@
 <template>
     <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;">
         <div style="height: 50px;background-color: #ffffff;padding-left: 20px;">
-            <h1 style="line-height: 50px;font-size: 18px;">{{lang.sip_endpoint}}</h1>
+            <h1 style="line-height: 50px;font-size: 18px;">{{lang.sip_endpoints}}</h1>
         </div>
 
         <el-row style="width: 97%;margin:auto;margin-top:20px;">
@@ -9,7 +9,7 @@
             <el-button type="primary" size="small" @click="Delete()">{{lang.delete}}</el-button>
         </el-row>
 
-        <el-card shadow="never" style="margin:auto;margin-top:10px;margin-bottom: 50px;" :style=$store.state.page.card_width>
+        <el-card shadow="never" style="margin:auto;margin-top:10px;margin-bottom: 50px;" :style=$store.state.page.card_list_width>
             <div style="background-color: #ffffff ;padding: 8px 20px;border-bottom: 1px solid #999999;">
                 <el-popover
                         placement="bottom"
@@ -131,33 +131,42 @@
                 this.$router.push('/SIP/voip-endpoints/add/'+section)
             },
             Delete(section){
-                console.log(section)
-                this.$confirm('确定要删除吗?')
-                    .then(_ => {
-                        const SectionArr = new AST_SectionArr()
-                        if(section == undefined){
-                            this.selected_sip.forEach(item => {
-                                let ast_section = new AST_Section()
-                                ast_section._section = item.endpoint_name
-                                SectionArr._item.push(ast_section)
-                            })
-                        }else{
-                            let ast_section = new AST_Section()
-                            ast_section._section = section
-                            SectionArr._item.push(ast_section)
-                        }
+                const SectionArr = new AST_SectionArr()
+                if(section == undefined){
+                    if(this.selected_sip == null){
+                        this.$message({
+                            message: this.lang.select_item_help,
+                            type: 'error',
+                            offset: '80'
+                        })
 
-                        console.log(SectionArr)
+                        return false
+                    }
+
+                    this.selected_sip.forEach(item => {
+                        let ast_section = new AST_Section()
+                        ast_section._section = item.endpoint_name
+                        SectionArr._item.push(ast_section)
+                    })
+                }else{
+                    let ast_section = new AST_Section()
+                    ast_section._section = section
+                    SectionArr._item.push(ast_section)
+                }
+
+                this.$confirm(this.lang.delete_confirm)
+                    .then(_ => {
+
                         this.request.AGSipEndpointsDel(this.del_succeed_back, this.del_error_back, SectionArr)
                     })
                     .catch((error) => {
                         console.log(error)
-                    })
+                })
             },
             del_succeed_back(){
                 console.log('delete success')
                 this.$message({
-                    message: '删除成功',
+                    message: this.lang.successfully_deleted,
                     type: 'success',
                     offset: '80'
                 })
@@ -167,7 +176,7 @@
             del_error_back(){
                 console.log('delete failed')
                 this.$message({
-                    message: '删除失败',
+                    message: this.lang.failed_to_delete,
                     type: 'error',
                     offset: '80'
                 })

@@ -22,7 +22,7 @@
                              ref="ruleForm"
                              size="small">
 
-                        <el-divider content-position="left"><h3>{{lang.general}}</h3></el-divider>
+                        <divider_item><span slot="title">{{lang.general}}</span></divider_item>
 
                         <el-row>
                             <form_item>
@@ -48,13 +48,13 @@
                             <form_item>
                                 <span slot="param_help" v-html="lang.tcp_bind_port"></span>
                                 <span slot="param_name" >{{lang.tcp_bind_port}}</span>
-                                <el-input slot="param" v-model="tcp_bind_port" ></el-input>
+                                <el-input slot="param" v-model="tcp_bind_port" :disabled="enable_tcp == 0"></el-input>
                             </form_item>
 
                             <form_item>
                                 <span slot="param_help" v-html="lang.tcp_authentication_timeout_help"></span>
                                 <span slot="param_name" >{{lang.tcp_authentication_timeout}}</span>
-                                <el-input slot="param" v-model="tcp_authentication_timeout" ></el-input>
+                                <el-input slot="param" v-model="tcp_authentication_timeout" :disabled="enable_tcp == 0" ></el-input>
                             </form_item>
                         </el-row>
 
@@ -62,7 +62,7 @@
                             <form_item>
                                 <span slot="param_help" v-html="lang.tcp_authentication_limit_help"></span>
                                 <span slot="param_name" >{{lang.tcp_authentication_limit}}</span>
-                                <el-input slot="param" v-model="tcp_authentication_limit" ></el-input>
+                                <el-input slot="param" v-model="tcp_authentication_limit" :disabled="enable_tcp == 0" ></el-input>
                             </form_item>
 
                             <form_item>
@@ -78,7 +78,7 @@
                             </form_item>
                         </el-row>
 
-                        <el-divider content-position="left"><h3>{{lang.nat_settings}}</h3></el-divider>
+                        <divider_item><span slot="title">{{lang.nat_settings}}</span></divider_item>
 
                         <el-row>
                             <el-col :lg="22">
@@ -201,7 +201,37 @@
                             </form_item>
                         </el-row>
 
-                        <el-divider content-position="left"><h3>{{lang.rtp_settings}}</h3></el-divider>
+                        <divider_item><span slot="title">{{lang.stun_settings}}</span></divider_item>
+
+                        <el-row>
+                            <form_item>
+                                <span slot="param_help" v-html="lang.enable_help"></span>
+                                <span slot="param_name" >{{lang.enable}}</span>
+                                <el-checkbox slot="param" v-model="stun_enable" ></el-checkbox>
+                            </form_item>
+
+                            <form_item>
+                                <span slot="param_help" v-html="lang.server_port_help"></span>
+                                <span slot="param_name" >{{lang.server_port}}</span>
+                                <el-input slot="param" v-model="stun_port" ></el-input>
+                            </form_item>
+                        </el-row>
+
+                        <el-row>
+                            <form_item>
+                                <span slot="param_help" v-html="lang.reflesh_request_interval_help"></span>
+                                <span slot="param_name" >{{lang.reflesh_request_interval}}</span>
+                                <el-input slot="param" v-model="stun_reflesh" ></el-input>
+                            </form_item>
+
+                            <form_item>
+                                <span slot="param_help" v-html="lang.server_ip_domain_name_help"></span>
+                                <span slot="param_name" >{{lang.server_ip_domain_name}}</span>
+                                <el-input slot="param" v-model="stun_server" ></el-input>
+                            </form_item>
+                        </el-row>
+
+                        <divider_item><span slot="title">{{lang.rtp_settings}}</span></divider_item>
 
                         <el-row>
                             <form_item>
@@ -234,7 +264,7 @@
                 <el-card shadow="never" style="width: 95%;margin:auto;padding: 20px;margin-bottom: 50px;">
                     <el-form :label-position="$store.state.page.labelPosition" label-width="250px" class="change-label-class" status-icon ref="ruleForm" size="small">
 
-                        <el-divider content-position="left"><h3>{{lang.general}}</h3></el-divider>
+                        <divider_item><span slot="title">{{lang.general}}</span></divider_item>
 
                         <el-row>
                             <form_item>
@@ -282,7 +312,7 @@
                             </form_item>
                         </el-row>
 
-                        <el-divider content-position="left"><h3>SIP Methods</h3></el-divider>
+                        <divider_item><span slot="title">SIP Methods</span></divider_item>
 
                         <el-row>
                             <el-col :lg="24">
@@ -318,7 +348,7 @@
                             </form_item>
                         </el-row>
 
-                        <el-divider content-position="left"><h3>{{lang.caller_id}}</h3></el-divider>
+                        <divider_item><span slot="title">{{lang.caller_id}}</span></divider_item>
 
                         <el-row>
                             <form_item>
@@ -348,7 +378,7 @@
                             </form_item>
                         </el-row>
 
-                        <el-divider content-position="left"><h3>{{lang.callee_id}}</h3></el-divider>
+                        <divider_item><span slot="title">{{lang.callee_id}}</span></divider_item>
 
                         <el-row>
                             <form_item>
@@ -378,7 +408,7 @@
                             </form_item>
                         </el-row>
 
-                        <el-divider content-position="left"><h3>{{lang.timer_configuration}}</h3></el-divider>
+                        <divider_item><span slot="title">{{lang.timer_configuration}}</span></divider_item>
 
                         <el-row>
                             <form_item>
@@ -402,7 +432,7 @@
                             </form_item>
                         </el-row>
 
-                        <el-divider content-position="left"><h3>{{lang.outbound_registrations}}</h3></el-divider>
+                        <divider_item><span slot="title">{{lang.outbound_registrations}}</span></divider_item>
 
                         <el-row>
                             <form_item>
@@ -425,7 +455,7 @@
                 <el-card shadow="never" style="width: 95%;margin:auto;padding: 20px;margin-bottom: 50px;">
                     <el-form :label-position="$store.state.page.labelPosition" label-width="250px" class="change-label-class" status-icon ref="ruleForm" size="small">
 
-                        <el-divider content-position="left"><h3>{{lang.authentication_settings}}</h3></el-divider>
+                        <divider_item><span slot="title">{{lang.authentication_settings}}</span></divider_item>
 
                         <el-row>
                             <form_item>
@@ -487,7 +517,7 @@
                             </form_item>
                         </el-row>
 
-                        <el-divider content-position="left"><h3>{{lang.guest_calling}}</h3></el-divider>
+                        <divider_item><span slot="title">{{lang.guest_calling}}</span></divider_item>
 
                         <el-row>
                             <form_item>
@@ -503,7 +533,7 @@
                             </form_item>
                         </el-row>
 
-                        <el-divider content-position="left"><h3>{{lang.isdn_media_settings}}</h3></el-divider>
+                        <divider_item><span slot="title">{{lang.isdn_media_settings}}</span></divider_item>
 
                         <el-row>
                             <form_item>
@@ -519,7 +549,7 @@
                             </form_item>
                         </el-row>
 
-                        <el-divider content-position="left"><h3>RTP for SIP</h3></el-divider>
+                        <divider_item><span slot="title">RTP for SIP</span></divider_item>
 
                         <el-row>
                             <form_item>
@@ -535,7 +565,7 @@
                             </form_item>
                         </el-row>
 
-                        <el-divider content-position="left"><h3>{{lang.qos_tos}}</h3></el-divider>
+                        <divider_item><span slot="title">{{lang.qos_tos}}</span></divider_item>
 
                         <el-row>
                             <form_item>
@@ -569,183 +599,179 @@
         name: "Sip-adv-settings",
         data(){
             return {
-                request: '',
+               udp_bind_port: '',
+               enable_tcp: 0,
+               tcp_bind_port: '',
+               tcp_authentication_timeout: '',
+               tcp_authentication_limit: '',
+               enable_hostname_lookup: '',
+               subscribe_network_change_event: '',
+               match_external_address_locally: '',
+               dynamic_exclude_static: '',
+               externally_mapped_tcp_port: '',
+               external_address: '',
+               external_hostname: '',
+               hostname_refresh_interval: '',
+               stun_enable: '',
+               stun_port: '',
+               stun_reflesh: '',
+               stun_server: '',
+               start_of_rtp_port_range: '',
+               end_of_rtp_port_range: '',
+               rtptimeout: '',
+               strict_rfc_interpretation: '',
+               send_compact_headers: '',
+               sdp_owner: '',
+               matching_priority: '',
+               hangupcausecode: '',
+               shrink_caller_id: '',
+               sip_from: '',
+               sip_to: '',
+               callee_id_1: '',
+               callee_id_2: '',
+               maximum_registration_expiry: '',
+               minimum_registration_expiry: '',
+               default_registration_expiry: '',
+               registration_timeout: '',
+               number_of_registration_attemptsy: '',
+               match_auth_username: '',
+               realm: '',
+               use_domain_as_realm: '',
+               always_auth_reject: '',
+               authenticate_options_requests: '',
+               allow_guest_calling: '',
+               premature_media: '',
+               direct_media: '',
+               tos_for_sip_packets: '',
+               tos_for_rtp_packets: '',
+               local_network: '',
+               local_network_list: [],
 
-                udp_bind_port: '',
-                enable_tcp: '',
-                tcp_bind_port: '',
-                tcp_authentication_timeout: '',
-                tcp_authentication_limit: '',
-                enable_hostname_lookup: '',
-                subscribe_network_change_event: '',
-                match_external_address_locally: '',
-                dynamic_exclude_static: '',
-                externally_mapped_tcp_port: '',
-                external_address: '',
-                external_hostname: '',
-                hostname_refresh_interval: '',
-                stun_enable: '',
-                stun_port: '',
-                stun_reflesh: '',
-                stun_server: '',
-                stun_server_sw: '',
-                stun_client_sw: '',
-                stun_none_sw: '',
-                start_of_rtp_port_range: '',
-                end_of_rtp_port_range: '',
-                rtptimeout: '',
-                strict_rfc_interpretation: '',
-                send_compact_headers: '',
-                sdp_owner: '',
-                matching_priority: '',
-                hangupcausecode: '',
-                shrink_caller_id: '',
-                sip_from: '',
-                sip_to: '',
-                callee_id_1: '',
-                callee_id_2: '',
-                maximum_registration_expiry: '',
-                minimum_registration_expiry: '',
-                default_registration_expiry: '',
-                registration_timeout: '',
-                number_of_registration_attemptsy: '',
-                match_auth_username: '',
-                realm: '',
-                use_domain_as_realm: '',
-                always_auth_reject: '',
-                authenticate_options_requests: '',
-                allow_guest_calling: '',
-                premature_media: '',
-                direct_media: '',
-                tos_for_sip_packets: '',
-                tos_for_rtp_packets: '',
-                local_network: '',
-                local_network_list: [],
 
-                sip_methods_options: sip_methods,
-                checkList: [],
+               sip_methods_options: sip_methods,
+               checkList: [],
 
-                yes_or_no_options: [{
-                    label: 'No',
-                    value: 0
-                },{
-                    label: 'Yes',
-                    value: 1
-                }],
-
-                matching_priority_options: [{
-                    label: 'From-Number',
-                    value: 0
-                },{
-                    label: 'Extern-Number',
-                    value: 1
-                },{
-                    label: 'From-Name',
-                    value: 2
-                }],
-
-                hangupcausecode_options: [{
-                    label: 'default',
-                    value: 0
-                },{
-                    label: '404 Not Found',
-                    value: 1
-                },{
-                    label: '420 No Route Destination',
-                    value: 3
-                },{
-                    label: '486 Busy Here',
-                    value: 17
-                },{
-                    label: '408 Request Timeout',
-                    value: 18
-                },{
-                    label: '480 Temporarily Unavailable',
-                    value: 19
-                },{
-                    label: '403 Forbidden',
-                    value: 21
-                },{
-                    label: '410 Gone',
-                    value: 22
-                },{
-                    label: '502 Bad Gateway',
-                    value: 27
-                },{
-                    label: '484 Address Incomplete',
-                    value: 28
-                },{
-                    label: '501 Not Implemented',
-                    value: 29
-                },{
-                    label: '500 Server Internal Failure',
-                    value: 38
-                },{
-                    label: '503 Service Unavailable',
-                    value: 42
-                },{
-                    label: '488 Not Acceptable Here',
-                    value: 58
-                },{
-                    label: '603 Declined',
-                    value: 127
-                }],
-
-                sip_from_options: [{
-                    label: 'Name',
-                    value: 0
-                },{
-                    label: 'Number',
-                    value: 1
-                }],
-
-                sipto_options: [{
-                    label: 'Tel/Tel',
-                    value: 0
-                },{
-                    label: 'Tel/User',
-                    value: 1
-                }],
-
-                callee_id_1_options: [{
-                    label: 'EXTEN',
-                    value: 0
-                },{
-                    label: 'SIP To',
-                    value: 1
-                },{
-                    label: 'SIP From',
-                    value: 2
-                }],
-
-                callee_id_2_options: [{
-                    label: 'Number',
-                    value: 0
-                },{
-                    label: 'Name',
-                    value: 1
-                }],
-
-                direct_media_options: [{
-                   label: 'yes',
+               yes_or_no_options: [{
+                   label: 'No',
                    value: 0
-                },{
-                    label: 'no',
-                    value: 1
-                },{
-                    label: 'nonat',
-                    value: 2
-                },{
-                    label: 'update',
-                    value: 3
-                },{
-                    label: 'outgoing',
-                    value: 4
-                }],
+               },{
+                   label: 'Yes',
+                   value: 1
+               }],
 
-                activeName: 'Networking',
+               matching_priority_options: [{
+                   label: 'From-Number',
+                   value: 0
+               },{
+                   label: 'Extern-Number',
+                   value: 1
+               },{
+                   label: 'From-Name',
+                   value: 2
+               }],
 
-                lang: this.$store.state.lang
+               hangupcausecode_options: [{
+                   label: 'default',
+                   value: 0
+               },{
+                   label: '404 Not Found',
+                   value: 1
+               },{
+                   label: '420 No Route Destination',
+                   value: 3
+               },{
+                   label: '486 Busy Here',
+                   value: 17
+               },{
+                   label: '408 Request Timeout',
+                   value: 18
+               },{
+                   label: '480 Temporarily Unavailable',
+                   value: 19
+               },{
+                   label: '403 Forbidden',
+                   value: 21
+               },{
+                   label: '410 Gone',
+                   value: 22
+               },{
+                   label: '502 Bad Gateway',
+                   value: 27
+               },{
+                   label: '484 Address Incomplete',
+                   value: 28
+               },{
+                   label: '501 Not Implemented',
+                   value: 29
+               },{
+                   label: '500 Server Internal Failure',
+                   value: 38
+               },{
+                   label: '503 Service Unavailable',
+                   value: 42
+               },{
+                   label: '488 Not Acceptable Here',
+                   value: 58
+               },{
+                   label: '603 Declined',
+                   value: 127
+               }],
+
+               sip_from_options: [{
+                   label: 'Name',
+                   value: 0
+               },{
+                   label: 'Number',
+                   value: 1
+               }],
+
+               sipto_options: [{
+                   label: 'Tel/Tel',
+                   value: 0
+               },{
+                   label: 'Tel/User',
+                   value: 1
+               }],
+
+               callee_id_1_options: [{
+                   label: 'EXTEN',
+                   value: 0
+               },{
+                   label: 'SIP To',
+                   value: 1
+               },{
+                   label: 'SIP From',
+                   value: 2
+               }],
+
+               callee_id_2_options: [{
+                   label: 'Number',
+                   value: 0
+               },{
+                   label: 'Name',
+                   value: 1
+               }],
+
+               direct_media_options: [{
+                  label: 'yes',
+                  value: 0
+               },{
+                   label: 'no',
+                   value: 1
+               },{
+                   label: 'nonat',
+                   value: 2
+               },{
+                   label: 'update',
+                   value: 3
+               },{
+                   label: 'outgoing',
+                   value: 4
+               }],
+
+               activeName: 'Networking',
+
+               lang: this.$store.state.lang
             }
         },
         methods:{
@@ -804,9 +830,6 @@
                 this.stun_port = stun_data['_port'] == 0 ? 3478 : stun_data['_port']
                 this.stun_reflesh = stun_data['_reflesh'] == 0 ? 30 : stun_data['_reflesh']
                 this.stun_server = stun_data['_server']
-                this.stun_server_sw = stun_data['_serverstunsw'] == 1 ? true : false
-                this.stun_client_sw = stun_data['_clientstunsw'] == 1 ? true : false
-                this.stun_none_sw = stun_data['_nonestunsw'] == 1 ? true : false
 
                 _sipadv['_disallowedmethods'].split('').forEach((item,index) => {
                     if(item == 1){//1选中，0未选中

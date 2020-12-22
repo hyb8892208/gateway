@@ -1,6 +1,6 @@
 <template>
     <div style="line-height: 54px;">
-        <img src="../../../src/assets/logo_openvox.png" style="display: inline-block;vertical-align: middle;margin-left:10px;" />
+        <a href="/System/Status"><img src="../../../src/assets/logo_openvox.png" style="display: inline-block;vertical-align: middle;margin-left:10px;" /></a>
 
         <ul class="header-operations">
             <li>
@@ -28,7 +28,14 @@
                 this.$emit("child_change_aside_value")
             },
             switch_language(language){
-                this.$confirm(this.lang.switch_language_confirm)
+                let confirm = ''
+                if(language == 'chinese'){
+                    confirm = '确定要切换为中文吗？'
+                }else{
+                    confirm = 'Are you sure you want to switch to English?'
+                }
+
+                this.$confirm(confirm)
                     .then(_ => {
                         this.request = new request()
                         this.request.AGSystemLanguageSave(this.save_language_succeed, this.save_language_error, language)

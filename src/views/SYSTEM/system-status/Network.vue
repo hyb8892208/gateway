@@ -1,5 +1,5 @@
 <template>
-    <el-card shadow="never" style="margin:auto;margin-bottom:50px;" :style=$store.state.page.card_width>
+    <el-card shadow="never" style="margin:auto;margin-bottom:50px;" :style=$store.state.page.card_list_width>
 
         <div style="background-color: #ffffff ;padding: 8px 20px;border-bottom: 1px solid #999999;">
             <el-popover
@@ -70,15 +70,15 @@
         },
         methods: {
             networkCheckAllChange(val){
-                this.networkCheckedTitles = val ? this.networkCheckedTitlesArr : [];
-                this.networkIsIndeterminate = false;
+                this.networkCheckedTitles = val ? this.networkCheckedTitlesArr : []
+                this.networkIsIndeterminate = false
 
                 this.networkcol.map(i => val ? i.istrue = true : i.istrue = false)
             },
             networkCheckedTitlesChange(value){
-                let checkedCount = value.length;
-                this.networkCheckAll = checkedCount === this.networkcol.length;
-                this.networkIsIndeterminate = checkedCount > 0 && checkedCount < this.networkcol.length;
+                let checkedCount = value.length
+                this.networkCheckAll = checkedCount === this.networkcol.length
+                this.networkIsIndeterminate = checkedCount > 0 && checkedCount < this.networkcol.length
 
                 this.networkcol.map(i => {
                     let flag = 0
@@ -111,11 +111,11 @@
                     obj = {
                         'name': name,
                         'mac_address': networkData[i]['_mac'],
-                        'ip': networkData[i]['_ip'],
+                        'ip_address': networkData[i]['_ip'],
                         'mask': networkData[i]['_mask'],
                         'gateway': networkData[i]['_gateway'],
-                        'rx': networkData[i]['_rx'],
-                        'tx': networkData[i]['_tx']
+                        'rx_packets': networkData[i]['_rx'],
+                        'tx_packets': networkData[i]['_tx']
                     }
 
                     this.networkData.push(obj)
@@ -124,7 +124,7 @@
         },
         computed: {
             networkCheckedTitlesArr(){
-                return this.networkcol.map(n => { return n.name });
+                return this.networkcol.map(n => { return n.name })
             },
         },
         created() {

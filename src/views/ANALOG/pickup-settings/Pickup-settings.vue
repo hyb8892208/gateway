@@ -3,6 +3,9 @@
             :label-position="$store.state.page.labelPosition"
             label-width="250px"
             class="change-label-class"
+            :rules="rules"
+            :model="ruleForm"
+            ref="ruleForm"
             size="small">
         <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;padding-left: 20px;">
             <h1 style="line-height: 50px;font-size: 18px;">
@@ -11,7 +14,7 @@
                     <el-button
                             type="primary"
                             size="small"
-                            @click="Save()"
+                            @click="submitValidator('ruleForm')"
                     >{{lang.save}}</el-button>
                 </div>
             </h1>
@@ -27,18 +30,18 @@
             </el-row>
 
             <el-row>
-                <form_item>
+                <form_item v-bind:param="'pickuptimeout'">
                     <span slot="param_help" v-html="lang.timeout_help"></span>
                     <span slot="param_name" >{{lang.timeout}}</span>
-                    <el-input slot="param" v-model="pickuptimeout"></el-input>
+                    <el-input slot="param" v-model="ruleForm.pickuptimeout" :disabled="!pickupenable"></el-input>
                 </form_item>
             </el-row>
 
             <el-row>
-                <form_item>
+                <form_item v-bind:param="'pickupnumber'">
                     <span slot="param_help" v-html="lang.number_help"></span>
                     <span slot="param_name" >{{lang.number}}</span>
-                    <el-input slot="param" v-model="pickupnumber"></el-input>
+                    <el-input slot="param" v-model="ruleForm.pickupnumber" :disabled="!pickupenable"></el-input>
                 </form_item>
             </el-row>
 
@@ -54,7 +57,7 @@
                             </el-tooltip>:
                         </label>
                         <el-col :lg="3">
-                            <el-select v-model="chn_item.enablechnlpickup">
+                            <el-select v-model="chn_item.enablechnlpickup" :disabled="!pickupenable">
                                 <el-option
                                     v-for="item in chn_enable"
                                     :label="lang[item.label]"
@@ -66,13 +69,17 @@
                         <el-col :lg="6" style="margin-left: 20px;">
                             <el-col :lg="9" class="el-form-item__label">{{lang.timeout}}:</el-col>
                             <el-col :lg="15">
-                                <el-input v-model="chn_item.chnlpickuptimeout" ></el-input>
+                               <!-- <el-form-item
+                                    :prop="'chnlpickuptimeout' + chn_item.channel"
+                                    :rules="{ validator: validatePickuptimeout, trigger: 'blur' }"
+                                >-->
+                                <el-input v-model="chn_item.chnlpickuptimeout" :disabled="!pickupenable"></el-input>
                             </el-col>
                         </el-col>
                         <el-col :lg="6" style="margin-left: 20px;">
                             <el-col :lg="9" class="el-form-item__label">{{lang.number}}:</el-col>
                             <el-col :lg="15">
-                                <el-input v-model="chn_item.chnlpickupnumber" ></el-input>
+                                <el-input v-model="chn_item.chnlpickupnumber" :disabled="!pickupenable"></el-input>
                             </el-col>
                         </el-col>
                     </el-form-item>
@@ -90,7 +97,32 @@
     export default {
         name: "Pickup-settings",
         data() {
+            var validatePickuptimeout = (rule, value, callback) => {
+                if(this.pickupenable){
+                    var rex=/^[0-9\+]{1,32}$/i;
+                    if(!rex.test(value)) {
+                        callback(new Error('Please input a valid timeout value!'))
+                    }else{
+                        callback()
+                    }
+                }else{
+                    callback()
+                }
+            }
+
             return {
+                ruleForm: {
+                    pickuptimeout: '',
+                    pickupnumber: '',
+                },
+                rules: {
+                    pickuptimeout: [
+                        { validator: validatePickuptimeout, trigger: 'blur' }
+                    ],
+                    pickupnumber: [
+                        { validator: validatePickuptimeout, trigger: 'blur' }
+                    ]
+                },
                 pickupenable: false,
                 pickuptimeout: '',
                 pickupnumber: '',
@@ -109,6 +141,18 @@
             }
         },
         methods:{
+            validatePickuptimeout(rule, value, callback){
+                if(this.pickupenable){
+                    let rex=/^[0-9\+]{1,32}$/i;
+                    if(!rex.test(value)) {
+                        callback(new Error('Please input a valid timeout value!'))
+                    }else{
+                        callback()
+                    }
+                }else{
+                    callback()
+                }
+            },
             show_succeed_back(data){
                 console.log(data)
                 let common_data = data['_get']['_combuf']
@@ -118,13 +162,13 @@
                 const _pickchn = data['_get']['_pickchn']['_item']
 
                 this.pickupenable = _pickup['_enable'] == 1 ? true : false
-                this.pickuptimeout = _pickup['_timeout'] == 0 ? '' : _pickup['_timeout']
-                this.pickupnumber = _pickup['_number'] == 0 ? '' : _pickup['_number']
+                this.ruleForm.pickuptimeout = _pickup['_timeout'] == 0 ? '' : _pickup['_timeout']
+                this.ruleForm.pickupnumber = _pickup['_number']
 
                 _pickchn.forEach(item => {
                     let _enablechnlpickup = item._enablechnlpickup != 1 ? 0 : 1
                     let _chnlpickuptimeout = item._chnlpickuptimeout == 0 ? '' : item._chnlpickuptimeout
-                    let _chnlpickupnumber = item._chnlpickupnumber == 0 ? '' : item._chnlpickupnumber
+                    let _chnlpickupnumber = item._chnlpickupnumber
 
                     let obj = {
                         channel: item._channel,
@@ -140,12 +184,21 @@
                 this.$router.push('/common/error')
             },
 
+            submitValidator(formName){
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.Save()
+                    } else {
+                        return false;
+                    }
+                });
+            },
             Save(){
                 const AlgPickup = new AST_AlgPickup()
 
                 AlgPickup._enable = this.pickupenable == true ? 1 : 0
-                AlgPickup._timeout = this.pickuptimeout
-                AlgPickup._number = this.pickupnumber
+                AlgPickup._timeout = this.ruleForm.pickuptimeout
+                AlgPickup._number = this.ruleForm.pickupnumber
 
                 const AlgPickupChnArr = new AST_AlgPickupChnArr()
                 this.pickchn.forEach((item) => {
@@ -154,11 +207,13 @@
 
                     algpickupchn._enablechnlpickup = item.enablechnlpickup
                     algpickupchn._chnlpickuptimeout = item.chnlpickuptimeout == '' ? 0 : item.chnlpickuptimeout
-                    algpickupchn._chnlpickupnumber = item.chnlpickupnumber == '' ? 0 : item.chnlpickupnumber
+                    algpickupchn._chnlpickupnumber = item.chnlpickupnumber
 
                     AlgPickupChnArr._item.push(algpickupchn)
                 })
 
+                console.log(AlgPickup)
+                console.log(AlgPickupChnArr)
                 this.request.AGAlgPickupSave(this.save_succeed_back, this.save_error_back, AlgPickup, AlgPickupChnArr)
             },
             save_succeed_back(data){

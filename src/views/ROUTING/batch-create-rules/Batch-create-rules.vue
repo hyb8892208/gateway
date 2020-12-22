@@ -12,7 +12,7 @@
             </h1>
         </div>
 
-        <el-card shadow="never" style="margin:auto;margin-top:20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
+        <el-card shadow="never" style="margin:auto;margin-top:20px;margin-bottom: 50px;" :style=$store.state.page.card_list_width>
             <el-table
                     :data="chnData"
                     border
@@ -35,16 +35,26 @@
                 </el-table-column>
 
                 <el-table-column
-                        :label="lang.forward_number"
                         min-width="150">
+                    <template slot="header" slot-scope="scope">
+                        <span style="margin-right: 20px;">{{lang.forward_number}}</span>
+                        <el-button type="primary" size="mini" @click="forward_number_increment">{{lang.increment}}</el-button>
+                        <el-button type="primary" size="mini" @click="forward_number_copy">{{lang.copy}}</el-button>
+                    </template>
+
                     <template slot-scope="scope">
                         <el-input v-model="scope.row.forward_number" size="mini"></el-input>
                     </template>
                 </el-table-column>
 
                 <el-table-column
-                        :label="lang.sip_endpoint"
                         min-width="150">
+                    <template slot="header" slot-scope="scope">
+                        <span style="margin-right: 20px;">{{lang.sip_endpoints}}</span>
+                        <el-button type="primary" size="mini" @click="sip_endpoint_increment">{{lang.increment}}</el-button>
+                        <el-button type="primary" size="mini" @click="sip_endpoint_copy">{{lang.copy}}</el-button>
+                    </template>
+
                     <template slot-scope="scope">
                         <el-select v-model="scope.row.sip_endpoint" size="mini" style="width: 100%">
                             <el-option
@@ -58,15 +68,20 @@
                 </el-table-column>
 
                 <el-table-column
-                        :label="lang.callerid"
                         min-width="150">
+                    <template slot="header" slot-scope="scope">
+                        <span style="margin-right: 20px;">{{lang.callerid}}</span>
+                        <el-button type="primary" size="mini" @click="callerid_increment">{{lang.increment}}</el-button>
+                        <el-button type="primary" size="mini" @click="callerid_copy">{{lang.copy}}</el-button>
+                    </template>
+
                     <template slot-scope="scope">
                         <el-input v-model="scope.row.callerid" size="mini"></el-input>
                     </template>
                 </el-table-column>
             </el-table>
 
-            <el-row style="margin: 20px 0 20px 20px;">
+            <el-row style="margin: 20px 0 20px 0;">
                 <el-button type="primary"
                            @click="batch_all"
                            size="small">{{lang.batch}}</el-button>
@@ -84,6 +99,7 @@
 
     export default {
         name: "Batch-create-rules",
+        inject: ['reload'],
         data() {
             return {
                 chnData: [{
@@ -120,6 +136,7 @@
                 const sip_data = data['_get']['_sip']['_item']
                 const analog_data = data['_get']['_ana']['_item']
 
+                let i = 0
                 analog_data.forEach(item => {
                     let chan_type = ''
                     if(item._signalling == 1){
@@ -134,8 +151,11 @@
                         port: chan_type+'-'+item._channel,
                         forward_number: '',
                         sip_endpoint: 'none',
-                        callerid: ''
+                        callerid: '',
+                        order: i
                     }
+
+                    if(item._signalling == 2) i++
 
                     this.chnData.push(obj)
                 })
@@ -156,6 +176,57 @@
             select_channel(selection){
                 console.log(selection)
                 this.selected_chnData = selection
+            },
+            forward_number_increment(){
+                let n = 1
+                this.selected_chnData.forEach((item, index) => {
+                    this.selected_chnData[index].forward_number = isNaN (parseInt(this.chnData[0].forward_number) + n)
+                        ? '' : (parseInt(this.chnData[0].forward_number) + n -1)
+                    n++
+                })
+            },
+            forward_number_copy(){
+                this.selected_chnData.forEach((item, index) => {
+                    this.selected_chnData[index].forward_number = isNaN (parseInt(this.chnData[0].forward_number))
+                        ? '' : (parseInt(this.chnData[0].forward_number))
+                })
+            },
+            sip_endpoint_increment(){
+                let n = 1
+                this.selected_chnData.forEach((item, index) => {
+                    this.sip_endpoint_options.forEach((i,ind) => {
+                        let value = ''
+                        if(i.value == 'none' || this.sip_endpoint_options[ind + n -1] == undefined) {
+                            value = 'none'
+                        }else{
+                            value = this.sip_endpoint_options[ind + n -1].value
+                        }
+
+                        if(this.chnData[0].sip_endpoint == i.value && this.selected_chnData[index] != undefined){
+                            this.selected_chnData[index].sip_endpoint = value
+                        }
+                    })
+                    n++
+                })
+            },
+            sip_endpoint_copy(){
+                this.selected_chnData.forEach((item, index) => {
+                    this.selected_chnData[index].sip_endpoint = this.chnData[0].sip_endpoint
+                })
+            },
+            callerid_increment(){
+                let n = 1
+                this.selected_chnData.forEach((item, index) => {
+                    this.selected_chnData[index].callerid = isNaN(parseInt(this.chnData[0].callerid) + n)
+                        ? '' : (parseInt(this.chnData[0].callerid) + n -1)
+                    n++
+                })
+            },
+            callerid_copy(){
+                this.selected_chnData.forEach((item, index) => {
+                    this.selected_chnData[index].callerid = isNaN(parseInt(this.chnData[0].callerid))
+                        ? '' : (parseInt(this.chnData[0].callerid))
+                })
             },
             batch_all(){
                 let n = 1
@@ -208,11 +279,13 @@
                         sip2chan = 'sip2fxo-'
                     }
 
-                    let order = 1
+                    let order = parseInt(item.order)+1
+                    let order1 = 2*order - 1
+                    let order2 = 2*order
 
                     const fxosipbinding = new AST_SipFxoBindingSave()
                     fxosipbinding._name = chan2sip+item.channel
-                    fxosipbinding._order = order
+                    fxosipbinding._order = order1
                     fxosipbinding._forwardnumber = item.forward_number
                     fxosipbinding._callerid = item.callerid
                     fxosipbinding._associatedchnnl = item.sip_endpoint
@@ -221,7 +294,7 @@
 
                     const sipfxobinding = new AST_SipFxoBindingSave()
                     sipfxobinding._name = sip2chan+item.channel
-                    sipfxobinding._order = order
+                    sipfxobinding._order = order2
                     sipfxobinding._forwardnumber = item.forward_number
                     sipfxobinding._callerid = item.callerid
                     sipfxobinding._associatedchnnl = item.sip_endpoint
@@ -239,7 +312,7 @@
                     offset: '80'
                 })
 
-                this.$router.push('/Routing/Call-routing-rules')
+                this.reload()
             },
             save_error_back(){
                 this.$message({

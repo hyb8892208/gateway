@@ -16,7 +16,8 @@
                      label-width="250px"
                      class="change-label-class"
                      size="small">
-                <el-divider content-position="left"><h3>{{lang.language_settings}}</h3></el-divider>
+
+                <divider_item><span slot="title">{{lang.language_settings}}</span></divider_item>
 
                 <el-row>
                     <form_item>
@@ -73,6 +74,7 @@
                                 :data="{action:'upload',page_name:'system-general',type:'upload'}"
                                 :show-file-list=false
                                 :on-success="upload_succeed"
+                                :before-upload="before_upload"
                                 style="width: 100%;">
                             <el-button type="button" style="width: 100%;">
                                 <i class="el-icon-folder-opened"></i>
@@ -83,7 +85,7 @@
                     </form_item>
                 </el-row>
 
-                <el-divider content-position="left"><h3>{{lang.scheduled_reboot}}</h3></el-divider>
+                <divider_item><span slot="title">{{lang.scheduled_reboot}}</span></divider_item>
 
                 <el-row>
                     <form_item>
@@ -113,7 +115,7 @@
                         <span slot="param_help" v-html="lang.hour"></span>
                         <span slot="param_name" >{{lang.hour}}</span>
                         <el-select slot="param" v-model="d_hour" :placeholder="lang.select_placeholder" style="width: 100%">
-                            <el-option v-for="i in 24" :value="i">{{i-1}}</el-option>
+                            <el-option v-for="i in 24" :value="i-1">{{i-1}}</el-option>
                         </el-select>
                     </form_item>
                 </el-row>
@@ -123,7 +125,7 @@
                         <span slot="param_help" v-html="lang.minute"></span>
                         <span slot="param_name" >{{lang.minute}}</span>
                         <el-select slot="param" v-model="d_minute" :placeholder="lang.select_placeholder" style="width: 100%">
-                            <el-option v-for="i in 60" :value="i">{{i-1}}</el-option>
+                            <el-option v-for="i in 60" :value="i-1">{{i-1}}</el-option>
                         </el-select>
                     </form_item>
                 </el-row>
@@ -148,7 +150,7 @@
                         <span slot="param_help" v-html="lang.hour"></span>
                         <span slot="param_name" >{{lang.hour}}</span>
                         <el-select slot="param" v-model="w_hour" :placeholder="lang.select_placeholder" style="width: 100%">
-                            <el-option v-for="i in 24" :value="i">{{i-1}}</el-option>
+                            <el-option v-for="i in 24" :value="i-1">{{i-1}}</el-option>
                         </el-select>
                     </form_item>
                 </el-row>
@@ -158,7 +160,7 @@
                         <span slot="param_help" v-html="lang.minute"></span>
                         <span slot="param_name" >{{lang.minute}}</span>
                         <el-select slot="param" v-model="w_minute" :placeholder="lang.select_placeholder" style="width: 100%">
-                            <el-option v-for="i in 60" :value="i">{{i-1}}</el-option>
+                            <el-option v-for="i in 60" :value="i-1">{{i-1}}</el-option>
                         </el-select>
                     </form_item>
                 </el-row>
@@ -168,7 +170,7 @@
                         <span slot="param_help" v-html="lang.date"></span>
                         <span slot="param_name" >{{lang.date}}</span>
                         <el-select slot="param" v-model="m_month" :placeholder="lang.select_placeholder" style="width: 100%">
-                            <el-option v-for="i in 32" :value="i">{{i-1}}</el-option>
+                            <el-option v-for="i in 32" :value="i-1">{{i-1}}</el-option>
                         </el-select>
                     </form_item>
                 </el-row>
@@ -178,7 +180,7 @@
                         <span slot="param_help" v-html="lang.hour"></span>
                         <span slot="param_name" >{{lang.hour}}</span>
                         <el-select slot="param" v-model="m_hour" :placeholder="lang.select_placeholder" style="width: 100%">
-                            <el-option v-for="i in 24" :value="i">{{i-1}}</el-option>
+                            <el-option v-for="i in 24" :value="i-1">{{i-1}}</el-option>
                         </el-select>
                     </form_item>
                 </el-row>
@@ -188,7 +190,7 @@
                         <span slot="param_help" v-html="lang.minute"></span>
                         <span slot="param_name" >{{lang.minute}}</span>
                         <el-select slot="param" v-model="m_minute" :placeholder="lang.select_placeholder" style="width: 100%">
-                            <el-option v-for="i in 60" :value="i">{{i-1}}</el-option>
+                            <el-option v-for="i in 60" :value="i-1">{{i-1}}</el-option>
                         </el-select>
                     </form_item>
                 </el-row>
@@ -198,7 +200,7 @@
                         <span slot="param_help" v-html="lang.day"></span>
                         <span slot="param_name" >{{lang.day}}</span>
                         <el-select slot="param" v-model="r_day" :placeholder="lang.select_placeholder" style="width: 100%">
-                            <el-option v-for="i in 32" :value="i">{{i-1}}</el-option>
+                            <el-option v-for="i in 32" :value="i-1">{{i-1}}</el-option>
                         </el-select>
                     </form_item>
                 </el-row>
@@ -208,7 +210,7 @@
                         <span slot="param_help" v-html="lang.hour"></span>
                         <span slot="param_name" >{{lang.hour}}</span>
                         <el-select slot="param" v-model="r_hour" :placeholder="lang.select_placeholder" style="width: 100%">
-                            <el-option v-for="i in 24" :value="i">{{i-1}}</el-option>
+                            <el-option v-for="i in 24" :value="i-1">{{i-1}}</el-option>
                         </el-select>
                     </form_item>
                 </el-row>
@@ -218,7 +220,7 @@
                         <span slot="param_help" v-html="lang.minute"></span>
                         <span slot="param_name" >{{lang.minute}}</span>
                         <el-select slot="param" v-model="r_minute" :placeholder="lang.select_placeholder" style="width: 100%">
-                            <el-option v-for="i in 60" :value="i">{{i-1}}</el-option>
+                            <el-option v-for="i in 60" :value="i-1">{{i-1}}</el-option>
                         </el-select>
                     </form_item>
                 </el-row>
@@ -363,7 +365,7 @@
                 console.log(data)
 
                 this.$message({
-                    message: '恭喜你，保存成功',
+                    message: this.lang.save_successfully,
                     type: 'success',
                     offset: '80'
                 })
@@ -381,7 +383,18 @@
             },
 
             Delete_language(){
-                this.$confirm('确定要删除吗')
+                console.log(this.language_value)
+                if(this.language_value == 'english'){
+                    this.$notify.error({
+                        title: this.lang.error,
+                        message: this.lang.delete_language_alert,
+                        duration: 5000
+                    });
+
+                    return false
+                }
+
+                this.$confirm(this.lang.delete_language_confirm)
                     .then(_ => {
                         this.request.AGSysGeneralDelLang(this.del_succeed_back, this.del_error_back, this.language_value)
                     }).catch(_ => {
@@ -406,6 +419,19 @@
                 })
 
                 this.reload()
+            },
+            before_upload(file){
+                for(let i=0;i<this.languages.length;i++){
+                    if(this.languages[i].value == file.name){
+                        this.$notify.error({
+                            title: this.lang.error,
+                            message: this.lang.already_exists,
+                            duration: 5000
+                        });
+
+                        return false
+                    }
+                }
             },
             upload_succeed(){
                 this.$message({

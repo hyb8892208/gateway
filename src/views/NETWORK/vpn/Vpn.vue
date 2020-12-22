@@ -7,7 +7,7 @@
             size="small">
         <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;padding-left: 20px;">
             <h1 style="line-height: 50px;font-size: 18px;">
-                {{lang.openvpn_settings}}
+                {{lang.vpn_settings}}
                 <div style="float: right;line-height: 50px;margin-right: 20px;">
                     <el-button type="primary"
                                size="small"
@@ -18,7 +18,7 @@
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left"><h3>{{lang.vpn_settings}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.basic_settings}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -43,15 +43,15 @@
 
             <el-row v-if="current_components != ''">
                 <form_item>
-                    <span slot="param_help" v-html="lang.connection_status_help"></span>
+                    <span slot="param_help" v-html="lang.connection_status"></span>
                     <span slot="param_name" >{{lang.connection_status}}</span>
                     <div slot="param">
                         <span v-for="(item,index) in vpn_options">
                             <span v-if="vpn_type == index">
                                 <i class="el-icon-loading" v-show="item.connection_status_icon" style="font-size: 20px;"></i>
                                 <span v-show="!item.connection_status_icon">
-                                    <b v-if="item.connection_status === 1" style="color: #67C23A;">{{lang.connected}}</b>
-                                    <b v-else-if="item.connection_status === 0" style="color: #F56C6C;">{{lang.failed_to_connect}}</b>
+                                    <b v-if="item.connection_status == 1" style="color: #67C23A;">{{lang.connected}}</b>
+                                    <b v-else-if="item.connection_status == 0" style="color: #F56C6C;">{{lang.failed_to_connect}}</b>
                                 </span>
                             </span>
                         </span>
@@ -131,6 +131,9 @@
                 this.$store.commit(MENU, common_data)
 
                 this.vpn_data = data['_get']['_vpn']
+                if(common_data['_features']['_SNMP'] == 0){
+                    this.vpn_options.pop() //L2TP不显示
+                }
 
                 this.vpn_type = parseInt(this.vpn_data['_vpntype'])
 
@@ -229,6 +232,7 @@
                 }
             },
             first_connect_succeed_back(data){
+                console.log(data)
                 this.vpn_options[this.vpn_type].connection_status = data['_connectsta']
             },
             first_connect_error_back(){
@@ -236,6 +240,7 @@
             },
 
             save_connect_succeed_back(data){
+                console.log(data)
                 if(data['_connectsta'] == 1){
                     this.vpn_options[this.vpn_type].connection_status_icon = false
                     this.vpn_options[this.vpn_type].connection_status = data['_connectsta']

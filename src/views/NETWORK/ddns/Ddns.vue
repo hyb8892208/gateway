@@ -18,7 +18,7 @@
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left"><h3>{{lang.ddns_settings}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.basic_settings}}</h2></divider_item>
 
             <el-row>
                 <form_item>

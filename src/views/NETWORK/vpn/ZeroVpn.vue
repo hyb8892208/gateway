@@ -1,6 +1,6 @@
 <template>
     <el-row>
-        <el-divider content-position="left"><h3>{{lang.zerotier_vpn_settings}}</h3></el-divider>
+        <divider_item><span slot="title">{{lang.zerotier_vpn_settings}}</span></divider_item>
 
         <el-row>
             <form_item>

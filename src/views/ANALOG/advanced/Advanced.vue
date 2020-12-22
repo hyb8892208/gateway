@@ -19,7 +19,8 @@
         </div>
 
         <el-card shadow="never" v-loading="loading" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
-            <el-divider content-position="left"><h3>{{lang.general}}</h3></el-divider>
+
+            <divider_item><span slot="title">{{lang.general}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -71,9 +72,23 @@
                         </el-select>
                     </span>
                 </form_item>
+
+                <form_item>
+                    <span slot="param_help" v-html="lang.FXS_signaling_help"></span>
+                    <span slot="param_name" >{{lang.FXS_signaling}}</span>
+                    <span slot="param">
+                        <el-select v-model="fxs_signaling" style="width: 100%;">
+                            <el-option
+                                    v-for="item in fxs_signaling_options"
+                                    :label="item.label"
+                                    :key="item.value"
+                                    :value="item.value"></el-option>
+                        </el-select>
+                    </span>
+                </form_item>
             </el-row>
 
-            <el-divider content-position="left"><h3>{{lang.fax}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.fax}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -109,7 +124,7 @@
                 </form_item>
             </el-row>
 
-            <el-divider content-position="left"><h3>{{lang.country}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.country}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -243,6 +258,14 @@
                 ind_stutter: '',
 
                 flag: 0,
+
+                fxs_signaling_options: [{
+                    label: 'Loop start',
+                    value: 0
+                },{
+                    label: 'Kewlstart',
+                    value: 1
+                }],
 
                 echotype_options: [{
                     label: 'Aec',
@@ -438,7 +461,7 @@
                                     ? 120
                                     : _global['_echocancel']
 
-                this.fxs_signaling = _global['_sigfxs']
+                this.fxs_signaling = parseInt(_global['_sigfxs'])
                 this.mode = _global['_mode'] == '' ? 'Adaptive' : _global['_mode']
                 this.rate = _global['_rate'] == '' ? 0 : _global['_rate']
                 this.ecm = _global['_ecm'] == 1 ? true : false
@@ -508,17 +531,17 @@
 
                 console.log(UcpAlgGlbSave)
                 if((this.country != this.old_country) || (this.echotype != this.old_echotype) || (this.echocancel != this.old_echocancel)){
-                    this.$confirm('需要重启Dahdi才能生效，确定要重启吗')
+                    this.$confirm(this.lang.glbSetting_restart_help)
                         .then(_ => {
                             this.loading = true
                             this.flag = 1
                             this.request.AGUcpAlgGlbSettingSave(this.save_succeed_back, this.save_error_back, UcpAlgGlbSave, this.flag)
                         })
                         .catch(_ => {
-                            this.request.AGUcpAlgGlbSettingSave(this.save_succeed_back, this.save_error_back, UcpAlgGlbSave, this.flag)
                         })
                 }else{
                     this.loading = true
+                    this.request.AGUcpAlgGlbSettingSave(this.save_succeed_back, this.save_error_back, UcpAlgGlbSave, this.flag)
                 }
             },
             save_succeed_back(data){

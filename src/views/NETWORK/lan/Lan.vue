@@ -18,7 +18,7 @@
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left"><h3>{{lang.lan_ipv4}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.lan_ipv4}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -51,7 +51,7 @@
             </el-row>
 
             <el-row v-if="lan_type != 2">
-                <el-divider content-position="left"><h3>{{lang.ipv4_settings}}</h3></el-divider>
+                <divider_item><span slot="title">{{lang.ipv4_settings}}</h2></divider_item>
 
                 <el-row>
                     <form_item>
@@ -78,7 +78,7 @@
                 </el-row>
             </el-row>
 
-            <el-divider content-position="left"><h3>{{lang.dns_server}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.dns_server}}</h2></divider_item>
 
             <el-row>
                 <form_item>
@@ -112,7 +112,7 @@
                 </form_item>
             </el-row>
 
-            <el-divider content-position="left"><h3>{{lang.reserved_access_ip}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.reserved_access_ip}}</h2></divider_item>
 
             <el-row>
                 <form_item>

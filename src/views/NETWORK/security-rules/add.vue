@@ -7,7 +7,7 @@
             size="small">
         <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;padding-left: 20px;">
             <h1 style="line-height: 50px;font-size: 18px;">
-                {{lang.create_a_rule}}
+                {{lang.security_rules}}
                 <div style="float: right;line-height: 50px;margin-right: 20px;">
                     <el-button type="primary"
                                size="small"
@@ -18,8 +18,6 @@
         </div>
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
-            <el-divider content-position="left"><h3>{{lang.security_rules}}</h3></el-divider>
-
             <el-row>
                 <form_item>
                     <span slot="param_help" v-html="lang.rule_name_help"></span>
@@ -44,7 +42,7 @@
             </el-row>
 
             <el-row>
-                <el-col :lg="22">
+                <el-col :lg="12">
                     <el-form-item>
                         <label slot="label">
                             <el-tooltip placement="top" :open-delay=200>
@@ -52,20 +50,22 @@
                                 <span>{{lang.port}}</span>
                             </el-tooltip>:
                         </label>
-                        <el-row type="flex" class="row-bg" justify="start">
-                            <el-col :lg="4" style="margin-right: 7px;">
-                                <el-input v-model="port1" ></el-input>
-                            </el-col>
-                            <el-col :lg="4">
-                                <el-input v-model="port2" ></el-input>
-                            </el-col>
-                        </el-row>
+                        <el-col :lg="18">
+                            <el-row :gutter="7">
+                                <el-col :lg="12">
+                                    <el-input v-model="port1" ></el-input>
+                                </el-col>
+                                <el-col :lg="12">
+                                    <el-input v-model="port2" ></el-input>
+                                </el-col>
+                            </el-row>
+                        </el-col>
                     </el-form-item>
                 </el-col>
             </el-row>
 
             <el-row>
-                <el-col :lg="22">
+                <el-col :lg="12">
                     <el-form-item>
                         <label slot="label">
                             <el-tooltip placement="top" :open-delay=200>
@@ -73,14 +73,16 @@
                                 <span>{{lang.ip_mask}}</span>
                             </el-tooltip>:
                         </label>
-                        <el-row type="flex" class="row-bg" justify="begin">
-                            <el-col :lg="4" style="margin-right: 7px;">
-                                <el-input v-model="ip" ></el-input>
-                            </el-col>
-                            <el-col :lg="4">
-                                <el-input v-model="mask" ></el-input>
-                            </el-col>
-                        </el-row>
+                        <el-col :lg="18">
+                            <el-row :gutter="7">
+                                <el-col :lg="12">
+                                    <el-input v-model="ip" ></el-input>
+                                </el-col>
+                                <el-col :lg="12">
+                                    <el-input v-model="mask" ></el-input>
+                                </el-col>
+                            </el-row>
+                        </el-col>
                     </el-form-item>
                 </el-col>
             </el-row>

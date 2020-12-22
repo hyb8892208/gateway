@@ -1,5 +1,5 @@
 <template>
-    <el-card shadow="never" style="margin:auto;margin-bottom:50px;" :style=$store.state.page.card_width>
+    <el-card shadow="never" style="margin:auto;margin-bottom:50px;" :style=$store.state.page.card_list_width>
         <el-table
                 :data="routingData"
                 border

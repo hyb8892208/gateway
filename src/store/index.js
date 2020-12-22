@@ -38,7 +38,13 @@ export default new Vuex.Store({
     [MENU](state, common_data){
       state.menu_loading = false
       state.systemtype = common_data['_systemtype']
-      state.copyright = common_data['_copyright']
+
+      const myDate = new Date();
+      let copyright_year = myDate.getFullYear();
+      let copyright = common_data['_copyright'].replace(/<span id="copyright_time"><\/span>/,copyright_year)
+      copyright = copyright.replace(/<br>/, '<span style="margin-left: 20px"></span>')
+      state.copyright = copyright
+
       state.type = common_data['_type']
       state.result = common_data['_result']
       state.FlexRoutingSw = common_data['_FlexRoutingSw']

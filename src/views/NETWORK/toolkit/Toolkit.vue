@@ -7,7 +7,7 @@
                            type="primary"
                            size="small"
                            @click="Start"
-                >{{lang.start}}</el-button>
+                >{{lang.save}}</el-button>
             </div>
         </h1>
 
@@ -17,7 +17,7 @@
                      class="change-label-class"
                      size="small">
 
-                <el-divider content-position="left"><h3>{{lang.ping_and_traceroute}}</h3></el-divider>
+                <divider_item><span slot="title">{{lang.ping_and_traceroute}}</span></divider_item>
 
                 <el-row>
                     <form_item>
@@ -35,7 +35,7 @@
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="20" :xs="24" :sm="24">
+                    <el-col :lg="12">
                         <el-form-item>
                             <label slot="label">
                                 <el-tooltip placement="top" :open-delay=200>
@@ -45,18 +45,22 @@
                                     <span>Ping</span>
                                 </el-tooltip>:
                             </label>
-                            <el-col :lg="6" :xs="16" :sm="16">
-                                <el-input v-model="ping_value" type="mini"></el-input>
-                            </el-col>
-                            <el-col :lg="3" :xs="3" :sm="3">
-                                <el-button style="margin-left: 20px;" @click="ping" type="primary" size="small">Ping</el-button>
+                            <el-col :lg="18">
+                                <el-row :gutter="10">
+                                    <el-col :lg="17">
+                                        <el-input v-model="ping_value" type="mini"></el-input>
+                                    </el-col>
+                                    <el-col :lg="7">
+                                        <el-button @click="ping" type="primary" size="small" style="margin-top:1px;float: right;">{{lang.action}}</el-button>
+                                    </el-col>
+                                </el-row>
                             </el-col>
                         </el-form-item>
                     </el-col>
                 </el-row>
 
                 <el-row>
-                    <el-col :lg="20" :xs="24" :sm="24">
+                    <el-col :lg="12">
                         <el-form-item>
                             <label slot="label">
                                 <el-tooltip placement="top" :open-delay=200>
@@ -64,11 +68,15 @@
                                     <span>{{lang.traceroute}}</span>
                                 </el-tooltip>:
                             </label>
-                            <el-col :lg="6" :xs="16" :sm="16">
-                                <el-input v-model="traceroute_value" type="mini"></el-input>
-                            </el-col>
-                            <el-col :lg="3" :xs="3" :sm="3">
-                                <el-button style="margin-left: 20px;" @click="traceroute" type="primary" size="small">{{lang.traceroute}}</el-button>
+                            <el-col :lg="18">
+                                <el-row :gutter="10">
+                                    <el-col :lg="17">
+                                        <el-input v-model="traceroute_value" type="mini"></el-input>
+                                    </el-col>
+                                    <el-col :lg="7">
+                                        <el-button @click="traceroute" type="primary" size="small" style="margin-top:1px;float: right;">{{lang.action}}</el-button>
+                                    </el-col>
+                                </el-row>
                             </el-col>
                         </el-form-item>
                     </el-col>
@@ -86,8 +94,8 @@
                             <el-col :lg="24">
                                 <el-card class="box-card" style="padding:0 20px 20px 20px;" shadow="never">
                                     <div slot="header" class="clearfix">
-                                        <b style="font-size: 15px;">Ping and Traceroute Result</b>
-                                        <i style="float: right; padding: 3px 0;font-size: 20px;color:red;cursor: pointer;"
+<!--                                        <b style="font-size: 15px;">Ping and Traceroute Result</b>-->
+                                        <i style="float: right; padding: 3px 0;margin-top:-10px;font-size: 20px;color:red;cursor: pointer;"
                                            @click="close_result"
                                            class="el-icon-close"></i>
                                     </div>
@@ -108,7 +116,7 @@
                     </el-col>
                 </el-row>
 
-                <el-divider content-position="left"><h3>{{lang.channel_recording}}</h3></el-divider>
+                <divider_item><span slot="title">{{lang.channel_recording}}</span></divider_item>
 
                 <el-row>
                     <form_item>
@@ -163,7 +171,7 @@
                     </form_item>
                 </el-row>
 
-                <el-row>
+                <el-row v-if="tcpdump_options_value.length > 0">
                     <el-col :lg="12" :xs="24" :sm="24">
                         <el-form-item>
                             <label slot="label">
@@ -173,27 +181,29 @@
                                 </el-tooltip>:
                             </label>
 
-                            <el-row :gutter="10" v-for="(i,ind) in tcpdump_options_value">
-                                <el-col :lg="9" :xs="18" :sm="18">
-                                    <el-select v-model="i.key"
-                                               @change="change_tcpdump_options_key(ind)"
-                                               style="margin-top: 10px;width: 100%;">
-                                        <el-option
-                                                v-for="item in tcpdump_options"
-                                                :key="item.value"
-                                                :label="item.label"
-                                                :value="item.value"
-                                        ></el-option>
-                                    </el-select>
-                                </el-col>
-                                <el-col :lg="9" :xs="18" :sm="18" v-if="i.key == 'host' || i.key == 'sip'">
-                                    <el-input style="margin-top:10px;" v-model="i.value"></el-input>
-                                </el-col>
-                                <el-col :lg="2" :xs="3" :sm="3">
-                                    <i class="el-icon-close"
-                                       @click="remove_tcpdump_option(ind)"
-                                       style="font-size: 20px;color: red;margin: 15px 0 0 10px;cursor: pointer;"></i>
-                                </el-col>
+                            <el-row style="padding-left: 5px;">
+                                <el-row :gutter="10" v-for="(i,ind) in tcpdump_options_value">
+                                    <el-col :lg="9" :xs="18" :sm="18">
+                                        <el-select v-model="i.key"
+                                                   @change="change_tcpdump_options_key(ind)"
+                                                   style="margin-top: 10px;width: 100%;">
+                                            <el-option
+                                                    v-for="item in tcpdump_options"
+                                                    :key="item.value"
+                                                    :label="item.label"
+                                                    :value="item.value"
+                                            ></el-option>
+                                        </el-select>
+                                    </el-col>
+                                    <el-col :lg="9" :xs="18" :sm="18" v-if="i.key == 'host' || i.key == 'sip'">
+                                        <el-input style="margin-top:10px;" v-model="i.value"></el-input>
+                                    </el-col>
+                                    <el-col :lg="2" :xs="3" :sm="3">
+                                        <i class="el-icon-close"
+                                           @click="remove_tcpdump_option(ind)"
+                                           style="font-size: 20px;color: red;margin: 15px 0 0 10px;cursor: pointer;"></i>
+                                    </el-col>
+                                </el-row>
                             </el-row>
 
                         </el-form-item>
@@ -203,7 +213,7 @@
         </el-card>
 
         <el-dialog
-                :title="lang.tcpdump"
+                :title="lang.confirmation"
                 :visible.sync="tcpdump_dialogVisible"
                 :close-on-click-modal=true
                 :close-on-press-escape=false
@@ -256,10 +266,7 @@
                     value: 2
                 }],
 
-                tcpdump_options_value: [{
-                    key: 'none',
-                    value: ''
-                }],
+                tcpdump_options_value: [],
                 tcpdump_options: [{
                     label: 'None',
                     value: 'none'
@@ -284,6 +291,7 @@
 
                 tcpdump_dialogVisible: false,
                 timeout: '00:00',
+                sec: 1,
 
                 lang: this.$store.state.lang
             }
@@ -302,9 +310,9 @@
 
                     let name = ''
                     if(index == 0){
-                        name = 'Lan'
+                        name = 'LAN2'
                     }else if(index == 1){
-                        name = 'Wan'
+                        name = 'LAN1'
                     }
 
                     let obj = {
@@ -358,7 +366,7 @@
                 this.traceroute_result = 'Traceroute failed'
             },
             close_result(){
-                this.$confirm('确定要关闭当前窗口吗，关闭后数据将会丢失？')
+                this.$confirm(this.lang.close_dialog)
                     .then(_ => {
                         this.ping_open = false
                         this.traceroute_open = false
@@ -406,26 +414,25 @@
             },
             start_succeed_back(){
                 console.log('start succeed')
-                this.timer(0)
+                this.timeoutID = setInterval(this.timer, 1000)
             },
             start_error_back(){
                 console.log('start failed')
             },
-            timer(sec){
+            timer(){
                 let s=0,m=0
 
-                m = parseInt(sec/60)
+                m = parseInt(this.sec/60)
                 m = m < 10 ? '0'+m : m
-                s = sec%60
+                s = this.sec%60
                 s = s < 10 ? '0'+s : s
 
                 this.timeout =  m+':'+s
-                if(sec<600){
-                    sec++
-                    this.timeoutID = setTimeout(this.timer, 1000, sec)
-                }else{
+                if(this.sec>=600){
                     this.Stop()
                 }
+
+                this.sec++
             },
             tcpdumpClose(){
                 this.$confirm(this.lang.dialog_close_confirm)
@@ -436,8 +443,9 @@
             },
             Stop(){
                 this.tcpdump_dialogVisible = false
-                clearTimeout(this.timeoutID)
+                clearInterval(this.timeoutID)
                 this.timeout = '00:00'
+                this.sec = 1
                 this.request.AGNetworkTookitTcpdump(this.stop_succeed_back, this.stop_error_back, 1, null)
             },
             stop_succeed_back(){
@@ -451,7 +459,7 @@
                 document.getElementById('download_voicefile').submit()
 
                 this.$message({
-                    message: '停止失败',
+                    message: 'Stop failed',
                     type: 'error',
                     offset: '80'
                 })
@@ -461,7 +469,7 @@
             this.request.AGNetworkToolkitGet(this.show_succeed_back, this.show_error_back)
         },
         beforeDestroy() {
-            clearTimeout(this.timeoutID)
+            clearInterval(this.timeoutID)
         }
     }
 </script>

@@ -4,6 +4,8 @@
             label-width="250px"
             class="change-label-class"
             ref="ruleForm"
+            :rules="rules"
+            :model="ruleForm"
             size="small">
         <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;padding-left: 20px;">
             <h1 style="line-height: 50px;font-size: 18px;">
@@ -12,20 +14,20 @@
                     <el-button
                             type="primary"
                             size="small"
-                            @click="Save()">{{lang.save}}</el-button>
+                            @click="submitValidator('ruleForm')">{{lang.save}}</el-button>
                 </div>
             </h1>
         </div>
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left"><h3>{{lang.busy_detect}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.busy_detect}}</span></divider_item>
 
             <el-row>
                 <form_item>
                     <span slot="param_help" v-html="lang.busy_detect_help"></span>
                     <span slot="param_name" >{{lang.busy_detect}}</span>
-                    <el-checkbox slot="param" v-model="busydetect"></el-checkbox>
+                    <el-checkbox slot="param" v-model="busydetect" @change="BusydetectChange('busydetect')"></el-checkbox>
                 </form_item>
             </el-row>
 
@@ -33,13 +35,13 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.busy_count_help"></span>
                     <span slot="param_name" >{{lang.busy_count}}</span>
-                    <el-input slot="param" v-model="busycount"></el-input>
+                    <el-input slot="param" v-model="busycount" :disabled="!busydetect"></el-input>
                 </form_item>
 
                 <form_item>
                     <span slot="param_help" v-html="lang.busy_country_help"></span>
                     <span slot="param_name" >{{lang.busy_country}}</span>
-                    <el-select slot="param" v-model="busycountry" style="width: 100%;">
+                    <el-select slot="param" v-model="busycountry" :disabled="!busydetect" style="width: 100%;">
                         <el-option
                                 v-for="item in busycountry_options"
                                 :label="item.label"
@@ -53,7 +55,7 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.fxo_monitor_help"></span>
                     <span slot="param_name" >{{lang.fxo_monitor}}</span>
-                    <el-checkbox slot="param" v-model="fxomon"></el-checkbox>
+                    <el-checkbox slot="param" v-model="fxomon" @change="BusydetectChange('fxomon')"></el-checkbox>
                 </form_item>
             </el-row>
 
@@ -82,7 +84,7 @@
                 </form_item>
             </el-row>
 
-            <el-divider content-position="left"><h3>{{lang.silence_detect}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.silence_detect}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -93,60 +95,60 @@
             </el-row>
 
             <el-row>
-                <form_item>
+                <form_item v-bind:param="'silencethreshold'">
                     <span slot="param_help" v-html="lang.silence_threshold_help"></span>
                     <span slot="param_name" >{{lang.silence_threshold}}</span>
-                    <el-input slot="param" v-model="silencethreshold"></el-input>
+                    <el-input slot="param" v-model="ruleForm.silencethreshold" :disabled="!silencedetect"></el-input>
                 </form_item>
 
-                <form_item>
+                <form_item v-bind:param="'maxsilence'">
                     <span slot="param_help" v-html="lang.max_silence_help"></span>
                     <span slot="param_name" >{{lang.max_silence}}</span>
-                    <el-input slot="param" v-model="maxsilence"></el-input>
+                    <el-input slot="param" v-model="ruleForm.maxsilence" :disabled="!silencedetect"></el-input>
                 </form_item>
             </el-row>
 
             <el-row>
-                <form_item>
+                <form_item v-bind:param="'rxthreshold'">
                     <span slot="param_help" v-html="lang.rx_threshold_help"></span>
                     <span slot="param_name" >{{lang.rx_threshold}}</span>
-                    <el-input slot="param" v-model="rxthreshold"></el-input>
+                    <el-input slot="param" v-model="ruleForm.rxthreshold" :disabled="!silencedetect"></el-input>
                 </form_item>
 
-                <form_item>
+                <form_item v-bind:param="'txthreshold'">
                     <span slot="param_help" v-html="lang.tx_threshold_help"></span>
                     <span slot="param_name" >{{lang.tx_threshold}}</span>
-                    <el-input slot="param" v-model="txthreshold"></el-input>
+                    <el-input slot="param" v-model="ruleForm.txthreshold" :disabled="!silencedetect"></el-input>
                 </form_item>
             </el-row>
 
-            <el-divider content-position="left"><h3>{{lang.dahdi_parameters}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.dahdi_parameters}}</span></divider_item>
 
             <el-row>
-                <form_item>
+                <form_item v-bind:param="'polaritydebounce'">
                     <span slot="param_help" v-html="lang.polaritydebounce_help"></span>
                     <span slot="param_name" >{{lang.polaritydebounce}}</span>
-                    <el-input slot="param" v-model="polaritydebounce"></el-input>
+                    <el-input slot="param" v-model="ruleForm.polaritydebounce"></el-input>
                 </form_item>
 
-                <form_item>
+                <form_item v-bind:param="'ringdebounce'">
                     <span slot="param_help" v-html="lang.ringdebounce_help"></span>
                     <span slot="param_name" >{{lang.ringdebounce}}</span>
-                    <el-input slot="param" v-model="ringdebounce"></el-input>
+                    <el-input slot="param" v-model="ruleForm.ringdebounce"></el-input>
                 </form_item>
             </el-row>
 
             <el-row>
-                <form_item>
+                <form_item v-bind:param="'ringoncount'">
                     <span slot="param_help" v-html="lang.ringoncount_help"></span>
                     <span slot="param_name" >{{lang.ringoncount}}</span>
-                    <el-input slot="param" v-model="ringoncount"></el-input>
+                    <el-input slot="param" v-model="ruleForm.ringoncount"></el-input>
                 </form_item>
 
-                <form_item>
+                <form_item v-bind:param="'ringoffcount'">
                     <span slot="param_help" v-html="lang.ringoffcount_help"></span>
                     <span slot="param_name" >{{lang.ringoffcount}}</span>
-                    <el-input slot="param" v-model="ringoffcount"></el-input>
+                    <el-input slot="param" v-model="ruleForm.ringoffcount"></el-input>
                 </form_item>
             </el-row>
         </el-card>
@@ -159,7 +161,78 @@
     export default {
         name: "fxo",
         data() {
+            var validateSilencethreshold = (rule, value, callback) => {
+                if(String(value).indexOf(".") > -1){
+                    callback(new Error(this.lang.check_param_int))
+                }else if(!(parseInt(value) >= 100 && parseInt(value) <= 500)){
+                    callback(new Error('Range:100 ~ 500ms'))
+                }else{
+                    callback()
+                }
+            }
+
+            var validateMaxsilence = (rule, value, callback) => {
+                if(String(value).indexOf(".") > -1){
+                    callback(new Error(this.lang.check_param_int))
+                }else if(!(parseInt(value) >= 2 && parseInt(value) <= 1020)){
+                    callback(new Error('Range:2 ~ 1020ms'))
+                }else{
+                    callback()
+                }
+            }
+
+            var validateRxthreshold = (rule, value, callback) => {
+                if(String(value).indexOf(".") > -1){
+                    callback(new Error(this.lang.check_param_int))
+                }else if(!(parseInt(value) >= 20 && parseInt(value) <= 40)){
+                    callback(new Error('Range:20 ~ 40ms'))
+                }else{
+                    callback()
+                }
+            }
+
+            var validatePolaritydebounce = (rule, value, callback) => {
+                if(String(value).indexOf(".") > -1){
+                    callback(new Error(this.lang.check_param_int))
+                }else if(!(parseInt(value) >= 8 && parseInt(value) <= 2048)){
+                    callback(new Error('Range:0 ~ 2048ms'))
+                }else{
+                    callback()
+                }
+            }
+
+            var validateRingoncount = (rule, value, callback) => {
+                if(String(value).indexOf(".") > -1){
+                    callback(new Error(this.lang.check_param_int))
+                }else if(!(parseInt(value) >= 0 && parseInt(value) <= 128)){
+                    callback(new Error('Range:0 ~ 128'))
+                }else{
+                    callback()
+                }
+            }
             return {
+                ruleForm: {
+                    silencethreshold: '',
+                    maxsilence: '',
+                    rxthreshold: '',
+                    txthreshold: '',
+
+                    polaritydebounce: '',
+                    ringdebounce: '',
+                    ringoncount: '',
+                    ringoffcount: '',
+                },
+                rules: {
+                    silencethreshold: [{ validator: validateSilencethreshold, trigger: 'blur' }],
+                    maxsilence: [{ validator: validateMaxsilence, trigger: 'blur' }],
+                    rxthreshold: [{ validator: validateRxthreshold, trigger: 'blur' }],
+                    txthreshold: [{ validator: validateRxthreshold, trigger: 'blur' }],
+
+                    polaritydebounce: [{ validator: validatePolaritydebounce, trigger: 'blur' }],
+                    ringdebounce: [{ validator: validatePolaritydebounce, trigger: 'blur' }],
+                    ringoncount: [{ validator: validateRingoncount, trigger: 'blur' }],
+                    ringoffcount: [{ validator: validateRingoncount, trigger: 'blur' }],
+                },
                 busydetect: false,
                 busycount: '',
                 busycountry: 'cn',
@@ -217,37 +290,56 @@
                 this.busycountry = _glb['_busycountry']
                 this.fxomon = _busytones['_fxomonenable'] == 1 ? true : false
                 this.silencedetect = _glb['_silencedetect'] == 1 ? true : false
-                this.silencethreshold = _glb['_silencethreshold']
-                this.maxsilence = _glb['_maxsilence']
-                this.rxthreshold = _glb['_rxthreshold']
-                this.txthreshold = _glb['_txthreshold']
-                this.polaritydebounce = _dahdi['_polaritydebounce']
-                this.ringdebounce = _dahdi['_ringdebounce']
-                this.ringoncount = _dahdi['_ringoncount']
-                this.ringoffcount = _dahdi['_ringoffcount']
+                this.ruleForm.silencethreshold = _glb['_silencethreshold']
+                this.ruleForm.maxsilence = _glb['_maxsilence']
+                this.ruleForm.rxthreshold = _glb['_rxthreshold']
+                this.ruleForm.txthreshold = _glb['_txthreshold']
+                this.ruleForm.polaritydebounce = _dahdi['_polaritydebounce']
+                this.ruleForm.ringdebounce = _dahdi['_ringdebounce']
+                this.ruleForm.ringoncount = _dahdi['_ringoncount']
+                this.ruleForm.ringoffcount = _dahdi['_ringoffcount']
             },
             show_error_back(){
                 this.$router.push('/common/error')
             },
 
+            BusydetectChange(type){
+                if(type == 'busydetect' && this.busydetect){
+                    this.fxomon = false
+                }
+
+                if(type == 'fxomon' && this.fxomon){
+                    this.busydetect = false
+                }
+            },
+
+            submitValidator(formName){
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.Save()
+                    } else {
+                        return false;
+                    }
+                });
+            },
             Save(){
                 const global = new AST_UcpAlgFxoGlobal()
 
                 global._busycount = this.busycount
                 global._busycountry = this.busycountry
-                global._silencethreshold = this.silencethreshold
-                global._maxsilence = this.maxsilence
-                global._rxthreshold = this.rxthreshold
-                global._txthreshold = this.txthreshold
+                global._silencethreshold = this.ruleForm.silencethreshold
+                global._maxsilence = this.ruleForm.maxsilence
+                global._rxthreshold = this.ruleForm.rxthreshold
+                global._txthreshold = this.ruleForm.txthreshold
                 global._silencedetect = this.silencedetect == true ? 1 : 0
                 global._busydetect = this.busydetect == true ? 1 : 0
 
                 const dahdi = new AST_UcpAlgDahdiContent()
 
-                dahdi._polaritydebounce = this.polaritydebounce == '' ? 8 : this.polaritydebounce
-                dahdi._ringdebounce = this.ringdebounce == '' ? 0 : this.ringdebounce
-                dahdi._ringoncount = this.ringoncount == '' ? 0 : this.ringoncount
-                dahdi._ringoffcount = this.ringoffcount == '' ? 0 : this.ringoffcount
+                dahdi._polaritydebounce = this.ruleForm.polaritydebounce == '' ? 8 : this.ruleForm.polaritydebounce
+                dahdi._ringdebounce = this.ruleForm.ringdebounce == '' ? 0 : this.ruleForm.ringdebounce
+                dahdi._ringoncount = this.ruleForm.ringoncount == '' ? 0 : this.ruleForm.ringoncount
+                dahdi._ringoffcount = this.ruleForm.ringoffcount == '' ? 0 : this.ruleForm.ringoffcount
 
                 const busytones = new AST_AlgBusyTone()
 

@@ -18,7 +18,7 @@
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left"><h3>{{lang.firewall_settings}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.firewall_settings}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -36,13 +36,13 @@
                 </form_item>
             </el-row>
 
-            <el-divider content-position="left"><h3>{{lang.white_list_settings}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.white_list_settings}}</span></divider_item>
 
             <el-row>
                 <form_item>
                     <span slot="param_help" v-html="lang.white_list_enable_help"></span>
                     <span slot="param_name" >{{lang.white_list_enable}}</span>
-                    <el-checkbox slot="param" v-model="white_list_enable"></el-checkbox>
+                    <el-checkbox slot="param" v-model="white_list_enable" :disabled="!firewall_enable"></el-checkbox>
                 </form_item>
             </el-row>
 
@@ -50,17 +50,17 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.list_ip_settings_help"></span>
                     <span slot="param_name" >{{lang.list_ip_settings}}</span>
-                    <el-input slot="param" v-model="white_ip" type="textarea"></el-input>
+                    <el-input slot="param" v-model="white_ip" type="textarea" :disabled="!firewall_enable || !white_list_enable"></el-input>
                 </form_item>
             </el-row>
 
-            <el-divider content-position="left"><h3>{{lang.black_list_settings}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.black_list_settings}}</span></divider_item>
 
             <el-row>
                 <form_item>
                     <span slot="param_help" v-html="lang.black_list_enable_help"></span>
                     <span slot="param_name" >{{lang.black_list_enable}}</span>
-                    <el-checkbox slot="param" v-model="black_list_enable"></el-checkbox>
+                    <el-checkbox slot="param" v-model="black_list_enable" :disabled="!firewall_enable"></el-checkbox>
                 </form_item>
             </el-row>
 
@@ -68,7 +68,7 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.list_ip_settings_help"></span>
                     <span slot="param_name" >{{lang.list_ip_settings}}</span>
-                    <el-input slot="param" v-model="black_ip" type="textarea"></el-input>
+                    <el-input slot="param" v-model="black_ip" type="textarea" :disabled="!firewall_enable || !black_list_enable"></el-input>
                 </form_item>
             </el-row>
         </el-card>

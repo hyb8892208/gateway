@@ -12,6 +12,16 @@
             </form_item>
         </el-row>
 
+        <!-- 恢复出厂1 -->
+        <el-dialog
+                :title="lang.factory_reset"
+                :visible.sync="factory_reset_dialogVisible"
+                id="restore_reset"
+                :before-close="factoryClose"
+                :width="this.$store.state.page.dialog_width">
+            <span>{{factory_reset_result}}</span>
+        </el-dialog>
+
         <!-- 恢复出厂2 -->
         <el-dialog
                 :title="lang.restore_system"
@@ -21,7 +31,7 @@
                 :width="this.$store.state.page.dialog_width">
             <span>{{restore_system_result}}</span>
             <el-checkbox v-model="cdr_db">CDR</el-checkbox>
-            <el-checkbox v-model="system_log">System Log</el-checkbox>
+            <el-checkbox v-model="system_log">{{lang.system_logs}}</el-checkbox>
             <div style="margin-top:20px;text-align: center;">
                 <el-button type="primary"
                            size="mini"
@@ -39,7 +49,9 @@
         data(){
             return {
                 restore_system_dialogVisible: false,
+                factory_reset_dialogVisible: false,
                 restore_system_result: '',
+                factory_reset_result: '',
                 cdr_db: false,
                 system_log: false,
                 stacknum: 1,
@@ -61,12 +73,13 @@
                 this.$confirm(this.lang.factory_reset_confirm)
                     .then(_ => {
                         this.factory_reset_dialogVisible = true
+                        this.restore_system_dialogVisible = false
 
                         this.loading = this.$loading({//在dialog容器中增加loading
                             lock: false,
                             text: this.lang.factory_reset_wait,
                             background: '#ffffff',
-                            target: '#factory_reset .el-dialog',
+                            target: '#restore_reset .el-dialog',
                             body: false,
                         })
 
@@ -88,6 +101,15 @@
                 this.$confirm(this.lang.dialog_close_confirm)
                     .then(_ => {
                         this.restore_system_dialogVisible = false
+                    })
+                    .catch(_ => {
+
+                    })
+            },
+            factoryClose(){
+                this.$confirm(this.lang.dialog_close_confirm)
+                    .then(_ => {
+                        this.factory_reset_dialogVisible = false
                     })
                     .catch(_ => {
 

@@ -1,10 +1,10 @@
 <template>
     <el-row>
-        <el-divider content-position="left"><h3>{{lang.openvpn_settings}}</h3></el-divider>
+        <divider_item><span slot="title">{{lang.pptpvpn_settings}}</span></divider_item>
 
         <el-row>
             <form_item>
-                <span slot="param_help" v-html="lang.server_help"></span>
+                <span slot="param_help" v-html="lang.pptpvpn_server_help"></span>
                 <span slot="param_name" >{{lang.server}}</span>
                 <el-input slot="param" v-model="server"></el-input>
             </form_item>
@@ -12,7 +12,7 @@
 
         <el-row>
             <form_item>
-                <span slot="param_help" v-html="lang.account_help"></span>
+                <span slot="param_help" v-html="lang.pptpvpn_account_help"></span>
                 <span slot="param_name" >{{lang.account}}</span>
                 <el-input slot="param" v-model="account"></el-input>
             </form_item>
@@ -20,7 +20,7 @@
 
         <el-row>
             <form_item>
-                <span slot="param_help" v-html="lang.password_help"></span>
+                <span slot="param_help" v-html="lang.pptpvpn_password_help"></span>
                 <span slot="param_name" >{{lang.password}}</span>
                 <el-input slot="param" v-model="password" show-password></el-input>
             </form_item>

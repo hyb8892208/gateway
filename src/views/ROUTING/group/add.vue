@@ -18,7 +18,7 @@
 
         <el-card shadow="never" style="margin:auto;padding: 20px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left"><h3>{{lang.routing_groups}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.routing_groups}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -57,31 +57,49 @@
             </el-row>
 
             <el-row>
-                <form_item>
-                    <span slot="param_help" v-html="lang.members_help"></span>
-                    <span slot="param_name" >{{lang.members}}</span>
-                    <div slot="param">
-                        <el-row v-if="type == 1">
-                            <el-checkbox :indeterminate="isIndeterminate_fxo"
-                                         v-model="checkFXOAll"
-                                         @change="handleFXOCheckAllChange">{{lang.all}}</el-checkbox>
-                            <div style="margin: 15px 0;"></div>
-                            <el-checkbox-group v-model="fxo_members_selected" @change="handleCheckedFXOChange">
-                                <el-checkbox v-for="item in fxo_members" :label="item" :key="item">{{item}}</el-checkbox>
-                            </el-checkbox-group>
-                        </el-row>
+                <el-col :lg="24" >
+                    <el-form-item>
+                        <label slot="label">
+                            <el-tooltip placement="top" :open-delay=200>
+                                <div slot="content">
+                                    <span v-html="lang.members_help"></span>
+                                </div>
+                                <span>{{lang.members}}</span>
+                            </el-tooltip>:
+                        </label>
+                        <el-col :lg="18">
+                            <slot name="param">
+                                <el-row v-if="type == 1">
+                                    <el-checkbox :indeterminate="isIndeterminate_fxo"
+                                                 v-model="checkFXOAll"
+                                                 @change="handleFXOCheckAllChange">{{lang.all}}</el-checkbox>
+                                    <div style="margin: 15px 0;"></div>
+                                    <el-checkbox-group v-model="fxo_members_selected" @change="handleCheckedFXOChange">
+                                        <el-row>
+                                            <el-col :lg="4" :sm="6" :xs="12" v-for="item in fxo_members">
+                                                <el-checkbox :label="item" :key="item">{{item}}</el-checkbox>
+                                            </el-col>
+                                        </el-row>
+                                    </el-checkbox-group>
+                                </el-row>
 
-                        <el-row v-if="type == 0">
-                            <el-checkbox :indeterminate="isIndeterminate_sip"
-                                         v-model="checkSIPAll"
-                                         @change="handleSIPCheckAllChange">{{lang.all}}</el-checkbox>
-                            <div style="margin: 15px 0;"></div>
-                            <el-checkbox-group v-model="sip_members_selected" @change="handleCheckedSIPChange">
-                                <el-checkbox v-for="item in sip_members" :label="item" :key="item">{{item}}</el-checkbox>
-                            </el-checkbox-group>
-                        </el-row>
-                    </div>
-                </form_item>
+                                <el-row v-if="type == 0">
+                                    <el-checkbox :indeterminate="isIndeterminate_sip"
+                                                 v-model="checkSIPAll"
+                                                 @change="handleSIPCheckAllChange">{{lang.all}}</el-checkbox>
+                                    <div style="margin: 15px 0;"></div>
+                                    <el-checkbox-group v-model="sip_members_selected" @change="handleCheckedSIPChange">
+                                        <el-row>
+                                            <el-col :lg="4" :sm="6" :xs="12" v-for="item in sip_members">
+                                                <el-checkbox :label="item" :key="item">{{item}}</el-checkbox>
+                                            </el-col>
+                                        </el-row>
+                                    </el-checkbox-group>
+                                </el-row>
+                            </slot>
+                        </el-col>
+                    </el-form-item>
+                </el-col>
             </el-row>
 
         </el-card>

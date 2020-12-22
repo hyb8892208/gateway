@@ -19,7 +19,7 @@
         </div>
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
-            <el-divider content-position="left"><h3>{{lang.general}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.general}}</span></divider_item>
 
             <el-row>
                 <el-col :lg="12">
@@ -65,7 +65,7 @@
                 </el-col>
             </el-row>
 
-            <el-divider content-position="left"><h3>{{lang.test}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.test}}</span></divider_item>
 
             <el-table
                     :data="portData"

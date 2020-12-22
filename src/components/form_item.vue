@@ -1,6 +1,6 @@
 <template>
-    <el-col :lg="12">
-        <el-form-item>
+    <el-col :lg="12" >
+        <el-form-item :prop="param">
             <label slot="label">
                 <el-tooltip placement="top" :open-delay=200>
                     <div slot="content">
@@ -18,7 +18,13 @@
 
 <script>
     export default {
-        name: "form_item"
+        name: "form_item",
+        props:{
+            param:{
+                type: String,
+                default: ''
+            }
+        }
     }
 </script>
 

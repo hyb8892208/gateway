@@ -10,7 +10,7 @@
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom:50px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left"><h3>{{lang.reboot_tools}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.reboot_tools}}</span></divider_item>
 
             <system_reboot></system_reboot>
 
@@ -18,17 +18,17 @@
 
             <system_switch></system_switch>
 
-            <el-divider content-position="left"><h3>{{lang.update_firmware}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.update_firmware}}</span></divider_item>
 
             <system_update></system_update>
 
             <system_online_update></system_online_update>
 
-            <el-divider content-position="left"><h3>{{lang.upload_configuration}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.upload_configuration}}</span></divider_item>
 
             <upload_configuration></upload_configuration>
 
-            <el-divider content-position="left"><h3>{{lang.backup_configuration}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.backup_configuration}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -46,15 +46,15 @@
                 </form_item>
             </el-row>
 
-            <el-divider content-position="left"><h3>{{lang.voice_record}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.voice_record}}</span></divider_item>
 
             <voice_record :channels="channels"></voice_record>
 
-            <el-divider content-position="left"><h3>{{lang.restore_configuration}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.restore_configuration}}</span></divider_item>
 
             <factory_reset :stacknum="stacknum"></factory_reset>
 
-            <el-divider content-position="left"><h3>{{lang.restore_system}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.restore_system}}</span></divider_item>
 
             <restore_system :stacknum="stacknum"></restore_system>
 

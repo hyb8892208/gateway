@@ -70,6 +70,7 @@
                 voice_record_content: '',
                 timeout: '00:00',
                 voice_channel: '',
+                sec: 1,//time
 
                 lang: this.$store.state.lang
             }
@@ -96,34 +97,33 @@
             },
             start_success_back(data){
                 console.log('start voice:', data)
-                this.timer(0)
+                this.timeoutID = setInterval(this.timer, 1000)
             },
             start_error_back(){
                 console.log('error')
             },
-            timer(sec){
+            timer(){
                 let s=0,m=0
 
-                m = parseInt(sec/60)
+                m = parseInt(this.sec/60)
                 m = m < 10 ? '0'+m : m
-                s = sec%60
+                s = this.sec%60
                 s = s < 10 ? '0'+s : s
 
                 this.timeout =  m+':'+s
-                if(sec<600){
-                    sec++
-                    this.timeoutID = setTimeout(this.timer, 1000, sec)
-                }else{
+                if(this.sec>=600){
                     this.stop_voice_record()
-                    clearTimeout(this.timeoutID)
                 }
+
+                this.sec++
             },
 
             stop_voice_record(){
                 this.voice_record_dialogVisible = false
                 this.request.AGUcpSystemToolsSndRecordStop(this.stop_succeed_back, this.stop_error_back, this.voice_channel)
-                clearTimeout(this.timeoutID)
+                clearInterval(this.timeoutID)
                 this.timeout = '00:00'
+                this.sec = 1
             },
             stop_succeed_back(data){
                 console.log('stop suceess',data)
@@ -151,7 +151,7 @@
             this.request = request()
         },
         beforeDestroy() {
-            clearTimeout(this.timeoutID)
+            clearInterval(this.timeoutID)
         }
     }
 </script>

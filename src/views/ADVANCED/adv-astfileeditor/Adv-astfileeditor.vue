@@ -13,7 +13,7 @@
                        @click="Reload()">{{lang.reload_asterisk}}</el-button>
         </el-row>
 
-        <el-card shadow="never" style="margin:auto;margin-top:10px;margin-bottom: 50px;" :style=$store.state.page.card_width>
+        <el-card shadow="never" style="margin:auto;margin-top:10px;margin-bottom: 50px;" :style=$store.state.page.card_list_width>
             <el-table
                     :data="fileData"
                     border
@@ -94,7 +94,7 @@
                 this.$router.push('/Advanced/Adv-astfileeditor/add/'+filename)
             },
             Delete(filename){
-                this.$confirm('确定要删除文件吗？')
+                this.$confirm(this.lang.delete_confirm)
                     .then(_ => {
                         let del_filename = '/etc/asterisk/'+filename
                         this.request.AGAdvAstfileeditorEditDel(this.delete_succeed_back, this.delete_error_back, del_filename)
@@ -103,7 +103,7 @@
             },
             delete_succeed_back(data){
                 this.$message({
-                    message: '删除成功',
+                    message: this.lang.successfully_deleted,
                     type: 'success',
                     offset: '80'
                 })
@@ -112,14 +112,14 @@
             },
             delete_error_back(){
                 this.$message({
-                    message: this.lang.save_failed,
+                    message: this.lang.failed_to_delete,
                     type: 'error',
                     offset: '80'
                 })
             },
 
             Reload(){
-                this.$confirm('确定要重启Asterisk吗？')
+                this.$confirm(this.lang.reload_asterisk_tip)
                     .then(_ => {
                         this.request.AGAdvAstcliRun(this.reload_succeed_back, this.reload_error_back, 'core reload')
                     })
@@ -129,14 +129,14 @@
             },
             reload_succeed_back(data){
                 this.$message({
-                    message: '重启Asterisk成功',
+                    message: this.lang.restart_asterisk_successfully,
                     type: 'success',
                     offset: '80'
                 })
             },
             reload_error_back(){
                 this.$message({
-                    message: '重启Asterisk失败',
+                    message: this.lang.restart_asterisk_failed,
                     type: 'error',
                     offset: '80'
                 })

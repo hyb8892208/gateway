@@ -7,7 +7,7 @@
             size="small">
         <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;padding-left: 20px;">
             <h1 style="line-height: 50px;font-size: 18px;">
-                {{lang.lan_settings}}
+                {{lang.mac_settings}}
                 <div style="float: right;line-height: 50px;margin-right: 20px;">
                     <el-button type="primary"
                                size="small"
@@ -18,39 +18,16 @@
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left"><h3>LAN</h3></el-divider>
-
-            <el-row>
-                <el-col :lg="24">
-                    <el-form-item>
-                        <label slot="label">
-                            <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.mac_help"></div>
-                                <span>{{lang.mac}}</span>
-                            </el-tooltip>:
-                        </label>
-                        <el-row :gutter="20">
-                            <el-col :lg="9">
-                                <el-input v-model="lan_mac" @input="lan_change" ></el-input>
-                            </el-col>
-                            <el-col :lg="9">
-                                <span style="color: #FF0000" v-show="lan_tip_type === 0">{{lang.mac_tip}}</span>
-                                <span style="color: #FF0000" v-show="lan_tip_type === 1">{{lang.mac_address_diff}} MAC:{{lan_old_mac}}</span>
-                                <span style="color: #008100" v-show="lan_tip_type === 2">{{lang.mac_address_same}} MAC:{{lan_old_mac}}</span>
-                            </el-col>
-                        </el-row>
-                    </el-form-item>
-                </el-col>
+            <el-row v-show="vlanflag != 0">
+                <divider_item><span slot="title">Lan1</span></divider_item>
             </el-row>
 
-            <el-divider content-position="left"><h3>WAN</h3></el-divider>
-
-            <el-row>
+            <el-row v-show="vlanflag != 0">
                 <el-col :lg="24">
                     <el-form-item>
                         <label slot="label">
                             <el-tooltip placement="top" :open-delay=200>
-                                <div slot="content" v-html="lang.mac_help"></div>
+                                <div slot="content" v-html="lang.mac_help + '<br/>' + lang.MAC_Tip"></div>
                                 <span>{{lang.mac}}</span>
                             </el-tooltip>:
                         </label>
@@ -62,6 +39,31 @@
                                 <span style="color: #FF0000" v-show="wan_tip_type === 0">{{lang.mac_tip}}</span>
                                 <span style="color: #FF0000" v-show="wan_tip_type === 1">{{lang.mac_address_diff}} MAC:{{wan_old_mac}}</span>
                                 <span style="color: #008100" v-show="wan_tip_type === 2">{{lang.mac_address_same}} MAC:{{wan_old_mac}}</span>
+                            </el-col>
+                        </el-row>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <divider_item><span slot="title">LAN2</span></divider_item>
+
+            <el-row>
+                <el-col :lg="24">
+                    <el-form-item>
+                        <label slot="label">
+                            <el-tooltip placement="top" :open-delay=200>
+                                <div slot="content" v-html="lang.mac_help + '<br/>' + lang.MAC_Tip"></div>
+                                <span>{{lang.mac}}</span>
+                            </el-tooltip>:
+                        </label>
+                        <el-row :gutter="20">
+                            <el-col :lg="9">
+                                <el-input v-model="lan_mac" @input="lan_change" ></el-input>
+                            </el-col>
+                            <el-col :lg="9">
+                                <span style="color: #FF0000" v-show="lan_tip_type === 0">{{lang.mac_tip}}</span>
+                                <span style="color: #FF0000" v-show="lan_tip_type === 1">{{lang.mac_address_diff}} MAC:{{lan_old_mac}}</span>
+                                <span style="color: #008100" v-show="lan_tip_type === 2">{{lang.mac_address_same}} MAC:{{lan_old_mac}}</span>
                             </el-col>
                         </el-row>
                     </el-form-item>
@@ -102,6 +104,7 @@
                 lan_tip_type: '',//0 => Tip, 1 => Diff, 2 => Same
                 wan_tip_type: '',//0 => Tip, 1 => Diff, 2 => Same
 
+                vlanflag: 0,
                 lang: this.$store.state.lang
             }
         },
@@ -139,6 +142,7 @@
 
                 this.lan_old_mac = data['_get']['_lanmac'].replace(/:/g, '')
                 this.wan_old_mac = data['_get']['_wanmac'].replace(/:/g, '')
+                this.vlanflag = data['_get']['_vlanflag']
 
                 console.log(this.lan_old_mac)
                 console.log(this.wan_old_mac)
@@ -161,7 +165,7 @@
                 this.reboot_dialogVisible = true
                 this.loading = this.$loading({//在dialog容器中增加loading
                     lock: false,
-                    text: '系统正在重启中，请稍后...',
+                    text: this.lang.system_reboot_wait,
                     background: '#ffffff',
                     target: '#system_reboot .el-dialog',
                     body: false,
@@ -169,7 +173,7 @@
             },
             save_succeed_back(data){
                 this.$message({
-                    message: '烧录成功',
+                    message: 'Burn successfully',
                     type: 'success',
                     offset: '80'
                 })
@@ -178,13 +182,12 @@
             },
             save_error_back(){
                 this.$message({
-                    message: '烧录失败',
+                    message: 'Burn failed',
                     type: 'error',
                     offset: '80'
                 })
             },
             checkNetwork(){
-                console.log('hello')
                 this.$axios.get('/service?action=reboot')
                     .then((res) => {
                         if(res.data == 1){
@@ -194,7 +197,7 @@
                     .catch((error) => {
                         if(this.reboot_timeout >= 300){
                             this.reboot_dialogVisible = false
-                            this.reboot_result = '系统重启超时，请稍后再试'
+                            this.reboot_result = this.lang.system_restart_timeout
                         }
 
                         this.reboot_timeout++

@@ -17,7 +17,7 @@
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left"><h3>{{lang.wan_ipv4}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.wan_ipv4}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -50,7 +50,8 @@
             </el-row>
 
             <el-row v-if="wan_type == 1">
-                <el-divider content-position="left"><h3>{{lang.ipv4_settings}}</h3></el-divider>
+
+                <divider_item><span slot="title">{{lang.ipv4_settings}}</span></divider_item>
 
                 <el-row>
                     <form_item>

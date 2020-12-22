@@ -18,7 +18,7 @@
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left"><h3>{{lang.tls_setting}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.tls_setting}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -54,7 +54,7 @@
                 </form_item>
             </el-row>
 
-            <el-divider content-position="left" ><h3>{{lang.tls_key}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.tls_key}}</span></divider_item>
 
             <el-table
                     :data="keysData"
@@ -155,7 +155,7 @@
                 </el-table-column>
             </el-table>
 
-            <el-divider content-position="left"><h3>{{lang.key_files}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.key_files}}</span></divider_item>
 
             <el-row>
                 <el-col :lg="12">
@@ -171,14 +171,50 @@
                         <el-col :lg="18">
                             <el-upload
                                     class="upload-demo"
+                                    ref="pem_upload"
                                     action="/service"
                                     multiple
                                     name="uploadfile1"
                                     :data="{action:'upload',page_name:'sip-security',type:'upload'}"
                                     :file-list="file_list"
-                                    :on-preview="handlePreview"
                                     :on-success="upload_file_success"
-                                    :limit="2"
+                                    :before-upload="upload_check_pem"
+                                    :limit="1"
+                                    style="width: 100%;">
+                                <el-button type="button" style="width: 100%;">
+                                    <i class="el-icon-folder-opened"></i>
+                                    <span> </span>
+                                    <span>{{lang.select_file}}</span>
+                                </el-button>
+                            </el-upload>
+                        </el-col>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row>
+                <el-col :lg="12">
+                    <el-form-item>
+                        <label slot="label">
+                            <el-tooltip placement="top" :open-delay=200>
+                                <div slot="content">
+                                    {{lang.upload_the_crt_file_help}}
+                                </div>
+                                <span>{{lang.upload_the_crt_file}}</span>
+                            </el-tooltip>:
+                        </label>
+                        <el-col :lg="18">
+                            <el-upload
+                                    class="upload-demo"
+                                    action="/service"
+                                    ref="crt_upload"
+                                    multiple
+                                    name="uploadfile1"
+                                    :data="{action:'upload',page_name:'sip-security',type:'upload'}"
+                                    :file-list="file_list"
+                                    :on-success="upload_file_success"
+                                    :before-upload="upload_check_crt"
+                                    :limit="1"
                                     style="width: 100%;">
                                 <el-button type="button" style="width: 100%;">
                                     <i class="el-icon-folder-opened"></i>
@@ -237,6 +273,7 @@
                 password: '',
 
                 file_list: [],
+                keys_exist: [],
 
                 tls_client_method_options: [{
                     label: 'tlsv1',
@@ -285,11 +322,12 @@
                 let _sipgen = data['_get']['_sipgen']
                 let _sipkey = data['_get']['_sipkey']['_item']
                 let _file = data['_get']['_file']['_item']
+                this.keys_exist = _sipkey
 
                 this.tls_enable = _sipgen['_tlsenable'] == 1 ? true : false
-                this.tls_verify_server = _sipgen['_tlsdontverifyserver'] == 1 ? true : false
-                this.port = _sipgen['_tlsbindport']
-                this.tls_client_method = parseInt(_sipgen['_tlsclientmethod'])
+                this.tls_verify_server = _sipgen['_tlsdontverifyserver'] == 1 ? false : true
+                this.port = _sipgen['_tlsbindport'] == 0 ? '5061' : _sipgen['_tlsbindport']
+                this.tls_client_method = parseInt(_sipgen['_tlsclientmethod']) == 3 ? 0 : parseInt(_sipgen['_tlsclientmethod'])
 
                 _sipkey.forEach(item => {
                     let type
@@ -327,7 +365,7 @@
                 const SipGen = new AST_SipGen()
                 SipGen._tlsbindport = this.port
                 SipGen._tlsenable = this.tls_enable == true ? 1 : 0
-                SipGen._tlsdontverifyserver = this.tls_verify_server == true ? 1 : 0
+                SipGen._tlsdontverifyserver = this.tls_verify_server == false ? 1 : 0
                 SipGen._tlsclientmethod = this.tls_client_method
 
                 const SipSecSave = new AST_SipSecSave()
@@ -355,25 +393,112 @@
                 })
             },
 
+            check_key(){
+                var rex1=/^[-_+.<>&0-9a-zA-Z]{1,32}$/i;
+                if(!rex1.test(this.keysData[0].keyname)) {
+                    this.$message({
+                        message: this.lang.check_keyname,
+                        type: 'error',
+                        offset: '80'
+                    })
+                    return false
+                }
+
+                var rex2=/^(([a-z0-9](w|-){0,61}?[a-z0-9]|[a-z0-9]).){1,}(aero|arpa|asia|biz|cat|com|coop|co|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|[a-z][a-z])(.[a-z][a-z]){0,1}$/i;
+                var rex4=/^((2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)\.){3}(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)$/i;
+                if(!rex2.test(this.keysData[0].host) && !rex4.test(this.keysData[0].host)) {
+                    this.$message({
+                        message: this.lang.check_domain,
+                        type: 'error',
+                        offset: '80'
+                    })
+                    return false
+                }
+
+                if(!rex1.test(this.keysData[0].organization)) {
+                    this.$message({
+                        message: this.lang.check_organization,
+                        type: 'error',
+                        offset: '80'
+                    })
+                    return false
+                }
+
+                var rex3=/^[-_+.<>&0-9a-zA-Z]{4,32}$/i;
+                if(!rex3.test(this.keysData[0].password)) {
+                    this.$message({
+                        message: this.lang.check_diypwd,
+                        type: 'error',
+                        offset: '80'
+                    })
+                    return false
+                }
+
+                let server_exist_flag = false
+                let server_password = ''
+                for(let i=0;i<this.keys_exist.length;i++){
+                    //Server exist
+                    if(this.keys_exist[i]._type == 1 && this.keysData[0].type == 1){
+                        this.$message({
+                            message: this.lang.TLS_server_existed_help,
+                            type: 'error',
+                            offset: '80'
+                        })
+
+                        return false
+                    }
+
+                    if(this.keys_exist[i]._type == 1){
+                        server_password = this.keys_exist[i]._password
+                        server_exist_flag = true
+                    }
+                }
+
+                //Please create the server first
+                if(!server_exist_flag && this.keysData[0].type == 0){
+                    this.$message({
+                        message: this.lang.TLS_create_server_help,
+                        type: 'error',
+                        offset: '80'
+                    })
+
+                    return false
+                }
+
+                //client password must be same with Server
+                if(server_exist_flag && server_password == this.keysData[0].password){
+                    this.$message({
+                        message: this.lang.TLS_key_password_same_as_server,
+                        type: 'error',
+                        offset: '80'
+                    })
+
+                    return false
+                }
+
+                return true
+            },
             create_key(){
-                this.create_loading = true
-                let SipKey = new AST_SipKey()
+                if(this.check_key()){
+                    this.create_loading = true
+                    let SipKey = new AST_SipKey()
 
-                SipKey._keyname = this.keysData[0].keyname
-                SipKey._ipaddress = this.keysData[0].host
-                SipKey._organizetion = this.keysData[0].organization
-                SipKey._password = this.keysData[0].password
-                SipKey._type = this.keysData[0].type
+                    SipKey._keyname = this.keysData[0].keyname
+                    SipKey._ipaddress = this.keysData[0].host
+                    SipKey._organizetion = this.keysData[0].organization
+                    SipKey._password = this.keysData[0].password
+                    SipKey._type = this.keysData[0].type
 
-                let section = this.keysData[0].type + '-' + this.keysData[0].keyname
-                SipKey._section = section
+                    let section = this.keysData[0].type + '-' + this.keysData[0].keyname
+                    SipKey._section = section
 
-                console.log(SipKey)
-                this.request.AGAlgSecSettingCreateKey(this.create_succeed_back, this.create_error_back, SipKey)
+                    console.log(SipKey)
+                    this.request.AGAlgSecSettingCreateKey(this.create_succeed_back, this.create_error_back, SipKey)
+                }
             },
             create_succeed_back(data){
                 this.$message({
-                    message: '创建成功',
+                    message: this.lang.created_successfully,
                     type: 'success',
                     offset: '80'
                 })
@@ -383,7 +508,7 @@
             },
             create_error_back(){
                 this.$message({
-                    message: '创建失败',
+                    message: this.lang.created_failed,
                     type: 'error',
                     offset: '80'
                 })
@@ -392,7 +517,7 @@
             },
 
             delete_key(section,keyname){
-                this.$confirm('确定要删除'+keyname+'吗?')
+                this.$confirm(this.lang.delete_confirm + keyname)
                     .then(_ => {
                         this.request.AGAlgSecSettingDeleteKey(this.delete_key_succeed_back, this.delete_key_error_back, section)
                     })
@@ -400,7 +525,7 @@
             },
             delete_key_succeed_back(data){
                 this.$message({
-                    message: '删除成功',
+                    message: this.lang.successfully_deleted,
                     type: 'success',
                     offset: '80'
                 })
@@ -409,17 +534,33 @@
             },
             delete_key_error_back(){
                 this.$message({
-                    message: '删除失败',
+                    message: this.lang.failed_to_delete,
                     type: 'error',
                     offset: '80'
                 })
             },
-            handlePreview(file){
-                console.log(file)
+            upload_check_pem(file, fileList){
+                if(file.name.indexOf('.pem') == -1){
+                    this.$message({
+                        message: this.lang.upload_pem_help,
+                        type: "error",
+                        offset: '80'
+                    })
+                    return false
+                }
             },
-
+            upload_check_crt(file, fileList){
+                if(file.name.indexOf('.crt') == -1){
+                    this.$message({
+                        message: this.lang.upload_crt_help,
+                        type: "error",
+                        offset: '80'
+                    })
+                    return false
+                }
+            },
             delete_file(filename){
-                this.$confirm('确定要删除'+filename+'吗?')
+                this.$confirm(this.lang.delete_confirm + filename)
                     .then(_ => {
                         this.request.AGAlgSecSettingDeleteFile(this.delete_file_succeed_back, this.delete_file_error_back, filename)
                     })
@@ -427,7 +568,7 @@
             },
             delete_file_succeed_back(data){
                 this.$message({
-                    message: '删除文件成功',
+                    message: this.lang.successfully_deleted,
                     type: 'success',
                     offset: '80'
                 })
@@ -436,7 +577,7 @@
             },
             delete_file_error_back(){
                 this.$message({
-                    message: '删除文件失败',
+                    message: this.lang.failed_to_delete,
                     type: 'error',
                     offset: '80'
                 })

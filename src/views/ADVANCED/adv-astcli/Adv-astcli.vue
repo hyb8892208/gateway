@@ -12,7 +12,7 @@
 
         <el-card shadow="never" style="margin:auto;padding: 20px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left"><h3>{{lang.asterisk_cli}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.basic_settings}}</span></divider_item>
 
             <el-row>
                 <el-col :lg="22" :sm="24" :xs="24">

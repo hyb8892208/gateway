@@ -1,6 +1,6 @@
 <template>
     <el-row>
-        <el-divider content-position="left"><h3>{{lang.openvpn_settings}}</h3></el-divider>
+        <divider_item><span slot="title">{{lang.openvpn_settings}}</span></divider_item>
 
         <el-row>
             <form_item>
@@ -12,7 +12,7 @@
 
         <el-row>
             <form_item>
-                <span slot="param_help" v-html="lang.account_help"></span>
+                <span slot="param_help" v-html="lang.openvpn_account_help"></span>
                 <span slot="param_name" >{{lang.account}}</span>
                 <el-input slot="param" v-model="account" :disabled="!sw"></el-input>
             </form_item>
@@ -20,7 +20,7 @@
 
         <el-row>
             <form_item>
-                <span slot="param_help" v-html="lang.password_help"></span>
+                <span slot="param_help" v-html="lang.openvpn_password_help"></span>
                 <span slot="param_name" >{{lang.password}}</span>
                 <el-input slot="param" v-model="password" :disabled="!sw" show-password></el-input>
             </form_item>
@@ -28,7 +28,7 @@
 
         <el-row>
             <form_item>
-                <span slot="param_help" v-html="lang.server_ip_help"></span>
+                <span slot="param_help" v-html="lang.openvpn_server_ip_help"></span>
                 <span slot="param_name" >{{lang.server_ip}}</span>
                 <el-input slot="param" v-model="server_ip" :disabled="!sw"></el-input>
             </form_item>
@@ -36,32 +36,52 @@
 
         <el-row>
             <form_item>
-                <span slot="param_help" v-html="lang.server_port_help"></span>
+                <span slot="param_help" v-html="lang.openvpn_server_port_help"></span>
                 <span slot="param_name" >{{lang.server_port}}</span>
                 <el-input slot="param" v-model="server_port" :disabled="!sw"></el-input>
             </form_item>
         </el-row>
 
         <el-row>
-            <form_item>
-                <span slot="param_help" v-html="lang.upload_configuration_help"></span>
-                <span slot="param_name" >{{lang.upload_configuration}}</span>
-                <el-upload
-                        slot="param"
-                        class="upload-demo"
-                        action="/service"
-                        name="uploadfile1"
-                        :data="{action:'upload',page_name:'network-openvpn',type:'upload'}"
-                        :show-file-list=false
-                        :on-success="upload_file_success"
-                        style="width: 100%;">
-                    <el-button type="button" style="width: 100%;">
-                        <i class="el-icon-folder-opened"></i>
-                        <span> </span>
-                        <span>{{lang.select_file}}</span>
-                    </el-button>
-                </el-upload>
-            </form_item>
+            <el-row>
+                <el-col :lg="12" :sm="24" :xs="24">
+                    <el-form-item>
+                        <label slot="label">
+                            <el-tooltip placement="top" :open-delay=200>
+                                <div slot="content" v-html="lang.openvpn_configuration_files_help"></div>
+                                <span>{{lang.upload_configuration}}</span>
+                            </el-tooltip>:
+                        </label>
+                        <el-row>
+                            <el-col :span="18"  style="margin-right: 10px;">
+                                <el-upload
+                                        ref="openvpn_upload"
+                                        class="upload-demo"
+                                        action="/service"
+                                        limit="1"
+                                        name="uploadfile1"
+                                        :auto-upload="false"
+                                        :data="{action:'upload',page_name:'network-openvpn',type:'upload'}"
+                                        :on-success="upload_file_success"
+                                        :before-upload="before_upload"
+                                        style="width: 100%;">
+                                    <el-button type="button" style="width: 100%;">
+                                        <i class="el-icon-folder-opened"></i>
+                                        <span> </span>
+                                        <span>{{lang.select_file}}</span>
+                                    </el-button>
+                                </el-upload>
+                            </el-col>
+                            <el-col :span="4">
+                                <el-button size="small"
+                                           type="primary"
+                                           @click="click_upload"
+                                >{{lang.upload}}</el-button>
+                            </el-col>
+                        </el-row>
+                    </el-form-item>
+                </el-col>
+            </el-row>
         </el-row>
 
         <el-row>
@@ -103,6 +123,28 @@
             }
         },
         methods: {
+            before_upload(file){
+                if(file.name.indexOf('.tar.gz') == -1 && file.name.indexOf('.ovpn') == -1){
+                    this.$message({
+                        message: 'The format of the upload file should be like this "xxxx.tar.gz" or "xxxx.ovpn"',
+                        type: 'error',
+                        offset: '80'
+                    })
+
+                    return false
+                }else if(file.size > 1000*1000*40){
+                    this.$message({
+                        message: "Uploaded max file is 40M!",
+                        type: 'error',
+                        offset: '80'
+                    })
+
+                    return false
+                }
+            },
+            click_upload(){
+                this.$refs.openvpn_upload.submit()
+            },
             upload_file_success(){
                 this.$message({
                     message: this.lang.upload_successful,

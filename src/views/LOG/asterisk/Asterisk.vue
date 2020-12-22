@@ -11,8 +11,6 @@
 
         <el-card shadow="never" style="margin:auto;padding: 20px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left"><h3>{{lang.asterisk_logs}}</h3></el-divider>
-
             <el-input
                     type="textarea"
                     rows="30"
@@ -100,7 +98,7 @@
             },
             refresh(){
                 this.$message({
-                    message: '重新加载成功',
+                    message: this.lang.refresh_successfully,
                     type: 'success',
                     offset: '80'
                 })
@@ -108,7 +106,7 @@
             },
 
             clean_up(){
-                this.$confirm('确定要清空Asterisk日志吗？')
+                this.$confirm(this.lang.clean_up_confirm)
                     .then(_ => {
                         this.request.AGLogDelAll(this.clean_succeed_back, this.clean_error_back, 'log-ast')
                     })
@@ -120,14 +118,14 @@
                 this.log = ''
 
                 this.$message({
-                    message: '清除成功',
+                    message: this.lang.clean_up_successful,
                     type: 'success',
                     offset: '80'
                 })
             },
             clean_error_back(){
                 this.$message({
-                    message: '清除失败',
+                    message: this.lang.clean_up_failed,
                     type: 'error',
                     offset: '80'
                 })

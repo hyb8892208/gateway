@@ -18,7 +18,7 @@
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left"><h3>{{lang.general}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.general}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -36,7 +36,7 @@
                 </form_item>
             </el-row>
 
-            <el-divider content-position="left"><h3>{{lang.manager}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.manager}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -48,7 +48,7 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.manager_secret_help"></span>
                     <span slot="param_name" >{{lang.manager_secret}}</span>
-                    <el-input slot="param" v-model="manager_pass"></el-input>
+                    <el-input slot="param" v-model="manager_pass" show-password></el-input>
                 </form_item>
             </el-row>
 
@@ -66,7 +66,7 @@
                 </form_item>
             </el-row>
 
-            <el-divider content-position="left"><h3>{{lang.rights}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.rights}}</span></divider_item>
 
             <el-row>
                 <form_item v-for="(item,index) in rights_val_options">

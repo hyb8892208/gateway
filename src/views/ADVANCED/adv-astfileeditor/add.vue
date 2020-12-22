@@ -1,15 +1,20 @@
 <template>
     <el-form
+            :label-position="$store.state.page.labelPosition"
             label-width="250px"
             class="change-label-class"
+            :rules="rules"
+            :model="ruleForm"
+            ref="ruleForm"
             size="small">
         <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;padding-left: 20px;">
             <h1 style="line-height: 50px;font-size: 18px;">
-                {{lang.asterisk_file_editor}}
+                <span v-if="$route.params.filename != undefined">{{ruleForm.filename}}</span>
+                <span v-else>{{lang.asterisk_file_editor}}</span>
                 <div style="float: right;line-height: 50px;margin-right: 20px;">
                     <el-button type="primary"
                                size="small"
-                               @click="Save"
+                               @click="submitValidator('ruleForm')"
                     >{{lang.save}}</el-button>
                 </div>
             </h1>
@@ -17,20 +22,33 @@
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left">
-                <h3 v-if="$route.params.filename != undefined">{{lang.edit}} {{filename}}</h3>
-                <h3 v-else>{{lang.edit}} <el-input size="mini" style="width: auto" v-model="filename"></el-input>.conf</h3>
-            </el-divider>
+            <el-row v-if="$route.params.filename == undefined">
+                <el-col :lg="12" >
+                    <el-form-item prop="filename">
+                        <label slot="label">
+                            <el-tooltip placement="top" :open-delay=200>
+                                <div slot="content">
+                                    <span name="param_help" v-html="lang.edit"></span>
+                                </div>
+                                <span name="param_name">{{lang.edit}}</span>
+                            </el-tooltip>:
+                        </label>
+                        <el-col :lg="18">
+                            <el-input v-model="ruleForm.filename"></el-input>.conf
+                        </el-col>
+                    </el-form-item>
+                </el-col>
+            </el-row>
 
             <el-input
                     type="textarea"
                     rows="30"
                     v-model="content"
+                    ref="content_ref"
                     resize="none"
                     style="font-size: 12px"
             >
-
-            </el-input>
+          </el-input>
 
         </el-card>
     </el-form>
@@ -42,7 +60,21 @@
     export default {
         name: "add",
         data() {
+            var validateFilename = (rule, value, callback) => {
+                console.log(value)
+                if(value == ''){
+                    callback(new Error('Filename can not be null'))
+                }else{
+                    callback()
+                }
+            }
             return {
+                ruleForm: {
+                    filename: ''
+                },
+                rules: {
+                    filename: [ { validator: validateFilename, trigger: 'blur' } ]
+                },
                 filename: '',
                 content: '',
 
@@ -62,12 +94,34 @@
                 this.$router.push('/common/error')
             },
 
+            submitValidator(formName){
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.Save()
+                    } else {
+                        return false;
+                    }
+                });
+            },
+
             Save(){
                 let section
                 if(this.$route.params.filename != undefined){
-                    section = '/etc/asterisk/'+this.filename
+                    section = '/etc/asterisk/'+this.ruleForm.filename
                 }else{
-                    section = '/etc/asterisk/'+this.filename+'.conf'
+                    section = '/etc/asterisk/'+this.ruleForm.filename+'.conf'
+                }
+
+                console.log('content', this.content)
+                if(this.content == '' || this.content == null){
+                    this.$message({
+                        message: this.lang.check_content_empty,
+                        type: 'error',
+                        offset: '80'
+                    })
+
+                    this.$refs.content_ref.focus()
+                    return false
                 }
 
                 console.log(section)
@@ -97,8 +151,8 @@
         created() {
             let section = ''
             if(this.$route.params.filename != undefined){
-                this.filename = this.$route.params.filename
-                section = '/etc/asterisk/'+this.filename
+                this.ruleForm.filename = this.$route.params.filename
+                section = '/etc/asterisk/'+this.ruleForm.filename
             }
 
             this.request.AGAdvAstfileeditorEditGetOne(this.show_succeed_back, this.show_error_back, section)

@@ -18,7 +18,7 @@
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left"><h3>{{lang.general}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.general}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -66,19 +66,39 @@
                 </form_item>
             </el-row>
 
-            <el-row>
+            <el-row v-if="cloud_enable">
                 <form_item>
                     <span slot="param_help" v-html="lang.connection_status_help"></span>
                     <span slot="param_name" >{{lang.connection_status}}</span>
                     <div slot="param">
-                        <span>{{connect_state}}</span>
-
                         <i class="el-icon-loading" v-show="connection_status_icon" style="font-size: 20px;"></i>
                         <span v-show="!connection_status_icon">
                             <b v-if="connect_code == 200" style="color: #67C23A;">{{connect_state}}</b>
                             <b v-else style="color: #F56C6C;">{{failed_to_connect}}</b>
                         </span>
                     </div>
+                </form_item>
+            </el-row>
+
+            <el-row>
+                <el-col :lg="12" >
+                    <el-form-item>
+                        <label slot="label">
+                            <el-tooltip placement="top" :open-delay=200>
+                                <div slot="content">
+                                    <slot name="param_help"></slot>
+                                </div>
+                                <slot name="param_name"></slot>
+                            </el-tooltip>
+                        </label>
+                        <el-col :lg="18">
+                            <slot name="param">{{lang.cloud_signmessage_help}}<a href="https://cloud.openvox.com.cn" target="black" >{{lang.cloud_sign_help}}</a></slot>
+                        </el-col>
+                    </el-form-item>
+                </el-col>
+
+                <form_item>
+
                 </form_item>
             </el-row>
 
@@ -91,6 +111,7 @@
 
     export default {
         name: "Adv-cloud",
+        inject: ['reload'],
         data() {
             return {
                 cloud_enable: false,
@@ -180,10 +201,12 @@
                 if (result == 200) {
                     this.connect_state = this.lang.connected
                     this.connection_status_icon = false
+                    this.reload()
                     clearTimeout(this.timeoutID)
                 } else if(this.timeout >= 30) {
                     this.failed_to_connect = this.lang.connection_timeout
                     this.connection_status_icon = false
+                    this.reload()
                     clearTimeout(this.timeoutID)
                 } else if (result == 0) {
                     this.timeout++
@@ -198,6 +221,7 @@
                         this.failed_to_connect = this.lang.failed_to_connect
                     }
                     this.connection_status_icon = false
+                    this.reload()
                     clearTimeout(this.timeoutID)
                 }
             },

@@ -6,9 +6,10 @@
 
         <el-row style="width: 97%;margin:auto;margin-top:20px;">
             <el-button type="primary" size="small" @click="Add()">{{lang.add}}</el-button>
+            <el-button type="primary" size="small" @click="Delete()">{{lang.delete}}</el-button>
         </el-row>
 
-        <el-card shadow="never" style="margin:auto;margin-top:10px;margin-bottom:50px;" :style=$store.state.page.card_width>
+        <el-card shadow="never" style="margin:auto;margin-top:10px;margin-bottom:50px;" :style=$store.state.page.card_list_width>
             <div style="background-color: #ffffff ;padding: 8px 20px;border-bottom: 1px solid #999999;">
                 <el-popover
                         placement="bottom"
@@ -37,8 +38,14 @@
                     style="width: 100%"
                     size="small"
                     ref="chnTable"
+                    @selection-change="select_route"
                     :key="Math.random()"
                     :header-cell-style="{background:'#f3f7fa',color:'#606266'}">
+
+                <el-table-column
+                        type="selection"
+                        width="55">
+                </el-table-column>
 
                 <el-table-column
                         v-for="(col,index) in rulecol"
@@ -55,7 +62,7 @@
                     <template slot-scope="scope">
                         <el-button
                                 size="mini"
-                                @click="Edit(scope.row.rule_name)"
+                                @click="Edit(scope.row.order, scope.row.rule_name)"
                         >{{lang.edit}}</el-button>
                         <el-button
                                 size="mini"
@@ -88,6 +95,8 @@
                 ruleCheckedTitles: [],//已选的Title
                 ruleIsIndeterminate: false,//全选框的中间态
 
+                selected_route: null,
+
                 lang: this.$store.state.lang
             }
         },
@@ -118,28 +127,55 @@
                     }
                 })
             },
-            Add(){
-                this.$router.push('/Routing/Call-routing-rules/add')
+            select_route(selection){
+                this.selected_route = selection
             },
-            Edit(rule_name){
-                this.$router.push('/Routing/Call-routing-rules/add/'+rule_name)
+            Add(){
+                let order
+                if(this.ruleData.length != 0){
+                    order = parseInt(this.ruleData[this.ruleData.length-1].order) + 1
+                }else{
+                    order = 1
+                }
+
+                this.$router.push('/Routing/Call-routing-rules/add/'+order)
+            },
+            Edit(order, rule_name){
+                this.$router.push('/Routing/Call-routing-rules/add/'+order+'/'+rule_name)
             },
             Delete(rule_name){
-                this.$confirm('确定要删除吗')
-                    .then(_ => {
-                        const SectionArr = new AST_SectionArr()
+                const SectionArr = new AST_SectionArr()
+                if(rule_name == undefined){
+                    if(this.selected_route == null){
+                        this.$message({
+                            message: this.lang.select_item_help,
+                            type: 'error',
+                            offset: '80'
+                        })
 
+                        return false
+                    }
+
+                    this.selected_route.forEach(item => {
                         let section = new AST_Section()
-                        section._section = rule_name
+                        section._section = item.rule_name
                         SectionArr._item.push(section)
+                    })
+                }else{
+                    let section = new AST_Section()
+                    section._section = rule_name
+                    SectionArr._item.push(section)
+                }
 
+                this.$confirm(this.lang.delete_confirm)
+                    .then(_ => {
                         this.request.AGRoutingRulesDel(this.del_succeed_back, this.del_error_back, SectionArr)
                     }).catch(_ => {})
             },
 
             del_succeed_back(){
                 this.$message({
-                    message: '删除成功',
+                    message: this.lang.successfully_deleted,
                     type: 'success',
                     offset: '80'
                 })
@@ -148,7 +184,7 @@
             },
             del_error_back(){
                 this.$message({
-                    message: '删除失败',
+                    message: this.lang.failed_to_delete,
                     type: 'error',
                     offset: '80'
                 })

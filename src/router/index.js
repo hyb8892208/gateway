@@ -245,7 +245,7 @@ const routes = [
     }
   },
   {
-    path: '/Routing/Call-Routing-Rules/add/',
+    path: '/Routing/Call-Routing-Rules/add/:order',
     name: 'Call-Routing-Rules-add',
     component: () => import('../views/ROUTING/call-routing-rules/add'),
     meta:{
@@ -253,7 +253,7 @@ const routes = [
     }
   },
   {
-    path: '/Routing/Call-Routing-Rules/add/:rule_name',
+    path: '/Routing/Call-Routing-Rules/add/:order/:rule_name',
     name: 'Call-Routing-Rules-add',
     component: () => import('../views/ROUTING/call-routing-rules/add'),
     meta:{

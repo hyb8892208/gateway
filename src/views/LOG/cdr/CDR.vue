@@ -4,29 +4,12 @@
             <h1 style="line-height: 50px;font-size: 18px;">
                 {{lang.cdr_logs}}
                 <div style="float: right;line-height: 50px;margin-right: 20px;">
-                    <el-button type="primary"
-                               size="small"
-                               @click="Delete">{{lang.delete}}</el-button>
-                    <el-button type="primary"
-                               size="small"
-                               @click="Clean_up">{{lang.clean_up}}</el-button>
 
-                    <form action='/service' id="explode_file" method='post' wnctype='multipart/form-data' style="display: inline-block;">
-                        <input type='hidden' name='action' value='download' />
-                        <input type='hidden' name='downloadfile' :value='download_filename' />
-                        <input type='hidden' name='page_name' value='cdr' />
-                        <button style="margin-left: 10px;"
-                                type="button"
-                                @click="Export"
-                                class="el-button el-button--primary el-button--small">
-                            {{lang.export}}
-                        </button>
-                    </form>
                 </div>
             </h1>
         </div>
 
-        <el-card shadow="never" style="margin:auto;margin-top:20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
+        <el-card shadow="never" style="margin:auto;margin-top:20px;margin-bottom: 50px;" :style=$store.state.page.card_list_width>
             <el-table
                 :data="search_cdrData"
                 border
@@ -37,7 +20,7 @@
 
                 <el-table-column
                         :label="lang.caller_id"
-                        min-width="120">
+                        min-width="80">
                     <template slot-scope="scope">
                         <el-input v-model="scope.row.search_callerid" size="mini"></el-input>
                     </template>
@@ -45,7 +28,7 @@
 
                 <el-table-column
                         :label="lang.callee_id"
-                        min-width="120">
+                        min-width="80">
                     <template slot-scope="scope">
                         <el-input v-model="scope.row.search_calleeid" size="mini"></el-input>
                     </template>
@@ -53,7 +36,7 @@
 
                 <el-table-column
                         :label="lang.from"
-                        min-width="100">
+                        min-width="80">
                     <template slot-scope="scope">
                         <el-input v-model="scope.row.search_from" size="mini"></el-input>
                     </template>
@@ -61,7 +44,7 @@
 
                 <el-table-column
                         :label="lang.to"
-                        min-width="100">
+                        min-width="80">
                     <template slot-scope="scope">
                         <el-input v-model="scope.row.search_to" size="mini"></el-input>
                     </template>
@@ -69,14 +52,28 @@
 
                 <el-table-column
                         :label="lang.start_time"
-                        min-width="150">
+                        min-width="210">
                     <template slot-scope="scope">
                         <el-row :gutter="10">
                             <el-col :lg="12">
-                                <el-input v-model="scope.row.search_starttime_from" size="mini"></el-input>
+                                <el-date-picker
+                                    v-model="scope.row.search_starttime_from"
+                                    type="datetime"
+                                    size="mini"
+                                    style="width: 175px;"
+                                    :placeholder="lang.from">
+                                </el-date-picker>
+<!--                                <el-input v-model="scope.row.search_starttime_from" size="mini"></el-input>-->
                             </el-col>
                             <el-col :lg="12">
-                                <el-input v-model="scope.row.search_starttime_to" size="mini"></el-input>
+                                 <el-date-picker
+                                    v-model="scope.row.search_starttime_to"
+                                    type="datetime"
+                                    size="mini"
+                                    style="width: 175px;"
+                                    :placeholder="lang.to">
+                               </el-date-picker>
+<!--                                <el-input v-model="scope.row.search_starttime_to" size="mini"></el-input>-->
                             </el-col>
                         </el-row>
                     </template>
@@ -88,10 +85,20 @@
                     <template slot-scope="scope">
                         <el-row :gutter="10">
                             <el-col :lg="12">
-                                <el-input v-model="scope.row.search_duration_from" size="mini"></el-input>
+                                <el-time-picker
+                                        v-model="scope.row.search_duration_from"
+                                        size="mini"
+                                        style="width: 120px;"
+                                        :placeholder="lang.from">
+<!--                                <el-input v-model="scope.row.search_duration_from" size="mini"></el-input>-->
                             </el-col>
                             <el-col :lg="12">
-                                <el-input v-model="scope.row.search_duration_to" size="mini"></el-input>
+                                <el-time-picker
+                                        v-model="scope.row.search_duration_to"
+                                        size="mini"
+                                        style="width: 120px;"
+                                        :placeholder="lang.to">
+<!--                                <el-input v-model="scope.row.search_duration_to" size="mini"></el-input>-->
                             </el-col>
                         </el-row>
                     </template>
@@ -99,7 +106,7 @@
 
                 <el-table-column
                         :label="lang.result"
-                        min-width="100">
+                        min-width="80">
                     <template slot-scope="scope">
                         <el-select v-model="scope.row.search_result" size="mini" style="width: 100%">
                             <el-option
@@ -111,15 +118,40 @@
                         </el-select>
                     </template>
                 </el-table-column>
+
+                <el-table-column
+                        :label="lang.actions"
+                        min-width="90">
+                    <template slot-scope="scope">
+                        <el-button type="primary"
+                                   @click="Filter"
+                                   size="small">{{lang.filter}}</el-button>
+                        <el-button type="primary"
+                                   @click="Clean_filter"
+                                   size="small">{{lang.clean}}</el-button>
+                    </template>
+                </el-table-column>
             </el-table>
 
             <el-row style="margin: 20px 0 20px 20px;">
                 <el-button type="primary"
-                           @click="Filter"
-                           size="small">{{lang.filter}}</el-button>
+                           size="small"
+                           @click="Delete">{{lang.delete}}</el-button>
                 <el-button type="primary"
-                           @click="Clean_filter"
-                           size="small">{{lang.clean_filter}}</el-button>
+                           size="small"
+                           @click="Clean_up">{{lang.clean_up}}</el-button>
+
+                <form action='/service' id="explode_file" method='post' wnctype='multipart/form-data' style="display: inline-block;">
+                    <input type='hidden' name='action' value='download' />
+                    <input type='hidden' name='downloadfile' :value='download_filename' />
+                    <input type='hidden' name='page_name' value='cdr' />
+                    <button style="margin-left: 10px;"
+                            type="button"
+                            @click="Export"
+                            class="el-button el-button--primary el-button--small">
+                        {{lang.export}}
+                    </button>
+                </form>
             </el-row>
 
             <el-table
@@ -333,7 +365,61 @@
                     //this.filter_sql
                 }
             },
-            Filter(){
+            format_data_time(value, type){
+                if(value != '') {
+                    value = Date.parse(value)
+                    let date = new Date(value)
+
+                    let year = date.getFullYear()
+                    let month = date.getMonth() + 1
+                    let day = date.getDate()
+                    let hour = (Array(2).join(0) + date.getHours()).slice(-2)
+                    let minute = (Array(2).join(0) + date.getMinutes()).slice(-2)
+                    let second = (Array(2).join(0) + date.getSeconds()).slice(-2)
+
+                    if(type == 'date'){
+                        return year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second
+                    }else{
+                        return hour + ':' + minute + ':' + second
+                    }
+                }else{
+                    return ''
+                }
+            },
+            formatSeconds(s) {
+                let t
+                let hour = ''
+                let min = ''
+                let sec = ''
+                let day = ''
+                if(s > -1){
+                    hour = Math.floor(s/3600)
+                    min = Math.floor(s/60) % 60
+                    sec = s % 60
+                    day = parseInt(hour/24)
+                    if (day > 0) {
+                        hour = hour - 24 * day
+                        if(hour < 10){hour = '0'+hour}
+                        t = day + " - " + hour + ":"
+                    }
+                    else {
+                        if(hour < 10){hour = '0'+hour}
+                        t = hour + ":"
+                    }
+                    if(min < 10){t += "0"}
+                    t += min + ":"
+                    if(sec < 10){t += "0"}
+                    t += sec
+                }
+                return t
+             },
+             Filter(){
+                let start_from = this.format_data_time(this.search_cdrData[0].search_starttime_from, 'date')
+                let start_to = this.format_data_time(this.search_cdrData[0].search_starttime_to, 'date')
+                let duration_from = this.format_data_time(this.search_cdrData[0].search_duration_from, 'time')
+                let duration_to = this.format_data_time(this.search_cdrData[0].search_duration_to, 'time')
+
+                let result = this.search_cdrData[0].search_result == 0 ? '' : this.search_cdrData[0].search_result
                 this.$router.push({
                     name: 'CDR',
                     query: {
@@ -341,11 +427,11 @@
                         calleeid: this.search_cdrData[0].search_calleeid,
                         from: this.search_cdrData[0].search_from,
                         to: this.search_cdrData[0].search_to,
-                        start_from: this.search_cdrData[0].search_starttime_from,
-                        start_to: this.search_cdrData[0].search_starttime_to,
-                        duration_from: this.search_cdrData[0].search_duration_from,
-                        duration_to: this.search_cdrData[0].search_duration_to,
-                        result: this.search_cdrData[0].search_result
+                        start_from: start_from,
+                        start_to: start_to,
+                        duration_from: duration_from,
+                        duration_to: duration_to,
+                        result: result
                     }
                 })
 
@@ -367,22 +453,30 @@
                 }]
             },
             Delete(){
-                this.$confirm('确定要删除吗')
+                this.$confirm(this.lang.delete_confirm)
                     .then(_ => {
-                        let log_datachunk = []
-                        this.selected_log.forEach(item => {
-                            log_datachunk.push('id='+item.id)
-                        })
-                        let sql = 'where ' + log_datachunk.join(' or ')
+                        if(this.selected_log != null){
+                            const log_datachunk = []
+                            this.selected_log.forEach(item => {
+                                log_datachunk.push('id='+item.id)
+                            })
+                            let sql = 'where ' + log_datachunk.join(' or ')
 
-                        console.log(sql)
-                        this.request.AGLogCdrDel(this.del_succeed_back, this.del_error_back, sql, 'cdr')
+                            console.log(sql)
+                            this.request.AGLogCdrDel(this.del_succeed_back, this.del_error_back, sql, 'cdr')
+                        }else{
+                            this.$message({
+                                message: this.lang.select_item_help,
+                                type: 'error',
+                                offset: '80'
+                            })
+                        }
                     })
                     .catch(_ => {})
             },
             del_succeed_back(data){
                 this.$message({
-                    message: '删除成功',
+                    message: this.lang.successfully_deleted,
                     type: 'success',
                     offset: '80'
                 })
@@ -390,13 +484,13 @@
             },
             del_error_back(){
                 this.$message({
-                    message: '删除失败',
+                    message: this.lang.failed_to_delete,
                     type: 'error',
                     offset: '80'
                 })
             },
             Clean_up(){
-                this.$confirm('确定要清除所有日志吗')
+                this.$confirm(this.lang.logs_clean_up_confirm)
                     .then(_ => {
                         this.request.AGLogCdrDel(this.clean_succeed_back, this.clean_error_back, '', 'cdr')
                     })
@@ -406,7 +500,7 @@
             },
             clean_succeed_back(data){
                 this.$message({
-                    message: '清空数据成功',
+                    message: this.lang.clean_up_successful,
                     type: 'success',
                     offset: '80'
                 })
@@ -415,7 +509,7 @@
             },
             clean_error_back(){
                 this.$message({
-                    message: '清空数据失败',
+                    message: this.lang.clean_up_failed,
                     type: 'error',
                     offset: '80'
                 })
@@ -451,6 +545,7 @@
 
                 this.cdrData = []
                 cdr_data.forEach(item => {
+                    let duration = this.formatSeconds(item._time)
                     let obj = {
                         id: item._num,
                         callerid: item._caller,
@@ -458,7 +553,7 @@
                         from: item._from,
                         to: item._to,
                         start_time: item._start,
-                        duration: item._time,
+                        duration: duration,
                         result: item._result
                     }
                     this.cdrData.push(obj)
@@ -502,30 +597,34 @@
                 }
 
                 if(this.search_cdrData[0].search_starttime_from != ''){
+                    let start_time_from = this.format_data_time(this.search_cdrData[0].search_starttime_from, 'date')
                     sql_filter += sql_filter == ''
-                        ? "where starttime >= '" + this.search_cdrData[0].search_starttime_from + "' "
-                        : "and starttime >= '"+ this.search_cdrData[0].search_starttime_from + "' "
+                        ? "where starttime >= '" + start_time_from + "' "
+                        : "and starttime >= '"+ start_time_from + "' "
                 }
 
                 if(this.search_cdrData[0].search_starttime_to != ''){
+                    let start_time_to = this.format_data_time(this.search_cdrData[0].search_starttime_to, 'date')
                     sql_filter += sql_filter == ''
-                        ? "where starttime <= '" + this.search_cdrData[0].search_starttime_to + "' "
-                        : "and starttime <= '"+ this.search_cdrData[0].search_starttime_to + "' "
+                        ? "where starttime <= '" + start_time_to + "' "
+                        : "and starttime <= '"+ start_time_to + "' "
                 }
 
                 if(this.search_cdrData[0].search_duration_from != ''){
+                    let duration_from = this.format_data_time(this.search_cdrData[0].search_duration_from, 'time')
                     sql_filter += sql_filter == ''
-                        ? "where duration >= '%" + this.search_cdrData[0].search_duration_from + "%' "
-                        : "and duration >= '%"+ this.search_cdrData[0].search_duration_from + "%' "
+                        ? "where duration >= '%" + duration_from + "%' "
+                        : "and duration >= '%"+ duration_from + "%' "
                 }
 
                 if(this.search_cdrData[0].search_duration_to != ''){
+                    let duration_to = this.format_data_time(this.search_cdrData[0].search_duration_to, 'time')
                     sql_filter += sql_filter == ''
-                        ? "where duration <= '%" + this.search_cdrData[0].search_duration_to + "%' "
-                        : "and duration <= '%"+ this.search_cdrData[0].search_duration_to + "%' "
+                        ? "where duration <= '%" + duration_to + "%' "
+                        : "and duration <= '%"+ duration_to + "%' "
                 }
 
-                if(this.search_cdrData[0].search_result != ''){
+                if(this.search_cdrData[0].search_result != '0' && this.search_cdrData[0].search_result != ''){
                     sql_filter += sql_filter == ''
                         ? "where result='" + this.search_cdrData[0].search_result + "' "
                         : "and result='"+ this.search_cdrData[0].search_result + "' "

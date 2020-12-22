@@ -1,4 +1,5 @@
 import {language} from "../components/language";
+import lang from "../../../back/system-time/src/store/lang";
 
 export default {
     //menu
@@ -334,7 +335,6 @@ export default {
     system_reboot_confrim: language('System reboot confirm', 'Are you sure you want to restart the system?'),
     system_restart_timeout: language('System Restart Timeout'),
     dialog_close_confirm: language('Dialog close confirm', 'Are you sure you want to close this dialog box?'),
-    reload_asterisk_tip: language('reload asterisk tip'),
     asterisk_restart_successfully: language('Asterisk restart successfully'),
     asterisk_restart_failed: language('Asterisk restart failed'),
     switch_system_confirm: language('Switch system confirm', 'Are you sure you want to switch the system?'),
@@ -350,7 +350,7 @@ export default {
     factory_reset_wait: language('Factory reset wait', 'Restoring factory settings, the system will restart automatically, please wait...'),
 
     //System-info
-    system_info: language('System Info'),
+    system_info: language('System Information'),
     model_name: language('Model Name'),
     software_version: language('Software Version'),
     hardware_version: language('Hardware Version'),
@@ -369,6 +369,7 @@ export default {
     //Config-record
     ID: language('ID'),
     record_message: language('Record Message'),
+    action: language('Action'),
     actions: language('Actions'),
     config_record_switch: language('Config Record Switch'),
     back: language('Back'),
@@ -525,6 +526,9 @@ export default {
     stutter_tone: language('Stutter tone'),
     stutter_tone_help: language('Stutter tone help','Stutter tone'),
     global_settings: language('Global settings'),
+    FXS_signaling: language('FXS Signaling'),
+    FXS_signaling_help: language('FXS Signaling help','FXS Signaling'),
+    glbSetting_restart_help: language("GlbSetting Restart help", "Your settings need to be restarted dahdi to take effect. Are you sure to restart the dahdi?"),
 
     austria: language('Austria'),
     bulgaria: language('Bulgaria'),
@@ -736,8 +740,7 @@ export default {
     USA: language('USA'),
     YEMEN: language('YEMEN'),
 
-    //Voip-endpoints
-    sip_endpoint: language('Sip Endpoint'),
+    //Voip-endpoint
     credentials: language('Credentials'),
     add_new_sip_endpoint: language('Add New SIP Endpoint'),
     readonly: language('Readonly'),
@@ -762,6 +765,8 @@ export default {
     subscribe_for_mwi_help: language('MWI help@sip-endpoints','Whether or not to subscribe to receive the MWI.'),
     vos_encryption: language('VOS Encryption'),
     vos_encryption_help: language('VOS Encryption help@sip-endpoints','Whether or not to enable VOS Encryption.'),
+    stun_switch: language('STUN Switch'),
+    stun_switch_help: language('STUN Switch help', 'You need to turn on the stun switch on the SIP advanced settings page to take effect'),
     force_report_on: language('Force report on'),
     report_requested_comedia: language('Report if requested and comedia'),
     no: language('_No'),
@@ -907,7 +912,6 @@ export default {
     local_network_list: language('Local Network List'),
     local_network_list_help: language('Local Network List help','Local IP address list that you added.'),
     ip_range: language('IP Range'),
-    action: language('Action'),
     subscribe_network_change_event: language('Subscribe Network Change Event'),
     subscribe_network_change_event_help: language('Subscribe Network Change Event help','Through the use of the test_stun_monitor module, the gateway has the ability to detect when<br/>the perceived external network address has changed. When the stun_monitor is installed and <br/>configured, chan_sip will renew all outbound registrations when the monitor detects any sort<br/>of network change has occurred. By default this option is enabled, but only takes effect once<br/>res_stun_monitor is configured. If res_stun_monitor is enabled and you wish to not generate all<br/>outbound registrations on a network change,use the option below to disable this feature.'),
     match_external_address_locally: language('Match External Address Locally'),
@@ -1024,6 +1028,11 @@ export default {
     security: language('Security'),
     security_and_media: language('Security and Media'),
     media: language('Media'),
+    stun_settings: language('STUN Settings'),
+    reflesh_request_interval: language('Reflesh Request Interval'),
+    reflesh_request_interval_help: language('Reflesh Request Interval help', 'Reflesh Request Interval'),
+    server_ip_domain_name: language('Server IP Adress/Domain Name'),
+    server_ip_domain_name_help: language('Server IP Adress/Domain Name help', 'Server IP Adress/Domain Name'),
 
     //Sip-security
     sip_security: language('SIP Account Security'),
@@ -1050,6 +1059,8 @@ export default {
     organization: language('Organization'),
     create: language('Create'),
     tls_key: language('TLS Key'),
+    upload_pem_help: language('Check Pem Format', 'The file you upload is not pem format, please upload file again.'),
+    upload_crt_help: language('Check Crt Format', 'The file you upload is not crt format, please upload file again.'),
 
     //Call Routing Rules
     call_routing_rules: language('Call Routing Rules'),
@@ -1181,6 +1192,8 @@ export default {
     enable_internal_fxs_call_help: language('Enable Internal FXS Call help', 'Enable Internal FXS Call'),
     enable_internal_sip_call: language('Enable Internal SIP Call@Routing', 'Enable Internal SIP Call'),
     enable_internal_sip_call_help: language('Enable Internal SIP Call help@Routing', 'Enable Internal SIP Call'),
+    flex_routing_switch_open_help: language('Flex Routing Switch Open help', 'This operation clears all fxs-bound SIP extension information.Need to continue?'),
+    flex_routing_switch_close_help: language('Flex Routing Switch Close help', 'This operation clears all fxs-related routing information.Need to continue?'),
 
     //VLan
     vlan_settings: language('VLan Settings'),
@@ -1213,6 +1226,10 @@ export default {
     mac_tip: language('Mac Tip', 'Please enter a 12-bit string with character requirements of 0-9 or a-f or A-F'),
     mac_address_diff: language('MAC Address Diff','Note: MAC address is inconsistent with current.'),
     mac_address_same: language('MAC Address Same','MAC address is the same as the current one.'),
+    mac_settings: language('MAC Settings'),
+    lan1_settings: language('LAN1 Settings'),
+    lan2_settings: language('LAN2 Settings'),
+    MAC_Tip: language("Mac Tip", 'Please enter a 12-bit string with character requirements of 0-9 or a-f or A-F'),
 
     //Wan
     static: language('Static'),
@@ -1250,10 +1267,22 @@ export default {
     l2tp_vpn_settings: language('L2TP VPN Settings'),
     failed_to_connect: language('Failed to Connect'),
     zerotier_vpn_settings: language('Zerotier VPN Settings'),
+    pptpvpn_settings: language('PPTP VPN Settings help', 'PPTP VPN Settings'),
+    openvpn_account_help: language('OPENVPN Account help', 'OPENVPN Account'),
+    openvpn_password_help: language('OPENVPN Password help', 'OPENVPN Password'),
+    openvpn_server_ip_help: language('OPENVPN Server IP help', 'OPENVPN Server IP'),
+    openvpn_server_port_help: language('OPENVPN Server Port help', 'OPENVPN Server Port'),
+    pptpvpn_server_help: language('PPTPVPN Server help', 'PPTPVPN Server'),
+    pptpvpn_account_help: language('PPTPVPN Account help', 'PPTPVPN Account'),
+    pptpvpn_password_help: language('PPTPVPN Password help', 'PPTPVPN Password'),
+    l2tpvpn_server: language('L2TPVPN Server help', 'L2TPVPN Server'),
+    l2tpvpn_username: language('L2TPVPN Username help', 'L2TPVPN Username'),
+    l2tpvpn_password: language('L2TPVPN Password help', 'L2TPVPN Password'),
+    openvpn_configuration_files_help: language('OpenVPN Configuration Files help','Notice:<br/>1.The format of the upload file should be like this "xxxx.tar.gz" or "xxx.ovpn";<br/>2.The postfix of configuration files should be ".conf";<br/>3.The upload file can not include any directory;<br/>4.If still confused please download the sample configuration and refer to it;'),
 
     //Ddns
     ddns: language('DDNS'),
-    ddns_help: language('DDNS help','Enable/Disable DDNS (dynamic domain name server). <br/>'),
+    ddns_help: language('DDNS help',"Enable/Disable DDNS (dynamic domain name server). <br/>"),
     your_domain: language('Your domain'),
     your_domain_help: language('Your domain help','The domain to which your web server will belong.<br/>'),
 
@@ -1271,6 +1300,8 @@ export default {
     add_tcpdump_option: language('Add a Tcpdump paramter option'),
     start: language('Start'),
     other_options: language('Other Options'),
+    close_dialog: language('Clost Dialog Confirm','Are you sure you want to close the current window? After closing, the data will be lost'),
+    confirmation: language('Confirmation'),
 
     //Security Settings
     firewall_settings: language('Firewall Settings'),
@@ -1345,6 +1376,9 @@ export default {
     //Adv Astfileeditor
     configuration_files: language('Configuration Files'),
     reload_asterisk: language('Reload Asterisk'),
+    reload_asterisk_tip: language('reload asterisk tip' ,'Are you sure to reload asterisk now?'),
+    restart_asterisk_successfully: language('Restart asterisk successfully'),
+    restart_asterisk_failed: language('Restart asterisk failed'),
 
     //Adv cloud
     enable_cloud_service: language('Enable Cloud Service'),
@@ -1364,6 +1398,9 @@ export default {
     you_have_been_blacklisted: language('You have been blacklisted'),
     connection_timeout: language('Connection Timeout'),
     custom_server: language('Custom Server'),
+    connected: language('Connected'),
+    cloud_signmessage_help: language('cloud signmessage help',"Don't have an account?"),
+    cloud_sign_help: language('cloud sign help',"Sign up"),
 
     //Adv TR069
     tr069_settings: language('TR069 Settings'),
@@ -1463,10 +1500,12 @@ export default {
     refresh: language('Refresh'),
     cdr_logs: language('CDR Logs'),
     start_time: language('Start Time'),
+    end_time: language('End Time'),
     duration: language('Duration'),
     result: language('Result'),
     filter: language('Filter'),
     clean_filter: language('Clean Filter'),
+    clean: language('Clean'),
     total_records: language('Total Records'),
     export: language('Export'),
     All: language('All'),
@@ -1478,6 +1517,7 @@ export default {
     resource_error: language('resource error'),
     refresh_rate: language('Refresh Rate'),
     OFF: language('OFF'),
+    refresh_successfully: language('Refresh Successfully'),
 
     //other
     voice_file: language('Voice File'),
@@ -1489,5 +1529,50 @@ export default {
     save_successfully: language('Save Successfully'),
     save_failed: language('Save Failed'),
 
-
+    check_domain: language('js check domain','Invalid domain or IP address.'),
+    limit_character: language('limit character'),
+    check_username: language('js check username 1'),
+    check_username_root: language('User Name warning@system-login ssh',"Can't use 'root'"),
+    check_diyname: language('js check diyname','Allowed character must be any of [-_+.<>&0-9a-zA-Z],1 - 32 characters.'),
+    check_diypwd: language('js check diypwd','Allowed character must be any of [-_+.<>&0-9a-zA-Z],4 - 32 characters.'),
+    check_ssh_diyname: language('js check ssh_diyname','Allowed character must be any of [-_+.<>&0-9a-zA-Z],1 - 25 characters.'),
+    check_endpoint_name: language('js check sipendp','Allowed character must be any of [0-9a-zA-Z`~!@#$%^*()_{}:|?-=.], 1-32 characters.'),
+    check_sip_name: language('js check sipname','Allowed character must be any of [0-9a-zA-Z$*-=_.], length: 1-32'),
+    check_sip_pwd: language('js check sippwd','Allowed character must be any of [0-9a-zA-Z`~!#@$%^&*()_+{}|<>-=[],.],1 - 32 characters.'),
+    check_keyname: language('js check keyname', 'keyname you input is not valid'),
+    check_organization: language('js check organization', 'organization you input is not right'),
+    check_digitgain: language('js check digitgain', 'Invalid value! Range: from -20.0dB to 6dB, in 0.1 dB increments.'),
+    check_callwaiting: language('js check callwaiting', 'Do not enable Call waiting and Call forward at same time.'),
+    check_delay_reply_200ok_timer: language('js check delay_reply_200ok_timer', 'Invalid value! Range: from 1s to 90s.'),
+    check_calloutmininterval: language('js check calloutmininterval','Range:400 ~ 10000ms'),
+    check_number_int: language('Check Number Int', 'Must be Number.Range:>=0.'),
+    check_param_int: language('js check parameters data type','parameters data type must be int'),
+    check_content_empty: language('Content cannot be empty'),
+    username_already_exists: language('The username already exists'),
+    confirm_password_warning: language('Confirm Password warning@system-login web','This password must match the password above.'),
+    password_should_not_be_null: language('password should not be null'),
+    confirm_password_should_not_be_null: language('confirm password should not be null'),
+    webserver_http_help: language('js webserver http port help','Range: 1024-65535, Default 80. Some ports are forbidding.'),
+    webserver_https_help: language('js webserver https port help','Range: 1024-65535, Default 443. Some ports are forbidding.'),
+    delete_language_alert: language('Delete Language alert','Sorry, you can not delete the default language.'),
+    delete_language_confirm: language('Delete Language confirm','Are you sure to delete the selected language package?'),
+    already_exists: language('Already exists', 'The language already exists'),
+    fireware_upload_help: language("Firmware upload help","The format of the uploaded file is incorrect."),
+    delete_confirm: language('Delete Confirm', 'Are you sure you want to delete?'),
+    successfully_deleted: language('Successfully Deleted'),
+    failed_to_delete: language('Failed to delete'),
+    select_item_help: language('Please select at least one item'),
+    port_binding_overwrite_confirm: language('ports binding overwrite confirm'),
+    created_successfully: language('Created Successfully'),
+    created_failed: language('Create Failed'),
+    TLS_server_existed_help: language('TLS Server Existed help', 'Only one server can be created.'),
+    TLS_create_server_help: language('TLS Create Server help','Please create the server first.'),
+    TLS_key_password_same_as_server: language('TLS key password same as server','Please checking the server keys is exist or not and client password must be same with Server!'),
+    unlimit_tip: language('Unlimit Tip','Are you sure you want to unlimit it?'),
+    successfully: language('Successfully'),
+    logs_clean_up_confirm: language('Clean Up confirm','Are you sure to delete all logs ?'),
+    clean_up_confirm: language('Clean Up confirm','Are you sure to clean up all logs!'),
+    clean_up_successful: language('Clean up successful'),
+    clean_up_failed: language('Clean up failed'),
+    select_all_parameters: language('Select all parameters'),
 }

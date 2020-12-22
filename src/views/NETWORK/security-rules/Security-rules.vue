@@ -1,16 +1,19 @@
 <template>
     <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;">
         <div style="height: 50px;background-color: #ffffff;padding-left: 20px;">
-            <h1 style="line-height: 50px;font-size: 18px;">{{lang.call_routing_rules}}</h1>
+            <h1 style="line-height: 50px;font-size: 18px;">{{lang.security_rules}}</h1>
         </div>
 
         <el-row style="width: 97%;margin:auto;margin-top:20px;">
             <el-button type="primary"
                        size="small"
                        @click="Add()">{{lang.add}}</el-button>
+            <el-button type="primary"
+                       size="small"
+                       @click="Delete()">{{lang.delete}}</el-button>
         </el-row>
 
-        <el-card shadow="never" style="margin:auto;margin-top:10px;margin-bottom: 50px;" :style=$store.state.page.card_width>
+        <el-card shadow="never" style="margin:auto;margin-top:10px;margin-bottom: 50px;" :style=$store.state.page.card_list_width>
             <div style="background-color: #ffffff ;padding: 8px 20px;border-bottom: 1px solid #999999;">
                 <el-popover
                         placement="bottom"
@@ -35,8 +38,14 @@
                     style="width: 100%"
                     size="small"
                     ref="chnTable"
+                    @selection-change="select_rule"
                     :key="Math.random()"
                     :header-cell-style="{background:'#f3f7fa',color:'#606266'}">
+
+                <el-table-column
+                        type="selection"
+                        width="55">
+                </el-table-column>
 
                 <el-table-column
                         v-for="(col,index) in rulecol"
@@ -87,6 +96,8 @@
                 CheckedTitles: [],//已选的Title
                 IsIndeterminate: false,//全选框的中间态
 
+                selected_rule: null,
+
                 lang: this.$store.state.lang
             }
         },
@@ -99,8 +110,8 @@
             },
             CheckedTitlesChange(value) {
                 let checkedCount = value.length;
-                this.CheckAll = checkedCount === this.col.length;
-                this.IsIndeterminate = checkedCount > 0 && checkedCount < this.col.length;
+                this.CheckAll = checkedCount === this.rulecol.length;
+                this.IsIndeterminate = checkedCount > 0 && checkedCount < this.rulecol.length;
 
                 this.rulecol.map(i => {
                     let flag = 0
@@ -116,6 +127,9 @@
                     }
                 })
             },
+            select_rule(selection){
+                this.selected_rule = selection
+            },
             Add(){
                 this.$router.push('/Network/Security-rules/add')
             },
@@ -123,19 +137,38 @@
                 this.$router.push('/Network/Security-rules/add/'+rule_name)
             },
             Delete(rule_name){
-                this.$confirm('确定要删除吗')
-                    .then(_ => {
-                        const SectionArr = new AST_SectionArr()
+                const SectionArr = new AST_SectionArr()
+                if(rule_name == undefined){
+                    if(this.selected_rule == null){
+                        this.$message({
+                            message: this.lang.select_item_help,
+                            type: 'error',
+                            offset: '80'
+                        })
+
+                        return false
+                    }
+
+                    this.selected_rule.forEach(item => {
                         let section = new AST_Section()
-                        section._section = rule_name
+                        section._section = item.rule_name
                         SectionArr._item.push(section)
+                    })
+                }else{
+                    let section = new AST_Section()
+                    section._section = rule_name
+                    SectionArr._item.push(section)
+                }
+
+                this.$confirm(this.lang.delete_confirm)
+                    .then(_ => {
                         this.request.AGNetworkRulesDel(this.del_succeed_back, this.del_error_back, SectionArr)
                     })
                     .catch(_ => {})
             },
             del_succeed_back(data){
                 this.$message({
-                    message: '删除成功',
+                    message: this.lang.successfully_deleted,
                     type: 'success',
                     offset: '80'
                 });
@@ -143,7 +176,7 @@
             },
             del_error_back(){
                 this.$message({
-                    message: '删除失败',
+                    message: this.lang.failed_to_delete,
                     type: 'error',
                     offset: '80'
                 })

@@ -1,24 +1,43 @@
 <template>
     <div>
         <el-row>
-            <form_item>
-                <span slot="param_help" v-html="lang.upload_configuration"></span>
-                <span slot="param_name" >{{lang.upload_configuration}}</span>
-                <el-upload
-                        class="upload-demo"
-                        slot="param"
-                        action="/service"
-                        name="uploadfile1"
-                        :data="{action:'upload',page_name:'system-tools',type:'file_upload'}"
-                        :on-success="upload_file_success"
-                        style="width: 100%;">
-                    <el-button type="button" style="width: 100%;">
-                        <i class="el-icon-folder-opened"></i>
-                        <span> </span>
-                        <span>{{lang.select_file}}</span>
-                    </el-button>
-                </el-upload>
-            </form_item>
+            <el-col :lg="12" :sm="24" :xs="24">
+                <el-form-item>
+                    <label slot="label">
+                        <el-tooltip placement="top" :open-delay=200>
+                            <div slot="content" v-html="lang.upload_configuration"></div>
+                            <span>{{lang.upload_configuration}}</span>
+                        </el-tooltip>:
+                    </label>
+                    <el-row>
+                        <el-col :span="18"  style="margin-right: 10px;">
+                            <el-upload
+                                    class="upload-demo"
+                                    ref="upload"
+                                    action="/service"
+                                    name="uploadfile1"
+                                    :auto-upload=false
+                                    :data="{action:'upload',page_name:'system-tools',type:'file_upload'}"
+                                    :on-success="upload_file_success"
+                                    :before-upload="before_upload"
+                                    limit="1"
+                                    style="width: 100%;">
+                                <el-button type="button" style="width: 100%;">
+                                    <i class="el-icon-folder-opened"></i>
+                                    <span> </span>
+                                    <span>{{lang.select_file}}</span>
+                                </el-button>
+                            </el-upload>
+                        </el-col>
+                        <el-col :span="4">
+                            <el-button size="small"
+                                       type="primary"
+                                       @click="before_conf_file"
+                            >{{lang.upload}}</el-button>
+                        </el-col>
+                    </el-row>
+                </el-form-item>
+            </el-col>
         </el-row>
     </div>
 </template>
@@ -35,6 +54,20 @@
         },
         methods:{
             /* Upload File */
+            before_conf_file(){
+                this.$refs.upload.submit()
+            },
+            before_upload(file){
+                if(file.name.indexOf('.tar.gz') == -1){
+                    this.$notify.error({
+                        title: this.lang.error,
+                        message: this.lang.delete_language_alert,
+                        duration: 5000
+                    });
+
+                    return false
+                }
+            },
             upload_file_success(response, file, fileList){
                 this.$message({
                     message: this.lang.upload_successful,

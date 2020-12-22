@@ -4,6 +4,8 @@
             label-width="250px"
             class="change-label-class"
             ref="ruleForm"
+            :rules="rules"
+            :model="ruleForm"
             size="small">
         <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;padding-left: 20px;">
             <h1 style="line-height: 50px;font-size: 18px;">
@@ -11,26 +13,26 @@
                 <div style="float: right;line-height: 50px;margin-right: 20px;">
                     <el-button type="primary"
                                size="small"
-                               @click="Save">{{lang.save}}</el-button>
+                               @click="submitValidator('ruleForm')">{{lang.save}}</el-button>
                 </div>
             </h1>
         </div>
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom:50px;" :style=$store.state.page.card_width>
 
-            <el-divider content-position="left"><h3>{{lang.call_routing_rule}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.call_routing_rule}}</span></divider_item>
 
             <el-row>
-                <form_item>
+                <form_item v-bind:param="'routing_name'">
                     <span slot="param_help" v-html="lang.routing_name_help"></span>
                     <span slot="param_name" >{{lang.routing_name}}</span>
-                    <el-input slot="param" v-model="routing_name"></el-input>
+                    <el-input slot="param" v-model="ruleForm.routing_name"></el-input>
                 </form_item>
 
-                <form_item>
+                <form_item v-bind:param="'from_channel'">
                     <span slot="param_help" v-html="lang.call_comes_in_from_help"></span>
                     <span slot="param_name" >{{lang.call_comes_in_from}}</span>
-                    <el-select slot="param" v-model="from_channel" style="width: 100%">
+                    <el-select slot="param" v-model="ruleForm.from_channel" style="width: 100%">
                         <el-option-group
                                 v-for="type in selective_end"
                                 :key="type.label"
@@ -47,10 +49,10 @@
             </el-row>
 
             <el-row>
-                <form_item>
+                <form_item v-bind:param="'to_channel'">
                     <span slot="param_help" v-html="lang.send_call_throuth_help"></span>
                     <span slot="param_name" >{{lang.send_call_throuth}}</span>
-                    <el-select slot="param" v-model="to_channel" style="width: 100%">
+                    <el-select slot="param" v-model="ruleForm.to_channel" style="width: 100%">
                         <el-option-group
                                 v-for="type in selective_end"
                                 :key="type.label"
@@ -72,7 +74,7 @@
                 </form_item>
             </el-row>
 
-            <el-divider content-position="left"><h3>{{lang.disa_settings}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.disa_settings}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -84,7 +86,7 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.secondary_dialing_help"></span>
                     <span slot="param_name" >{{lang.secondary_dialing}}</span>
-                    <el-checkbox slot="param" v-model="second_dial_sw"></el-checkbox>
+                    <el-checkbox slot="param" v-model="second_dial_sw" :disabled="!disa_sw"></el-checkbox>
                 </form_item>
             </el-row>
 
@@ -92,7 +94,7 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.disa_timeout_help"></span>
                     <span slot="param_name" >{{lang.disa_timeout}}</span>
-                    <el-select slot="param" v-model="disa_timeout" style="width: 100%">
+                    <el-select slot="param" v-model="disa_timeout" :disabled="!disa_sw" style="width: 100%">
                         <el-option
                                 v-for="i in 10"
                                 :key="i"
@@ -105,7 +107,7 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.max_password_digits_help"></span>
                     <span slot="param_name" >{{lang.max_password_digits}}</span>
-                    <el-select slot="param" v-model="disa_password_digits" style="width: 100%">
+                    <el-select slot="param" v-model="disa_password_digits" :disabled="!disa_sw" style="width: 100%">
                         <el-option
                                 v-for="i in 10"
                                 :key="i"
@@ -120,11 +122,11 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.password_help"></span>
                     <span slot="param_name" >{{lang.password}}</span>
-                    <el-input slot="param" v-model="revc_secret" show-password></el-input>
+                    <el-input slot="param" v-model="revc_secret" :disabled="!disa_sw" show-password></el-input>
                 </form_item>
             </el-row>
 
-            <el-divider content-position="left"><h3>{{lang.advance_routing_rule}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.advance_routing_rule}}</span></divider_item>
 
             <el-card class="box-card" style="padding: 10px;">
                 <div slot="header" class="clearfix">
@@ -301,31 +303,35 @@
                             <el-col :lg="6">
                                 {{lang.week_day_start}}:
                                 <el-select v-model="item.start_week" size="small">
+                                    <el-option key="-" value="">-</el-option>
                                     <el-option
                                             v-for="week_item in week_options"
                                             :key="week_item.value"
-                                            :value="week_item.label"
-                                    >{{lang[week_item.label]}}</el-option>
+                                            :value="week_item.value"
+                                            :label="lang[week_item.label]"
+                                    ></el-option>
                                 </el-select>
                             </el-col>
                             <el-col :lg="6">
                                 {{lang.month_day_start}}:
                                 <el-select v-model="item.start_month_day" size="small">
+                                    <el-option key="-" value="">-</el-option>
                                     <el-option
                                         v-for="i in 31"
                                         :key="i"
-                                        :value="i"
-                                        >{{i}}</el-option>
+                                        :value="(Array(2).join(0) + i).slice(-2)"
+                                        >{{(Array(2).join(0) + i).slice(-2)}}</el-option>
                                 </el-select>
                             </el-col>
                             <el-col :lg="6">
                                 {{lang.month_start}}:
                                 <el-select v-model="item.start_month" size="small">
+                                    <el-option key="-" value="">-</el-option>
                                     <el-option
                                         v-for="month_item in month_options"
                                         :key="month_item.value"
-                                        :value="month_item.label">
-                                        {{lang[month_item.label]}}
+                                        :label="lang[month_item.label]"
+                                        :value="month_item.value">
                                     </el-option>
                                 </el-select>
                             </el-col>
@@ -347,32 +353,35 @@
                             <el-col :lg="6">
                                 {{lang.week_day_finish}}:
                                 <el-select v-model="item.finish_week" size="small">
+                                    <el-option key="-" value="">-</el-option>
                                     <el-option
                                             v-for="week_item in week_options"
                                             :key="week_item.value"
-                                            :value="week_item.label"
-                                    >{{lang[week_item.label]}}</el-option>
+                                            :value="week_item.value"
+                                            :label="lang[week_item.label]"
+                                    ></el-option>
                                 </el-select>
                             </el-col>
                             <el-col :lg="6">
                                 {{lang.month_day_finish}}:
                                 <el-select v-model="item.finish_month_day" size="small">
+                                    <el-option key="-" value="">-</el-option>
                                     <el-option
                                             v-for="i in 31"
-                                            :key="i"
-                                            :value="i"
+                                            :key="(Array(2).join(0) + i).slice(-2)"
+                                            :value="(Array(2).join(0) + i).slice(-2)"
                                     >{{i}}</el-option>
                                 </el-select>
                             </el-col>
                             <el-col :lg="6">
                                 {{lang.month_finish}}:
                                 <el-select v-model="item.finish_month" size="small">
+                                    <el-option key="-" value="">-</el-option>
                                     <el-option
                                             v-for="month_item in month_options"
                                             :key="month_item.value"
-                                            :value="month_item.label">
-                                        {{lang[month_item.label]}}
-                                    </el-option>
+                                            :label="lang[month_item.label]"
+                                            :value="month_item.value"></el-option>
                                 </el-select>
                             </el-col>
                         </el-col>
@@ -390,7 +399,7 @@
                 </el-row>
             </el-card>
 
-            <el-divider content-position="left"><h3>{{lang.change_rules}}</h3></el-divider>
+            <divider_item><span slot="title">{{lang.change_rules}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -401,10 +410,10 @@
             </el-row>
 
             <el-row>
-                <form_item>
+                <form_item v-bind:param="'dialing_delay'">
                     <span slot="param_help" v-html="lang.dialing_delay_help"></span>
                     <span slot="param_name" >{{lang.dialing_delay}}</span>
-                    <el-input slot="param" v-model="dialing_delay"></el-input>
+                    <el-input slot="param" v-model="ruleForm.dialing_delay"></el-input>
                 </form_item>
             </el-row>
 
@@ -460,7 +469,7 @@
             </el-card>
 
             <el-row v-if="from_channel.indexOf('fxo') > -1">
-                <el-divider content-position="left"><h3>{{lang.change_rules}}</h3></el-divider>
+                <divider_item><span slot="title">{{lang.change_rules}}</span></divider_item>
 
                 <el-row>
                     <form_item>
@@ -481,7 +490,62 @@
     export default {
         name: "add",
         data() {
+            var validateRouting_name = (rule, value, callback) => {
+                for(let i=0;i<this.all_routing_data.length;i++){
+                    if(this.$route.params.rule_name == this.all_routing_data[i]._section) continue
+                    if(value == this.all_routing_data[i]._section){
+                        callback(new Error('Already exist.'))
+                        return false
+                    }
+                }
+
+                let rex=/^[-_+.<>&0-9a-zA-Z]{1,32}$/i;
+                if(value == ''){
+                    callback(new Error('Must set.'))
+                }else if(!rex.test(value)) {
+                    callback(new Error(this.lang.check_diyname))
+                }else{
+                    callback()
+                }
+            }
+
+            var validateFrom_channel = (rule, value, callback) => {
+                console.log('from_channel',value)
+                if(value == ''){
+                    callback(new Error('Must set.'))
+                }else{
+                    callback()
+                }
+            }
+
+            var validateDialing_delay = (rule, value, callback) => {
+                if((isNaN(parseInt(value)) || (parseFloat(value) < 0) || (parseFloat(value) > 60)) && value != ''){
+                    callback(new Error('Must be number, range: 0-60.'))
+                }else{
+                    callback()
+                }
+            }
             return {
+                ruleForm: {
+                    routing_name: '',
+                    from_channel: '',
+                    to_channel: '',
+                    dialing_delay: '',
+                },
+                rules: {
+                    routing_name: [
+                        { validator: validateRouting_name, trigger: 'blur' }
+                    ],
+                    from_channel: [
+                        { validator: validateFrom_channel, trigger: 'change' }
+                    ],
+                    to_channel: [
+                        { validator: validateFrom_channel, trigger: 'change' }
+                    ],
+                    dialing_delay: [
+                        { validator: validateDialing_delay, trigger: 'blur' }
+                    ],
+                },
                 order: '',
                 routing_name: '',
                 from_channel: '',
@@ -578,6 +642,7 @@
                 }],
 
                 failover_number: [],
+                all_routing_data: [],
 
                 lang: this.$store.state.lang
             }
@@ -590,28 +655,49 @@
 
                 let data_temp = data['_get']
                 let routing_data = data_temp['_context']
-                let all_routing_data = data_temp['_routings']['_item']
+                this.all_routing_data = data_temp['_routings']['_item']
                 let analog_data = data_temp['_ana']['_item']
                 let sip_data = data_temp['_sip']['_item']
                 let group_data = data_temp['_group']['_item']
 
-                this.routing_name = this.$route.params.rule_name == undefined ? '' : this.$route.params.rule_name
-                this.from_channel = routing_data['_fromchannel']
+                this.ruleForm.routing_name = this.$route.params.rule_name == undefined ? '' : this.$route.params.rule_name
+                this.ruleForm.from_channel = routing_data['_fromchannel']
 
                 if(routing_data['_tochannel'] != null){
                     let to_channel_arr = routing_data['_tochannel'].split(',')
-                    this.to_channel = to_channel_arr.shift()
+                    this.ruleForm.to_channel = to_channel_arr.shift()
                     this.failover_number = to_channel_arr
                 }
 
-                this.forceanswer = routing_data['_forceanswer'] == 0 ? true : false
+                if(this.$route.params.rule_name != undefined){
+                    this.forceanswer = routing_data['_forceanswer'] == 0 ? true : false
+                }else{
+                    this.forceanswer = false
+                }
+
                 this.forwardnumber = routing_data['_forwardnumber']
-                this.disa_sw = routing_data['_disasw'] == 0 ? true : false
-                this.second_dial_sw = routing_data['_seconddialsw'] == 0 ? true : false
-                this.disa_timeout = parseInt(routing_data['_timeout'])
-                this.disa_password_digits = routing_data['_maxpasswddigits']
+                if(this.$route.params.rule_name != undefined) {
+                    this.disa_sw = routing_data['_disasw'] == 0 ? true : false
+                }else{
+                    this.disa_sw = false
+                }
+                if(this.$route.params.rule_name != undefined) {
+                    this.second_dial_sw = routing_data['_seconddialsw'] == 0 ? true : false
+                }else{
+                    this.second_dial_sw = false
+                }
+                if(this.$route.params.rule_name != undefined) {
+                    this.disa_timeout = parseInt(routing_data['_timeout'])
+                }else{
+                    this.disa_timeout = 5
+                }
+                if(this.$route.params.rule_name != undefined) {
+                    this.disa_password_digits = routing_data['_maxpasswddigits']
+                }else{
+                    this.disa_password_digits = 10
+                }
                 this.order = routing_data['_order']
-                this.dialing_delay = routing_data['_dialingdelay'].toFixed(2)
+                this.ruleForm.dialing_delay = routing_data['_dialingdelay'].toFixed(2)
                 this.revc_secret = data_temp['_revcsecret']
                 this.cidNumber = data_temp['_cidnumber']
 
@@ -790,13 +876,22 @@
                 this.failover_number.splice(index, 1)
             },
 
+            submitValidator(formName){
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.Save()
+                    } else {
+                        return false;
+                    }
+                });
+            },
             Save(){
                 const RoutingContex = new AST_RoutingContex()
 
-                RoutingContex._order = 1
-                RoutingContex._fromchannel = this.from_channel
+                RoutingContex._order = this.$route.params.order
+                RoutingContex._fromchannel = this.ruleForm.from_channel
 
-                let to_channel_str = this.to_channel.split().concat(this.failover_number).join(',')
+                let to_channel_str = this.ruleForm.to_channel.split().concat(this.failover_number).join(',')
                 RoutingContex._tochannel = to_channel_str
 
                 RoutingContex._forceanswer = this.forceanswer == true ? 0 : 1
@@ -804,7 +899,7 @@
                 RoutingContex._disasw = this.disa_sw == true ? 0 : 1
                 RoutingContex._seconddialsw = this.second_dial_sw == true ? 0 : 1
                 RoutingContex._timeout = this.disa_timeout
-                RoutingContex._dialingdelay = parseFloat(this.dialing_delay).toFixed(2)
+                RoutingContex._dialingdelay = parseFloat(this.ruleForm.dialing_delay).toFixed(2)
                 RoutingContex._maxpasswddigits = this.disa_password_digits
 
                 const pattern_obj = {callee:[],caller:[]}
@@ -828,23 +923,34 @@
                 RoutingContex._calleedialpattern = pattern_obj.callee.join(',')
                 RoutingContex._callerdialpattern = pattern_obj.caller.join(',')
 
-                console.log(this.time_patterns)
-                const time_pattrens_arr = this.time_patterns.map(item => {
-                    return item.start_time + '-' + item.finish_time + '|'
-                        + item.start_week + '-' + item.finish_week + '|'
-                        + item.start_month_day + '-' + item.finish_month_day + '|'
-                        + item.start_month + '-' + item.finish_month
-                })
+                const time_pattrens_arr = []
+                if(this.time_patterns.length > 0) {
+                    this.time_patterns.forEach(item => {
+                        if((item.start_time != '' && item.start_time != 'null') || (item.finish_time != '' && item.finish_time != 'null') ||
+                            item.start_week != '' || item.finish_week != '' ||
+                            item.start_month_day != '' || item.finish_month_day != '' ||
+                            item.start_month != '' || item.finish_month != ''
+                        ) {
+
+                            let str = item.start_time + '-' + item.finish_time + '|'
+                                + item.start_week + '-' + item.finish_week + '|'
+                                + item.start_month_day + '-' + item.finish_month_day + '|'
+                                + item.start_month + '-' + item.finish_month
+
+                            time_pattrens_arr.push(str)
+                        }
+                    })
+                }
                 RoutingContex._timepattern = time_pattrens_arr.join(',')
 
                 let old_rule_name = this.$route.params.rule_name == undefined ? '' : this.$route.params.rule_name
 
                 let cidNumber = this.cidNumber
-                if(this.from_channel.indexOf('fxo') == -1){
+                if(this.ruleForm.from_channel.indexOf('fxo') == -1){
                     cidNumber = ''
                 }
 
-                this.request.AGRoutingRulsSave(this.save_succeed_back, this.save_error_back, old_rule_name, this.routing_name, RoutingContex, cidNumber, this.revc_secret)
+                this.request.AGRoutingRulsSave(this.save_succeed_back, this.save_error_back, old_rule_name, this.ruleForm.routing_name, RoutingContex, cidNumber, this.revc_secret)
             },
             save_succeed_back(data){
                 console.log('data result:', data)

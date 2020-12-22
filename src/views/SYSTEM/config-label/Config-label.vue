@@ -13,7 +13,8 @@
                      style="padding:20px"
                      size="small">
 
-                <el-divider content-position="left"><h3>{{lang.new_label}}</h3></el-divider>
+                <divider_item><span slot="title">{{lang.new_label}}</span></divider_item>
+
                 <el-row>
                     <el-col :span="12">
                         <el-form-item>
