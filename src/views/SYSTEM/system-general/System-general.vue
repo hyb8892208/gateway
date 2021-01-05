@@ -385,11 +385,12 @@
             Delete_language(){
                 console.log(this.language_value)
                 if(this.language_value == 'english'){
-                    this.$notify.error({
-                        title: this.lang.error,
+                    this.$message({
+                        dangerouslyUseHTMLString: true,
                         message: this.lang.delete_language_alert,
-                        duration: 5000
-                    });
+                        type: 'error',
+                        offset: '80'
+                    })
 
                     return false
                 }
@@ -404,7 +405,7 @@
             del_succeed_back(data){
                 console.log(data)
                 this.$message({
-                    message: '恭喜你，删除成功',
+                    message: this.lang.successfully_deleted,
                     type: 'success',
                     offset: '80'
                 })
@@ -413,7 +414,7 @@
             },
             del_error_back(){
                 this.$message({
-                    message: '删除失败',
+                    message: this.lang.failed_to_delete,
                     type: 'error',
                     offset: '80'
                 })
@@ -423,11 +424,12 @@
             before_upload(file){
                 for(let i=0;i<this.languages.length;i++){
                     if(this.languages[i].value == file.name){
-                        this.$notify.error({
-                            title: this.lang.error,
+                        this.$message({
+                            dangerouslyUseHTMLString: true,
                             message: this.lang.already_exists,
-                            duration: 5000
-                        });
+                            type: 'error',
+                            offset: '80'
+                        })
 
                         return false
                     }

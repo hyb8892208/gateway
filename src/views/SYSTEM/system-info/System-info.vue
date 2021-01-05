@@ -12,7 +12,7 @@
                 <el-table-column
                     prop="key"
                     width="150"
-                    align="right">
+                    align="left">
                     <template slot-scope="scope">
                         {{lang[scope.row.key]}}:
                     </template>
@@ -189,7 +189,7 @@
             },
             clean_succeed_back(data){
                 this.$message({
-                    message: '清除内存成功',
+                    message: this.lang.clear_memory_successfully,
                     type: 'success',
                     offset: '80'
                 })
@@ -198,7 +198,7 @@
             },
             clean_error_back(){
                 this.$message({
-                    message: '清除内存失败',
+                    message: this.lang.failed_to_clear_memory,
                     type: 'error',
                     offset: '80'
                 })

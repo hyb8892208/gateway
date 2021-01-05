@@ -58,6 +58,18 @@
                 </form_item>
 
                 <form_item>
+                    <span slot="param_help" v-html="lang.echo_mode_help"></span>
+                    <span slot="param_name" >{{lang.echo_mode}}</span>
+                    <el-select slot="param" v-model="echomode" style="width: 100%;">
+                        <el-option
+                                v-for="item in echomode_options"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value"></el-option>
+                    </el-select>
+                </form_item>
+
+                <form_item>
                     <span slot="param_help" v-html="lang.echo_cancel_tap_length_help"></span>
                     <span slot="param_name" >{{lang.echo_cancel_tap_length}}</span>
                     <span slot="param">
@@ -239,6 +251,7 @@
                 echotype: '',
                 old_echocancel: '',
                 echocancel: '',
+                echomode: '',
                 fxs_signaling: '',
                 mode: '',
                 rate: '',
@@ -269,10 +282,18 @@
 
                 echotype_options: [{
                     label: 'Aec',
-                    value: '0'
+                    value: 0
                 },{
                     label: 'Oslec',
-                    value: '1'
+                    value: 1
+                }],
+
+                echomode_options: [{
+                    label: '58',
+                    value: '58'
+                },{
+                    label: '59',
+                    value: '59'
                 }],
 
                 echocancel_options: [0,64,128,256,512],
@@ -453,13 +474,14 @@
                 this.toneduration = _global['_toneduration']
                 this.toneinterval = _global['_toneinterval']
                 this.dialtimeout = _global['_dialtimeout'] == 0 ? 180 : _global['_dialtimeout']
-                this.old_echotype = _global['_echotype']
-                this.echotype = _global['_echotype']
+                this.old_echotype = parseInt(_global['_echotype'])
+                this.echotype = parseInt(_global['_echotype'])
 
                 this.old_echocancel = _global['_echocancel']
                 this.echocancel = (_global['_echocancel'] < 0 || _global['_echocancel'] > 512)
                                     ? 120
                                     : _global['_echocancel']
+                this.echomode = _global['_echomode'] == '59' ? '59' : '58'
 
                 this.fxs_signaling = parseInt(_global['_sigfxs'])
                 this.mode = _global['_mode'] == '' ? 'Adaptive' : _global['_mode']
@@ -493,6 +515,7 @@
                 algglobal._rate = this.rate
                 algglobal._ecm = this.ecm == true ? 1 : 0
                 algglobal._echotype = this.echotype
+                algglobal._echomode = this.echomode
                 algglobal._echocancel = this.echocancel
                 algglobal._sigfxs = this.fxs_signaling
 

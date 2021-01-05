@@ -19,7 +19,7 @@
                 :visible.sync="update_online_dialogVisible"
                 :before-close="Update_Online_Close"
                 id="system_online_update"
-                :width="this.$store.state.page.dialog_width">
+                :width="$store.state.page.dialog_width">
             <el-input type="textarea"
                       resize="none"
                       readonly

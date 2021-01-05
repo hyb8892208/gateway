@@ -38,7 +38,7 @@
                 :visible.sync="voice_record_dialogVisible"
                 id="voice_record"
                 :before-close="recordClose"
-                :width="this.$store.state.page.dialog_width">
+                :width="$store.state.page.dialog_width">
             <div style="text-align: center;font-size: 30px;">{{timeout}}</div>
             <div style="color:green;font-size: 20px;margin-top:30px;">{{voice_record_content}}</div>
             <span slot="footer" class="dialog-footer">

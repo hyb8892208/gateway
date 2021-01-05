@@ -23,6 +23,7 @@ const state = {
   TLS: 0,
   L2TPvpn: 0,
   CheckFXSCurrSta: 0,
+  menuActive: '/System/Status',//导航栏切换
 
   menu_loading: true,
   menu: menu.menu,

@@ -18,7 +18,7 @@
                 :visible.sync="factory_reset_dialogVisible"
                 id="restore_reset"
                 :before-close="factoryClose"
-                :width="this.$store.state.page.dialog_width">
+                :width="$store.state.page.dialog_width">
             <span>{{factory_reset_result}}</span>
         </el-dialog>
 
@@ -28,7 +28,7 @@
                 :visible.sync="restore_system_dialogVisible"
                 id="restore_system"
                 :before-close="restoreClose"
-                :width="this.$store.state.page.dialog_width">
+                :width="$store.state.page.dialog_width">
             <span>{{restore_system_result}}</span>
             <el-checkbox v-model="cdr_db">CDR</el-checkbox>
             <el-checkbox v-model="system_log">{{lang.system_logs}}</el-checkbox>
@@ -98,13 +98,7 @@
 
             },
             restoreClose(){
-                this.$confirm(this.lang.dialog_close_confirm)
-                    .then(_ => {
-                        this.restore_system_dialogVisible = false
-                    })
-                    .catch(_ => {
-
-                    })
+                this.restore_system_dialogVisible = false
             },
             factoryClose(){
                 this.$confirm(this.lang.dialog_close_confirm)

@@ -90,6 +90,7 @@
                                         size="mini"
                                         style="width: 120px;"
                                         :placeholder="lang.from">
+                                </el-time-picker>
 <!--                                <el-input v-model="scope.row.search_duration_from" size="mini"></el-input>-->
                             </el-col>
                             <el-col :lg="12">
@@ -98,6 +99,7 @@
                                         size="mini"
                                         style="width: 120px;"
                                         :placeholder="lang.to">
+                                </el-time-picker>
 <!--                                <el-input v-model="scope.row.search_duration_to" size="mini"></el-input>-->
                             </el-col>
                         </el-row>
@@ -161,6 +163,7 @@
                     size="mini"
                     @sort-change="sortChange"
                     @selection-change="select_log"
+                    :default-sort="default_sort"
                     :key="Math.random()"
                     :header-cell-style="{background:'#f3f7fa',color:'#606266'}">
 
@@ -302,6 +305,10 @@
                 }],
 
                 cdrData: [],
+                default_sort:{
+                    prop: 'callerid',
+                    order: 'ascending'
+                },
 
                 lang: this.$store.state.lang
             }
@@ -314,56 +321,101 @@
                 switch (col.prop) {
                     case 'callerid':
                         if(col.order == 'descending'){
-                            this.sort_sql = 'order by "callerid" asc'
-                        }else if(col.order == 'ascending'){
                             this.sort_sql = 'order by "callerid" desc'
+                        }else if(col.order == 'ascending'){
+                            this.sort_sql = 'order by "callerid" asc'
                         }
                         break
                     case 'calleeid':
                         if(col.order == 'descending'){
-                            this.sort_sql = 'order by "calleeid" asc'
-                        }else if(col.order == 'ascending'){
                             this.sort_sql = 'order by "calleeid" desc'
+                        }else if(col.order == 'ascending'){
+                            this.sort_sql = 'order by "calleeid" asc'
                         }
                         break
                     case 'from':
                         if(col.order == 'descending'){
-                            this.sort_sql = 'order by "fromdd" asc'
-                        }else if(col.order == 'ascending'){
                             this.sort_sql = 'order by "fromdd" desc'
+                        }else if(col.order == 'ascending'){
+                            this.sort_sql = 'order by "fromdd" asc'
                         }
                         break
                     case 'to':
                         if(col.order == 'descending'){
-                            this.sort_sql = 'order by "todd" asc'
-                        }else if(col.order == 'ascending'){
                             this.sort_sql = 'order by "todd" desc'
+                        }else if(col.order == 'ascending'){
+                            this.sort_sql = 'order by "todd" asc'
                         }
                         break
                     case 'starttime':
                         if(col.order == 'descending'){
-                            this.sort_sql = 'order by "starttime" asc'
-                        }else if(col.order == 'ascending'){
                             this.sort_sql = 'order by "starttime" desc'
+                        }else if(col.order == 'ascending'){
+                            this.sort_sql = 'order by "starttime" asc'
                         }
                         break
                     case 'duration':
                         if(col.order == 'descending'){
-                            this.sort_sql = 'order by "duration" asc'
-                        }else if(col.order == 'ascending'){
                             this.sort_sql = 'order by "duration" desc'
+                        }else if(col.order == 'ascending'){
+                            this.sort_sql = 'order by "duration" asc'
                         }
                         break
                     case 'result':
                         if(col.order == 'descending'){
-                            this.sort_sql = 'order by "result" asc'
-                        }else if(col.order == 'ascending'){
                             this.sort_sql = 'order by "result" desc'
+                        }else if(col.order == 'ascending'){
+                            this.sort_sql = 'order by "result" asc'
                         }
                         break
-
-                    //this.filter_sql
                 }
+
+                let sort = col.prop
+                let order = col.order == 'descending' ? 'des' : 'asc'
+
+                let start_from = ''
+                if(this.$route.query.start_from != undefined){
+                    start_from = this.$route.query.start_from
+                }
+
+                let start_to = ''
+                if(this.$route.query.start_to != undefined){
+                    start_to = this.$route.query.start_to
+                }
+
+                let duration_from = ''
+                if(this.$route.query.duration_from != undefined){
+                    duration_from = this.$route.query.duration_from
+                }
+
+                let duration_to = ''
+                if(this.$route.query.duration_to != undefined){
+                    duration_to = this.$route.query.duration_to
+                }
+
+                let result = ''
+                if(this.$route.query.result != undefined){
+                    result = this.$route.query.result
+                }
+
+               this.$router.push({
+                   name: 'CDR',
+                   query: {
+                       callerid: this.search_cdrData[0].search_callerid,
+                       calleeid: this.search_cdrData[0].search_calleeid,
+                       from: this.search_cdrData[0].search_from,
+                       to: this.search_cdrData[0].search_to,
+                       start_from: start_from,
+                       start_to: start_to,
+                       duration_from: duration_from,
+                       duration_to: duration_to,
+                       result: result,
+                       sort: sort,
+                       order: order
+                   }
+               })
+
+               this.request.AGLogCdrGet(this.show_succeed_back, this.show_error_back, this.get_sql(), 'cdr', this.page, this.each_page_num)
             },
             format_data_time(value, type){
                 if(value != '') {
@@ -419,6 +471,16 @@
                 let duration_from = this.format_data_time(this.search_cdrData[0].search_duration_from, 'time')
                 let duration_to = this.format_data_time(this.search_cdrData[0].search_duration_to, 'time')
 
+                let sort = ''
+                if(this.$route.query.sort != undefined){
+                    sort = this.$route.query.sort
+                }
+
+                let order = ''
+                if(this.$route.query.order != undefined){
+                    order = this.$route.query.order
+                }
+
                 let result = this.search_cdrData[0].search_result == 0 ? '' : this.search_cdrData[0].search_result
                 this.$router.push({
                     name: 'CDR',
@@ -431,11 +493,13 @@
                         start_to: start_to,
                         duration_from: duration_from,
                         duration_to: duration_to,
-                        result: result
+                        result: result,
+                        sort: sort,
+                        order: order
                     }
                 })
 
-                this.request.AGLogCdrGet(this.show_succeed_back, this.show_error_back, this.get_sql, 'cdr', this.page, this.each_page_num)
+                this.request.AGLogCdrGet(this.show_succeed_back, this.show_error_back, this.get_sql(), 'cdr', this.page, this.each_page_num)
             },
             Clean_filter(){
                 this.$router.push('CDR')
@@ -462,7 +526,6 @@
                             })
                             let sql = 'where ' + log_datachunk.join(' or ')
 
-                            console.log(sql)
                             this.request.AGLogCdrDel(this.del_succeed_back, this.del_error_back, sql, 'cdr')
                         }else{
                             this.$message({
@@ -558,25 +621,36 @@
                     }
                     this.cdrData.push(obj)
                 })
+
+                let order = 'ascending'
+                if(this.$route.query.order == 'des'){
+                    order = 'descending'
+                }
+                let sort = null
+                if(this.$route.query.sort != undefined){
+                    sort = this.$route.query.sort
+                }
+                this.default_sort = {
+                    prop: sort,
+                    order: order
+                }
             },
             show_error_back(){
                 this.$router.push('/common/error')
             },
             SizeChange(val){
                 this.each_page_num = val
-                this.request.AGLogCdrGet(this.show_succeed_back, this.show_error_back, this.get_sql, 'cdr', this.page, this.each_page_num)
+                this.request.AGLogCdrGet(this.show_succeed_back, this.show_error_back, this.get_sql(), 'cdr', this.page, this.each_page_num)
             },
             CurrentPageChange(val){
                 this.page = val
-                this.request.AGLogCdrGet(this.show_succeed_back, this.show_error_back, this.get_sql, 'cdr', this.page, this.each_page_num)
-            }
-        },
-        computed:{
+                this.request.AGLogCdrGet(this.show_succeed_back, this.show_error_back, this.get_sql(), 'cdr', this.page, this.each_page_num)
+            },
             get_sql(){
                 let sql_filter = ''
                 sql_filter += this.search_cdrData[0].search_callerid != ''
-                        ? "where callerid like '%"+ this.search_cdrData[0].search_callerid + "%' "
-                        : ''
+                    ? "where callerid like '%"+ this.search_cdrData[0].search_callerid + "%' "
+                    : ''
 
                 if(this.search_cdrData[0].search_calleeid != ''){
                     sql_filter += sql_filter == ''
@@ -634,7 +708,7 @@
             }
         },
         created() {
-            this.request.AGLogCdrGet(this.show_succeed_back, this.show_error_back, this.get_sql, 'cdr', this.page, this.each_page_num)
+            this.request.AGLogCdrGet(this.show_succeed_back, this.show_error_back, this.get_sql(), 'cdr', this.page, this.each_page_num)
         }
     }
 </script>

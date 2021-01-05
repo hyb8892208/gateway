@@ -18,7 +18,7 @@
                 :visible.sync="factory_reset_dialogVisible"
                 id="factory_reset"
                 :before-close="factoryClose"
-                :width="this.$store.state.page.dialog_width">
+                :width="$store.state.page.dialog_width">
             <span>{{factory_reset_result}}</span>
         </el-dialog>
     </div>

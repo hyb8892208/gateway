@@ -413,6 +413,14 @@ const routes = [
     }
   },
   {
+    path: '/Advanced/Adv-astfileeditor/:page',
+    name: 'Adv-astfileeditor',
+    component: () => import('../views/ADVANCED/adv-astfileeditor/Adv-astfileeditor'),
+    meta:{
+      title: _language['Asterisk File Editor']
+    }
+  },
+  {
     path: '/Advanced/Adv-astfileeditor/add',
     name: 'Adv-astfileeditor-add',
     component: () => import('../views/ADVANCED/adv-astfileeditor/add'),
@@ -442,6 +450,14 @@ const routes = [
     component: () => import('../views/ADVANCED/adv-tr069/Adv-tr069'),
     meta:{
       title: 'TR069'
+    }
+  },
+  {
+    path: '/Advanced/Adv-autoprovision',
+    name: 'Adv-autoprovision',
+    component: () => import('../views/ADVANCED/adv-autoprovision/Adv-autoprovision'),
+    meta:{
+        title: 'Auto Provision'
     }
   },
   {

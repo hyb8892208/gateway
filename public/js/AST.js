@@ -24434,6 +24434,7 @@ function AST_UcpAlgGlobal () {
     this._mode = null;
     this._rate = null;
     this._echocancel = 0;
+    this._echomode = '';
     this._echotype = '';
     this._ecm = '';
     this._sigfxs = '';
@@ -24539,6 +24540,22 @@ AST_UcpAlgGlobal.prototype.getEchocancel = AST_UcpAlgGlobal_getEchocancel;
 function AST_UcpAlgGlobal_setEchocancel(value) { this._echocancel = value;}
 
 AST_UcpAlgGlobal.prototype.setEchocancel = AST_UcpAlgGlobal_setEchocancel;
+//
+// accessor is AST_UcpAlgGlobal.prototype.getEchomode
+// element get for echomode
+// - element type is {http://www.w3.org/2001/XMLSchema}unsignedByte
+// - required element
+//
+// element set for echomode
+// setter function is is AST_UcpAlgGlobal.prototype.setEchomode
+//
+function AST_UcpAlgGlobal_getEchomode() { return this._echomode;}
+
+AST_UcpAlgGlobal.prototype.getEchomode = AST_UcpAlgGlobal_getEchomode;
+
+function AST_UcpAlgGlobal_setEchomode(value) { this._echomode = value;}
+
+AST_UcpAlgGlobal.prototype.setEchomode = AST_UcpAlgGlobal_setEchomode;
 //
 // accessor is AST_UcpAlgGlobal.prototype.getEchotype
 // element get for echotype
@@ -24656,6 +24673,12 @@ function AST_UcpAlgGlobal_serialize(cxfjsutils, elementName, extraNamespaces) {
     }
     // block for local variables
     {
+     xml = xml + '<jns0:echomode>';
+     xml = xml + cxfjsutils.escapeXmlEntities(this._echomode);
+     xml = xml + '</jns0:echomode>';
+    }
+    // block for local variables
+    {
      xml = xml + '<jns0:echotype>';
      xml = xml + cxfjsutils.escapeXmlEntities(this._echotype);
      xml = xml + '</jns0:echotype>';
@@ -24755,6 +24778,18 @@ function AST_UcpAlgGlobal_deserialize (cxfjsutils, element) {
      item = parseInt(value);
     }
     newobject.setEchocancel(item);
+    var item = null;
+    if (curElement != null) {
+     curElement = cxfjsutils.getNextElementSibling(curElement);
+    }
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing echomode');
+    var value = null;
+    if (!cxfjsutils.isElementNil(curElement)) {
+     value = cxfjsutils.getNodeText(curElement);
+     item = value;
+    }
+    newobject.setEchomode(item);
     var item = null;
     if (curElement != null) {
      curElement = cxfjsutils.getNextElementSibling(curElement);

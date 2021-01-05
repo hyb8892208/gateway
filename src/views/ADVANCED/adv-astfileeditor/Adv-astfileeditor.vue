@@ -10,7 +10,17 @@
                        @click="Add()">{{lang.add}}</el-button>
             <el-button type="primary"
                        size="small"
+                       style="margin-right: 10px;"
                        @click="Reload()">{{lang.reload_asterisk}}</el-button>
+            <el-autocomplete
+                    class="inline-input"
+                    v-model="file_name"
+                    :fetch-suggestions="querySearch"
+                    :trigger-on-focus="false"
+                    @select="handleSelect"
+                    size="small"
+                    suffix-icon="el-icon-search"
+            ></el-autocomplete>
         </el-row>
 
         <el-card shadow="never" style="margin:auto;margin-top:10px;margin-bottom: 50px;" :style=$store.state.page.card_list_width>
@@ -50,6 +60,17 @@
                     </template>
                 </el-table-column>
             </el-table>
+
+            <el-pagination
+                    style="padding:10px 20px;"
+                    @size-change="SizeChange($event)"
+                    @current-change="CurrentPageChange($event)"
+                    :current-page="page"
+                    :page-sizes="[10, 20, 50, 100]"
+                    :page-size="each_page_num"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="count">
+            </el-pagination>
         </el-card>
     </div>
 </template>
@@ -62,7 +83,16 @@
         inject:['reload'],
         data() {
             return {
+                count: 0,//所有日志数量
+                page: 1,//当前页码
+                each_page_num: 10,//每页数量
+
+                all_fileData: [],
                 fileData: [],
+
+                //search
+                file_name: '',
+                search_file : [],
 
                 lang: this.$store.state.lang
             }
@@ -71,21 +101,35 @@
             Add(){
                 this.$router.push('/Advanced/Adv-astfileeditor/add')
             },
+            show_pagination(){
+                this.fileData = []
+                this.all_fileData.forEach((item,index) => {
+                    if(index >= (this.each_page_num * (this.page -1)) &&
+                        index < (this.each_page_num * (this.page))){
+
+                        let obj = {
+                            filename: item._filename,
+                            filesize: item._filesize
+                        }
+
+                        this.fileData.push(obj)
+                    }
+                })
+            },
             show_succeed_back(data){
                 console.log(data)
                 let common_data = data['_files']['_combuf']
                 this.$store.commit(MENU, common_data)
 
-                let file_info = data['_files']['_files']['_item']
+                this.all_fileData = data['_files']['_files']['_item']
+                this.count = this.all_fileData.length
 
-                file_info.forEach(item => {
-                    let obj = {
-                        filename: item._filename,
-                        filesize: item._filesize
-                    }
+                if(this.$route.params.page != undefined){
+                    this.page = this.$route.params.page
+                }
 
-                    this.fileData.push(obj)
-                })
+                this.show_pagination()
+                this.search_file = this.loadAll()//search
             },
             show_error_back(){
                 this.$router.push('/common/error')
@@ -141,6 +185,40 @@
                     offset: '80'
                 })
             },
+            SizeChange(val){
+                this.each_page_num = val
+                this.show_pagination()
+            },
+            CurrentPageChange(val){
+                this.page = val
+                this.show_pagination()
+            },
+            querySearch(queryString, callback) {
+                let results = queryString ? this.search_file.filter(this.createFilter(queryString)) : this.search_file
+
+                callback(results)
+            },
+            createFilter(queryString) {
+                return (file) => {
+                    return (file.value.toLowerCase().indexOf(queryString.toLowerCase()) != -1)
+                }
+            },
+            loadAll() {
+                let arr = []
+                this.all_fileData.forEach(item => {
+                    item['value'] = item._filename
+                    arr.push(item)
+                })
+
+                return arr
+            },
+            handleSelect(item) {
+                this.fileData = []
+
+                item['filename'] = item._filename
+                item['filesize'] = item._filesize
+                this.fileData.push(item)
+            }
         },
         created() {
             this.request.AGAdvAstfileeditorEditGetAll(this.show_succeed_back, this.show_error_back)

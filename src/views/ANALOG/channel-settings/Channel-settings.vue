@@ -223,6 +223,7 @@
                 this.$store.commit(MENU, common_data)
 
                 let ana_data = data['_get']['_ana']['_item']
+                let chan_data = data['_get']['_chn']['_item']
                 let limit_sta = data['_get']['_limitStatus']['_item']
                 let sip_data = data['_get']['_sip']['_item']
 
@@ -253,14 +254,14 @@
                         let sip_name = ana_data[i]['_associatedchnnl']
                         line_status = (sip_name.indexOf('sip-') != -1) ? sip_name.substr(4) : ''
                     }else{
-                        line_status = ana_data[i]['_line']
+                        line_status = chan_data[i]['_line']
                     }
 
                     let port_status
                     if(ana_data[i]['_signalling'] == 3){
                         port_status = 'Inactive'
                     }else{
-                        port_status = ana_data[i]['_status']
+                        port_status = chan_data[i]['_status']
                     }
 
                     let obj = {

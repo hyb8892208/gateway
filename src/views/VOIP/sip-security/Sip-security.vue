@@ -87,6 +87,7 @@
                         width="150">
                     <template slot-scope="scope">
                         <el-input
+                                ref="keyname"
                                 v-if="scope.$index == 0"
                                 v-model="scope.row.keyname"
                                 size="mini"></el-input>
@@ -99,6 +100,7 @@
                         min-width="150">
                     <template slot-scope="scope">
                         <el-input
+                                ref="host"
                                 v-if="scope.$index == 0"
                                 v-model="scope.row.host"
                                 size="mini"></el-input>
@@ -111,6 +113,7 @@
                         min-width="150">
                     <template slot-scope="scope">
                         <el-input
+                                ref="organization"
                                 v-if="scope.$index == 0"
                                 v-model="scope.row.organization"
                                 size="mini"></el-input>
@@ -123,6 +126,7 @@
                         min-width="150">
                     <template slot-scope="scope">
                         <el-input
+                                ref="password"
                                 v-if="scope.$index == 0"
                                 v-model="scope.row.password"
                                 size="mini"></el-input>
@@ -401,6 +405,7 @@
                         type: 'error',
                         offset: '80'
                     })
+                    this.$refs.keyname.focus()
                     return false
                 }
 
@@ -412,6 +417,7 @@
                         type: 'error',
                         offset: '80'
                     })
+                    this.$refs.host.focus()
                     return false
                 }
 
@@ -421,6 +427,7 @@
                         type: 'error',
                         offset: '80'
                     })
+                    this.$refs.organization.focus()
                     return false
                 }
 
@@ -431,6 +438,7 @@
                         type: 'error',
                         offset: '80'
                     })
+                    this.$refs.password.focus()
                     return false
                 }
 
@@ -466,13 +474,13 @@
                 }
 
                 //client password must be same with Server
-                if(server_exist_flag && server_password == this.keysData[0].password){
+                if(server_exist_flag && server_password != this.keysData[0].password){
                     this.$message({
                         message: this.lang.TLS_key_password_same_as_server,
                         type: 'error',
                         offset: '80'
                     })
-
+                    this.$refs.password.focus()
                     return false
                 }
 
@@ -594,7 +602,7 @@
         },
         created() {
             this.request.AGSipSecurityGet(this.show_succeed_back, this.show_error_back)
-        },
+        }
     }
 </script>
 

@@ -321,7 +321,7 @@ export default {
     system_online_update_version_error: language('System Online Update version error','Get remote version failed. Please check the network connection is correct!'),
     system_version_help_1: language('System version help 1',"Your system current version is :"),
     system_version_help_2: language('System version help 2',"The newest system version is :"),
-    system_online_update_confirm: language('System Online Update confirm',"Use caution, please : This might damage the structure of your original configuration files.\n\nDo you want to update your system?\n"),
+    system_online_update_confirm: language('System Online Update confirm',"Use caution, please : This might damage the structure of your original configuration files.<br/>Do you want to update your system?"),
     stop: language('Stop'),
     configuration_restore: language('Configuration Restore'),
     configuration_restore_wait: language('Configuration Restore wait',"Default Configuration Files Restoring...<br>Please wait for about 60s, system will be rebooting."),
@@ -340,7 +340,7 @@ export default {
     switch_system_confirm: language('Switch system confirm', 'Are you sure you want to switch the system?'),
     system_switch_successfully: language('System switch successfully'),
     system_switch_failed: language('System switch failed'),
-    system_update_confirm: language('System Update confirm', 'Are you sure to update your system?\\\\nUse caution, please!This might damage the structure of your original configuration files.'),
+    system_update_confirm: language('System Update confirm', 'Are you sure to update your system?<br/>Use caution, please!This might damage the structure of your original configuration files.'),
     system_updating: language('System Updating', 'The system is being upgraded. It will take about 1-3 minutes. Please wait...'),
     clean_memory_failed: language('Clean memory failed', 'Failed to clean memory. Please try again'),
     system_update_failed: language('System Update Failed'),
@@ -365,6 +365,8 @@ export default {
     e_mail: language('E-Mail'),
     web_site: language('Web Site'),
     system_uptime: language('System Uptime'),
+    clear_memory_successfully: language('Clear memory successfully'),
+    failed_to_clear_memory: language('Failed to clear memory'),
 
     //Config-record
     ID: language('ID'),
@@ -494,6 +496,8 @@ export default {
     echo_cancel_tap_length_help: language('Echo cancel tap length help','Hardware echo canceler tap length. <br/>'),
     echo_type: language('Echo Type'),
     echo_type_help: language('Echo Type help','Echo Type'),
+    echo_mode: language('Echo Mode'),
+    echo_mode_help: language('Echo Mode help', 'Echo Mode'),
     mode: language('Mode'),
     mode_help: language('Mode help','Set the transmission mode.'),
     adaptive: language('Adaptive'),
@@ -892,6 +896,7 @@ export default {
     id: language('ID'),
     vos: language('VOS Encrytion'),
     register_mode: language('Register Mode'),
+    browser_warning: language("Browser_warning", "Your browser version is too old to support this widget, please upgrade your browser"),
 
     //Sip-adv-settings
     udp_bind_port: language('UDP Bind Port'),
@@ -1420,6 +1425,22 @@ export default {
     connection_request_password: language('Connection request password'),
     connection_request_password_help: language('Connection request password help', 'Connection request password'),
 
+    //Adv autoprovision
+    auto_provision: language('Auto Provision'),
+    auto_provision_settings: language('Auto Provision Settings'),
+    firmware_enable: language('Firmware Enable'),
+    firmware_enable_help: language('Firmware Enable help','Firmware Enable'),
+    configuration_enable: language('Configuration Enable'),
+    configuration_enable_help: language('Configuration Enable help','Configuration Enable'),
+    dhcp_option_66: language('DHCP Option 66'),
+    dhcp_option_66_help: language('DHCP Option 66 help', 'DHCP Option 66'),
+    auto_config_server_url: language('Auto Config Server URL'),
+    auto_config_server_url_help: language('Auto Config Server URL help','Auto Config Server URL'),
+    upgrade_mode: language('Upgrade Mode'),
+    upgrade_mode_help: language('Upgrade Mode help','Upgrade Mode'),
+    power_on: language('Power On'),
+    Immediately: language('Immediately'),
+
     //Adv Snmp
     snmp_parameter: language('SNMP Parameter'),
     snmp_enable: language('SNMP Enable'),
@@ -1557,7 +1578,7 @@ export default {
     delete_language_alert: language('Delete Language alert','Sorry, you can not delete the default language.'),
     delete_language_confirm: language('Delete Language confirm','Are you sure to delete the selected language package?'),
     already_exists: language('Already exists', 'The language already exists'),
-    fireware_upload_help: language("Firmware upload help","The format of the uploaded file is incorrect."),
+    fire_upload_help: language("Firmware upload help","The format of the uploaded file is incorrect."),
     delete_confirm: language('Delete Confirm', 'Are you sure you want to delete?'),
     successfully_deleted: language('Successfully Deleted'),
     failed_to_delete: language('Failed to delete'),
@@ -1575,4 +1596,5 @@ export default {
     clean_up_successful: language('Clean up successful'),
     clean_up_failed: language('Clean up failed'),
     select_all_parameters: language('Select all parameters'),
+    select_file_alert: language('Select File alert','Please select your file first!'),
 }

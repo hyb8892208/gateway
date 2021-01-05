@@ -90,7 +90,7 @@
     <el-dialog
           :title="lang.report"
           :visible.sync="dialogVisible"
-          :width="this.$store.state.page.dialog_width"
+          :width="$store.state.page.dialog_width"
           :before-close="handleClose">
         <span>{{sync_result}}</span>
         <span slot="footer" class="dialog-footer">

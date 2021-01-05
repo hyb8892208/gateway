@@ -21,7 +21,7 @@
                 :close-on-press-escape=false
                 :before-close="rebootClose"
                 id="system_reboot"
-                :width="this.$store.state.page.dialog_width">
+                :width="$store.state.page.dialog_width">
             <span>{{reboot_result}}</span>
         </el-dialog>
     </div>

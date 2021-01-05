@@ -32,7 +32,7 @@
                 <form_item>
                     <span slot="param_help" v-html="lang.choose_service_help"></span>
                     <span slot="param_name" >{{lang.choose_service}}</span>
-                    <el-select slot="param" v-model="server" style="width: 100%">
+                    <el-select slot="param" v-model="server" @change="change_cloud_href" style="width: 100%">
                         <el-option
                                 v-for="item in server_options"
                                 :label="item.label"
@@ -92,7 +92,7 @@
                             </el-tooltip>
                         </label>
                         <el-col :lg="18">
-                            <slot name="param">{{lang.cloud_signmessage_help}}<a href="https://cloud.openvox.com.cn" target="black" >{{lang.cloud_sign_help}}</a></slot>
+                            <slot name="param">{{lang.cloud_signmessage_help}}<a :href="cloud_href" style="color: #409EFF;" target="black" >{{lang.cloud_sign_help}}</a></slot>
                         </el-col>
                     </el-form-item>
                 </el-col>
@@ -124,6 +124,7 @@
                 connection_status_icon: false,
                 failed_to_connect: '',
                 timeout: 0,
+                cloud_href: 'https://cloud.openvox.com.cn',
 
                 server_options: [{
                     label: 'China',
@@ -159,6 +160,15 @@
             },
             show_error_back(){
                 this.$router.push('/common/error')
+            },
+            change_cloud_href(value){
+                if(value == 'china'){
+                    this.cloud_href = 'https://cloud.openvox.com.cn'
+                }else if(value == 'america'){
+                    this.cloud_href = 'https://cloud.openvox.cn/'
+                }else if(value == 'europe'){
+                    this.cloud_href = 'https://cloud-eur.openvox.cn'
+                }
             },
             get_connection_status(action){
                 if(action == 'first'){

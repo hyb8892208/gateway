@@ -75,14 +75,14 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.registration_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.registration_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync v-bind:param="'host'">
                                 <span slot="param_help" v-html="lang.hostname_or_ipaddress_help"></span>
                                 <span slot="param_name" >{{lang.hostname_or_ipaddress}}</span>
                                 <el-input slot="param" v-model="ruleForm.host" @change="host_change"></el-input>
-                                <el-checkbox slot="param_sync" v-model="sync.host_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.host_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -97,7 +97,7 @@
                                 <span slot="param_help" v-html="lang.port_help"></span>
                                 <span slot="param_name" >{{lang.port}}</span>
                                 <el-input slot="param" v-model="port"></el-input>
-                                <el-checkbox slot="param_sync" v-model="sync.port_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.port_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -112,7 +112,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.transport_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.transport_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
@@ -125,7 +125,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.nat_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.nat_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -140,7 +140,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.mwi_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.mwi_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
@@ -153,7 +153,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.vosencrypt_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.vosencrypt_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item>
@@ -218,7 +218,7 @@
                                     </el-col>
                                     <el-col :span="1">
                                         <label style="line-height: 32px;">
-                                            <el-checkbox slot="param_sync" v-model="sync.registeruser_sync"></el-checkbox>
+                                            <el-checkbox v-show="show_sync_params" v-model="sync.registeruser_sync"></el-checkbox>
                                         </label>
                                     </el-col>
                                 </el-row>
@@ -244,7 +244,7 @@
                                     </el-col>
                                     <el-col :span="1">
                                         <label style="line-height: 32px;">
-                                            <el-checkbox slot="param_sync" v-model="sync.fromuser_sync"></el-checkbox>
+                                            <el-checkbox v-show="show_sync_params" v-model="sync.fromuser_sync"></el-checkbox>
                                         </label>
                                     </el-col>
                                 </el-row>
@@ -256,7 +256,7 @@
                                 <span slot="param_help" v-html="lang.from_domain_help"></span>
                                 <span slot="param_name" >{{lang.from_domain}}</span>
                                 <el-input slot="param" v-model="fromdomain"></el-input>
-                                <el-checkbox slot="param_sync" v-model="sync.fromdomain_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.fromdomain_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
@@ -269,7 +269,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.qualify_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.qualify_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -278,7 +278,7 @@
                                 <span slot="param_help" v-html="lang.qualify_frequency_help"></span>
                                 <span slot="param_name" >{{lang.qualify_frequency}}</span>
                                 <el-input slot="param" v-model="qualifyfreq"></el-input>
-                                <el-checkbox slot="param_sync" v-model="sync.qualify_frequency_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.qualify_frequency_sync"></el-checkbox>
                             </form_item_sync>
 
                             <el-col :lg="12">
@@ -305,7 +305,7 @@
                                     </el-col>
                                     <el-col :span="1">
                                         <label style="line-height: 32px;">
-                                            <el-checkbox slot="param_sync" v-model="sync.outboundproxy_sync"></el-checkbox>
+                                            <el-checkbox v-show="show_sync_params" v-model="sync.outboundproxy_sync"></el-checkbox>
                                         </label>
                                     </el-col>
                                 </el-row>
@@ -333,7 +333,7 @@
                                 <span slot="param_help" v-html="lang.enable_outboundproxy_to_host_help"></span>
                                 <span slot="param_name" >{{lang.enable_outboundproxy_to_host}}</span>
                                 <el-checkbox slot="param" v-model="enableoutboundtohost"></el-checkbox>
-                                <el-checkbox slot="param_sync" v-model="sync.enableoutboundtohost_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.enableoutboundtohost_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync v-if="transport == 2">
@@ -346,7 +346,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.tlsverify_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.tlsverify_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -361,14 +361,14 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.tlssetup_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.tlssetup_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.tlsprivatekey_help"></span>
                                 <span slot="param_name" >{{lang.tlsprivatekey}}</span>
                                 <el-input slot="param" v-model="tlsprivatekey"></el-input>
-                                <el-checkbox slot="param_sync" v-model="sync.tlsprivatekey_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.tlsprivatekey_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -383,7 +383,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.encryption_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.encryption_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -414,7 +414,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.dtmfmode_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.dtmfmode_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -425,7 +425,7 @@
                                 <span slot="param_help" v-html="lang.call_limit_help"></span>
                                 <span slot="param_name" >{{lang.call_limit}}</span>
                                 <el-input slot="param" v-model="call_limit"></el-input>
-                                <el-checkbox slot="param_sync" v-model="sync.call_limit_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.call_limit_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -442,7 +442,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.trustrpid_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.trustrpid_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
@@ -455,7 +455,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.sendrpid_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.sendrpid_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -470,7 +470,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.rpid_format_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.rpid_format_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
@@ -483,7 +483,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.callingpres_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.callingpres_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -500,7 +500,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.progressinband_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.progressinband_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
@@ -513,7 +513,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.allowoverlap_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.allowoverlap_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -528,7 +528,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.usereqphone_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.usereqphone_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
@@ -541,7 +541,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.use_q850_reason_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.use_q850_reason_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -556,7 +556,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.honor_sdp_version_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.honor_sdp_version_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
@@ -569,7 +569,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.allowtransfer_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.allowtransfer_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -584,14 +584,14 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.promiscredir_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.promiscredir_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.max_forwards_help"></span>
                                 <span slot="param_name" >{{lang.max_forwards}}</span>
                                 <el-input slot="param" v-model="max_forwards"></el-input>
-                                <el-checkbox slot="param_sync" v-model="sync.max_forwards_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.max_forwards_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -606,7 +606,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.send_trying_on_register_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.send_trying_on_register_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -617,14 +617,14 @@
                                 <span slot="param_help" v-html="lang.default_t1_timer_help"></span>
                                 <span slot="param_name" >{{lang.default_t1_timer}}</span>
                                 <el-input slot="param" v-model="timert1"></el-input>
-                                <el-checkbox slot="param_sync" v-model="sync.timert1_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.timert1_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.call_setup_timer_help"></span>
                                 <span slot="param_name" >{{lang.call_setup_timer}}</span>
                                 <el-input slot="param" v-model="timerb"></el-input>
-                                <el-checkbox slot="param_sync" v-model="sync.timerb_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.timerb_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -639,14 +639,14 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.session_timers_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.session_timers_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.minimun_session_refresh_interval_help"></span>
                                 <span slot="param_name" >{{lang.minimun_session_refresh_interval}}</span>
                                 <el-input slot="param" v-model="session_minse"></el-input>
-                                <el-checkbox slot="param_sync" v-model="sync.session_minse_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.session_minse_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -655,7 +655,7 @@
                                 <span slot="param_help" v-html="lang.maximun_session_refresh_interval_help"></span>
                                 <span slot="param_name" >{{lang.maximun_session_refresh_interval}}</span>
                                 <el-input slot="param" v-model="session_expires"></el-input>
-                                <el-checkbox slot="param_sync" v-model="sync.session_expires_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.session_expires_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
@@ -668,7 +668,7 @@
                                             :key="item.value"
                                             :value="item.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.session_refresher_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.session_refresher_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
                     </el-form>
@@ -698,7 +698,7 @@
                                             :key="i.value"
                                             :value="i.value"></el-option>
                                 </el-select>
-                                <el-checkbox slot="param_sync" v-model="sync.sip_codec_priority_sync"></el-checkbox>
+                                <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.sip_codec_priority_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
 
@@ -719,7 +719,7 @@
                                                 <el-checkbox @change="Select_all_port">{{lang.all}}</el-checkbox>
                                             </el-col>
                                             <el-col :span="6">
-                                                <el-checkbox @change="Select_all_sync_params">{{lang.select_all_parameters}}</el-checkbox>
+                                                <el-checkbox v-show="show_sync_params" @change="Select_all_sync_params">{{lang.select_all_parameters}}</el-checkbox>
                                             </el-col>
                                         </el-row>
                                         <el-row>
@@ -932,7 +932,7 @@
                     label: 'No',
                     value: 0
                 },{
-                    label: 'Yse',
+                    label: 'Yes',
                     value: 1
                 }],
 
@@ -940,7 +940,7 @@
                     label: 'No',
                     value: 0
                 },{
-                    label: 'Yse',
+                    label: 'Yes',
                     value: 2
                 }],
 
@@ -948,7 +948,7 @@
                     label: 'No',
                     value: 0
                 },{
-                    label: 'Yse',
+                    label: 'Yes',
                     value: 1
                 }],
 
@@ -956,7 +956,7 @@
                     label: 'No',
                     value: 0
                 },{
-                    label: 'Yse',
+                    label: 'Yes',
                     value: 1
                 }],
 
@@ -994,7 +994,7 @@
                     label: 'No',
                     value: 0
                 },{
-                    label: 'Yse',
+                    label: 'Yes',
                     value: 1
                 }],
 
@@ -1002,7 +1002,7 @@
                     label: 'No',
                     value: 0
                 },{
-                    label: 'Yse',
+                    label: 'Yes',
                     value: 1
                 },{
                     label: 'Rpid',
@@ -1053,7 +1053,7 @@
                     label: 'Never',
                     value: 0
                 },{
-                    label: 'Yse',
+                    label: 'Yes',
                     value: 1
                 },{
                     label: 'No',
@@ -1064,7 +1064,7 @@
                     label: 'No',
                     value: 0
                 },{
-                    label: 'Yse',
+                    label: 'Yes',
                     value: 1
                 }],
 
@@ -1072,7 +1072,7 @@
                     label: 'No',
                     value: 0
                 },{
-                    label: 'Yse',
+                    label: 'Yes',
                     value: 1
                 }],
 
@@ -1080,7 +1080,7 @@
                     label: 'No',
                     value: 0
                 },{
-                    label: 'Yse',
+                    label: 'Yes',
                     value: 1
                 }],
 
@@ -1088,7 +1088,7 @@
                     label: 'No',
                     value: 0
                 },{
-                    label: 'Yse',
+                    label: 'Yes',
                     value: 1
                 }],
 
@@ -1096,7 +1096,7 @@
                     label: 'No',
                     value: 0
                 },{
-                    label: 'Yse',
+                    label: 'Yes',
                     value: 1
                 }],
 
@@ -1104,7 +1104,7 @@
                     label: 'No',
                     value: 0
                 },{
-                    label: 'Yse',
+                    label: 'Yes',
                     value: 1
                 }],
 
@@ -1112,7 +1112,7 @@
                     label: 'No',
                     value: 0
                 },{
-                    label: 'Yse',
+                    label: 'Yes',
                     value: 1
                 }],
 
@@ -1201,6 +1201,7 @@
                 },
 
                 sync_port_arr: [],
+                show_sync_params: false,
 
                 activeName: 'main',
 
@@ -1271,14 +1272,14 @@
                 this.registration = parseInt(_context['_registration'])
                 this.ruleForm.host = _context['_host']
                 this.backup_host = _context['_backup']
-                this.port = _context['_port']
+                this.port = _context['_port'] == 0 ? '' : _context['_port']
 
                 if(_context['_transport'] == 0 || _context['_transport'] == 1 || _context['_transport'] == 2){
                     this.transport = parseInt(_context['_transport'])
                 }else{
                     this.transport = 0
                 }
-                this.nat = parseInt(_context['_nat'])
+                this.nat = is_add ? 2 : parseInt(_context['_nat'])
                 this.mwi = parseInt(_context['_mwi'])
                 this.vosencrypt = parseInt(_context['_vosencrypt'])
                 this.stunflag = _context['_stunflag'] == 1 ? true : false
@@ -1289,10 +1290,8 @@
                 this.fromdomain = _context['_fromdomain']
                 this.qualify = parseInt(_context['_qualify'])
 
-                if(this.$store.state.systemtype == 'yfree' || this.$store.state.systemtype == 'general'){
+                if(this.$store.state.systemtype == 'yfree' || this.$store.state.systemtype == 'general' || is_add){
                     this.qualifyfreq = 60
-                }else if(is_add){
-                    this.qualifyfreq = 15
                 }else{
                     this.qualifyfreq = _context['_qualifyfreq']
                 }
@@ -1302,8 +1301,15 @@
                 this.registery_enable = _context['_registeryenable'] == 1 ? true : false
                 this.registery_string = _context['_registerystring']
                 this.enableoutboundtohost = _context['_enableoutboundtohost'] == 1 ? true : false
-                this.tlsverify = _context['_tlsverify']
-                this.tlssetup = _context['_tlssetup']
+                this.tlsverify = _context['_tlsverify'] == 1 ? 1 : 0
+                if(_context['_tlssetup'] == 2){
+                    this.tlssetup = 2
+                }else if(_context['_tlssetup'] == 1){
+                    this.tlssetup = 1
+                }else{
+                    this.tlssetup = 0
+                }
+
 
                 if(_context['_tlsprivatekey'] != ''){
                     let temp = _context['_tlsprivatekey'].split('/');
@@ -1312,7 +1318,11 @@
                     this.tlsprivatekey = ''
                 }
 
-                this.encryption = is_add ? 1 : parseInt(_context['_encryption'])
+                if(is_add){
+                    this.encryption = 1
+                }else{
+                    this.encryption = _context['_encryption'] == 1 ? 1 : 0
+                }
                 this.dtmfmode = parseInt(_context['_dtmfmode'])
                 this.call_limit = _context['_calllimit'] == 0 ? 8 : _context['_calllimit']
                 this.trustrpid = parseInt(_context['_trustrpid'])
@@ -1323,8 +1333,8 @@
                 this.allowoverlap = parseInt(_context['_allowoverlap'])
                 this.usereqphone = parseInt(_context['_usereqphone'])
                 this.use_q850_reason = parseInt(_context['_useq850reason'])
-                this.honor_sdp_version = parseInt(_context['_honorsdpversion'])
-                this.allowtransfer = parseInt(_context['_allowtransfer'])
+                this.honor_sdp_version = _context['_honorsdpversion'] == 0 ? 0 : 1
+                this.allowtransfer = _context['_allowtransfer'] == 0 ? 0 : 1
                 this.promiscredir = parseInt(_context['_promiscredir'])
                 this.max_forwards = is_add ? 70 : _context['_maxforwards']
                 this.send_trying_on_register = parseInt(_context['_registertrying'])
@@ -1358,6 +1368,7 @@
                 });
             },
             Save(){
+                console.log(this.sync)
                 const sipcontext = new AST_SipContext()
 
                 sipcontext._username = this.anonymous == true ? 'anonymous' : this.ruleForm.username
@@ -1393,7 +1404,7 @@
                     sipcontext._tlsenable = 1
                     sipcontext._tlsverify = this.tlsverify
                     sipcontext._tlssetup = this.tlssetup
-                    sipcontext._tlsprivatekey = this.tlsprivatekey
+                    sipcontext._tlsprivatekey = this.tlsprivatekey != '' ? '/etc/asterisk/keys/'+this.tlsprivatekey : ''
                     sipcontext._encryption = this.encryption
                 }else{
                     sipcontext._tlsenable = 0
@@ -1430,8 +1441,6 @@
                 sipcontext._allow = allow
                 sipcontext._order = this.order
 
-                console.log('username', sipcontext._username)
-                console.log('password', sipcontext._secret)
                 sipcontext._md5 = md5(sipcontext._username+'-'+sipcontext._secret)
 
                 /*** Sync other port Begin ***/
@@ -1458,8 +1467,7 @@
                 }
 
                 if(port_sync && params_sync){
-
-                    if(this.sync.registeruser_sync){
+                    if(this.sync.registration_sync){
                         let line_registration = new AST_Line()
                         line_registration._key = 'registration'
                         if(this.registration == 0){
@@ -1472,7 +1480,7 @@
                         LineArr._item.push(line_registration)
                     }
 
-                    if(this.sync.port_sync){
+                    if(this.sync.host_sync){
                         let line_host = new AST_Line()
                         line_host._key = 'host'
                         line_host._value = this.ruleForm.host
@@ -1524,11 +1532,7 @@
                     if(this.sync.enableoutboundtohost_sync){
                         let line_enableoutboundtohost = new AST_Line()
                         line_enableoutboundtohost._key = 'enableoutboundtohost'
-                        if(this.enableoutboundtohost == 0){
-                            line_enableoutboundtohost._value = 'no'
-                        }else if(this.enableoutboundtohost == 1){
-                            line_enableoutboundtohost._value = 'yes'
-                        }
+                        line_enableoutboundtohost._value = this.enableoutboundtohost == true ? 'yes' : 'no'
                         LineArr._item.push(line_enableoutboundtohost)
                     }
 
@@ -1638,7 +1642,7 @@
                         if(this.sync.tlsprivatekey_sync){
                             let line_tlsprivatekey = new AST_Line()
                             line_tlsprivatekey._key = 'tlsprivatekey'
-                            line_tlsprivatekey._value = this.tlsprivatekey
+                            line_tlsprivatekey._value = this.tlsprivatekey != '' ? '/etc/asterisk/keys/'+this.tlsprivatekey : ''
                             LineArr._item.push(line_tlsprivatekey)
                         }
 
@@ -1901,9 +1905,21 @@
                         let line_allow = new AST_Line()
                         line_allow._key = 'allow'
 
-                        let allow_val = ''
-                        this.sip_codec_val_options.filter(item => item>0)
-                        this.sip_codec_val_options.join(',')
+                        let allow_val_arr = []
+                        this.sip_codec_val_options.forEach(item => {
+                            if(item == 1){
+                                allow_val_arr.push('ulaw')
+                            }else if(item == 2){
+                                allow_val_arr.push('alaw')
+                            }else if(item == 3){
+                                allow_val_arr.push('g729')
+                            }else if(item == 4){
+                                allow_val_arr.push('g722')
+                            }else if(item == 6){
+                                allow_val_arr.push('ilbc')
+                            }
+                        })
+                        let allow_val = allow_val_arr.join(',')
 
                         line_allow._value = allow_val
                         LineArr._item.push(line_allow)
@@ -1942,7 +1958,19 @@
                 })
             }
         },
-
+        watch:{
+            sync_port_arr: {
+                handler(newval){
+                    let tmp = newval.filter(item => item == true)
+                    if(tmp.length > 0){
+                        this.show_sync_params = true
+                    }else{
+                        this.show_sync_params = false
+                    }
+                },
+                deep: true
+            }
+        },
         created() {
             if(this.$route.params.section == undefined){
                 this.request.AGSipEndpointsNewGet(this.show_succeed_back, this.show_error_back)

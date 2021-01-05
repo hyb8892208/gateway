@@ -80,7 +80,7 @@
 
             get_log_content(){
                 clearTimeout(this.timeoutID)
-                this.$axios.get('/log/sip-log')
+                this.$axios.get('/log/sip-log/'+Math.random())
                     .then((res) => {
                         this.log = res.data
                         let t = document.getElementById('showlog')

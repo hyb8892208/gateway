@@ -13,6 +13,47 @@
             </h1>
         </div>
 
+        <el-row style="width: 97%;margin:auto;margin-top:20px;">
+            <div style="display: inline-block;width: 300px;float: left;">
+                <el-row :gutter="10">
+                    <el-col :span="16">
+                        <el-upload
+                                ref="file_upload"
+                                action="/service"
+                                name="uploadfile1"
+                                :auto-upload="false"
+                                :on-change="file_change"
+                                limit="1">
+                            <el-button type="button" size="small" style="width: 100%">
+                                <i class="el-icon-folder-opened"></i>
+                                <span> </span>
+                                <span>{{lang.select_file}}</span>
+                            </el-button>
+                        </el-upload>
+                    </el-col>
+
+                    <el-col :span="8">
+                        <el-button size="small"
+                                   type="primary"
+                                   style="min-width: 80px"
+                                   @click="import_file"
+                        >{{lang.upload}}</el-button>
+                    </el-col>
+                </el-row>
+            </div>
+
+            <div style="display: inline-block;float: left;">
+                <form action='/service' method='post' wnctype='multipart/form-data'>
+                    <input type='hidden' name='action' value='download' />
+                    <input type='hidden' name='downloadfile' value='downloadfile' />
+                    <input type='hidden' name='page_name' value='sip-bendpoints' />
+                    <button class="el-button el-button--primary el-button--small">
+                        {{lang.download_samples}}
+                    </button>
+                </form>
+            </div>
+        </el-row>
+
         <el-card shadow="never" style="margin:auto;margin-top:20px;margin-bottom: 50px;" :style=$store.state.page.card_list_width>
             <el-table
                     :data="sipData"
@@ -205,6 +246,97 @@
             }
         },
         methods:{
+            file_change(file){
+                if(typeof FileReader == 'undefined'){
+                    this.$message({
+                        dangerouslyUseHTMLString: true,
+                        message: this.lang.browser_warning,
+                        type: 'error',
+                        offset: '80'
+                    })
+
+                    return false
+                }
+
+                if(file.name.indexOf('.txt') == -1){
+                    this.$message({
+                        dangerouslyUseHTMLString: true,
+                        message: this.lang.fire_upload_help,
+                        type: 'error',
+                        offset: '80'
+                    })
+
+                    return false
+                }
+            },
+            import_file(){
+                const file_info = document.getElementsByName('uploadfile1')[0].files[0]
+
+                let that = this
+                const reader = new FileReader()
+                reader.readAsText(file_info)
+                reader.onload=function(f){
+                    let info = this.result
+                    let info_arr = info.split(";")
+                    for(let i=0;i<info_arr.length-1;i++){
+                        that.selected_sip.forEach((item,index) => {
+                            let each = info_arr[i].split(",")
+                            if(each[0] == index+1){
+                                for(let j=0;j<each.length;j++){
+                                    each[j] = each[j].replace(/[\r\n]/g,"")
+                                    switch(j<each.length){
+                                        case j==1:
+                                            that.selected_sip[index].username = each[j]
+                                            break
+                                        case j==2:
+                                            that.selected_sip[index].password = each[j]
+                                            break
+                                        case j==3:
+                                            that.selected_sip[index].host = each[j]
+                                            break
+                                        case j==4:
+                                            that.selected_sip[index].back_host = each[j]
+                                            break
+                                        case j==5:
+                                            that.selected_sip[index].port = each[j]
+                                            break
+                                        case j==6:
+                                            each[j] = each[j].toLowerCase()
+                                            if(each[j] == 'no'){
+                                                that.selected_sip[index].vos = each[j]
+                                            }else if(each[j] == 'yes'){
+                                                that.selected_sip[index].vos = each[j]
+                                            }
+                                            break
+                                        case j==7:
+                                            each[j] = each[j].toLowerCase()
+                                            if(each[j]=='g.711 u-law' || each[j]=='u-law' || each[j]=='ulaw' || each[j]=='g.711u-law'){
+                                                that.selected_sip[index].codec_priority = 'ulaw'
+                                            }else if(each[j]=='g.711 a-law' || each[j]=='a-law' || each[j]=='alaw' || each[j]=='g.711a-law'){
+                                                that.selected_sip[index].codec_priority = 'alaw'
+                                            }else if(each[j]=='g.729' || each[j]=='g729'){
+                                                that.selected_sip[index].codec_priority = 'g729'
+                                            }else if(each[j]=='g.722' || each[j]=='g722'){
+                                                that.selected_sip[index].codec_priority = 'g722'
+                                            }else{
+                                                that.selected_sip[index].codec_priority = each[j]
+                                            }
+                                            break
+                                        case j==8:
+                                            each[j] = each[j].toLowerCase();
+                                            if(each[j]=="all" || each[j]=="all"){
+                                                that.selected_sip[index].support_codec = 'all'
+                                            }else if(each[j]=="alone" || each[j]=="solo"){
+                                                that.selected_sip[index].support_codec = 'solo'
+                                            }
+                                            break
+                                    }
+                                }
+                            }
+                        })
+                    }
+                }
+            },
             showFirstChcekbox(row, index){//禁用第一行的checkbox
                 if(index == 0){
                     return false
@@ -247,7 +379,6 @@
                 this.selected_sip = val
             },
             batch(){
-                console.log(this.autopassword_checked)
                 let n = 0
 
                 this.selected_sip.forEach((item,index) => {
@@ -370,8 +501,6 @@
                 this.reload()
             },
             save_error_back(){
-                console.log('save failed')
-
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',

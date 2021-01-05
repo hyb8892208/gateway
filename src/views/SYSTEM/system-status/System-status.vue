@@ -67,7 +67,6 @@
         },
         methods: {
             show_succeed_back(data){
-                console.log('succeed')
                 console.log(data)
                 let common_data = data['_get']['_combuf']
                 this.$store.commit(MENU, common_data)
@@ -76,6 +75,14 @@
                 this.sipData = data['_get']['_sip']['_item']
                 this.routingData = data['_get']['_roules']['_item']
                 this.networkData = data['_get']['_net']['_item']
+
+                if(this.networkData[2]._ptpip != '' ||
+                    this.networkData[3]._ptpip != '' ||
+                    this.networkData[4]._ptpip != '' ||
+                    this.networkData[5]._ptpip != ''
+                ){
+                    this.show_vpn_tab = true
+                }
 
                 this.dataComplete = true
             },

@@ -218,7 +218,7 @@
                 :close-on-click-modal=true
                 :close-on-press-escape=false
                 :before-close="tcpdumpClose"
-                :width="this.$store.state.page.dialog_width">
+                :width="$store.state.page.dialog_width">
             <div style="text-align: center;font-size: 30px;">{{timeout}}</div>
             <div style="color:green;font-size: 20px;margin-top:30px;">The maximum duration of this recording is 10 minutes,and the system will stop and download the recording file automatically when time is up</div>
             <span slot="footer" class="dialog-footer">

@@ -59,7 +59,7 @@
             if(screenWidth <= 768){
                 this.$store.commit(CHANGE_LABEL_POSITION,'top')
                 this.$store.commit(CHANGE_CARD_WIDTH,{width: 'auto'})
-                this.$store.commit(CHANGE_DIALOG_WIDTH, {width: '80%'})
+                this.$store.commit(CHANGE_DIALOG_WIDTH, '80%')
                 return true
             }else{
                 return false
@@ -210,5 +210,16 @@
   }
   .el-message-box{
       width: auto;
+  }
+  #menu_search .el-autocomplete .el-input__inner{
+      background-color: #344e86;
+      border: 1px solid #344e86;
+      color: #ffffff;
+  }
+  .el-checkbox__label{
+      font-size: 12px;
+  }
+  .el-dialog{
+      padding:20px;
   }
 </style>

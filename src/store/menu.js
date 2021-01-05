@@ -139,6 +139,9 @@ export default {
         },{
             name: 'snmp',
             index: '/Advanced/Adv-snmp'
+        },{
+            name: 'auto_provision',
+            index: '/Advanced/Adv-autoprovision'
         }]
     },{//6
         name: 'logs',

@@ -273,8 +273,6 @@
                 this.reload()
             },
             save_error_back(){
-                console.log('save failed')
-
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
@@ -283,8 +281,6 @@
             }
         },
         created() {
-            console.log(this)
-            console.log(this.request)
             this.request.AGSipBatchEndpointsGet(this.show_succeed_back, this.show_error_back)
         }
     }

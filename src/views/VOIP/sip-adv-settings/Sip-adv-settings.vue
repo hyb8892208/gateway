@@ -806,7 +806,7 @@
                 this.matching_priority = parseInt(_sipadv['_matchingpriority'])
                 this.hangupcausecode = parseInt(_sipadv['_hangupcausecode'])
                 this.shrink_caller_id = parseInt(_sipadv['_shrinkcallerid'])
-                this.sip_to = parseInt(_sipadv['_sipto'])
+                this.sip_to = parseInt(_sipadv['_sipto']) == 1 ? 1 : 0
                 this.sip_from = parseInt(_sipadv['_allowcidnamefromdomin'])
                 this.callee_id_1 = parseInt(_sipadv['_calleeid1'])
                 this.callee_id_2 = parseInt(_sipadv['_calleeid2'])

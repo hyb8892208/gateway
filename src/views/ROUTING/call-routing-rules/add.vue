@@ -289,102 +289,134 @@
                        @click="remove_time_pattren(index)"></i>
 
                     <el-row style="margin-top:5px;">
-                        <el-row :gutter="10">
+                        <el-row>
                             <el-col :lg="6">
-                                {{lang.time_to_start}}:
-                                <el-time-picker
-                                        v-model="item.start_time"
-                                        size="small"
-                                        :editable=false
-                                        value-format="HH:mm"
-                                        :placeholder="lang.any_time">
-                                </el-time-picker>
+                                <el-row>
+                                    <el-col :lg="8" style="line-height: 32px;text-align: right;">{{lang.time_to_start}}:</el-col>
+                                    <el-col :lg="16">
+                                        <el-time-picker
+                                                v-model="item.start_time"
+                                                size="small"
+                                                :editable=false
+                                                value-format="HH:mm"
+                                                :placeholder="lang.any_time">
+                                        </el-time-picker>
+                                    </el-col>
+                                </el-row>
                             </el-col>
                             <el-col :lg="6">
-                                {{lang.week_day_start}}:
-                                <el-select v-model="item.start_week" size="small">
-                                    <el-option key="-" value="">-</el-option>
-                                    <el-option
-                                            v-for="week_item in week_options"
-                                            :key="week_item.value"
-                                            :value="week_item.value"
-                                            :label="lang[week_item.label]"
-                                    ></el-option>
-                                </el-select>
+                                <el-row>
+                                    <el-col :lg="8" style="line-height: 32px;text-align: right;">{{lang.week_day_start}}:</el-col>
+                                    <el-col :lg="16">
+                                        <el-select v-model="item.start_week" size="small">
+                                            <el-option key="-" value="">-</el-option>
+                                            <el-option
+                                                    v-for="week_item in week_options"
+                                                    :key="week_item.value"
+                                                    :value="week_item.value"
+                                                    :label="lang[week_item.label]"
+                                            ></el-option>
+                                        </el-select>
+                                    </el-col>
+                                </el-row>
                             </el-col>
                             <el-col :lg="6">
-                                {{lang.month_day_start}}:
-                                <el-select v-model="item.start_month_day" size="small">
-                                    <el-option key="-" value="">-</el-option>
-                                    <el-option
-                                        v-for="i in 31"
-                                        :key="i"
-                                        :value="(Array(2).join(0) + i).slice(-2)"
-                                        >{{(Array(2).join(0) + i).slice(-2)}}</el-option>
-                                </el-select>
+                                <el-row>
+                                    <el-col :lg="8" style="line-height: 32px;text-align: right;">{{lang.month_day_start}}:</el-col>
+                                    <el-col :lg="16">
+                                        <el-select v-model="item.start_month_day" size="small">
+                                            <el-option key="-" value="">-</el-option>
+                                            <el-option
+                                                v-for="i in 31"
+                                                :key="i"
+                                                :value="(Array(2).join(0) + i).slice(-2)"
+                                                >{{(Array(2).join(0) + i).slice(-2)}}</el-option>
+                                        </el-select>
+                                    </el-col>
+                                </el-row>
                             </el-col>
                             <el-col :lg="6">
-                                {{lang.month_start}}:
-                                <el-select v-model="item.start_month" size="small">
-                                    <el-option key="-" value="">-</el-option>
-                                    <el-option
-                                        v-for="month_item in month_options"
-                                        :key="month_item.value"
-                                        :label="lang[month_item.label]"
-                                        :value="month_item.value">
-                                    </el-option>
-                                </el-select>
+                                <el-row>
+                                    <el-col :lg="8" style="line-height: 32px;text-align: right;">{{lang.month_start}}:</el-col>
+                                    <el-col :lg="16">
+                                        <el-select v-model="item.start_month" size="small">
+                                            <el-option key="-" value="">-</el-option>
+                                            <el-option
+                                                v-for="month_item in month_options"
+                                                :key="month_item.value"
+                                                :label="lang[month_item.label]"
+                                                :value="month_item.value">
+                                            </el-option>
+                                        </el-select>
+                                    </el-col>
+                                </el-row>
                             </el-col>
                         </el-row>
                     </el-row>
 
                     <el-row style="margin-top:5px;">
-                        <el-col :lg="24">
+                        <el-row>
                             <el-col :lg="6">
-                                {{lang.time_to_finish}}:
-                                <el-time-picker
-                                        v-model="item.finish_time"
-                                        size="small"
-                                        :editable=false
-                                        value-format="HH:mm"
-                                        :placeholder="lang.any_time">
-                                </el-time-picker>
+                                <el-row>
+                                    <el-col :lg="8" style="line-height: 32px;text-align: right;">{{lang.time_to_finish}}:</el-col>
+                                    <el-col :lg="16">
+                                        <el-time-picker
+                                                v-model="item.finish_time"
+                                                size="small"
+                                                :editable=false
+                                                value-format="HH:mm"
+                                                :placeholder="lang.any_time">
+                                        </el-time-picker>
+                                    </el-col>
+                                </el-row>
                             </el-col>
                             <el-col :lg="6">
-                                {{lang.week_day_finish}}:
-                                <el-select v-model="item.finish_week" size="small">
-                                    <el-option key="-" value="">-</el-option>
-                                    <el-option
-                                            v-for="week_item in week_options"
-                                            :key="week_item.value"
-                                            :value="week_item.value"
-                                            :label="lang[week_item.label]"
-                                    ></el-option>
-                                </el-select>
+                                <el-row>
+                                    <el-col :lg="8" style="line-height: 32px;text-align: right;">{{lang.week_day_finish}}:</el-col>
+                                    <el-col :lg="16">
+                                        <el-select v-model="item.finish_week" size="small">
+                                            <el-option key="-" value="">-</el-option>
+                                            <el-option
+                                                    v-for="week_item in week_options"
+                                                    :key="week_item.value"
+                                                    :value="week_item.value"
+                                                    :label="lang[week_item.label]"
+                                            ></el-option>
+                                        </el-select>
+                                    </el-col>
+                                </el-row>
                             </el-col>
                             <el-col :lg="6">
-                                {{lang.month_day_finish}}:
-                                <el-select v-model="item.finish_month_day" size="small">
-                                    <el-option key="-" value="">-</el-option>
-                                    <el-option
-                                            v-for="i in 31"
-                                            :key="(Array(2).join(0) + i).slice(-2)"
-                                            :value="(Array(2).join(0) + i).slice(-2)"
-                                    >{{i}}</el-option>
-                                </el-select>
+                                <el-row>
+                                    <el-col :lg="8" style="line-height: 32px;text-align: right;">{{lang.month_day_finish}}:</el-col>
+                                    <el-col :lg="16">
+                                        <el-select v-model="item.finish_month_day" size="small">
+                                            <el-option key="-" value="">-</el-option>
+                                            <el-option
+                                                    v-for="i in 31"
+                                                    :key="(Array(2).join(0) + i).slice(-2)"
+                                                    :value="(Array(2).join(0) + i).slice(-2)"
+                                            >{{i}}</el-option>
+                                        </el-select>
+                                    </el-col>
+                                </el-row>
                             </el-col>
                             <el-col :lg="6">
-                                {{lang.month_finish}}:
-                                <el-select v-model="item.finish_month" size="small">
-                                    <el-option key="-" value="">-</el-option>
-                                    <el-option
-                                            v-for="month_item in month_options"
-                                            :key="month_item.value"
-                                            :label="lang[month_item.label]"
-                                            :value="month_item.value"></el-option>
-                                </el-select>
+                                <el-row>
+                                    <el-col :lg="8" style="line-height: 32px;text-align: right;">{{lang.month_finish}}:</el-col>
+                                    <el-col :lg="16">
+                                        <el-select v-model="item.finish_month" size="small">
+                                            <el-option key="-" value="">-</el-option>
+                                            <el-option
+                                                    v-for="month_item in month_options"
+                                                    :key="month_item.value"
+                                                    :label="lang[month_item.label]"
+                                                    :value="month_item.value"></el-option>
+                                        </el-select>
+                                    </el-col>
+                                </el-row>
                             </el-col>
-                        </el-col>
+                        </el-row>
                     </el-row>
                 </el-card>
 
@@ -399,23 +431,30 @@
                 </el-row>
             </el-card>
 
-            <divider_item><span slot="title">{{lang.change_rules}}</span></divider_item>
+            <el-card class="box-card" style="padding: 10px;margin-top: 20px;">
+                <div slot="header" class="clearfix">
+                    <el-tooltip placement="top" :open-delay=200>
+                        <div slot="content" v-html="lang.change_rules"></div>
+                        <span>{{lang.change_rules}}</span>
+                    </el-tooltip>
+                </div>
 
-            <el-row>
-                <form_item>
-                    <span slot="param_help" v-html="lang.forward_number_help"></span>
-                    <span slot="param_name" >{{lang.forward_number}}</span>
-                    <el-input slot="param" v-model="forwardnumber"></el-input>
-                </form_item>
-            </el-row>
+                <el-row style="margin-top:10px;">
+                    <form_item>
+                        <span slot="param_help" v-html="lang.forward_number_help"></span>
+                        <span slot="param_name" >{{lang.forward_number}}</span>
+                        <el-input slot="param" v-model="forwardnumber"></el-input>
+                    </form_item>
+                </el-row>
 
-            <el-row>
-                <form_item v-bind:param="'dialing_delay'">
-                    <span slot="param_help" v-html="lang.dialing_delay_help"></span>
-                    <span slot="param_name" >{{lang.dialing_delay}}</span>
-                    <el-input slot="param" v-model="ruleForm.dialing_delay"></el-input>
-                </form_item>
-            </el-row>
+                <el-row>
+                    <form_item v-bind:param="'dialing_delay'">
+                        <span slot="param_help" v-html="lang.dialing_delay_help"></span>
+                        <span slot="param_name" >{{lang.dialing_delay}}</span>
+                        <el-input slot="param" v-model="ruleForm.dialing_delay"></el-input>
+                    </form_item>
+                </el-row>
+            </el-card>
 
             <el-card class="box-card" style="padding: 10px;margin-top: 20px;">
                 <div slot="header" class="clearfix">
@@ -510,7 +549,6 @@
             }
 
             var validateFrom_channel = (rule, value, callback) => {
-                console.log('from_channel',value)
                 if(value == ''){
                     callback(new Error('Must set.'))
                 }else{

@@ -51,7 +51,7 @@
             </el-row>
 
             <el-row v-if="lan_type != 2">
-                <divider_item><span slot="title">{{lang.ipv4_settings}}</h2></divider_item>
+                <divider_item><span slot="title">{{lang.ipv4_settings}}</span></divider_item>
 
                 <el-row>
                     <form_item>
@@ -78,7 +78,7 @@
                 </el-row>
             </el-row>
 
-            <divider_item><span slot="title">{{lang.dns_server}}</h2></divider_item>
+            <divider_item><span slot="title">{{lang.dns_server}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -112,7 +112,7 @@
                 </form_item>
             </el-row>
 
-            <divider_item><span slot="title">{{lang.reserved_access_ip}}</h2></divider_item>
+            <divider_item><span slot="title">{{lang.reserved_access_ip}}</span></divider_item>
 
             <el-row>
                 <form_item>

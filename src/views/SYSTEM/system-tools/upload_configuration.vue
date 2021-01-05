@@ -59,11 +59,12 @@
             },
             before_upload(file){
                 if(file.name.indexOf('.tar.gz') == -1){
-                    this.$notify.error({
-                        title: this.lang.error,
-                        message: this.lang.delete_language_alert,
-                        duration: 5000
-                    });
+                    this.$message({
+                        dangerouslyUseHTMLString: true,
+                        message: this.lang.select_file_alert,
+                        type: 'error',
+                        offset: '80'
+                    })
 
                     return false
                 }

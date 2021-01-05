@@ -17,7 +17,7 @@
                 :title="lang.system_switch"
                 :visible.sync="switch_dialogVisible"
                 :before-close="switchClose"
-                :width="this.$store.state.page.dialog_width">
+                :width="$store.state.page.dialog_width">
             <span>{{switch_result}}</span>
             <span v-if="switch_success_flag">{{lang.count_down}}: {{switch_reboottime}}{{lang.second}} {{lang.automatic_restart_system}}</span>
             <span slot="footer" class="dialog-footer">

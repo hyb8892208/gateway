@@ -43,7 +43,7 @@
                     <span slot="param_help" v-html="lang.rx_gain_help"></span>
                     <span slot="param_name" >{{lang.rx_gain}}</span>
                     <el-input slot="param" v-model="ruleForm.rx_gain"></el-input>
-                    <el-checkbox slot="param_sync" v-model="sync.rx_gain_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.rx_gain_sync"></el-checkbox>
                 </form_item_sync>
             </el-row>
 
@@ -52,14 +52,14 @@
                     <span slot="param_help" v-html="lang.tx_gain_help"></span>
                     <span slot="param_name" >{{lang.tx_gain}}</span>
                     <el-input slot="param" v-model="ruleForm.tx_gain"></el-input>
-                    <el-checkbox slot="param_sync" v-model="sync.tx_gain_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.tx_gain_sync"></el-checkbox>
                 </form_item_sync>
 
                 <form_item_sync>
                     <span slot="param_help" v-html="lang.ring_timeout_help"></span>
                     <span slot="param_name" >{{lang.ring_timeout}}</span>
                     <el-input slot="param" v-model="ringtimeout"></el-input>
-                    <el-checkbox slot="param_sync" v-model="sync.ringtimeout_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.ringtimeout_sync"></el-checkbox>
                 </form_item_sync>
             </el-row>
 
@@ -68,14 +68,14 @@
                     <span slot="param_help" v-html="lang.immediate_send_cid_help"></span>
                     <span slot="param_name" >{{lang.immediate_send_cid}}</span>
                     <el-checkbox slot="param" v-model="immediatesendcid"></el-checkbox>
-                    <el-checkbox slot="param_sync" v-model="sync.immediatesendcid_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.immediatesendcid_sync"></el-checkbox>
                 </form_item_sync>
 
                 <form_item_sync v-bind:param="'calloutmininterval'"  v-if="port_type == 'FXO'">
                     <span slot="param_help" v-html="lang.callout_min_interval_help"></span>
                     <span slot="param_name" >{{lang.callout_min_interval}}</span>
                     <el-input slot="param" v-model="ruleForm.calloutmininterval"></el-input>
-                    <el-checkbox slot="param_sync" v-model="sync.calloutmininterval_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.calloutmininterval_sync"></el-checkbox>
                 </form_item_sync>
             </el-row>
 
@@ -93,7 +93,7 @@
                                 :value="item"
                         ></el-option>
                     </el-select>
-                    <el-checkbox slot="param_sync" v-model="sync.failover_fxo_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.failover_fxo_sync"></el-checkbox>
                 </form_item_sync>
 
                 <form_item_sync v-if="$store.state.FlexRoutingSw == 0">
@@ -111,7 +111,7 @@
                                 :value="item"
                         ></el-option>
                     </el-select>
-<!--                    <el-checkbox slot="param_sync" v-model="sync.associated_chnnl_sync"></el-checkbox>-->
+<!--                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.associated_chnnl_sync"></el-checkbox>-->
                 </form_item_sync>
             </el-row><!-- FXS -->
 
@@ -122,14 +122,14 @@
                     <span slot="param_help" v-html="lang.use_callerid_help"></span>
                     <span slot="param_name" >{{lang.use_callerid}}</span>
                     <el-checkbox slot="param" v-model="usecallerid"></el-checkbox>
-                    <el-checkbox slot="param_sync" v-model="sync.usecallerid_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.usecallerid_sync"></el-checkbox>
                 </form_item_sync>
 
                 <form_item_sync>
                     <span slot="param_help" v-html="lang.hide_callerid_help"></span>
                     <span slot="param_name" >{{lang.hide_callerid}}</span>
                     <el-checkbox slot="param" v-model="hidecallerid"></el-checkbox>
-                    <el-checkbox slot="param_sync" v-model="sync.hidecallerid_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.hidecallerid_sync"></el-checkbox>
                 </form_item_sync>
             </el-row><!-- FXO -->
 
@@ -144,21 +144,21 @@
                          <span v-else>{{lang.extension_number}}</span>
                     </span>
                     <el-input slot="param" v-model="cid_number"></el-input>
-<!--                    <el-checkbox slot="param_sync" v-model="sync.associated_chnnl_sync"></el-checkbox>-->
+<!--                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.associated_chnnl_sync"></el-checkbox>-->
                 </form_item_sync>
 
                 <form_item_sync>
                     <span slot="param_help" v-html="lang.full_name_help"></span>
                     <span slot="param_name" >{{lang.full_name}}</span>
                     <el-input slot="param" v-model="fullname"></el-input>
-<!--                    <el-checkbox slot="param_sync" v-model="sync.associated_chnnl_sync"></el-checkbox>-->
+<!--                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.associated_chnnl_sync"></el-checkbox>-->
                 </form_item_sync>
 
                 <form_item_sync v-if="$store.state.FlexRoutingSw == 0">
                     <span slot="param_help" v-html="lang.internal_exten_number_help"></span>
                     <span slot="param_name" >{{lang.internal_exten_number}}</span>
                     <el-input slot="param" v-model="internalnumber"></el-input>
-<!--                    <el-checkbox slot="param_sync" v-model="sync.associated_chnnl_sync"></el-checkbox>-->
+<!--                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.associated_chnnl_sync"></el-checkbox>-->
                 </form_item_sync>
             </el-row><!-- FXS -->
 
@@ -174,14 +174,14 @@
                                 :value="item.value">
                         </el-option>
                     </el-select>
-                    <el-checkbox slot="param_sync" v-model="sync.cidsignalling_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.cidsignalling_sync"></el-checkbox>
                 </form_item_sync>
 
                 <form_item_sync>
                     <span slot="param_help" v-html="lang.dnd_help"></span>
                     <span slot="param_name" >{{lang.dnd}}</span>
                     <el-checkbox slot="param" v-model="dnd"></el-checkbox>
-                    <el-checkbox slot="param_sync" v-model="sync.dnd_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.dnd_sync"></el-checkbox>
                 </form_item_sync>
             </el-row>
 
@@ -197,7 +197,7 @@
                                 :value="item.value">
                         </el-option>
                     </el-select>
-                    <el-checkbox slot="param_sync" v-model="sync.cidstart_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.cidstart_sync"></el-checkbox>
                 </form_item_sync>
             </el-row><!-- FXO -->
 
@@ -208,14 +208,14 @@
                     <span slot="param_help" v-html="lang.answer_on_polarity_switch_help"></span>
                     <span slot="param_name" >{{lang.answer_on_polarity_switch}}</span>
                     <el-checkbox slot="param" v-model="answeronpolarityswitch"></el-checkbox>
-                    <el-checkbox slot="param_sync" v-model="sync.answeronpolarityswitch_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.answeronpolarityswitch_sync"></el-checkbox>
                 </form_item_sync>
 
                 <form_item_sync>
                     <span slot="param_help" v-html="lang.hangup_on_polarity_switch_help"></span>
                     <span slot="param_name" >{{lang.hangup_on_polarity_switch}}</span>
                     <el-checkbox slot="param" v-model="hanguponpolarityswitch"></el-checkbox>
-                    <el-checkbox slot="param_sync" v-model="sync.hanguponpolarityswitch_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.hanguponpolarityswitch_sync"></el-checkbox>
                 </form_item_sync>
             </el-row>
 
@@ -224,25 +224,27 @@
                     <span slot="param_help" v-html="lang.polarity_on_answer_delay_help"></span>
                     <span slot="param_name" >{{lang.polarity_on_answer_delay}}</span>
                     <el-input slot="param" v-model="polarityonanswerdelay"></el-input>
-                    <el-checkbox slot="param_sync" v-model="sync.polarityonanswerdelay_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.polarityonanswerdelay_sync"></el-checkbox>
                 </form_item_sync>
             </el-row><!-- FXO -->
 
-            <el-row v-if="port_type == 'FXO'"><!-- FXO -->
+            <el-row v-if="port_type == 'FXO'">
                 <form_item_sync>
                     <span slot="param_help" v-html="lang.delay_reply_200_ok_switch_help"></span>
                     <span slot="param_name" >{{lang.delay_reply_200_ok_switch}}</span>
                     <el-checkbox slot="param" v-model="delay_reply_200ok_enable"></el-checkbox>
-                    <el-checkbox slot="param_sync" v-model="sync.delay_reply_200ok_enable_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.delay_reply_200ok_enable_sync"></el-checkbox>
                 </form_item_sync>
 
                 <form_item_sync v-bind:param="'delay_reply_200ok_timer'">
                     <span slot="param_help" v-html="lang.delay_reply_200_ok_timer_help"></span>
                     <span slot="param_name" >{{lang.delay_reply_200_ok_timer}}</span>
                     <el-input slot="param" v-model="ruleForm.delay_reply_200ok_timer" :disabled="!delay_reply_200ok_enable"></el-input>
-                    <el-checkbox slot="param_sync" v-model="sync.delay_reply_200ok_timer_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.delay_reply_200ok_timer_sync"></el-checkbox>
                 </form_item_sync>
-            </el-row><!-- FXO -->
+            </el-row>
+
+            <el-row></el-row>
 
             <div v-if="port_type == 'FXS'"><!-- FXS -->
 
@@ -253,14 +255,14 @@
                         <span slot="param_help" v-html="lang.call_waiting_help"></span>
                         <span slot="param_name" >{{lang.call_waiting}}</span>
                         <el-checkbox slot="param" v-model="ruleForm.callwaiting"></el-checkbox>
-                        <el-checkbox slot="param_sync" v-model="sync.callwaiting_sync"></el-checkbox>
+                        <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.callwaiting_sync"></el-checkbox>
                     </form_item_sync>
 
                     <form_item_sync>
                         <span slot="param_help" v-html="lang.three_way_calling_help"></span>
                         <span slot="param_name" >{{lang.three_way_calling}}</span>
                         <el-checkbox slot="param" v-model="threewaycalling"></el-checkbox>
-                        <el-checkbox slot="param_sync" v-model="sync.threewaycalling_sync"></el-checkbox>
+                        <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.threewaycalling_sync"></el-checkbox>
                     </form_item_sync>
                 </el-row>
 
@@ -269,7 +271,7 @@
                         <span slot="param_help" v-html="lang.call_transfer_help"></span>
                         <span slot="param_name" >{{lang.call_transfer}}</span>
                         <el-checkbox slot="param" v-model="transfer"></el-checkbox>
-                        <el-checkbox slot="param_sync" v-model="sync.transfer_sync"></el-checkbox>
+                        <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.transfer_sync"></el-checkbox>
                     </form_item_sync>
 
                     <form_item_sync v-bind:param="'callforward'">
@@ -283,7 +285,7 @@
                                     :value="item.value">
                             </el-option>
                         </el-select>
-                        <el-checkbox slot="param_sync" v-model="sync.callforward_sync"></el-checkbox>
+                        <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.callforward_sync"></el-checkbox>
                     </form_item_sync>
                 </el-row>
 
@@ -292,7 +294,7 @@
                         <span slot="param_help" v-html="lang.call_forward_number_help"></span>
                         <span slot="param_name" >{{lang.call_forward_number}}</span>
                         <el-input slot="param" v-model="ruleForm.callforwardexten" :disabled="ruleForm.callforward == 0"></el-input>
-                        <el-checkbox slot="param_sync" v-model="sync.callforwardexten_sync"></el-checkbox>
+                        <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.callforwardexten_sync"></el-checkbox>
                     </form_item_sync>
                 </el-row>
             </div><!-- FXS -->
@@ -304,7 +306,7 @@
                     <span slot="param_help" v-html="lang.call_limit_switch_help"></span>
                     <span slot="param_name" >{{lang.call_limit_switch}}</span>
                     <el-checkbox slot="param" v-model="call_limit_switch"></el-checkbox>
-                    <el-checkbox slot="param_sync" v-model="sync.call_limit_switch_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.call_limit_switch_sync"></el-checkbox>
                 </form_item_sync>
             </el-row>
 
@@ -313,14 +315,14 @@
                     <span slot="param_help" v-html="lang.limit_call_time_help"></span>
                     <span slot="param_name" >{{lang.limit_call_time}}</span>
                     <el-input slot="param" v-model="ruleForm.call_time_settings" :disabled="!call_limit_switch"></el-input>
-                    <el-checkbox slot="param_sync" v-model="sync.call_time_settings_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.call_time_settings_sync"></el-checkbox>
                 </form_item_sync>
 
                 <form_item_sync v-bind:param="'day_calls_settings'">
                     <span slot="param_help" v-html="lang.limit_daily_call_times_help"></span>
                     <span slot="param_name" >{{lang.limit_daily_call_times}}</span>
                     <el-input slot="param" v-model="ruleForm.day_calls_settings" :disabled="!call_limit_switch"></el-input>
-                    <el-checkbox slot="param_sync" v-model="sync.day_calls_settings_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.day_calls_settings_sync"></el-checkbox>
                 </form_item_sync>
             </el-row>
 
@@ -329,14 +331,14 @@
                     <span slot="param_help" v-html="lang.limit_daily_answer_times_help"></span>
                     <span slot="param_name" >{{lang.limit_daily_answer_times}}</span>
                     <el-input slot="param" v-model="ruleForm.day_answer_setting" :disabled="!call_limit_switch"></el-input>
-                    <el-checkbox slot="param_sync" v-model="sync.day_answer_setting_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.day_answer_setting_sync"></el-checkbox>
                 </form_item_sync>
 
                 <form_item_sync v-bind:param="'hour_calls_settings'">
                     <span slot="param_help" v-html="lang.limit_hour_call_times_help"></span>
                     <span slot="param_name" >{{lang.limit_hour_call_times}}</span>
                     <el-input slot="param" v-model="ruleForm.hour_calls_settings" :disabled="!call_limit_switch"></el-input>
-                    <el-checkbox slot="param_sync" v-model="sync.hour_calls_settings_sync"></el-checkbox>
+                    <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.hour_calls_settings_sync"></el-checkbox>
                 </form_item_sync>
             </el-row>
 
@@ -348,7 +350,7 @@
                         <span slot="param_help" v-html="lang.cidbeforering_help"></span>
                         <span slot="param_name" >{{lang.cidbeforering}}</span>
                         <el-checkbox slot="param" v-model="cidbeforering"></el-checkbox>
-                        <el-checkbox slot="param_sync" v-model="sync.cidbeforering_sync"></el-checkbox>
+                        <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.cidbeforering_sync"></el-checkbox>
                     </form_item_sync>
                 </el-row>
             </el-row>
@@ -370,7 +372,7 @@
                                     <el-checkbox @change="Select_all_port">{{lang.all}}</el-checkbox>
                                 </el-col>
                                 <el-col :span="6">
-                                    <el-checkbox @change="Select_all_sync_params">{{lang.select_all_parameters}}</el-checkbox>
+                                    <el-checkbox v-show="show_sync_params" @change="Select_all_sync_params">{{lang.select_all_parameters}}</el-checkbox>
                                 </el-col>
                             </el-row>
 
@@ -438,6 +440,7 @@
             }
 
             var validatorDelay_reply_200ok_timer = (rule, value, callback) => {
+                console.log(value)
                 if(this.delay_reply_200ok_enable){
                     if(!(value >= 1 && value <= 90) || String(value).indexOf(".") > -1){
                         callback(new Error(this.lang.check_delay_reply_200ok_timer))
@@ -450,12 +453,9 @@
             }
 
             var validatorCalloutmininterval = (rule, value, callback) => {
-                console.log(value)
                 if(!(parseInt(value) >= 400 && parseInt(value) <= 10000)){
-                    console.log('hello')
                     callback(new Error(this.lang.check_calloutmininterval))
                 }else{
-                    console.log('nihao')
                     callback()
                 }
             }
@@ -636,6 +636,7 @@
 
                 all_analog_info: [],
                 sync_port_arr: [],
+                show_sync_params: false,
 
                 lang: this.$store.state.lang
             }
@@ -691,7 +692,12 @@
                         let channel = 'fxo-'+item._channel
                         this.failover_fxo_options.push(channel)
                     }
-                    this.sync_port_arr[item._channel] = false
+
+                    if(this.port_type == 'FXS' && item._signalling == 1){
+                        this.sync_port_arr[item._channel] = false
+                    }else if(this.port_type == 'FXO' && item._signalling == 2){
+                        this.sync_port_arr[item._channel] = false
+                    }
                 })
 
                 all_sip_info.forEach(item => {
@@ -722,7 +728,7 @@
                     this.port_type = 'FXS'
                     this.failover_fxo = _chan['_failoverfxo']
                     this.associated_chnnl = _chan['_associatedchnnl'] == '' ? 'none' : _chan['_associatedchnnl']
-                    this.cid_number = _chan['_cidnumber']
+                    this.cid_number = _chan['_cidnumber'] == 0 ? '' : _chan['_cidnumber']
                     this.fullname = _chan['_fullname']
                     this.internalnumber = _chan['_internalnumber']
                     this.ruleForm.callwaiting = _chan['_callwaiting'] == 1 ? true : false
@@ -875,47 +881,35 @@
                         if (this.sync.callwaiting_sync) {
                             let line_callwaiting = new AST_Line()
                             line_callwaiting._key = 'callwaiting'
-                            if (this.ruleForm.callwaiting == 1) {
-                                line_callwaiting._value = 'yes'
-                            } else if (this.ruleForm.callwaiting == 0) {
-                                line_callwaiting._value = 'no'
-                            }
+                            line_callwaiting._value = this.ruleForm.callwaiting ? 'yes' : 'no'
                             LineArr._item.push(line_callwaiting)
                         }
 
                         if (this.sync.threewaycalling_sync) {
                             let line_threewaycalling = new AST_Line()
                             line_threewaycalling._key = 'threewaycalling'
-                            if (this.threewaycalling == 1) {
-                                line_threewaycalling._value = 'yes'
-                            } else if (this.threewaycalling == 0) {
-                                line_threewaycalling._value = 'no'
-                            }
+                            line_threewaycalling._value = this.threewaycalling ? 'yes' : 'no'
                             LineArr._item.push(line_threewaycalling)
                         }
 
                         if (this.sync.transfer_sync) {
                             let line_transfer = new AST_Line()
                             line_transfer._key = 'transfer'
-                            if (this.transfer == 1) {
-                                line_transfer._value = 'yes'
-                            } else if (this.transfer == 0) {
-                                line_transfer._value = 'no'
-                            }
+                            line_transfer._value = this.transfer ? 'yes' : 'no'
                             LineArr._item.push(line_transfer)
                         }
 
                         if (this.sync.callforward_sync) {
                             let line_callforward = new AST_Line()
                             line_callforward._key = 'callforward'
-                            line_callforward._value = this.ruleForm.callforward
+                            line_callforward._value = this.ruleForm.callforward == '' ? 0 : this.ruleForm.callforward
                             LineArr._item.push(line_callforward)
                         }
 
                         if (this.sync.callforwardexten_sync) {
                             let line_callforwardexten = new AST_Line()
                             line_callforwardexten._key = 'callforwardexten'
-                            line_callforwardexten._value = this.ruleForm.callforwardexten
+                            line_callforwardexten._value = this.ruleForm.callforward != 0 ? this.ruleForm.callforwardexten : ''
                             LineArr._item.push(line_callforwardexten)
                         }
 
@@ -932,7 +926,7 @@
                         if (this.sync.associated_chnnl_sync) {
                             let line_cid_number = new AST_Line()
                             line_cid_number._key = 'cid_number'
-                            line_cid_number._value = this.cid_number
+                            line_cid_number._value = this.cid_number == '' ? 0 : this.cid_number
                             //LineArr._item.push(line_cid_number)
 
                             let line_fullname = new AST_Line()
@@ -943,7 +937,7 @@
                             if (this.$store.state.FlexRoutingSw) {
                                 let line_internalnumber = new AST_Line()
                                 line_internalnumber._key = 'internalnumber'
-                                line_internalnumber.value = this.internalnumber
+                                line_internalnumber.value = this.$store.state.FlexRoutingSw == 0 ? this.internalnumber : ''
                                 // LineArr._item.push(line_internalnumber)
                             }
                         }
@@ -954,41 +948,28 @@
                         if (this.sync.immediatesendcid_sync) {
                             let line_immediatesendcid = new AST_Line()
                             line_immediatesendcid._key = 'immediatesendcid'
-                            if (this.immediatesendcid == 1) {
-                                line_immediatesendcid._value = 'yes'
-                            } else if (this.immediatesendcid == 0) {
-                                line_immediatesendcid._value = 'no'
-                            }
+                            line_immediatesendcid._value = this.immediatesendcid == true ? 'yes' : 'no'
                             LineArr._item.push(line_immediatesendcid)
                         }
 
                         if (this.sync.calloutmininterval_sync) {
                             let line_calloutmininterval = new AST_Line()
                             line_calloutmininterval._key = 'calloutmininterval'
-                            line_calloutmininterval._value = this.ruleForm.calloutmininterval
-
+                            line_calloutmininterval._value = this.ruleForm.calloutmininterval == '' ? 2000 : this.ruleForm.calloutmininterval
                             LineArr._item.push(line_calloutmininterval)
                         }
 
                         if (this.sync.hidecallerid_sync) {
                             let line_hidecallerid = new AST_Line()
                             line_hidecallerid._key = 'hidecallerid'
-                            if (this.hidecallerid == 1) {
-                                line_hidecallerid._value = 'yes'
-                            } else if (this.hidecallerid == 0) {
-                                line_hidecallerid._value = 'no'
-                            }
+                            line_hidecallerid._value = this.hidecallerid ? 'yes' : 'no'
                             LineArr._item.push(line_hidecallerid)
                         }
 
                         if (this.sync.usecallerid_sync) {
                             let line_usecallerid = new AST_Line()
                             line_usecallerid._key = 'usecallerid'
-                            if (this.usecallerid == 1) {
-                                line_usecallerid._value = 'yes'
-                            } else if (this.usecallerid == 0) {
-                                line_usecallerid._value = 'no'
-                            }
+                            line_usecallerid._value = this.usecallerid ? 'yes' : 'no'
                             LineArr._item.push(line_usecallerid)
                         }
 
@@ -1010,32 +991,28 @@
                         if (this.sync.polarityonanswerdelay_sync) {
                             let line_polarityonanswerdelay = new AST_Line()
                             line_polarityonanswerdelay._key = 'polarityonanswerdelay'
-                            line_polarityonanswerdelay._value = this.polarityonanswerdelay
+                            line_polarityonanswerdelay._value = this.polarityonanswerdelay == '' ? 0 : this.polarityonanswerdelay
                             LineArr._item.push(line_polarityonanswerdelay)
                         }
 
                         if (this.sync.delay_reply_200ok_enable_sync) {
                             let line_delay_reply_200ok_enable = new AST_Line()
                             line_delay_reply_200ok_enable._key = 'delay_reply_200ok_enable'
-                            if (this.delay_reply_200ok_enable == 1) {
-                                line_delay_reply_200ok_enable._value = 'yes'
-                            } else if (this.delay_reply_200ok_enable == 0) {
-                                line_delay_reply_200ok_enable._value = 'no'
-                            }
+                            line_delay_reply_200ok_enable._value = this.delay_reply_200ok_enable ? 'yes' : 'no'
                             LineArr._item.push(line_delay_reply_200ok_enable)
                         }
 
                         if (this.sync.delay_reply_200ok_timer_sync) {
                             let line_delay_reply_200ok_timer = new AST_Line()
                             line_delay_reply_200ok_timer._key = 'delay_reply_200ok_timer'
-                            line_delay_reply_200ok_timer._value = this.ruleForm.delay_reply_200ok_timer
+                            line_delay_reply_200ok_timer._value = this.ruleForm.delay_reply_200ok_timer == '' ? 0 : this.delay_reply_200ok_timer
                             LineArr._item.push(line_delay_reply_200ok_timer)
                         }
 
                         if (this.sync.cidbeforering_sync) {
                             let line_cidbeforering = new AST_Line()
                             line_cidbeforering._key = 'cidbeforering'
-                            line_cidbeforering._value = this.cidbeforering
+                            line_cidbeforering._value = this.cidbeforering ? 1 : 0
                             LineArr._item.push(line_cidbeforering)
                         }
                     }/* FXO end */
@@ -1057,40 +1034,28 @@
                     if (this.sync.dnd_sync) {
                         let line_dnd = new AST_Line()
                         line_dnd._key = 'dnd'
-                        if (this.dnd == 1) {
-                            line_dnd._value = 'yes'
-                        } else if (this.dnd == 0) {
-                            line_dnd._value = 'no'
-                        }
+                        line_dnd._value = this.dnd ? 'yes' : 'no'
                         LineArr._item.push(line_dnd)
                     }
 
                     if (this.sync.answeronpolarityswitch_sync) {
                         let line_answeronpolarityswitch = new AST_Line()
                         line_answeronpolarityswitch._key = 'answeronpolarityswitch'
-                        if (this.answeronpolarityswitch == 1) {
-                            line_answeronpolarityswitch._value = 'yes'
-                        } else if (this.answeronpolarityswitch == 0) {
-                            line_answeronpolarityswitch._value = 'no'
-                        }
+                        line_answeronpolarityswitch._value = this.answeronpolarityswitch ? 'yes' : 'no'
                         LineArr._item.push(line_answeronpolarityswitch)
                     }
 
                     if (this.sync.hanguponpolarityswitch_sync) {
                         let line_hanguponpolarityswitch = new AST_Line()
                         line_hanguponpolarityswitch._key = 'hanguponpolarityswitch'
-                        if (this.hanguponpolarityswitch == 1) {
-                            line_hanguponpolarityswitch._value = 'yes'
-                        } else if (this.hanguponpolarityswitch == 0) {
-                            line_hanguponpolarityswitch._value = 'no'
-                        }
+                        line_hanguponpolarityswitch._value = this.hanguponpolarityswitch ? 'yes' : 'no'
                         LineArr._item.push(line_hanguponpolarityswitch)
                     }
 
                     if (this.sync.ringtimeout_sync) {
                         let line_ringtimeout = new AST_Line()
                         line_ringtimeout._key = 'ringtimeout'
-                        line_ringtimeout._value = this.ringtimeout
+                        line_ringtimeout._value = this.ringtimeout == '' ? 0 : this.ringtimeout
                         LineArr._item.push(line_ringtimeout)
                     }
 
@@ -1112,7 +1077,7 @@
                     if (this.sync.call_limit_switch_sync) {
                         let line_call_limit_switch = new AST_Line()
                         line_call_limit_switch._key = 'call_limit_switch'
-                        line_call_limit_switch._value = this.call_limit_switch
+                        line_call_limit_switch._value = this.call_limit_switch ? 1 : 0
                         LimitLineArr._item.push(line_call_limit_switch)
                     }
 
@@ -1154,6 +1119,7 @@
                 const Speeddial = new AST_FxsSpeeddialArr()
                 AnaSave._speeddial = Speeddial
 
+                console.log(AnaSave)
                 this.request.AGAlgChannelSave(this.save_succeed_back, this.save_error_back, this.$route.params.id, asso_chnl, AnaSave)
             },
             save_succeed_back(data){
@@ -1175,6 +1141,19 @@
                     type: 'error',
                     offset: '80'
                 })
+            }
+        },
+        watch:{
+            sync_port_arr: {
+                handler(newval){
+                    let tmp = newval.filter(item => item == true)
+                    if(tmp.length > 0){
+                        this.show_sync_params = true
+                    }else{
+                        this.show_sync_params = false
+                    }
+                },
+                deep: true
             }
         },
         created() {

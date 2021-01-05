@@ -60,10 +60,11 @@
                     min-width="200"
                     v-if="modulecol[2].istrue">
                 <template slot-scope="scope">
-                    <span v-if="scope.row.type == 'FXS' && scope.row.line_status == 'Connected' && $store.state.CheckFXSCurrSta == 1"
-                          style="color:#00A030">{{scope.row.line_status}} / {{scope.row.callerid}}</span>
-                    <span v-else-if="scope.row.type == 'FXS'" style="color:#FF0000">{{scope.row.callerid}}</span>
-                    <span v-else-if="scope.row.type == 'FXO'">{{scope.row.callerid}}</span>
+                    <span v-if="scope.row.type == 'FXS' && $store.state.CheckFXSCurrSta == 1">
+                        <span :style="{color:(scope.row.line_status == 'Connected' ? '#00A030' : '#FF0000')}">{{scope.row.line_status}}</span> / {{scope.row.callerid}}
+                    </span>
+                    <span v-else-if="scope.row.type == 'FXS'">{{scope.row.callerid}}</span>
+                    <span v-else-if="scope.row.type == 'FXO'">{{scope.row.line_status}}</span>
                 </template>
             </el-table-column>
 
@@ -97,6 +98,7 @@
                     {name:'name',istrue:true},
                     {name:'type',istrue:true},
                     {name:'line_status',istrue:true},
+                    {name:'callerid',istrue:true},
                     {name:'port_status',istrue:true},
                     {name:'voltage',istrue:true}
                 ],
@@ -142,8 +144,6 @@
                 })
             },
             show_module_list(moduleData){
-                console.log(moduleData)
-
                 let obj = null
                 for(let i=0;i<moduleData.length;i++){
                     let name
@@ -163,20 +163,15 @@
                         continue
                     }
 
-                    let line_status
-                    if(type == 'FXS' && this.$store.state.CheckFXSCurrSta == 1){
-                        line_status = moduleData[i]['_line']+' / '+moduleData[i]['_callerid']
-                    }else if(type == 'FXS'){
-                        line_status = moduleData[i]['_callerid']
-                    }else{
-                        line_status = moduleData[i]['_line']
-                    }
+                    let line_status = moduleData[i]['_line']
+                    let callerid = moduleData[i]['_callerid']
 
                     obj = {
                         'port': moduleData[i]['_channel'],
                         'name': name,
                         'type': type,
                         'line_status': line_status,
+                        'callerid': callerid,
                         'port_status': moduleData[i]['_status'],
                         'voltage': ''
                     }
@@ -196,27 +191,42 @@
                             let item = res.data[i][0]
 
                             if(item.sigtype.indexOf('FXO') != -1){
-                                this.moduleData[n].type = 'FXS'
+                                let line_status = item.line
+                                let callerid = item.callerid
 
-                                if(this.$store.state.CheckFXSCurrSta == 1){
-                                    this.moduleData[n].line_status = item.line + ' / ' + item.callerid
-                                }else{
-                                    this.moduleData[n].line_status = item.callerid
+                                let obj = {
+                                    port: this.moduleData[n].port,
+                                    name: this.moduleData[n].name,
+                                    type: 'FXS',
+                                    line_status: line_status,
+                                    callerid: callerid,
+                                    port_status: item.status,
+                                    voltage: item.voltage
                                 }
+                                this.$set(this.moduleData, n, obj)
 
                             }else if(item.sigtype.indexOf('FXS') != -1){
-                                this.moduleData[n].type = 'FXO'
-                                this.moduleData[n].line_status = item.line
+                                let line_status = item.line
+                                let callerid = item.callerid
+
+                                let obj = {
+                                    port: this.moduleData[n].port,
+                                    name: this.moduleData[n].name,
+                                    type: 'FXO',
+                                    line_status: line_status,
+                                    callerid: callerid,
+                                    port_status: item.status,
+                                    voltage: item.voltage
+                                }
+
+                                this.$set(this.moduleData, n, obj)
                             }
 
-                            this.moduleData[n].port_status = item.status
-                            this.moduleData[n].voltage = item.voltage
                             n++
                         })
 
                         clearTimeout(this.TimeoutID)
                         this.TimeoutID = setTimeout(() => {
-                            console.log('repeat')
                             this.get_analog_info()
                         }, 4000)
                     })

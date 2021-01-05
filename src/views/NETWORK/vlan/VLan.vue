@@ -87,7 +87,7 @@
                 </el-row>
             </el-row>
 
-            <divider_item><span slot="title">{{lang.lan2_settings}}</h2></divider_item>
+            <divider_item><span slot="title">{{lang.lan2_settings}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -135,7 +135,7 @@
                 </form_item>
             </el-row>
 
-            <divider_item><span slot="title">{{lang.dns_server}}</h2></divider_item>
+            <divider_item><span slot="title">{{lang.dns_server}}</span></divider_item>
 
             <el-row>
                 <form_item v-bind:param="'dns1'">
@@ -169,7 +169,7 @@
                 </form_item>
             </el-row>
 
-            <divider_item><span slot="title">{{lang.reserved_access_ip}}</h2></divider_item>
+            <divider_item><span slot="title">{{lang.reserved_access_ip}}</span></divider_item>
 
             <el-row>
                 <form_item>
@@ -470,8 +470,8 @@
                 console.log(NetworkSave)
                 this.request.AGNetworkSave(this.save_succeed_back, this.save_error_back, NetworkSave)
 
-                if(this.lan_ipaddr != this.lan_old_ipaddr){
-                    setTimeout(() => {window.location.href=window.location.protocol+"//"+this.lan_ipaddr;},500);
+                if(this.ruleForm.lan_ipaddr != this.lan_old_ipaddr){
+                    setTimeout(() => {window.location.href=window.location.protocol+"//"+this.ruleForm.lan_ipaddr;},500);
                 }
             },
             save_succeed_back(data){

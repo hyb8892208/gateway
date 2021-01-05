@@ -7,6 +7,7 @@
         <el-row style="width: 97%;margin:auto;margin-top:20px;">
             <el-button type="primary" size="small" @click="Add()">{{lang.add}}</el-button>
             <el-button type="primary" size="small" @click="Delete()">{{lang.delete}}</el-button>
+            <el-button type="primary" size="small" @click="SaveOrder()">{{lang.save_order}}</el-button>
         </el-row>
 
         <el-card shadow="never" style="margin:auto;margin-top:10px;margin-bottom:50px;" :style=$store.state.page.card_list_width>
@@ -35,11 +36,12 @@
             <el-table
                     :data="ruleData"
                     border
-                    style="width: 100%"
+                    row-key="order"
+                    style="width: 100%;"
                     size="small"
+                    id="rule_table"
                     ref="chnTable"
                     @selection-change="select_route"
-                    :key="Math.random()"
                     :header-cell-style="{background:'#f3f7fa',color:'#606266'}">
 
                 <el-table-column
@@ -47,11 +49,12 @@
                         width="55">
                 </el-table-column>
 
+                <!--:fixed="rulecol[index].fixed"-->
                 <el-table-column
                         v-for="(col,index) in rulecol"
-                        :fixed="rulecol[index].fixed"
                         v-if="col.istrue"
-                        :prop="col.name"
+                        :key="`rulecol_${index}`"
+                        :prop="dropRulecol[index].name"
                         :label="lang[col.name]"
                         :min-width="col.width" ></el-table-column>
 
@@ -78,6 +81,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import Sortable from 'sortablejs'
 
     export default {
         name: "Call-routing-rules",
@@ -85,6 +89,12 @@
         data() {
             return {
                 rulecol: [//模块表格
+                    {name:'rule_name',istrue:true,width:'100',fixed:true},
+                    {name:'order',istrue:true,width:'50',fixed:false},
+                    {name:'from',istrue:true,width:'100',fixed:false},
+                    {name:'to',istrue:true,width:'100',fixed:false}
+                ],
+                dropRulecol: [
                     {name:'rule_name',istrue:true,width:'100',fixed:true},
                     {name:'order',istrue:true,width:'50',fixed:false},
                     {name:'from',istrue:true,width:'100',fixed:false},
@@ -189,6 +199,32 @@
                     offset: '80'
                 })
             },
+            SaveOrder(){
+                const LineArr = new AST_LineArr()
+                this.ruleData.forEach((item,index) => {
+                    let line = new AST_Line()
+                    line._key = item.rule_name
+                    line._value = index+1
+                    LineArr._item.push(line)
+                })
+                this.request.AGRoutingRulesSaveOrder(this.save_order_succeed_back, this.save_order_error_back, LineArr)
+            },
+            save_order_succeed_back(data){
+                this.$message({
+                    message: this.lang.save_successfully,
+                    type: 'success',
+                    offset: '80'
+                })
+
+                this.reload()
+            },
+            save_order_error_back(){
+                this.$message({
+                    message: this.lang.save_failed,
+                    type: 'error',
+                    offset: '80'
+                })
+            },
             show_succeed_back(data){
                 console.log(data)
                 let common_data = data['_get']['_combuf']
@@ -205,10 +241,26 @@
 
                     this.ruleData.push(obj)
                 })
+
+                //实现拖拉效果
+                this.$nextTick(function () {
+                    this.rowDrop()
+                })
             },
             show_error_back(){
                 this.$router.push('/common/error')
-            }
+            },
+            //行拖拽
+            rowDrop() {
+                const tbody = document.querySelector('.el-table__body-wrapper tbody')
+                const _this = this
+                Sortable.create(tbody, {
+                    onEnd({ newIndex, oldIndex }) {
+                        const currRow = _this.ruleData.splice(oldIndex, 1)[0]
+                        _this.ruleData.splice(newIndex, 0, currRow)
+                    }
+                })
+            },
         },
         computed: {
             ruleCheckedTitlesArr(){
@@ -223,6 +275,8 @@
     }
 </script>
 
-<style scoped>
-
+<style>
+    #rule_table tbody{
+        cursor: s-resize;
+    }
 </style>

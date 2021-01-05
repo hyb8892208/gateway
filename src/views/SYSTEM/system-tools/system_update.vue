@@ -18,7 +18,7 @@
                                     :auto-upload="false"
                                     :data="{action:'upload',page_name:'system-tools',type:'system_update'}"
                                     :on-success="system_upload_succeed"
-                                    :before-upload="before_upload"
+                                    :on-change="file_change"
                                     limit="1"
                                     style="width: 100%;">
                                 <el-button type="button" style="width: 100%;">
@@ -45,8 +45,8 @@
                 :visible.sync="update_dialogVisible"
                 id="system_update"
                 :before-close="rebootClose"
-                :width="this.$store.state.page.dialog_width">
-            <span>{{update_result}}</span>
+                :width="$store.state.page.dialog_width">
+            <span v-html="update_result"></span>
         </el-dialog>
     </div>
 </template>
@@ -58,6 +58,7 @@
         name: "system_update",
         data(){
             return {
+                file: [],
                 update_dialogVisible: false,
                 update_result: '',
 
@@ -92,7 +93,33 @@
                     .catch(_ => {})
             },
 
+            file_change(file){
+                this.file = file
+
+                if(file.name.indexOf('.bin') == -1){
+                    this.$message({
+                        dangerouslyUseHTMLString: true,
+                        message: this.lang.fire_upload_help,
+                        type: 'error',
+                        offset: '80'
+                    })
+
+                    this.$refs.system_upload.clearFiles()
+                    this.file = []
+                }
+            },
             before_system_file(){
+                if(this.file.length == 0){
+                    this.$message({
+                        dangerouslyUseHTMLString: true,
+                        message: this.lang.select_file_alert,
+                        type: 'error',
+                        offset: '80'
+                    })
+
+                    return false
+                }
+
                 this.$confirm(this.lang.system_update_confirm)
                     .then(_ => {
                         this.update_dialogVisible = true
@@ -134,21 +161,15 @@
                 this.loading.close()
                 this.update_result = this.lang.system_update_failed
             },
-            before_upload(file){
-                if(file.name.indexOf('.bin') == -1){
-                    this.loading.close()
-                    this.update_result = this.lang.fireware_upload_help
-                    return false
-                }
-            },
             system_upload_succeed(){
                 this.$message({
+                    dangerouslyUseHTMLString: true,
                     message: this.lang.upload_successful,
                     type: 'success',
                     offset: '80'
                 })
 
-                this.request.AGSystemToolsUpdatefireware(this.fileware_succeed_back, this.fileware_error_back)
+                //this.request.AGSystemToolsUpdatefireware(this.fileware_succeed_back, this.fileware_error_back)
             },
             /* System update */
         },

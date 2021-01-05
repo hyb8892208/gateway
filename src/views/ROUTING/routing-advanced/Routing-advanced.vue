@@ -107,7 +107,7 @@
                     type: 'success',
                     offset: '80'
                 })
-                
+
                 window.location.reload()
             },
             save_error_back(data){

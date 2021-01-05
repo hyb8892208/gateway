@@ -61,9 +61,7 @@
                     min-width="200"
                     v-if="sipcol[3].istrue">
                 <template slot-scope="scope">
-                                <span v-if="scope.row.sip_status == 'Registered'"
-                                      style="color: #00A030">{{scope.row.sip_status}}</span>
-                    <span v-else style="color: #FF0000">{{scope.row.sip_status}}</span>
+                    <span :style="{color: ((scope.row.sip_status == 'Registered' || scope.row.sip_status.toLowerCase().indexOf('ok') > -1) ? '#00A030' : '#FF0000')}">{{scope.row.sip_status}}</span>
                 </template>
             </el-table-column>
 
@@ -138,7 +136,7 @@
                         registration_val = 'None'
                     } else if (registration == 1) {
                         registration_val = 'Client'
-                    } else if (registration == 1) {
+                    } else if (registration == 2) {
                         registration_val = 'Server'
                     }
 
