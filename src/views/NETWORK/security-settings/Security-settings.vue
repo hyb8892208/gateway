@@ -16,7 +16,7 @@
             </h1>
         </div>
 
-        <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
+        <el-card shadow="never" v-loading="loading" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
 
             <divider_item><span slot="title">{{lang.firewall_settings}}</span></divider_item>
 
@@ -77,6 +77,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Security-settings",
@@ -89,6 +90,8 @@
                 black_list_enable: false,
                 black_ip: '',
 
+                loading: false,
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -111,6 +114,8 @@
             },
 
             Save(){
+                this.loading = true
+
                 const UcpNetworkSwitch  = new AST_UcpNetworkSwitch()
 
                 UcpNetworkSwitch._firewall = this.firewall_enable == true ? 0 : 1
@@ -124,16 +129,24 @@
                 this.request.AGNetworkFirewallsave(this.save_succeed_back, this.save_error_back, UcpNetworkSwitch)
             },
             save_succeed_back(data){
-                console.log(data)
+                this.loading = false
 
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
-                console.log('save failed')
+                this.loading = false
 
                 this.$message({
                     message: this.lang.save_failed,
@@ -143,7 +156,12 @@
             }
         },
         created() {
-            this.request.AGNetworkFirewallGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('network-security-settings')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGNetworkFirewallGet(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

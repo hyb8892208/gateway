@@ -55,6 +55,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "SIP",
@@ -64,6 +65,7 @@
                 log: '',
                 refresh_rate: 0,
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -117,13 +119,21 @@
                     })
             },
             clean_succeed_back(data){
-                this.log = ''
+                if(data['_result'] == 0) {
+                    this.log = ''
 
-                this.$message({
-                    message: this.lang.clean_up_successful,
-                    type: 'success',
-                    offset: '80'
-                })
+                    this.$message({
+                        message: this.lang.clean_up_successful,
+                        type: 'success',
+                        offset: '80'
+                    })
+                }else{
+                    this.$message({
+                        message: this.lang.clean_up_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             clean_error_back(){
                 this.$message({
@@ -134,7 +144,12 @@
             }
         },
         created() {
-            this.request.AGLogGetAll(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('log-asterisk')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGLogGetAll(this.show_succeed_back, this.show_error_back)
+            }
 
             let cookies_val = this.getCookie('sip_cookies_val')
             if(cookies_val == null){

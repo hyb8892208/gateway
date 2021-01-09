@@ -55,6 +55,8 @@ export default {
     cloud: language('Cloud'),
     tr069: language('TR069'),
     snmp: language('SNMP'),
+    auto_provision: language('Auto Provision'),
+    board_update: language('Board Update'),
 
     log_settings: language('Log Settings'),
     system_logs: language('System Logs'),
@@ -98,6 +100,8 @@ export default {
     system_time_help: language('System Time help@system-time', 'Your gateway system time.'),
     time_zone: language('Time Zone'),
     time_zone_help: language('Time Zone help@system-time', 'The world time zone. Please select the one which is the same as or the closest to your city.'),
+    success: language('Success'),
+    failed: language('Failed'),
 
     melbourne: language('Melbourne,Canberra,Sydney'),
     perth: language('Perth'),
@@ -348,6 +352,7 @@ export default {
     voice_file_download_failed: language('Voice file download failed'),
     factory_reset_confirm: language('Factory Reset confirm', 'Are you sure to restore configuration file now?'),
     factory_reset_wait: language('Factory reset wait', 'Restoring factory settings, the system will restart automatically, please wait...'),
+    file_upload_confirm: language('File Upload confirm','Are you sure to upload configuration files?<br/>This will damage the structure of your original configuration files.'),
 
     //System-info
     system_info: language('System Information'),
@@ -1426,7 +1431,6 @@ export default {
     connection_request_password_help: language('Connection request password help', 'Connection request password'),
 
     //Adv autoprovision
-    auto_provision: language('Auto Provision'),
     auto_provision_settings: language('Auto Provision Settings'),
     firmware_enable: language('Firmware Enable'),
     firmware_enable_help: language('Firmware Enable help','Firmware Enable'),

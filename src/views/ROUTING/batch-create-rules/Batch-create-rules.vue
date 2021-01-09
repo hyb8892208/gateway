@@ -81,11 +81,11 @@
                 </el-table-column>
             </el-table>
 
-            <el-row style="margin: 20px 0 20px 0;">
+            <el-row style="margin: 10px;">
                 <el-button type="primary"
                            @click="batch_all"
                            size="small">{{lang.batch}}</el-button>
-                <el-button style="margin-left: 20px;"
+                <el-button style="margin-left: 10px;"
                            type="primary"
                            @click="fixed_all"
                            size="small">{{lang.fixed}}</el-button>
@@ -96,6 +96,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Batch-create-rules",
@@ -107,7 +108,8 @@
                     port: '',
                     forward_number: '',
                     sip_endpoint: 'none',
-                    callerid: ''
+                    callerid: '',
+                    order: ''
                 }],
 
                 selected_chnData: null,
@@ -117,6 +119,7 @@
                     value: 'none'
                 }],
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -136,14 +139,17 @@
                 const sip_data = data['_get']['_sip']['_item']
                 const analog_data = data['_get']['_ana']['_item']
 
-                let i = 0
+                let i = 1
+                let chan_type = ''
                 analog_data.forEach(item => {
-                    let chan_type = ''
+                    chan_type = ''
                     if(item._signalling == 1){
                         if(this.$store.state.FlexRoutingSw == 0) return true
                         chan_type = 'FXS'
                     }else if(item._signalling == 2){
                         chan_type = 'FXO'
+                    }else{
+                        return true
                     }
 
                     let obj = {
@@ -155,7 +161,7 @@
                         order: i
                     }
 
-                    if(item._signalling == 2) i++
+                    i++
 
                     this.chnData.push(obj)
                 })
@@ -268,6 +274,7 @@
             Save(){
                 let SipFxoBindingSaveArr = new AST_SipFxoBindingSaveArr();
 
+                console.log(this.selected_chnData)
                 this.selected_chnData.forEach(item => {
                     let chan2sip = ''
                     let sip2chan = ''
@@ -279,7 +286,7 @@
                         sip2chan = 'sip2fxo-'
                     }
 
-                    let order = parseInt(item.order)+1
+                    let order = parseInt(item.order)
                     let order1 = 2*order - 1
                     let order2 = 2*order
 
@@ -306,13 +313,21 @@
                 this.request.AGSipFxoBindingSave(this.save_succeed_back, this.save_error_back, SipFxoBindingSaveArr)
             },
             save_succeed_back(data){
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
 
-                this.reload()
+                    this.reload()
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
                 this.$message({
@@ -323,7 +338,12 @@
             }
         },
         created() {
-            this.request.AGSipFxoBindingGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('routing-batch-create-rules')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGSipFxoBindingGet(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

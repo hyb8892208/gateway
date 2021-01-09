@@ -239,6 +239,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Advanced",
@@ -459,6 +460,7 @@
 
                 loading: false,
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -568,17 +570,23 @@
                 }
             },
             save_succeed_back(data){
-                console.log(data)
                 this.loading = false
 
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
-                console.log('error')
                 this.loading = false
 
                 this.$message({
@@ -623,7 +631,12 @@
             }
         },
         created() {
-            this.request.AGUcpAlgGlbSettingGetAll(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('analog-advanced')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGUcpAlgGlbSettingGetAll(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

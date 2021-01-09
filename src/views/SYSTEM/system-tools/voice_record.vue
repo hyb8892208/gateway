@@ -40,7 +40,7 @@
                 :before-close="recordClose"
                 :width="$store.state.page.dialog_width">
             <div style="text-align: center;font-size: 30px;">{{timeout}}</div>
-            <div style="color:green;font-size: 20px;margin-top:30px;">{{voice_record_content}}</div>
+            <div style="color:#67C23A;font-size: 20px;margin-top:30px;">{{voice_record_content}}</div>
             <span slot="footer" class="dialog-footer">
                 <form action="/service" method="post" ref="stop_voice">
                     <input type="hidden" name="action" value="download" />
@@ -84,11 +84,12 @@
             /* Voice Record */
             start_record(){
                 if(this.voice_channel == ''){
-                    this.$alert(this.lang.please_select_channel)
-                        .then(_ => {
-                        })
+                    this.$message({
+                        message: this.lang.please_select_channel,
+                        type: 'error',
+                        offset: '80'
+                    })
                 }else{
-                    console.log('start record')
                     this.voice_record_dialogVisible = true
                     this.voice_record_content = this.lang.voice_record_confirm
 
@@ -96,11 +97,14 @@
                 }
             },
             start_success_back(data){
-                console.log('start voice:', data)
                 this.timeoutID = setInterval(this.timer, 1000)
             },
             start_error_back(){
-                console.log('error')
+                this.$message({
+                    message: 'Error',
+                    type: 'error',
+                    offset: '80'
+                })
             },
             timer(){
                 let s=0,m=0
@@ -126,7 +130,6 @@
                 this.sec = 1
             },
             stop_succeed_back(data){
-                console.log('stop suceess',data)
                 this.$refs.stop_voice.submit()
             },
             stop_error_back(){

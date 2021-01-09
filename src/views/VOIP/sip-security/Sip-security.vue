@@ -259,6 +259,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Sip-security",
@@ -314,6 +315,7 @@
 
                 create_loading: false,
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -379,17 +381,21 @@
                 this.request.AGSipSecuritySave(this.save_succeed_back, this.save_error_back, SipSecSave)
             },
             save_succeed_back(data){
-                console.log(data)
-
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
-                console.log('save error')
-
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
@@ -505,14 +511,22 @@
                 }
             },
             create_succeed_back(data){
-                this.$message({
-                    message: this.lang.created_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
-
                 this.create_loading = false
-                this.reload()
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.created_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
+
+                    this.reload()
+                }else{
+                    this.$message({
+                        message: this.lang.created_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             create_error_back(){
                 this.$message({
@@ -601,7 +615,12 @@
             }
         },
         created() {
-            this.request.AGSipSecurityGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('voip-sipsecurity')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGSipSecurityGet(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

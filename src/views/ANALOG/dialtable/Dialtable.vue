@@ -13,7 +13,7 @@
             </h1>
         </div>
 
-        <el-card shadow="never" style="margin:auto;padding: 20px;" :style=$store.state.page.card_width>
+        <el-card shadow="never" v-loading="loading" style="margin:auto;padding: 20px;" :style=$store.state.page.card_width>
             <el-row>
                 <el-col :lg="24">
                     <el-form-item>
@@ -47,6 +47,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Dialtable",
@@ -54,6 +55,8 @@
             return {
                 current_rule: '',
 
+                loading: false,
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -73,6 +76,8 @@
             },
 
             Save(){
+                this.loading = true
+
                 let dial_info = this.current_rule
                 let dial_temp = dial_info.split("\n")
                 let LineArr = new AST_LineArr()
@@ -89,16 +94,24 @@
                 this.request.AGAlgDialtableSave(this.save_succeed_back, this.save_error_back, AlgDialtableSave)
             },
             save_succeed_back(data){
-                console.log(data)
+                this.loading = false
 
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
-                console.log('save failed')
+                this.loading = false
 
                 this.$message({
                     message: this.lang.save_failed,
@@ -113,7 +126,12 @@
             }
         },
         created() {
-            this.request.AGAlgDialtableGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('analog-dialtable')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGAlgDialtableGet(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

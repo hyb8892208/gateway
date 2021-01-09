@@ -60,6 +60,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Config-record",
@@ -73,6 +74,7 @@
                 ],
                 recordDate: [],//record数据
 
+                debug: false,
                 lang: this.$store.state.lang,
 
                 pagination: {
@@ -115,9 +117,9 @@
             commit_succeed_back(data){
                 let message
                 if(this.record_switch){
-                    message = '配置记录打开成功'
+                    message = 'Configuration record opened successfully'
                 }else{
-                    message = '配置记录关闭成功'
+                    message = 'Configuration record closed successfully'
                 }
                 this.$message({
                     message: message,
@@ -128,9 +130,9 @@
             commit_error_back(){
                 let message
                 if(this.record_switch){
-                    message = '配置记录打开失败'
+                    message = 'Failed to open configuration record'
                 }else{
-                    message = '配置记录关闭失败'
+                    message = 'Configuration record shutdown failed'
                 }
                 this.$message({
                     message: message,
@@ -147,7 +149,13 @@
         },
         created(){
             this.current_page = (this.$route.query.page == undefined) ? 1 : this.$route.query.page
-            this.request.AGCommitLookup(this.show_succeed_back, this.show_error_back, this.current_page)
+
+            this.debug = debuger('system-config-record')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGCommitLookup(this.show_succeed_back, this.show_error_back, this.current_page)
+            }
         }
     }
 </script>

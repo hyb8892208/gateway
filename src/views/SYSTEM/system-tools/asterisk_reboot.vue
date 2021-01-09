@@ -17,15 +17,18 @@
         <el-dialog
                 :title="lang.asterisk_reboot"
                 :visible.sync="dialogVisible"
+                style="text-align: center"
                 :width="$store.state.page.dialog_width">
-            <span >
-                <i class="el-icon-loading" v-show="loading_show"></i>
-                <span v-if="result" style="color: #67C23A">
-                    {{asterisk_result}}
-                </span>
-                <span v-else style="color: #F56C6C">
-                    {{asterisk_result}}
-                </span>
+            <span>
+                <i class="el-icon-loading" style="font-size: 40px;color:#909399;" v-if="loading_show"></i>
+
+                <div v-else>
+                    <div :style="[{color: result ? '#67C23A' : '#F56C6C'}]" style="font-size: 40px;line-height: 35px;">
+                        <i v-if="result" class="el-icon-circle-check"></i>
+                        <i v-else class="el-icon-warning-outline"></i>
+                    </div>
+                    <div style="line-height: 35px;">{{asterisk_result}}</div>
+                </div>
 
             </span>
         </el-dialog>

@@ -592,6 +592,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     const sip_methods = ['ACK','BYE', 'CANCEL', 'INFO', 'INVITE', 'MESSAGE', 'NOTIFY', 'OPTIONS', 'PRACK', 'PUBLISH', 'REFER', 'REGISTER', 'SUBSCRIBE', 'UPDATE']
 
@@ -771,6 +772,7 @@
 
                activeName: 'Networking',
 
+               debug: false,
                lang: this.$store.state.lang
             }
         },
@@ -930,15 +932,21 @@
                 this.request.AGSipAdvSettingSave(this.save_succeed_back, this.save_error_back, SipAdvSave)
             },
             save_succeed_back(data){
-                console.log(data)
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
-                console.log('save failed')
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
@@ -954,7 +962,12 @@
             }
         },
         created() {
-            this.request.AGSipAdvSettingGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('voip-sip-adv-settings')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGSipAdvSettingGet(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

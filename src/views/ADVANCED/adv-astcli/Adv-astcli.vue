@@ -55,6 +55,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Adv-astcli",
@@ -64,6 +65,7 @@
                 command_result: [],
                 command_count: 0,
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -124,7 +126,12 @@
             }
         },
         created() {
-            this.request.AGAdvAstcliGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('adv-astcli')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGAdvAstcliGet(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

@@ -88,11 +88,16 @@
     </el-card>
 
     <el-dialog
-          :title="lang.report"
           :visible.sync="dialogVisible"
           :width="$store.state.page.dialog_width"
+          style="text-align: center"
           :before-close="handleClose">
-        <span>{{sync_result}}</span>
+        <div style="font-size: 40px;line-height: 35px;" :style="[{color: sync_result_flag ? '#67C23A' : '#F56C6C'}]">
+            <i v-if="sync_result_flag" class="el-icon-circle-check"></i>
+            <i v-else class="el-icon-warning-outline"></i>
+        </div>
+        <div style="font-size: 20px;font-weight: bold;line-height: 35px;" v-html="sync_result_flag ? lang.success : lang.failed"></div>
+        <div style="line-height: 35px;">{{sync_result}}</div>
         <span slot="footer" class="dialog-footer">
             <el-button type="primary" size="mini" @click="Close_report">{{lang.confirm}}</el-button>
         </span>
@@ -104,6 +109,7 @@
 <script>
     import {clock} from "../../../components/clock";
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     const country = [
             {
@@ -483,11 +489,13 @@
                 auto_sync_sw: '',//自动同步开关
 
                 sync_result: '',
+                sync_result_flag: false,
 
                 timezones: country,
 
                 dialogVisible: false,
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -645,12 +653,16 @@
 
                 if(data['_result'] == 'ok1'){
                     this.sync_result = `NTP: ${this.ruleForm.ntp_server1} ${this.lang.synchronize_succeeded}`
+                    this.sync_result_flag = true
                 }else if(data['_result'] == 'ok2'){
                     this.sync_result = `NTP: ${this.ruleForm.ntp_server2} ${this.lang.synchronize_succeeded}`
+                    this.sync_result_flag = true
                 }else if(data['_result'] == 'ok3') {
                     this.sync_result = `NTP: ${this.ruleForm.ntp_server3} ${this.lang.synchronize_succeeded}`
+                    this.sync_result_flag = true
                 }else {
                     this.sync_result = `NTP: ${this.lang.synchronize_failed}`
+                    this.sync_result_flag = false
                 }
             },
             ntp_error_back(){
@@ -658,13 +670,16 @@
                 this.loading.close()
                 //这里处理为成功，因为同步时间成功的时候会返回失败
                 this.sync_result = `NTP: ${this.ruleForm.ntp_server1} ${this.lang.synchronize_succeeded}`
+                this.sync_result_flag = true
             },
             client_succeed_back(data){
                 this.loading.close()
                 if(data['_result'] == 'ok'){
                     this.sync_result = `Client: ${this.lang.synchronize_succeeded}`
+                    this.sync_result_flag = true
                 }else{
                     this.sync_result = `Client: ${this.lang.synchronize_failed}`
+                    this.sync_result_flag = false
                 }
             },
             client_error_back(){
@@ -672,10 +687,16 @@
                 this.loading.close()
                 //这里处理为成功，因为同步时间成功的时候会返回失败
                 this.sync_result = `Client: ${this.lang.synchronize_succeeded}`
+                this.sync_result_flag = true
             }
         },
         created() {
-            this.request.AGSysTimeGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('system-time')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGSysTimeGet(this.show_succeed_back, this.show_error_back)
+            }
         },
         beforeDestroy() {
             clearTimeout(this.TimeoutID)

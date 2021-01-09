@@ -40,6 +40,8 @@
                             type="primary"
                             size="small">{{lang.refresh}}</el-button>
 
+                </span>
+                <span>
                     <el-button
                             @click="clean_up"
                             type="primary"
@@ -53,6 +55,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Asterisk",
@@ -62,11 +65,13 @@
                 log: '',
                 refresh_rate: 0,
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
         methods: {
             show_succeed_back(data) {
+                console.log(data)
                 let common_data = data['_combuf']
                 this.$store.commit(MENU, common_data)
 
@@ -115,13 +120,21 @@
                     })
             },
             clean_succeed_back(data){
-                this.log = ''
+                if(data['_result'] == 0) {
+                    this.log = ''
 
-                this.$message({
-                    message: this.lang.clean_up_successful,
-                    type: 'success',
-                    offset: '80'
-                })
+                    this.$message({
+                        message: this.lang.clean_up_successful,
+                        type: 'success',
+                        offset: '80'
+                    })
+                }else{
+                    this.$message({
+                        message: this.lang.clean_up_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             clean_error_back(){
                 this.$message({
@@ -132,10 +145,14 @@
             }
         },
         created() {
-            this.request.AGLogGetAll(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('log-asterisk')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGLogGetAll(this.show_succeed_back, this.show_error_back)
+            }
 
             let cookies_val = this.getCookie('asterisk_cookies_val')
-            console.log(cookies_val)
             if(cookies_val == null){
                 this.setCookie("asterisk_cookies_val", this.refresh_rate)
             }else{

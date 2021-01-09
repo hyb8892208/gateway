@@ -11,7 +11,7 @@
             </div>
         </h1>
 
-        <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
+        <el-card shadow="never" v-loading="loading" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
             <el-form :label-position="$store.state.page.labelPosition"
                      label-width="250px"
                      class="change-label-class"
@@ -231,6 +231,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "System-general",
@@ -292,6 +293,8 @@
 
                 languages: [],
 
+                loading: false,
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -336,6 +339,8 @@
             },
 
             Save(){
+                this.loading = true
+
                 const sysauto = new AST_SysAuto()
                 sysauto._sw = this.reboot_sw == true ? 0 : 1
                 sysauto._type = this.reboot_type_value
@@ -362,18 +367,26 @@
                 this.request.AGSysGeneralSave(this.save_succeed_back, this.save_error_back, SysGeneralSave)
             },
             save_succeed_back(data){
-                console.log(data)
+                this.loading = false
 
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
 
-                window.location.reload()
+                    window.location.reload()
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
-                console.log('save error')
+                this.loading = false
 
                 this.$message({
                     message: this.lang.save_failed,
@@ -403,14 +416,21 @@
                 })
             },
             del_succeed_back(data){
-                console.log(data)
-                this.$message({
-                    message: this.lang.successfully_deleted,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.successfully_deleted,
+                        type: 'success',
+                        offset: '80'
+                    })
 
-                this.reload()
+                    this.reload()
+                }else{
+                    this.$message({
+                        message: this.lang.failed_to_delete,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             del_error_back(){
                 this.$message({
@@ -446,7 +466,12 @@
             }
         },
         created() {
-            this.request.AGSysGeneralGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('system-general')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGSysGeneralGet(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

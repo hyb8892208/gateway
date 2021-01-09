@@ -17,7 +17,7 @@
             </h1>
         </div>
 
-        <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
+        <el-card shadow="never" v-loading="loading" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
             <el-row>
                 <form_item>
                     <span slot="param_help" v-html="lang.none_keys_blind_transfer_help"></span>
@@ -53,6 +53,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Funkeys",
@@ -65,6 +66,8 @@
                 blindtransfer_disabled: false,
                 askedtransfer_disabled: false,
 
+                loading: false,
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -101,6 +104,8 @@
             },
 
             Save(){
+                this.loading = true
+
                 let AlgFunky = new AST_AlgFunky()
 
                 AlgFunky._enable = this.enable == true ? 0 : 1
@@ -110,16 +115,24 @@
                 this.request.AGAlgFunkySave(this.save_succeed_back, this.save_error_back, AlgFunky)
             },
             save_succeed_back(data){
-                console.log(data)
+                this.loading = false
 
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
-                console.log('error')
+                this.loading = false
 
                 this.$message({
                     message: this.lang.save_failed,
@@ -129,7 +142,12 @@
             }
         },
         created() {
-            this.request.AGAlgFunkyGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('analog-funkeys')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGAlgFunkyGet(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

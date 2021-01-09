@@ -12,7 +12,7 @@
             </div>
         </h1>
 
-        <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom:50px" :style=$store.state.page.card_width>
+        <el-card shadow="never" v-loading="loading" style="margin:auto;padding: 20px;margin-bottom:50px" :style=$store.state.page.card_width>
             <el-form :label-position="$store.state.page.labelPosition"
                      label-width="250px"
                      class="change-label-class"
@@ -123,6 +123,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "System-login",
@@ -290,6 +291,8 @@
                     ]
                 },
 
+                loading: false,
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -342,6 +345,8 @@
             },
 
             Save(){
+                this.loading = true
+
                 const syslogingeneral = new AST_SysLoginGeneral()
                 syslogingeneral._username = this.ruleForm.username
                 syslogingeneral._password = this.ruleForm.pass
@@ -361,7 +366,8 @@
                 this.request.AGSysLoginSave(this.save_succeed_back, this.save_error_back, SysLoginSave)
             },
             save_succeed_back(data){
-                console.log(data)
+                this.loading = false
+
                 if(data['_result'] == 0){
                     this.$axios.get('/service?action=lighttpd&type=')
                         .then((res) => {
@@ -380,7 +386,7 @@
                 this.reload()
             },
             save_error_back(){
-                console.log('save error')
+                this.loading = false
 
                 this.$message({
                     message: this.lang.save_failed,
@@ -390,7 +396,12 @@
             }
         },
         created() {
-            this.request.AGSysLoginGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('system-login')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGSysLoginGet(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

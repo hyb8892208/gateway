@@ -47,6 +47,7 @@
     import Network from "./Network";
     import VPN from "./VPN";
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name:"System-status",
@@ -60,6 +61,7 @@
 
                 dataComplete: false,
 
+                debug: false,
                 lang: this.$store.state.lang,
                 show_vpn_tab: false,
                 activeName: 'Module'
@@ -91,7 +93,12 @@
             },
         },
         created() {
-            this.request.AGSystemStatusGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('system-status')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else{
+                this.request.AGSystemStatusGet(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

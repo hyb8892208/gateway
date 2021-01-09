@@ -18,7 +18,7 @@
             </h1>
         </div>
 
-        <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
+        <el-card v-loading="loading" shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
 
             <divider_item><span slot="title">{{lang.network_type}}</span></divider_item>
 
@@ -200,6 +200,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "VLan",
@@ -353,6 +354,8 @@
                     value: 2
                 }],
 
+                loading: false,
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -437,6 +440,8 @@
                 });
             },
             Save(){
+                this.loading = true
+
                 const NetworkLan = new AST_NetworkLan()
                 NetworkLan._mac = this.lan_mac
                 NetworkLan._ipaddr = this.ruleForm.lan_ipaddr
@@ -475,13 +480,25 @@
                 }
             },
             save_succeed_back(data){
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                this.loading = false
+
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
+                this.loading = false
+
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
@@ -490,7 +507,12 @@
             }
         },
         created() {
-            this.request.AGNetworkGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('network-vlan')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGNetworkGet(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

@@ -29,39 +29,43 @@
                         <divider_item><span slot="title">{{lang.main_endpoint_settings}}</span></divider_item>
 
                         <el-row>
-                            <form_item v-bind:param="'endpoint_name'">
+                            <form_item_sync v-bind:param="'endpoint_name'">
                                 <span slot="param_help" v-html="lang.name_help"></span>
                                 <span slot="param_name" >{{lang.name}}</span>
                                 <el-input slot="param" v-model="ruleForm.endpoint_name"></el-input>
-                            </form_item>
+                            </form_item_sync>
                         </el-row>
 
                         <el-row>
                             <el-col :lg="12">
-                                <el-form-item prop="username">
-                                    <label slot="label">
-                                        <el-tooltip placement="top" :open-delay=200>
-                                            <div slot="content" v-html="lang.username_help"></div>
-                                            <span>{{lang.username}}</span>
-                                        </el-tooltip>:
-                                    </label>
-                                    <el-col :lg="18">
-                                        <el-input v-model="anonymous ? '' : ruleForm.username"
-                                                  @change="username_change"
-                                                  :disabled="anonymous"></el-input>
+                                <el-row>
+                                    <el-col :span="23">
+                                        <el-form-item prop="username">
+                                            <label slot="label">
+                                                <el-tooltip placement="top" :open-delay=200>
+                                                    <div slot="content" v-html="lang.username_help"></div>
+                                                    <span>{{lang.username}}</span>
+                                                </el-tooltip>:
+                                            </label>
+                                            <el-col :lg="15" :sm="22" :xs="22">
+                                                <el-input v-model="anonymous ? '' : ruleForm.username"
+                                                          @change="username_change"
+                                                          :disabled="anonymous"></el-input>
+                                            </el-col>
+                                            <el-col :lg="7" style="margin-left: 20px;">
+                                                <el-checkbox v-model="(registration == 1 || registration == 2) ? false : anonymous"
+                                                             :disabled="registration == 1 || registration == 2">{{lang.anonymous}}</el-checkbox>
+                                            </el-col>
+                                        </el-form-item>
                                     </el-col>
-                                    <el-col :lg="4" style="margin-left: 20px;">
-                                        <el-checkbox v-model="(registration == 1 || registration == 2) ? false : anonymous"
-                                                     :disabled="registration == 1 || registration == 2">{{lang.anonymous}}</el-checkbox>
-                                    </el-col>
-                                </el-form-item>
+                                </el-row>
                             </el-col>
 
-                            <form_item v-bind:param="'password'">
+                            <form_item_sync v-bind:param="'password'">
                                 <span slot="param_help" v-html="lang.password_help"></span>
                                 <span slot="param_name" >{{lang.password}}</span>
                                 <el-input slot="param" v-model="anonymous ? '' : ruleForm.password" :disabled="anonymous" show-password></el-input>
-                            </form_item>
+                            </form_item_sync>
                         </el-row>
 
                         <el-row>
@@ -156,11 +160,11 @@
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.vosencrypt_sync"></el-checkbox>
                             </form_item_sync>
 
-                            <form_item>
+                            <form_item_sync>
                                 <span slot="param_help" v-html="lang.stun_switch_help"></span>
                                 <span slot="param_name" >{{lang.stun_switch}}</span>
                                 <el-checkbox slot="param" v-model="stunflag"></el-checkbox>
-                            </form_item>
+                            </form_item_sync>
                         </el-row>
 
                         <divider_item><span slot="title">{{lang.advanced_registration}}</span></divider_item>
@@ -182,10 +186,10 @@
                                                     <span>{{lang.register_extension}}</span>
                                                 </el-tooltip>:
                                             </label>
-                                            <el-col :lg="18">
+                                            <el-col :lg="15" :sm="22" :xs="22">
                                                 <el-input v-model="register_extension" :disabled="!(this.registration == 1)" :readonly="register_extension_readonly"></el-input>
                                             </el-col>
-                                            <el-col :lg="4" style="margin-left: 20px;">
+                                            <el-col :lg="7" style="margin-left: 20px;">
                                                 <el-checkbox v-model="register_extension_readonly">{{lang.readonly}}</el-checkbox>
                                             </el-col>
                                         </el-form-item>
@@ -208,10 +212,10 @@
                                                     <span>{{lang.register_user}}</span>
                                                 </el-tooltip>:
                                             </label>
-                                            <el-col :lg="18">
+                                            <el-col :lg="15" :sm="22" :xs="22">
                                                 <el-input v-model="register_user" :readonly="register_user_readonly"></el-input>
                                             </el-col>
-                                            <el-col :lg="4" style="margin-left: 20px;">
+                                            <el-col :lg="7" style="margin-left: 20px;">
                                                 <el-checkbox v-model="register_user_readonly">{{lang.readonly}}</el-checkbox>
                                             </el-col>
                                         </el-form-item>
@@ -234,10 +238,10 @@
                                                     <span>{{lang.from_user}}</span>
                                                 </el-tooltip>:
                                             </label>
-                                            <el-col :lg="18">
+                                            <el-col :lg="15" :sm="22" :xs="22">
                                                 <el-input v-model="from_user" :readonly="from_user_readonly"></el-input>
                                             </el-col>
-                                            <el-col :lg="4" style="margin-left: 20px;">
+                                            <el-col :lg="7" style="margin-left: 20px;">
                                                 <el-checkbox v-model="from_user_readonly">{{lang.readonly}}</el-checkbox>
                                             </el-col>
                                         </el-form-item>
@@ -291,7 +295,7 @@
                                                     <span>{{lang.outbound_proxy}}</span>
                                                 </el-tooltip>:
                                             </label>
-                                            <el-col :span="24">
+                                            <el-col :span="22">
                                                 <el-row :gutter="20">
                                                     <el-col :span="18">
                                                         <el-input v-model="outboundproxy"></el-input>
@@ -745,6 +749,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "add",
@@ -1205,6 +1210,7 @@
 
                 activeName: 'main',
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -1972,10 +1978,15 @@
             }
         },
         created() {
-            if(this.$route.params.section == undefined){
-                this.request.AGSipEndpointsNewGet(this.show_succeed_back, this.show_error_back)
-            }else{
-                this.request.AGSipEndpointGetOne(this.show_succeed_back, this.show_error_back, this.$route.params.section)
+            this.debug = debuger('voip-endpoints-edit')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                if (this.$route.params.section == undefined) {
+                    this.request.AGSipEndpointsNewGet(this.show_succeed_back, this.show_error_back)
+                } else {
+                    this.request.AGSipEndpointGetOne(this.show_succeed_back, this.show_error_back, this.$route.params.section)
+                }
             }
         }
     }

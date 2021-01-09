@@ -251,17 +251,21 @@
                 setTimeout(() => {window.location.href=window.location.protocol+"//"+this.address;},500);
             },
             save_succeed_back(data){
-                console.log(data)
-
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
-                console.log('save failed')
-
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',

@@ -18,7 +18,7 @@
             </h1>
         </div>
 
-        <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom:50px;" :style=$store.state.page.card_width>
+        <el-card shadow="never" v-loading="loading" style="margin:auto;padding: 20px;margin-bottom:50px;" :style=$store.state.page.card_width>
 
             <divider_item><span slot="title">{{lang.call_routing_rule}}</span></divider_item>
 
@@ -525,6 +525,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "add",
@@ -682,6 +683,8 @@
                 failover_number: [],
                 all_routing_data: [],
 
+                loading: false,
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -924,6 +927,8 @@
                 });
             },
             Save(){
+                this.loading = true
+
                 const RoutingContex = new AST_RoutingContex()
 
                 RoutingContex._order = this.$route.params.order
@@ -991,17 +996,27 @@
                 this.request.AGRoutingRulsSave(this.save_succeed_back, this.save_error_back, old_rule_name, this.ruleForm.routing_name, RoutingContex, cidNumber, this.revc_secret)
             },
             save_succeed_back(data){
-                console.log('data result:', data)
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                this.loading = false
 
-                this.$router.push('/Routing/Call-routing-rules')
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
+
+                    this.$router.push('/Routing/Call-routing-rules')
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(data){
-                console.log(data)
+                this.loading = false
+
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
@@ -1012,7 +1027,12 @@
         created() {
             let section = this.$route.params.rule_name == undefined ? null : this.$route.params.rule_name
 
-            this.request.AGRoutingRulsGetOne(this.show_succeed_back, this.show_error_back, section)
+            this.debug = debuger('routing-call-routing-rules-edit')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGRoutingRulsGetOne(this.show_succeed_back, this.show_error_back, section)
+            }
         }
     }
 </script>

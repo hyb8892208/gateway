@@ -1,6 +1,6 @@
 <template>
     <el-form
-            :label-position="$store.state.page.labelPosition"
+            label-position="right"
             label-width="250px"
             class="change-label-class"
             :rules="rules"
@@ -56,6 +56,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "add",
@@ -78,6 +79,7 @@
                 filename: '',
                 content: '',
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -128,19 +130,23 @@
                 this.request.AGAdvAstfileeditorEditSave(this.save_succeed_back, this.save_error_back, section, this.content)
             },
             save_succeed_back(data){
-                console.log(data)
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
 
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
-
-                this.$router.push('/Advanced/Adv-astfileeditor')
+                    this.$router.push('/Advanced/Adv-astfileeditor')
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
-                console.log('save failed')
-
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
@@ -155,7 +161,12 @@
                 section = '/etc/asterisk/'+this.ruleForm.filename
             }
 
-            this.request.AGAdvAstfileeditorEditGetOne(this.show_succeed_back, this.show_error_back, section)
+            this.debug = debuger('adv-astfileeditor-edit')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGAdvAstfileeditorEditGetOne(this.show_succeed_back, this.show_error_back, section)
+            }
         }
     }
 </script>

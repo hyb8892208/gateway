@@ -79,6 +79,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Adv-autoprovision",
@@ -98,6 +99,7 @@
                     value: 1
                 }],
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -135,12 +137,20 @@
 
                 this.request.AGSystemAutoUpdateSave(this.save_succeed_back, this.save_error_back, AutoProvisionSave)
             },
-            save_succeed_back(){
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+            save_succeed_back(data){
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
                 this.$message({
@@ -151,7 +161,12 @@
             }
         },
         created() {
-            this.request.AGSystemAutoUpdateGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('adv-autoprovision')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGSystemAutoUpdateGet(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

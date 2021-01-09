@@ -91,7 +91,7 @@
                                 <slot name="param_name"></slot>
                             </el-tooltip>
                         </label>
-                        <el-col :lg="18">
+                        <el-col :lg="18" style="font-size:12px;">
                             <slot name="param">{{lang.cloud_signmessage_help}}<a :href="cloud_href" style="color: #409EFF;" target="black" >{{lang.cloud_sign_help}}</a></slot>
                         </el-col>
                     </el-form-item>
@@ -108,6 +108,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Adv-cloud",
@@ -140,6 +141,7 @@
                     value: 'customize'
                 }],
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -264,17 +266,21 @@
                 this.get_connection_status()
             },
             save_succeed_back(data){
-                console.log(data)
-
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
+                }else {
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
-                console.log('save failed')
-
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
@@ -283,7 +289,12 @@
             }
         },
         created() {
-            this.request.AGAdvCloudGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('adv-cloud')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGAdvCloudGet(this.show_succeed_back, this.show_error_back)
+            }
         },
         beforeDestroy() {
             clearTimeout(this.timeoutID)

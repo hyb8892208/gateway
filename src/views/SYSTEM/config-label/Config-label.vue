@@ -83,6 +83,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Config-label",
@@ -105,7 +106,7 @@
                 },
 
                 labelPosition: 'right',
-
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -115,7 +116,7 @@
                 let common_data = data['_get']['_combuf']
                 this.$store.commit(MENU, common_data)
 
-                let _logs = data['_get']['_logs']['_item']
+                let _logs = data['_get']['_tags']['_item']
                 for(let i=0;i<_logs.length;i++){
                     this.current_page = (this.$route.query.page == undefined) ? 1 : this.$route.query.page
                     let id = (this.current_page - 1)*10 + i +1
@@ -136,7 +137,13 @@
         },
         created() {
             this.current_page = this.$route.query.page ? 1 : this.$route.query.page
-            req.AGTagList(this.show_succeed_back, this.show_error_back, this.current_page)
+
+            this.debug = debuger('system-config-label')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGTagList(this.show_succeed_back, this.show_error_back, this.current_page)
+            }
         }
     }
 </script>

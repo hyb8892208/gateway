@@ -4,11 +4,13 @@
 
 <script>
     import {MENU} from "../../store/mutations-types";
+    import {debuger} from "../../debug/debug";
 
     export default {
         name: "error",
         data(){
             return {
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -22,7 +24,12 @@
             },
         },
         created() {
-            this.request.AGLogGetAll(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('log-asterisk')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGLogGetAll(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

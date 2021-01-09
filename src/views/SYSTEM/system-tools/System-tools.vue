@@ -73,6 +73,7 @@
     import Voice_record from "./voice_record";
     import Factory_reset from "./factory_reset";
     import Restore_system from "./restore_system";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "System-tools",
@@ -93,6 +94,7 @@
                 stacknum: 1,
                 channels: [],
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -130,7 +132,12 @@
             },
         },
         created() {
-            this.request.AGSystemToolGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('system-tools')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGSystemToolGet(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

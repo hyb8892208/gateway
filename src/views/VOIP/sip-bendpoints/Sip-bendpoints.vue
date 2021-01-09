@@ -186,6 +186,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Sip-bendpoints",
@@ -242,6 +243,7 @@
                 autopassword_checked: false,
                 selected_sip: [],//保存多选框选中的选项
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -266,6 +268,7 @@
                         offset: '80'
                     })
 
+                    this.$refs.file_upload.clearFiles()
                     return false
                 }
             },
@@ -491,14 +494,21 @@
 
             },
             save_succeed_back(data){
-                console.log(data)
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
 
-                this.reload()
+                    this.reload()
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
                 this.$message({
@@ -509,7 +519,12 @@
             }
         },
         created() {
-            this.request.AGSipBendpointGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('voip-sip-bendpoints')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGSipBendpointGet(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

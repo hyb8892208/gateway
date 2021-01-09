@@ -172,13 +172,21 @@
                 })
             },
             save_succeed_back(data){
-                this.$message({
-                    message: 'Burn successfully',
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: 'Burn successfully',
+                        type: 'success',
+                        offset: '80'
+                    })
 
-                setTimeout(this.checkNetwork, 10000)
+                    setTimeout(this.checkNetwork, 10000)
+                }else{
+                    this.$message({
+                        message: 'Burn failed',
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
                 this.$message({

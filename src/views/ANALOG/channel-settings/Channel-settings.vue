@@ -160,6 +160,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Channel-settings",
@@ -187,6 +188,7 @@
                 sip_options: [],
 
                 loading: true,
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -334,17 +336,21 @@
                 this.request.AGAlgChannelSaveAll(this.save_succeed_back, this.save_error_back, AnaFxsAll)
             },
             save_succeed_back(data){
-                console.log(data)
-
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
-                console.log('error')
-
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
@@ -360,7 +366,12 @@
         created() {
             this.moduleCheckedTitles = this.modulecol.map(n => { return n.name })
 
-            this.request.AGAlgChannelGetAll(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('analog-channel-settings')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGAlgChannelGetAll(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

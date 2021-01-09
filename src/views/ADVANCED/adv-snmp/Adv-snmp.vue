@@ -437,6 +437,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Adv-snmp",
@@ -490,6 +491,7 @@
                 write_v3: '',
                 notify_v3: '',
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -662,11 +664,19 @@
                 this.request.AGNetworkSnmpSave(this.save_succeed_back, this.save_error_back, SnmpSave)
             },
             save_succeed_back(data){
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
                 this.$message({
@@ -677,7 +687,12 @@
             }
         },
         created() {
-            this.request.AGNetworkSnmpGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('adv-snmp')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGNetworkSnmpGet(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

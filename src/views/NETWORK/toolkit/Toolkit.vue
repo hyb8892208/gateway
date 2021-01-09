@@ -201,7 +201,7 @@
                                     <el-col :lg="2" :xs="3" :sm="3">
                                         <i class="el-icon-close"
                                            @click="remove_tcpdump_option(ind)"
-                                           style="font-size: 20px;color: red;margin: 15px 0 0 10px;cursor: pointer;"></i>
+                                           style="font-size: 20px;color: #F56C6C;margin: 15px 0 0 10px;cursor: pointer;"></i>
                                     </el-col>
                                 </el-row>
                             </el-row>
@@ -220,7 +220,7 @@
                 :before-close="tcpdumpClose"
                 :width="$store.state.page.dialog_width">
             <div style="text-align: center;font-size: 30px;">{{timeout}}</div>
-            <div style="color:green;font-size: 20px;margin-top:30px;">The maximum duration of this recording is 10 minutes,and the system will stop and download the recording file automatically when time is up</div>
+            <div style="color:#67C23A;font-size: 20px;margin-top:30px;">The maximum duration of this recording is 10 minutes,and the system will stop and download the recording file automatically when time is up</div>
             <span slot="footer" class="dialog-footer">
                 <form action="/service" id="download_voicefile" method="post" wnctype='multipart/form-data'>
                     <input type="hidden" name="action" value="download" />
@@ -239,6 +239,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Toolkit",
@@ -293,6 +294,7 @@
                 timeout: '00:00',
                 sec: 1,
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -449,12 +451,10 @@
                 this.request.AGNetworkTookitTcpdump(this.stop_succeed_back, this.stop_error_back, 1, null)
             },
             stop_succeed_back(){
-                console.log('stop success')
                 //下载
                 document.getElementById('download_voicefile').submit()
             },
             stop_error_back(){
-                console.log('stop failed')
                 //下载
                 document.getElementById('download_voicefile').submit()
 
@@ -466,7 +466,12 @@
             }
         },
         created() {
-            this.request.AGNetworkToolkitGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('network-toolkit')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGNetworkToolkitGet(this.show_succeed_back, this.show_error_back)
+            }
         },
         beforeDestroy() {
             clearInterval(this.timeoutID)

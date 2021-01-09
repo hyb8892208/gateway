@@ -9,7 +9,7 @@
             size="small">
         <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;padding-left: 20px;">
             <h1 style="line-height: 50px;font-size: 18px;">
-                {{lang.edit}} {{lang.port}} {{port_type}}{{$route.params.id}}
+                {{lang.edit}} {{lang.port}} {{port_type}}-{{$route.params.id}}
                 <div style="float: right;line-height: 50px;margin-right: 20px;">
                     <el-button
                             type="primary"
@@ -20,7 +20,7 @@
             </h1>
         </div>
 
-        <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
+        <el-card shadow="never" v-loading="loading" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
 
             <divider_item><span slot="title">{{lang.general}}</span></divider_item>
 
@@ -401,6 +401,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "add",
@@ -638,6 +639,8 @@
                 sync_port_arr: [],
                 show_sync_params: false,
 
+                loading: false,
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -765,6 +768,8 @@
                 });
             },
             Save(){
+                this.loading = true
+
                 const AnaSave = new AST_AnaSave()
 
                 if(this.port_type == 'FXS'){
@@ -1123,18 +1128,26 @@
                 this.request.AGAlgChannelSave(this.save_succeed_back, this.save_error_back, this.$route.params.id, asso_chnl, AnaSave)
             },
             save_succeed_back(data){
-                console.log(data)
+                this.loading = false
 
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
 
-                this.$router.push('/Analog/Channel-settings')
+                    this.$router.push('/Analog/Channel-settings')
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
-                console.log('save error')
+                this.loading = false
 
                 this.$message({
                     message: this.lang.save_failed,
@@ -1157,7 +1170,17 @@
             }
         },
         created() {
-            this.request.AGAlgChannelGetOne(this.show_succeed_back, this.show_error_back, this.$route.params.id)
+            if(this.$route.params.id == 6){
+                this.debug = debuger('analog-channel-settings-fxs')['default']
+            }else{
+                this.debug = debuger('analog-channel-settings-fxo')['default']
+            }
+
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGAlgChannelGetOne(this.show_succeed_back, this.show_error_back, this.$route.params.id)
+            }
         }
     }
 </script>

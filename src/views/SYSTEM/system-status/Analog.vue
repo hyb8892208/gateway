@@ -248,7 +248,6 @@
         created() {
             this.moduleCheckedTitles = this.modulecol.map(n => { return n.name })
 
-            console.log(this.anaInfo)
             this.show_module_list(this.anaInfo)
         },
         beforeDestroy() {

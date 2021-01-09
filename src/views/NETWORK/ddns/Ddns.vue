@@ -16,7 +16,7 @@
             </h1>
         </div>
 
-        <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
+        <el-card v-loading="loading" shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
 
             <divider_item><span slot="title">{{lang.basic_settings}}</span></divider_item>
 
@@ -72,6 +72,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Ddns",
@@ -91,6 +92,8 @@
                     value: 1
                 }],
 
+                loading: false,
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -120,6 +123,8 @@
             },
 
             Save(){
+                this.loading = true
+
                 const networkddnscom = new AST_NetworkDdnsCom()
                 const networkddnsgeneral = new AST_NetworkDdnsGeneral()
 
@@ -136,17 +141,23 @@
                 this.request.AGNetworkDdnsGetSave(this.save_succeed_back, this.save_error_back, NetworkDdnsSave)
             },
             save_succeed_back(data){
-                console.log(data)
-
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                this.loading = false
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
-                console.log('save failed')
-
+                this.loading = false
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
@@ -155,7 +166,12 @@
             }
         },
         created() {
-            this.request.AGNetworkDdnsGetAll(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('network-ddns')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGNetworkDdnsGetAll(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

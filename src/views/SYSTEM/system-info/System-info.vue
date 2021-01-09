@@ -44,6 +44,7 @@
 <script>
     import {clock} from "../../../components/clock";
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "System-info",
@@ -109,6 +110,7 @@
                     value: ''
                 }],
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -205,7 +207,12 @@
             }
         },
         created() {
-            this.request.AGSystemInfoGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('system-info')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGSystemInfoGet(this.show_succeed_back, this.show_error_back)
+            }
         },
         beforeDestroy() {
             clearTimeout(this.TimeoutID)

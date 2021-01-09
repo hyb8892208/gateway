@@ -145,6 +145,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Driver",
@@ -489,6 +490,7 @@
                 }],
 
                 loading: false,
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -549,16 +551,23 @@
                 }).catch(_ => {})
             },
             save_succeed_back(data){
-                console.log(data)
                 this.loading = false
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
-                console.log('save falied')
                 this.loading = false
                 this.$message({
                     message: this.lang.save_failed,
@@ -568,7 +577,12 @@
             }
         },
         created() {
-            this.request.AGUcpAlgDriverGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('analog-driver')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGUcpAlgDriverGet(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

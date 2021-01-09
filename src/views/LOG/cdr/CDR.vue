@@ -10,130 +10,146 @@
         </div>
 
         <el-card shadow="never" style="margin:auto;margin-top:20px;margin-bottom: 50px;" :style=$store.state.page.card_list_width>
-            <el-table
-                :data="search_cdrData"
-                border
-                style="width: 100%"
-                size="mini"
-                :key="Math.random()"
-                :header-cell-style="{background:'#f3f7fa',color:'#606266'}">
+            <el-row>
+                <el-col :lg="14">
+                    <el-table
+                        :data="search_cdrData"
+                        border
+                        style="width: 100%"
+                        size="mini"
+                        :key="Math.random()"
+                        :header-cell-style="{background:'#f3f7fa',color:'#606266'}">
 
-                <el-table-column
-                        :label="lang.caller_id"
-                        min-width="80">
-                    <template slot-scope="scope">
-                        <el-input v-model="scope.row.search_callerid" size="mini"></el-input>
-                    </template>
-                </el-table-column>
+                        <el-table-column
+                                :label="lang.caller_id"
+                                min-width="60">
+                            <template slot-scope="scope">
+                                <el-input v-model="scope.row.search_callerid" size="mini"></el-input>
+                            </template>
+                        </el-table-column>
 
-                <el-table-column
-                        :label="lang.callee_id"
-                        min-width="80">
-                    <template slot-scope="scope">
-                        <el-input v-model="scope.row.search_calleeid" size="mini"></el-input>
-                    </template>
-                </el-table-column>
+                        <el-table-column
+                                :label="lang.callee_id"
+                                min-width="60">
+                            <template slot-scope="scope">
+                                <el-input v-model="scope.row.search_calleeid" size="mini"></el-input>
+                            </template>
+                        </el-table-column>
 
-                <el-table-column
-                        :label="lang.from"
-                        min-width="80">
-                    <template slot-scope="scope">
-                        <el-input v-model="scope.row.search_from" size="mini"></el-input>
-                    </template>
-                </el-table-column>
+                        <el-table-column
+                                :label="lang.from"
+                                min-width="60">
+                            <template slot-scope="scope">
+                                <el-input v-model="scope.row.search_from" size="mini"></el-input>
+                            </template>
+                        </el-table-column>
 
-                <el-table-column
-                        :label="lang.to"
-                        min-width="80">
-                    <template slot-scope="scope">
-                        <el-input v-model="scope.row.search_to" size="mini"></el-input>
-                    </template>
-                </el-table-column>
+                        <el-table-column
+                                :label="lang.to"
+                                min-width="60">
+                            <template slot-scope="scope">
+                                <el-input v-model="scope.row.search_to" size="mini"></el-input>
+                            </template>
+                        </el-table-column>
 
-                <el-table-column
-                        :label="lang.start_time"
-                        min-width="210">
-                    <template slot-scope="scope">
-                        <el-row :gutter="10">
-                            <el-col :lg="12">
-                                <el-date-picker
-                                    v-model="scope.row.search_starttime_from"
-                                    type="datetime"
-                                    size="mini"
-                                    style="width: 175px;"
-                                    :placeholder="lang.from">
-                                </el-date-picker>
-<!--                                <el-input v-model="scope.row.search_starttime_from" size="mini"></el-input>-->
-                            </el-col>
-                            <el-col :lg="12">
-                                 <el-date-picker
-                                    v-model="scope.row.search_starttime_to"
-                                    type="datetime"
-                                    size="mini"
-                                    style="width: 175px;"
-                                    :placeholder="lang.to">
-                               </el-date-picker>
-<!--                                <el-input v-model="scope.row.search_starttime_to" size="mini"></el-input>-->
-                            </el-col>
-                        </el-row>
-                    </template>
-                </el-table-column>
+                        <el-table-column
+                                :label="lang.start_time"
+                                min-width="230">
+                            <template slot-scope="scope">
+                                <el-row :gutter="10">
+                                    <el-col :sm="12">
+                                        <el-date-picker
+                                            v-model="scope.row.search_starttime_from"
+                                            type="datetime"
+                                            size="mini"
+                                            style="width: 175px;"
+                                            :placeholder="lang.from">
+                                        </el-date-picker>
+                                    </el-col>
+                                    <el-col :sm="12">
+                                         <el-date-picker
+                                            v-model="scope.row.search_starttime_to"
+                                            type="datetime"
+                                            size="mini"
+                                            style="width: 175px;"
+                                            :placeholder="lang.to">
+                                       </el-date-picker>
+                                    </el-col>
+                                </el-row>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </el-col>
 
-                <el-table-column
-                        :label="lang.duration"
-                        min-width="150">
-                    <template slot-scope="scope">
-                        <el-row :gutter="10">
-                            <el-col :lg="12">
-                                <el-time-picker
-                                        v-model="scope.row.search_duration_from"
-                                        size="mini"
-                                        style="width: 120px;"
-                                        :placeholder="lang.from">
-                                </el-time-picker>
-<!--                                <el-input v-model="scope.row.search_duration_from" size="mini"></el-input>-->
-                            </el-col>
-                            <el-col :lg="12">
-                                <el-time-picker
-                                        v-model="scope.row.search_duration_to"
-                                        size="mini"
-                                        style="width: 120px;"
-                                        :placeholder="lang.to">
-                                </el-time-picker>
-<!--                                <el-input v-model="scope.row.search_duration_to" size="mini"></el-input>-->
-                            </el-col>
-                        </el-row>
-                    </template>
-                </el-table-column>
+                <el-col :lg="10">
+                    <el-table
+                            :data="search_cdrData"
+                            border
+                            style="width: 100%"
+                            size="mini"
+                            :key="Math.random()"
+                            :header-cell-style="{background:'#f3f7fa',color:'#606266'}">
+                        <el-table-column
+                                :label="lang.duration"
+                                min-width="150">
+                            <template slot-scope="scope">
+                                <el-row :gutter="10">
+                                    <el-col :sm="12">
+                                        <el-time-picker
+                                                v-model="scope.row.search_duration_from"
+                                                size="mini"
+                                                style="width: 120px;"
+                                                :placeholder="lang.from">
+                                        </el-time-picker>
+                                    </el-col>
+                                    <el-col :sm="12">
+                                        <el-time-picker
+                                                v-model="scope.row.search_duration_to"
+                                                size="mini"
+                                                style="width: 120px;"
+                                                :placeholder="lang.to">
+                                        </el-time-picker>
+                                    </el-col>
+                                </el-row>
+                            </template>
+                        </el-table-column>
 
-                <el-table-column
-                        :label="lang.result"
-                        min-width="80">
-                    <template slot-scope="scope">
-                        <el-select v-model="scope.row.search_result" size="mini" style="width: 100%">
-                            <el-option
-                                    v-for="item in search_result_options"
-                                    :label="lang[item.label]"
-                                    :key="item.value"
-                                    :value="item.value"
-                            ></el-option>
-                        </el-select>
-                    </template>
-                </el-table-column>
+                        <el-table-column
+                                :label="lang.result"
+                                min-width="80">
+                            <template slot-scope="scope">
+                                <el-select v-model="scope.row.search_result" size="mini" style="width: 100%">
+                                    <el-option
+                                            v-for="item in search_result_options"
+                                            :label="lang[item.label]"
+                                            :key="item.value"
+                                            :value="item.value"
+                                    ></el-option>
+                                </el-select>
+                            </template>
+                        </el-table-column>
 
-                <el-table-column
-                        :label="lang.actions"
-                        min-width="90">
-                    <template slot-scope="scope">
-                        <el-button type="primary"
-                                   @click="Filter"
-                                   size="small">{{lang.filter}}</el-button>
-                        <el-button type="primary"
-                                   @click="Clean_filter"
-                                   size="small">{{lang.clean}}</el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
+                        <el-table-column
+                                :label="lang.actions"
+                                min-width="90">
+                            <template slot-scope="scope">
+                                <el-row>
+                                    <el-col :sm="12">
+                                        <el-button type="primary"
+                                                   @click="Filter"
+                                                   size="mini">{{lang.filter}}</el-button>
+                                    </el-col>
+                                    <el-col :sm="12">
+                                        <el-button type="primary"
+                                                   @click="Clean_filter"
+                                                   size="mini">{{lang.clean}}</el-button>
+                                    </el-col>
+                                </el-row>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </el-col>
+            </el-row>
 
             <el-row style="margin: 20px 0 20px 20px;">
                 <el-button type="primary"
@@ -259,6 +275,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "CDR",
@@ -310,6 +327,7 @@
                     order: 'ascending'
                 },
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -538,12 +556,20 @@
                     .catch(_ => {})
             },
             del_succeed_back(data){
-                this.$message({
-                    message: this.lang.successfully_deleted,
-                    type: 'success',
-                    offset: '80'
-                })
-                this.reload()
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.successfully_deleted,
+                        type: 'success',
+                        offset: '80'
+                    })
+                    this.reload()
+                }else{
+                    this.$message({
+                        message: this.lang.failed_to_delete,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             del_error_back(){
                 this.$message({
@@ -562,13 +588,21 @@
                     })
             },
             clean_succeed_back(data){
-                this.$message({
-                    message: this.lang.clean_up_successful,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.clean_up_successful,
+                        type: 'success',
+                        offset: '80'
+                    })
 
-                this.reload()
+                    this.reload()
+                }else{
+                    this.$message({
+                        message: this.lang.clean_up_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             clean_error_back(){
                 this.$message({
@@ -708,7 +742,12 @@
             }
         },
         created() {
-            this.request.AGLogCdrGet(this.show_succeed_back, this.show_error_back, this.get_sql(), 'cdr', this.page, this.each_page_num)
+            this.debug = debuger('log-cdr')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGLogCdrGet(this.show_succeed_back, this.show_error_back, this.get_sql(), 'cdr', this.page, this.each_page_num)
+            }
         }
     }
 </script>

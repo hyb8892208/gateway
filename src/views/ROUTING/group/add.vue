@@ -16,7 +16,7 @@
             </h1>
         </div>
 
-        <el-card shadow="never" style="margin:auto;padding: 20px;" :style=$store.state.page.card_width>
+        <el-card shadow="never" v-loading="loading" style="margin:auto;padding: 20px;" :style=$store.state.page.card_width>
 
             <divider_item><span slot="title">{{lang.routing_groups}}</span></divider_item>
 
@@ -108,6 +108,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "add",
@@ -136,6 +137,8 @@
                     value: 0
                 }],
 
+                loading: false,
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -181,6 +184,8 @@
             },
 
             Save(){
+                this.loading = true
+
                 let RoutingGroup = new AST_RoutingGroup()
 
                 RoutingGroup._order = this.order
@@ -204,18 +209,26 @@
                 this.request.AGRoutingGroupSave(this.save_succeed_back, this.save_error_back, group_name, this.group_name, RoutingGroup)
             },
             save_succeed_back(data){
-                console.log(data)
+                this.loading = false
 
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
 
-                this.$router.push('/Routing/Group')
+                    this.$router.push('/Routing/Group')
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(data){
-                console.log(data)
+                this.loading = false
 
                 this.$message({
                     message: this.lang.save_failed,
@@ -244,10 +257,15 @@
             }
         },
         created() {
-            if(this.$route.params.group_name != undefined){
-                this.request.AGRoutingGroupGetOne(this.show_succeed_back, this.show_error_back, this.$route.params.group_name)
-            }else{
-                this.request.AGRoutingGroupGetNew(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('routing-group-edit')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                if (this.$route.params.group_name != undefined) {
+                    this.request.AGRoutingGroupGetOne(this.show_succeed_back, this.show_error_back, this.$route.params.group_name)
+                } else {
+                    this.request.AGRoutingGroupGetNew(this.show_succeed_back, this.show_error_back)
+                }
             }
         }
     }

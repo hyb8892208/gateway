@@ -102,8 +102,8 @@ export default new Vuex.Store({
       }
 
       //SNMP
-      if(state.SNMP == 0  && state.menu[5]['child_menu'][5] != undefined && state.menu[5]['child_menu'][5].name == 'snmp'){
-        state.menu[5]['child_menu'].splice(5, 1)//snmp
+      if(state.SNMP == 0  && state.menu[5]['child_menu'][5] != undefined && state.menu[5]['child_menu'][6].name == 'snmp'){
+        state.menu[5]['child_menu'].splice(6, 1)//snmp
       }
       //TR069
       if(state.TR069 == 0  && state.menu[5]['child_menu'][4] != undefined && state.menu[5]['child_menu'][4].name == 'tr069'){

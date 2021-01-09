@@ -82,6 +82,7 @@
 <script>
     import {MENU} from "../../../store/mutations-types";
     import Sortable from 'sortablejs'
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Call-routing-rules",
@@ -107,6 +108,7 @@
 
                 selected_route: null,
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -183,14 +185,22 @@
                     }).catch(_ => {})
             },
 
-            del_succeed_back(){
-                this.$message({
-                    message: this.lang.successfully_deleted,
-                    type: 'success',
-                    offset: '80'
-                })
+            del_succeed_back(data){
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.successfully_deleted,
+                        type: 'success',
+                        offset: '80'
+                    })
 
-                this.reload()
+                    this.reload()
+                }else{
+                    this.$message({
+                        message: this.lang.failed_to_delete,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             del_error_back(){
                 this.$message({
@@ -210,13 +220,21 @@
                 this.request.AGRoutingRulesSaveOrder(this.save_order_succeed_back, this.save_order_error_back, LineArr)
             },
             save_order_succeed_back(data){
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
 
-                this.reload()
+                    this.reload()
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_order_error_back(){
                 this.$message({
@@ -270,7 +288,12 @@
         created() {
             this.ruleCheckedTitles = this.rulecol.map(n => { return n.name })
 
-            this.request.AGRoutingRulsGetAll(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('routing-call-routing-rules')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGRoutingRulsGetAll(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

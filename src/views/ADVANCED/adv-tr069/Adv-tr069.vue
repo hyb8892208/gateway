@@ -131,6 +131,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Adv-tr069",
@@ -154,6 +155,7 @@
                 failed_to_connect: '',
                 timeout: 0,
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -268,11 +270,19 @@
                 this.get_connection_status()
             },
             save_succeed_back(data){
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
                 this.$message({
@@ -283,7 +293,12 @@
             }
         },
         created() {
-            this.request.AGAdvTr069Get(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('adv-tr069')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGAdvTr069Get(this.show_succeed_back, this.show_error_back)
+            }
         },
         beforeDestroy() {
             clearTimeout(this.timeoutID)

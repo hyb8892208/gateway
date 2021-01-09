@@ -20,6 +20,7 @@
                                     :data="{action:'upload',page_name:'system-tools',type:'file_upload'}"
                                     :on-success="upload_file_success"
                                     :before-upload="before_upload"
+                                    :on-change="file_change"
                                     limit="1"
                                     style="width: 100%;">
                                 <el-button type="button" style="width: 100%;">
@@ -49,13 +50,28 @@
         name: "upload_configuration",
         data(){
             return {
+                file: [],
                 lang: this.$store.state.lang
             }
         },
         methods:{
             /* Upload File */
             before_conf_file(){
-                this.$refs.upload.submit()
+                if(this.file.length == 0){
+                    this.$message({
+                        dangerouslyUseHTMLString: true,
+                        message: this.lang.select_file_alert,
+                        type: 'error',
+                        offset: '80'
+                    })
+
+                    return false
+                }
+
+                this.$confirm(this.lang.file_upload_confirm)
+                    .then(_ => {
+                        this.$refs.upload.submit()
+                })
             },
             before_upload(file){
                 if(file.name.indexOf('.tar.gz') == -1){
@@ -78,6 +94,21 @@
 
                 this.request.AGSystemWsapiReload(this.reload_succeed_back, this.reload_error_back)
                 this.request.AGCommitAll(this.commit_succeed_back, this.commit_error_back, 'upload new configuration!')
+            },
+            file_change(file){
+                this.file = file
+
+                if(file.name.indexOf('.tar.gz') == -1){
+                    this.$message({
+                        dangerouslyUseHTMLString: true,
+                        message: this.lang.fire_upload_help,
+                        type: 'error',
+                        offset: '80'
+                    })
+
+                    this.$refs.upload.clearFiles()
+                    this.file = []
+                }
             },
             reload_succeed_back(data){
 

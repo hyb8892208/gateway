@@ -106,6 +106,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "add",
@@ -139,6 +140,7 @@
                     value: 1
                 }],
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -182,19 +184,24 @@
                 this.request.AGNetworkRulesSave(this.save_succeed_back, this.save_error_back, old_rule_name, this.rule_name, UcpNetworkRules)
             },
             save_succeed_back(data){
-                console.log(data)
+                if(data['_result'] == 0) {
 
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
 
-                this.$router.push('/Network/Security-rules')
+                    this.$router.push('/Network/Security-rules')
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
-                console.log('save failed')
-
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
@@ -203,7 +210,12 @@
             }
         },
         created() {
-            this.request.AGNetworkRulesGetOne(this.show_succeed_back, this.show_error_back, this.$route.params.rule_name)
+            this.debug = debuger('network-security-rules-edit')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGNetworkRulesGetOne(this.show_succeed_back, this.show_error_back, this.$route.params.rule_name)
+            }
         }
     }
 </script>

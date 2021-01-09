@@ -78,6 +78,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Security-rules",
@@ -98,6 +99,7 @@
 
                 selected_rule: null,
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -167,12 +169,20 @@
                     .catch(_ => {})
             },
             del_succeed_back(data){
-                this.$message({
-                    message: this.lang.successfully_deleted,
-                    type: 'success',
-                    offset: '80'
-                });
-                this.reload()
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.successfully_deleted,
+                        type: 'success',
+                        offset: '80'
+                    });
+                    this.reload()
+                }else{
+                    this.$message({
+                        message: this.lang.failed_to_delete,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             del_error_back(){
                 this.$message({
@@ -245,7 +255,12 @@
         created() {
             this.CheckedTitles = this.rulecol.map(n => { return n.name })
 
-            this.request.AGNetworkRulesGetAll(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('network-security-rules')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGNetworkRulesGetAll(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

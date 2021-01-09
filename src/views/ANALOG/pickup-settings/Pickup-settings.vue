@@ -20,7 +20,7 @@
             </h1>
         </div>
 
-        <el-card shadow="never" style="margin:auto;padding: 20px;overflow: visible;" :style=$store.state.page.card_width>
+        <el-card shadow="never" v-loading="loading" style="margin:auto;padding: 20px;overflow: visible;" :style=$store.state.page.card_width>
             <el-row>
                 <form_item>
                     <span slot="param_help" v-html="lang.enable_help"></span>
@@ -45,7 +45,7 @@
                 </form_item>
             </el-row>
 
-            <el-row v-for="chn_item in pickchn">
+            <el-row v-for="(chn_item,index) in ruleForm.pickchn">
                 <el-col :lg="24">
                     <el-form-item>
                         <label slot="label">
@@ -69,17 +69,25 @@
                         <el-col :lg="6" style="margin-left: 20px;">
                             <el-col :lg="9" class="el-form-item__label">{{lang.timeout}}:</el-col>
                             <el-col :lg="15">
-                               <!-- <el-form-item
-                                    :prop="'chnlpickuptimeout' + chn_item.channel"
-                                    :rules="{ validator: validatePickuptimeout, trigger: 'blur' }"
-                                >-->
-                                <el-input v-model="chn_item.chnlpickuptimeout" :disabled="!pickupenable"></el-input>
+                                <el-form-item :key="'timeout_'+chn_item.channel" :prop="'pickchn.'+index+'.chnlpickuptimeout'"
+                                    :rules="{
+                                        max: 32, message: 'Please input a valid timeout value!', trigger: 'blur'
+                                    }"
+                                >
+                                    <el-input v-model="chn_item.chnlpickuptimeout" :disabled="!pickupenable"></el-input>
+                                </el-form-item>
                             </el-col>
                         </el-col>
                         <el-col :lg="6" style="margin-left: 20px;">
                             <el-col :lg="9" class="el-form-item__label">{{lang.number}}:</el-col>
                             <el-col :lg="15">
-                                <el-input v-model="chn_item.chnlpickupnumber" :disabled="!pickupenable"></el-input>
+                                <el-form-item :key="'timeout_'+chn_item.channel" :prop="'pickchn.'+index+'.chnlpickupnumber'"
+                                    :rules="{
+                                        max: 32, message: 'Please input a valid timeout value!', trigger: 'blur'
+                                    }"
+                                >
+                                    <el-input v-model="chn_item.chnlpickupnumber" :disabled="!pickupenable"></el-input>
+                                </el-form-item>
                             </el-col>
                         </el-col>
                     </el-form-item>
@@ -93,6 +101,7 @@
 
 <script>
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Pickup-settings",
@@ -114,6 +123,7 @@
                 ruleForm: {
                     pickuptimeout: '',
                     pickupnumber: '',
+                    pickchn:[]
                 },
                 rules: {
                     pickuptimeout: [
@@ -127,8 +137,6 @@
                 pickuptimeout: '',
                 pickupnumber: '',
 
-                pickchn:[],
-
                 chn_enable: [{
                     label: 'disabled',
                     value: 0
@@ -137,6 +145,8 @@
                     value: 1
                 }],
 
+                loading: false,
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -177,7 +187,7 @@
                         chnlpickupnumber: _chnlpickupnumber
                     }
 
-                    this.pickchn.push(obj)
+                    this.ruleForm.pickchn.push(obj)
                 })
             },
             show_error_back(){
@@ -194,6 +204,8 @@
                 });
             },
             Save(){
+                this.loading = true
+
                 const AlgPickup = new AST_AlgPickup()
 
                 AlgPickup._enable = this.pickupenable == true ? 1 : 0
@@ -201,7 +213,7 @@
                 AlgPickup._number = this.ruleForm.pickupnumber
 
                 const AlgPickupChnArr = new AST_AlgPickupChnArr()
-                this.pickchn.forEach((item) => {
+                this.ruleForm.pickchn.forEach((item) => {
                     let algpickupchn = new AST_AlgPickupChn()
                     algpickupchn._channel = item.channel
 
@@ -212,18 +224,28 @@
                     AlgPickupChnArr._item.push(algpickupchn)
                 })
 
-                console.log(AlgPickup)
-                console.log(AlgPickupChnArr)
                 this.request.AGAlgPickupSave(this.save_succeed_back, this.save_error_back, AlgPickup, AlgPickupChnArr)
             },
             save_succeed_back(data){
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
+                this.loading = false
+
+                if(data['_result'] == 0) {
+                    this.$message({
+                        message: this.lang.save_successfully,
+                        type: 'success',
+                        offset: '80'
+                    })
+                }else{
+                    this.$message({
+                        message: this.lang.save_failed,
+                        type: 'error',
+                        offset: '80'
+                    })
+                }
             },
             save_error_back(){
+                this.loading = false
+
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
@@ -232,7 +254,12 @@
             }
         },
         created() {
-            this.request.AGAlgPickupGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('analog-pickup')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGAlgPickupGet(this.show_succeed_back, this.show_error_back)
+            }
         }
     }
 </script>

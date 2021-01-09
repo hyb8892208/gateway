@@ -70,6 +70,7 @@
     import L2TPVpn from "./L2TPVpn";
     import ZeroVpn from "./ZeroVpn";
     import {MENU} from "../../../store/mutations-types";
+    import {debuger} from "../../../debug/debug";
 
     export default {
         name: "Vpn",
@@ -103,6 +104,7 @@
                     connection_status_icon: false
                 }],
 
+                debug: false,
                 lang: this.$store.state.lang
             }
         },
@@ -127,6 +129,8 @@
                 }
             },
             show_succeed_back(data){
+                console.log(data)
+
                 let common_data = data['_get']['_combuf']
                 this.$store.commit(MENU, common_data)
 
@@ -232,7 +236,6 @@
                 }
             },
             first_connect_succeed_back(data){
-                console.log(data)
                 this.vpn_options[this.vpn_type].connection_status = data['_connectsta']
             },
             first_connect_error_back(){
@@ -240,7 +243,6 @@
             },
 
             save_connect_succeed_back(data){
-                console.log(data)
                 if(data['_connectsta'] == 1){
                     this.vpn_options[this.vpn_type].connection_status_icon = false
                     this.vpn_options[this.vpn_type].connection_status = data['_connectsta']
@@ -272,7 +274,15 @@
             }
         },
         created() {
-            this.request.AGNetworkOpenvpnGet(this.show_succeed_back, this.show_error_back)
+            this.debug = debuger('network-vpn')['default']
+            if(this.debug){
+                this.show_succeed_back(this.debug)
+            }else {
+                this.request.AGNetworkOpenvpnGet(this.show_succeed_back, this.show_error_back)
+            }
+        },
+        beforeDestroy() {
+            clearTimeout(this.timeoutID)
         }
     }
 </script>

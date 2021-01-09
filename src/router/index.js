@@ -413,14 +413,6 @@ const routes = [
     }
   },
   {
-    path: '/Advanced/Adv-astfileeditor/:page',
-    name: 'Adv-astfileeditor',
-    component: () => import('../views/ADVANCED/adv-astfileeditor/Adv-astfileeditor'),
-    meta:{
-      title: _language['Asterisk File Editor']
-    }
-  },
-  {
     path: '/Advanced/Adv-astfileeditor/add',
     name: 'Adv-astfileeditor-add',
     component: () => import('../views/ADVANCED/adv-astfileeditor/add'),
@@ -466,6 +458,14 @@ const routes = [
     component: () => import('../views/ADVANCED/adv-snmp/Adv-snmp'),
     meta:{
       title: 'SNMP'
+    }
+  },
+  {
+    path: '/Advanced/Adv-boardupdate',
+    name: 'Adv-boardupdate',
+    component: () => import('../views/ADVANCED/adv-boardupdate/Adv-boardupdate'),
+    meta:{
+      title: _language['Board Update']
     }
   },
   {
