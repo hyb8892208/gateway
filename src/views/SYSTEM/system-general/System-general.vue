@@ -75,6 +75,7 @@
                                 :show-file-list=false
                                 :on-success="upload_succeed"
                                 :before-upload="before_upload"
+                                limit="1"
                                 style="width: 100%;">
                             <el-button type="button" style="width: 100%;">
                                 <i class="el-icon-folder-opened"></i>
@@ -376,7 +377,7 @@
                         offset: '80'
                     })
 
-                    window.location.reload()
+                    setTimeout(function (){window.location.reload()},200)
                 }else{
                     this.$message({
                         message: this.lang.save_failed,
@@ -442,6 +443,17 @@
                 this.reload()
             },
             before_upload(file){
+                if(file.name.indexOf('.') > -1){
+                    this.$message({
+                        dangerouslyUseHTMLString: true,
+                        message: this.lang.fire_upload_help,
+                        type: 'error',
+                        offset: '80'
+                    })
+
+                    return false
+                }
+
                 for(let i=0;i<this.languages.length;i++){
                     if(this.languages[i].value == file.name){
                         this.$message({

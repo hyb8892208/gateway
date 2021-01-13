@@ -120,7 +120,7 @@
                     return false
                 }
 
-                this.$confirm(this.lang.system_update_confirm)
+                this.$confirm(this.lang.system_update_confirm,'',{ dangerouslyUseHTMLString: true })
                     .then(_ => {
                         this.update_dialogVisible = true
                         this.update_loading_text = this.lang.system_updating
@@ -169,7 +169,7 @@
                     offset: '80'
                 })
 
-                //this.request.AGSystemToolsUpdatefireware(this.fileware_succeed_back, this.fileware_error_back)
+                this.request.AGSystemToolsUpdatefireware(this.fileware_succeed_back, this.fileware_error_back)
             },
             /* System update */
         },

@@ -49,7 +49,7 @@
                 vpncol: [//NetwrokSIP表格
                     {name:'name',istrue:true,width:'150',fixed:true},
                     {name:'ip_address',istrue:true,width:'200',fixed:false},
-                    {name:'gateway',istrue:true,width:'200',fixed:false},
+                    {name:'ptpip',istrue:true,width:'200',fixed:false},
                     {name:'mask',istrue:true,width:'200',fixed:false},
                     {name:'rx_packets',istrue:true,width:'200',fixed:false},
                     {name:'tx_packets',istrue:true,width:'200',fixed:false}
@@ -115,10 +115,11 @@
 
                     let obj = {
                         'name': name,
-                        'ptpip': networkData[i]['_ip'],
+                        'ip_address': networkData[i]['_ip'],
+                        'ptpip': networkData[i]['_ptpip'],
                         'mask': networkData[i]['_mask'],
-                        'rx': networkData[i]['_rx'],
-                        'tx': networkData[i]['_tx']
+                        'rx_packets': networkData[i]['_rx'],
+                        'tx_packets': networkData[i]['_tx']
                     }
 
                     this.vpnData.push(obj)

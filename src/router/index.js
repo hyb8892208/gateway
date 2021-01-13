@@ -173,14 +173,6 @@ const routes = [
     }
   },
   {
-    path: '/Analog/Call-test',
-    name: 'Call-test',
-    component: () => import('../views/ANALOG/call-test/Call-test'),
-    meta:{
-      title: _language['Call Test']
-    }
-  },
-  {
     path: '/SIP/Voip-Endpoints',
     name: 'Voip-Endpoints',
     component: () => import('../views/VOIP/voip-endpoints/Voip-endpoints'),

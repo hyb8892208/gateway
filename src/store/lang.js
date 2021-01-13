@@ -1489,6 +1489,11 @@ export default {
     privacypassword_help: language('PrivacyPassword'),
     user_configuration: language('User Configuration'),
 
+    //Adv board update
+    upload_file: language('Upload File'),
+    upload_file_help: language('Upload File help','Upload File'),
+    upload_file_confirm: language('Upload File Confirm', 'Are you sure you want to upload the file?'),
+
     //Log Settings
     system_logs_help: language('System Logs help','Whether enable or disable system log.'),
     auto_clean: language('Auto clean'),

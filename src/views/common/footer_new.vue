@@ -6,7 +6,19 @@
 
 <script>
     export default {
-        name: "footer_new"
+        name: "footer_new",
+        data(){
+            return {
+                copyright: ''
+            }
+        },
+        computed: {
+            copyright(){
+                const myDate = new Date();
+                let copyright_year = myDate.getFullYear();
+                return this.$store.state.copyright.replace(/<span id="copyright_time"><\/span>/,copyright_year)
+            }
+        }
     }
 </script>
 

@@ -69,11 +69,7 @@
                         <el-col :lg="6" style="margin-left: 20px;">
                             <el-col :lg="9" class="el-form-item__label">{{lang.timeout}}:</el-col>
                             <el-col :lg="15">
-                                <el-form-item :key="'timeout_'+chn_item.channel" :prop="'pickchn.'+index+'.chnlpickuptimeout'"
-                                    :rules="{
-                                        max: 32, message: 'Please input a valid timeout value!', trigger: 'blur'
-                                    }"
-                                >
+                                <el-form-item>
                                     <el-input v-model="chn_item.chnlpickuptimeout" :disabled="!pickupenable"></el-input>
                                 </el-form-item>
                             </el-col>
@@ -81,7 +77,7 @@
                         <el-col :lg="6" style="margin-left: 20px;">
                             <el-col :lg="9" class="el-form-item__label">{{lang.number}}:</el-col>
                             <el-col :lg="15">
-                                <el-form-item :key="'timeout_'+chn_item.channel" :prop="'pickchn.'+index+'.chnlpickupnumber'"
+                                <el-form-item :key="'pnumber_'+chn_item.channel" :prop="'pickchn.'+index+'.chnlpickupnumber'"
                                     :rules="{
                                         max: 32, message: 'Please input a valid timeout value!', trigger: 'blur'
                                     }"
@@ -151,18 +147,6 @@
             }
         },
         methods:{
-            validatePickuptimeout(rule, value, callback){
-                if(this.pickupenable){
-                    let rex=/^[0-9\+]{1,32}$/i;
-                    if(!rex.test(value)) {
-                        callback(new Error('Please input a valid timeout value!'))
-                    }else{
-                        callback()
-                    }
-                }else{
-                    callback()
-                }
-            },
             show_succeed_back(data){
                 console.log(data)
                 let common_data = data['_get']['_combuf']

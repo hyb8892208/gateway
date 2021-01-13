@@ -336,53 +336,54 @@
                 this.selected_log = selection
             },
             sortChange(col){
+                console.log(col)
                 switch (col.prop) {
                     case 'callerid':
                         if(col.order == 'descending'){
                             this.sort_sql = 'order by "callerid" desc'
-                        }else if(col.order == 'ascending'){
+                        }else {
                             this.sort_sql = 'order by "callerid" asc'
                         }
                         break
                     case 'calleeid':
                         if(col.order == 'descending'){
                             this.sort_sql = 'order by "calleeid" desc'
-                        }else if(col.order == 'ascending'){
+                        }else {
                             this.sort_sql = 'order by "calleeid" asc'
                         }
                         break
                     case 'from':
                         if(col.order == 'descending'){
                             this.sort_sql = 'order by "fromdd" desc'
-                        }else if(col.order == 'ascending'){
+                        }else {
                             this.sort_sql = 'order by "fromdd" asc'
                         }
                         break
                     case 'to':
                         if(col.order == 'descending'){
                             this.sort_sql = 'order by "todd" desc'
-                        }else if(col.order == 'ascending'){
+                        }else {
                             this.sort_sql = 'order by "todd" asc'
                         }
                         break
                     case 'starttime':
                         if(col.order == 'descending'){
                             this.sort_sql = 'order by "starttime" desc'
-                        }else if(col.order == 'ascending'){
+                        }else {
                             this.sort_sql = 'order by "starttime" asc'
                         }
                         break
                     case 'duration':
                         if(col.order == 'descending'){
                             this.sort_sql = 'order by "duration" desc'
-                        }else if(col.order == 'ascending'){
+                        }else {
                             this.sort_sql = 'order by "duration" asc'
                         }
                         break
                     case 'result':
                         if(col.order == 'descending'){
                             this.sort_sql = 'order by "result" desc'
-                        }else if(col.order == 'ascending'){
+                        }else {
                             this.sort_sql = 'order by "result" asc'
                         }
                         break
@@ -517,6 +518,7 @@
                     }
                 })
 
+                console.log(this.get_sql())
                 this.request.AGLogCdrGet(this.show_succeed_back, this.show_error_back, this.get_sql(), 'cdr', this.page, this.each_page_num)
             },
             Clean_filter(){

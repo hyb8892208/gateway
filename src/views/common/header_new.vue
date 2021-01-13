@@ -28,14 +28,20 @@
                 this.$emit("child_change_aside_value")
             },
             switch_language(language){
+                let info = ''
                 let confirm = ''
+                let cancel = ''
                 if(language == 'chinese'){
-                    confirm = '确定要切换为中文吗？'
+                    info = '确定要切换为中文吗？'
+                    confirm = '确定'
+                    cancel = '取消'
                 }else{
-                    confirm = 'Are you sure you want to switch to English?'
+                    info = 'Are you sure you want to switch to English?'
+                    confirm = 'Confrim'
+                    cancel = 'Cancel'
                 }
 
-                this.$confirm(confirm)
+                this.$confirm(info,'',{confirmButtonText:confirm,cancelButtonText:cancel})
                     .then(_ => {
                         this.request = new request()
                         this.request.AGSystemLanguageSave(this.save_language_succeed, this.save_language_error, language)

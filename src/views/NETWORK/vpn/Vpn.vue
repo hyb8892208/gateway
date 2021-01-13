@@ -205,10 +205,18 @@
                 this.get_connection_status('save')
             },
             save_succeed_back(data){
-
+                this.$message({
+                    message: this.lang.save_successfully,
+                    type: 'success',
+                    offset: '80'
+                })
             },
             save_error_back(){
-
+                this.$message({
+                    message: this.lang.save_failed,
+                    type: 'error',
+                    offset: '80'
+                })
             },
             get_connection_status(action){
                 this.connect_type = ''
@@ -255,22 +263,10 @@
                     this.vpn_options[this.vpn_type].connection_status_icon = false
                     this.vpn_options[this.vpn_type].connection_status = 0
                 }
-
-                this.$message({
-                    message: this.lang.save_successfully,
-                    type: 'success',
-                    offset: '80'
-                })
             },
             save_connect_error_back(){
                 this.vpn_options[this.vpn_type].connection_status_icon = false
                 this.vpn_options[this.vpn_type].connection_status = 0
-
-                this.$message({
-                    message: this.lang.save_failed,
-                    type: 'error',
-                    offset: '80'
-                })
             }
         },
         created() {

@@ -107,6 +107,7 @@
                 moduleCheckedTitles: [],//已选的Title
                 moduleIsIndeterminate: false,//全选框的中间态
 
+                TimeoutID: '',
                 loading: true,
                 lang: this.$store.state.lang
             }
