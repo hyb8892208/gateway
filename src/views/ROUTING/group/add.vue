@@ -4,14 +4,17 @@
             label-width="250px"
             class="change-label-class"
             ref="ruleForm"
+            :rules="rules"
+            :model="ruleForm"
             size="small">
-        <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;padding-left: 20px;">
+
+        <div class="page_title">
             <h1 style="line-height: 50px;font-size: 18px;">
                 {{lang.routing_groups}}
                 <div style="float: right;line-height: 50px;margin-right: 20px;">
                     <el-button type="primary"
                                size="small"
-                               @click="Save">{{lang.save}}</el-button>
+                               @click="submitValidator('ruleForm')">{{lang.save}}</el-button>
                 </div>
             </h1>
         </div>
@@ -21,10 +24,10 @@
             <divider_item><span slot="title">{{lang.routing_groups}}</span></divider_item>
 
             <el-row>
-                <form_item>
+                <form_item v-bind:param="'group_name'">
                     <span slot="param_help" v-html="lang.group_name_help"></span>
                     <span slot="param_name" >{{lang.group_name}}</span>
-                    <el-input slot="param" v-model="group_name"></el-input>
+                    <el-input slot="param" v-model="ruleForm.group_name"></el-input>
                 </form_item>
             </el-row>
 
@@ -74,13 +77,15 @@
                                                  v-model="checkFXOAll"
                                                  @change="handleFXOCheckAllChange">{{lang.all}}</el-checkbox>
                                     <div style="margin: 15px 0;"></div>
-                                    <el-checkbox-group v-model="fxo_members_selected" @change="handleCheckedFXOChange">
-                                        <el-row>
-                                            <el-col :lg="4" :sm="6" :xs="12" v-for="item in fxo_members">
-                                                <el-checkbox :label="item" :key="item">{{item}}</el-checkbox>
-                                            </el-col>
-                                        </el-row>
-                                    </el-checkbox-group>
+                                    <el-form-item :prop="'fxo_members_selected'">
+                                        <el-checkbox-group v-model="ruleForm.fxo_members_selected" @change="handleCheckedFXOChange">
+                                            <el-row>
+                                                <el-col :lg="4" :sm="6" :xs="12" v-for="item in fxo_members">
+                                                    <el-checkbox :label="item" :key="item">{{item}}</el-checkbox>
+                                                </el-col>
+                                            </el-row>
+                                        </el-checkbox-group>
+                                    </el-form-item>
                                 </el-row>
 
                                 <el-row v-if="type == 0">
@@ -88,13 +93,15 @@
                                                  v-model="checkSIPAll"
                                                  @change="handleSIPCheckAllChange">{{lang.all}}</el-checkbox>
                                     <div style="margin: 15px 0;"></div>
-                                    <el-checkbox-group v-model="sip_members_selected" @change="handleCheckedSIPChange">
-                                        <el-row>
-                                            <el-col :lg="4" :sm="6" :xs="12" v-for="item in sip_members">
-                                                <el-checkbox :label="item" :key="item">{{item}}</el-checkbox>
-                                            </el-col>
-                                        </el-row>
-                                    </el-checkbox-group>
+                                    <el-form-item :prop="'sip_members_selected'">
+                                        <el-checkbox-group v-model="ruleForm.sip_members_selected" @change="handleCheckedSIPChange">
+                                            <el-row>
+                                                <el-col :lg="4" :sm="6" :xs="12" v-for="item in sip_members">
+                                                    <el-checkbox :label="item" :key="item">{{item}}</el-checkbox>
+                                                </el-col>
+                                            </el-row>
+                                        </el-checkbox-group>
+                                    </el-form-item>
                                 </el-row>
                             </slot>
                         </el-col>
@@ -113,19 +120,75 @@
     export default {
         name: "add",
         data() {
+            var validateGroup_name = (rule, value, callback) => {
+                for(let i=0;i<this.used_groups.length;i++){
+                    if(this.$route.params.group_name == this.used_groups[i]._section) continue
+                    if(value == this.used_groups[i]._section){
+                        callback(new Error('Already exist.'))
+                        return false
+                    }
+                }
+
+                if(value == ''){
+                    callback(new Error('Must set.'))
+                    return false
+                }else{
+                    callback()
+                }
+            }
+
+            var validateFXOMember = (rule, value, callback) => {
+                if(this.type == 1){//FXO
+                    if(value.length == 0){
+                        callback(new Error('Must set.'))
+                        return false
+                    }else{
+                        callback()
+                    }
+                }else{
+                    callback()
+                }
+            }
+
+            var validateSIPMember = (rule, value, callback) => {
+                if(this.type == 0){//SIP
+                    if(value.length == 0){
+                        callback(new Error('Must set.'))
+                        return false
+                    }else{
+                        callback()
+                    }
+                }else{
+                    callback()
+                }
+            }
             return {
-                group_name: '',
+                ruleForm: {
+                    group_name: '',
+                    fxo_members_selected: [],
+                    sip_members_selected: [],
+                },
+                rules: {
+                    group_name: [
+                        { validator: validateGroup_name, trigger: 'blur' }
+                    ],
+                    fxo_members_selected: [
+                        { validator: validateFXOMember, trigger: 'change' }
+                    ],
+                    sip_members_selected: [
+                        { validator: validateSIPMember, trigger: 'change' }
+                    ]
+                },
+
                 type: 1,
                 policy: '',
                 order: 1,
 
                 fxo_members: [],
-                fxo_members_selected: [],
                 isIndeterminate_fxo: false,
                 checkFXOAll: false,
 
                 sip_members: [],
-                sip_members_selected: [],
                 isIndeterminate_sip: false,
                 checkSIPAll: false,
 
@@ -136,6 +199,8 @@
                     label: 'SIP',
                     value: 0
                 }],
+
+                used_groups: [],
 
                 loading: false,
                 debug: false,
@@ -153,9 +218,10 @@
                 let _group = data['_get']['_group']
                 let _sip = data['_get']['_sip']['_item']
                 let _ana = data['_get']['_ana']['_item']
+                this.used_groups = data['_get']['_groups']['_item']
 
                 if(!is_new){
-                    this.group_name = _group['_section']
+                    this.ruleForm.group_name = _group['_section']
 
                     this.type = parseInt(_group['_type'])
                     this.policy = parseInt(_group['_policy'])
@@ -163,9 +229,9 @@
 
                     _group['_members'].split(',').forEach(item => {
                         if(this.type == 1) {
-                            this.fxo_members_selected.push(item)
+                            this.ruleForm.fxo_members_selected.push(item)
                         }else{
-                            this.sip_members_selected.push(item)
+                            this.ruleForm.sip_members_selected.push(item)
                         }
                     })
                 }
@@ -182,7 +248,15 @@
             show_error_back(){
                 this.$router.push('/common/error')
             },
-
+            submitValidator(formName){
+                this.$refs[formName].validate((valid) => {
+                    if(valid){
+                        this.Save()
+                    }else{
+                        return false
+                    }
+                })
+            },
             Save(){
                 this.loading = true
 
@@ -194,19 +268,16 @@
 
                 let members = ''
                 if(this.type == 0){
-                    members = this.sip_members_selected.join(',')
+                    members = this.ruleForm.sip_members_selected.join(',')
                 }else{
-                    members = this.fxo_members_selected.join(',')
+                    members = this.ruleForm.fxo_members_selected.join(',')
                 }
                 RoutingGroup._members = members
                 RoutingGroup._section = ''
 
                 let group_name = this.$route.params.group_name == undefined ? '' : this.$route.params.group_name
 
-                console.log(group_name)
-                console.log(this.group_name)
-                console.log(RoutingGroup)
-                this.request.AGRoutingGroupSave(this.save_succeed_back, this.save_error_back, group_name, this.group_name, RoutingGroup)
+                this.request.AGRoutingGroupSave(this.save_succeed_back, this.save_error_back, group_name, this.ruleForm.group_name, RoutingGroup)
             },
             save_succeed_back(data){
                 this.loading = false
@@ -238,21 +309,21 @@
             },
 
             handleFXOCheckAllChange(checked){
-                this.fxo_members_selected = checked ? this.fxo_members : []
+                this.ruleForm.fxo_members_selected = checked ? this.fxo_members : []
                 this.isIndeterminate_fxo = false
             },
             handleCheckedFXOChange(value){
                 let checkedcount = value.length
-                this.checkFXOAll = checkedcount == this.fxo_members_selected.length
+                this.checkFXOAll = checkedcount == this.ruleForm.fxo_members_selected.length
                 this.isIndeterminate_fxo = checkedcount > 0 && checkedcount < this.fxo_members.length
             },
             handleSIPCheckAllChange(checked){
-                this.sip_members_selected = checked ? this.sip_members : []
+                this.ruleForm.sip_members_selected = checked ? this.sip_members : []
                 this.isIndeterminate_sip = false
             },
             handleCheckedSIPChange(value){
                 let checkedcount = value.length
-                this.checkSIPAll = checkedcount == this.sip_members_selected.length
+                this.checkSIPAll = checkedcount == this.ruleForm.sip_members_selected.length
                 this.isIndeterminate_sip = checkedcount > 0 && checkedcount < this.sip_members.length
             }
         },

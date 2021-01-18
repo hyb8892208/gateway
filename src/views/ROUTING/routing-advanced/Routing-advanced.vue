@@ -3,7 +3,8 @@
             :label-position="$store.state.page.labelPosition"
             label-width="250px"
             size="small">
-        <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;padding-left: 20px;">
+
+        <div class="page_title">
             <h1 style="line-height: 50px;font-size: 18px;">
                 {{lang.advanced}}
                 <div style="float: right;line-height: 50px;margin-right: 20px;">
@@ -89,18 +90,17 @@
                 RoutingAdvSave._InternalCallSw = this.internalcallsw == true ? 1 : 0
                 RoutingAdvSave._InternalSipCallSw = this.internalsipcallsw == true ? 1 : 0
 
-                if(this.flex_routing_sw && !this.old_flex_routing_sw){
+                if((this.flex_routing_sw && !this.old_flex_routing_sw) ||
+                    (!this.flex_routing_sw && this.old_flex_routing_sw)) {
+
                     this.$confirm(this.lang.flex_routing_switch_open_help)
                         .then(_ => {
                             this.request.AGRoutingAdvSave(this.save_succeed_back, this.save_error_back, RoutingAdvSave)
                         })
-                        .catch(_ => {})
-                }else if(!this.flex_routing_sw && this.old_flex_routing_sw){
-                    this.$confirm(this.lang.flex_routing_switch_close_help)
-                        .then(_ => {
-                            this.request.AGRoutingAdvSave(this.save_succeed_back, this.save_error_back, RoutingAdvSave)
+                        .catch(_ => {
+                            this.loading = false
                         })
-                        .catch(_ => {})
+
                 }else{
                     this.request.AGRoutingAdvSave(this.save_succeed_back, this.save_error_back, RoutingAdvSave)
                 }

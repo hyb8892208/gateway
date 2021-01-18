@@ -1,6 +1,6 @@
 <template>
-    <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;">
-        <div style="height: 50px;background-color: #ffffff;padding-left: 20px;">
+    <el-form>
+        <div class="page_title">
             <h1 style="line-height: 50px;font-size: 18px;">
                 {{lang.cdr_logs}}
                 <div style="float: right;line-height: 50px;margin-right: 20px;">
@@ -270,7 +270,7 @@
                     :total="count">
             </el-pagination>
         </el-card>
-    </div>
+    </el-form>
 </template>
 
 <script>
@@ -518,7 +518,6 @@
                     }
                 })
 
-                console.log(this.get_sql())
                 this.request.AGLogCdrGet(this.show_succeed_back, this.show_error_back, this.get_sql(), 'cdr', this.page, this.each_page_num)
             },
             Clean_filter(){

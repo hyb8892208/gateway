@@ -1,6 +1,6 @@
 <template>
-    <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;">
-        <div style="height: 50px;background-color: #ffffff;padding-left: 20px;">
+    <el-form>
+        <div class="page_title">
             <h1 style="line-height: 50px;font-size: 18px;">{{lang.asterisk_file_editor}}</h1>
         </div>
 
@@ -72,7 +72,7 @@
                     :total="count">
             </el-pagination>
         </el-card>
-    </div>
+    </el-form>
 </template>
 
 <script>

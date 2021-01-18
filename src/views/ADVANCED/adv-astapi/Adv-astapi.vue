@@ -4,14 +4,17 @@
             label-width="250px"
             class="change-label-class"
             ref="ruleForm"
+            :rules="rules"
+            :model="ruleForm"
             size="small">
-        <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;padding-left: 20px;">
+
+        <div class="page_title">
             <h1 style="line-height: 50px;font-size: 18px;">
                 {{lang.asterisk_api}}
                 <div style="float: right;line-height: 50px;margin-right: 20px;">
                     <el-button type="primary"
                                size="small"
-                               @click="Save">{{lang.save}}</el-button>
+                               @click="submitValidator('ruleForm')">{{lang.save}}</el-button>
                 </div>
             </h1>
         </div>
@@ -39,16 +42,16 @@
             <divider_item><span slot="title">{{lang.manager}}</span></divider_item>
 
             <el-row>
-                <form_item>
+                <form_item v-bind:param="'manager_name'">
                     <span slot="param_help" v-html="lang.manager_name_help"></span>
                     <span slot="param_name" >{{lang.manager_name}}</span>
-                    <el-input slot="param" v-model="manager_name"></el-input>
+                    <el-input slot="param" v-model="ruleForm.manager_name"></el-input>
                 </form_item>
 
-                <form_item>
+                <form_item v-bind:param="'manager_pass'">
                     <span slot="param_help" v-html="lang.manager_secret_help"></span>
                     <span slot="param_name" >{{lang.manager_secret}}</span>
-                    <el-input slot="param" v-model="manager_pass" show-password></el-input>
+                    <el-input slot="param" v-model="ruleForm.manager_pass" show-password></el-input>
                 </form_item>
             </el-row>
 
@@ -103,11 +106,43 @@
     export default {
         name: "Adv-astapi",
         data() {
+            var validateManagerName = (rule, value, callback) => {
+                let rex=/^[-_+.<>&0-9a-zA-Z]{1,32}$/i
+
+                if(!rex.test(value)) {
+                    callback(new Error(this.lang.check_diyname))
+                    return false
+                }else{
+                    callback()
+                }
+            }
+
+            var validateManagerPass = (rule, value, callback) => {
+                let rex=/^[-_+.<>&0-9a-zA-Z]{4,32}$/i
+
+                if(!rex.test(value)) {
+                    callback(new Error(this.lang.check_diypwd))
+                    return false
+                }else{
+                    callback()
+                }
+            }
+
             return {
+                ruleForm: {
+                    manager_name: '',
+                    manager_pass: '',
+                },
+                rules: {
+                    manager_name: [
+                        { validator: validateManagerName, trigger: 'blur' }
+                    ],
+                    manager_pass: [
+                        { validator: validateManagerPass, trigger: 'blur' }
+                    ],
+                },
                 enabled: '',
                 port: '5038',
-                manager_name: '',
-                manager_pass: '',
                 deny: '',
                 permit: '',
 
@@ -214,8 +249,8 @@
 
                 this.enabled = _general['_enabled'] == 1 ? true : false
                 this.port = '5038'
-                this.manager_name = _general['_username']
-                this.manager_pass = _general['_secret']
+                this.ruleForm.manager_name = _general['_username']
+                this.ruleForm.manager_pass = _general['_secret']
                 this.deny = _general['_deny'].substring(0,this.deny.length-1)
                 this.permit = _general['_permit'].substring(0,this.permit.length-1)
 
@@ -231,12 +266,21 @@
                 this.$router.push('/common/error')
             },
 
+            submitValidator(formName){
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.Save()
+                    } else {
+                        return false;
+                    }
+                });
+            },
             Save(){
                 const advastgeneral = new AST_AdvAstGeneral()
 
                 advastgeneral._enabled = this.enabled == true ? 1 : 0
-                advastgeneral._username = this.manager_name
-                advastgeneral._secret = this.manager_pass
+                advastgeneral._username = this.ruleForm.manager_name
+                advastgeneral._secret = this.ruleForm.manager_pass
                 advastgeneral._deny = this.deny
                 advastgeneral._permit = this.permit
 
@@ -252,7 +296,6 @@
                 const AdvAstSave = new AST_AdvAstSave()
                 AdvAstSave._general = advastgeneral
 
-                console.log(AdvAstSave)
                 this.request.AGAdvAstapiSave(this.save_succeed_back, this.save_error_back, AdvAstSave)
             },
             save_succeed_back(data){

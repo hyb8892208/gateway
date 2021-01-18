@@ -1,6 +1,6 @@
 <template>
-    <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;">
-        <div style="height: 50px;background-color: #ffffff;padding-left: 20px;">
+    <el-form>
+        <div class="page_title">
             <h1 style="line-height: 50px;font-size: 18px;">
                 {{lang.channel_settings}}
                 <div v-if="channel_type == 2" style="float: right;line-height: 50px;margin-right: 20px;">
@@ -155,7 +155,7 @@
                 </el-table-column>
             </el-table>
         </el-card>
-    </div>
+    </el-form>
 </template>
 
 <script>

@@ -1,6 +1,6 @@
 <template>
-    <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;">
-        <div style="height: 50px;background-color: #ffffff;padding-left: 20px;">
+    <el-form>
+        <div class="page_title" style="margin-bottom: 0;border-bottom: 0;">
             <h1 style="line-height: 50px;font-size: 18px;">{{lang.port_status}}</h1>
         </div>
 
@@ -37,7 +37,7 @@
                      :key="Math.random()"></VPN>
             </el-tab-pane>
         </el-tabs>
-    </div>
+    </el-form>
 </template>
 
 <script>

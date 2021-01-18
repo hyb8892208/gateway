@@ -7,7 +7,8 @@
             :model="ruleForm"
             ref="ruleForm"
             size="small">
-        <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;padding-left: 20px;">
+
+        <div class="page_title">
             <h1 style="line-height: 50px;font-size: 18px;">
                 <span v-if="$route.params.filename != undefined">{{ruleForm.filename}}</span>
                 <span v-else>{{lang.asterisk_file_editor}}</span>

@@ -1,6 +1,6 @@
 <template>
-    <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;">
-        <div style="height: 50px;background-color: #ffffff;padding-left: 20px;">
+    <el-form>
+        <div class="page_title">
             <h1 style="line-height: 50px;font-size: 18px;">
                 {{lang.config_record}}
             </h1>
@@ -55,7 +55,7 @@
                     style="padding:20px;margin:auto;">
             </el-pagination>-->
         </el-card>
-    </div>
+    </el-form>
 </template>
 
 <script>

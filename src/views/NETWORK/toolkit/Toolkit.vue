@@ -1,215 +1,216 @@
 <template>
-    <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;">
-        <h1 style="line-height: 50px;font-size: 18px;padding-left: 20px;margin-bottom: 20px;">
-            {{lang.toolkit}}
-            <div style="float: right;line-height: 50px;margin-right: 20px;">
-                <el-button style="vertical-align:middle;"
-                           type="primary"
-                           size="small"
-                           @click="Start"
-                >{{lang.save}}</el-button>
-            </div>
-        </h1>
+    <el-form :label-position="$store.state.page.labelPosition"
+             label-width="250px"
+             class="change-label-class"
+             size="small">
+
+        <div class="page_title">
+            <h1 style="line-height: 50px;font-size: 18px;padding-left: 20px;margin-bottom: 20px;">
+                {{lang.toolkit}}
+                <div style="float: right;line-height: 50px;margin-right: 20px;">
+                    <el-button style="vertical-align:middle;"
+                               type="primary"
+                               size="small"
+                               @click="Start"
+                    >{{lang.save}}</el-button>
+                </div>
+            </h1>
+        </div>
 
         <el-card shadow="never" style="margin:auto;padding: 20px;margin-bottom: 50px;" :style=$store.state.page.card_width>
-            <el-form :label-position="$store.state.page.labelPosition"
-                     label-width="250px"
-                     class="change-label-class"
-                     size="small">
 
-                <divider_item><span slot="title">{{lang.ping_and_traceroute}}</span></divider_item>
+            <divider_item><span slot="title">{{lang.ping_and_traceroute}}</span></divider_item>
 
-                <el-row>
-                    <form_item>
-                        <span slot="param_help" v-html="lang.interface_help"></span>
-                        <span slot="param_name" >{{lang.interface}}</span>
-                        <el-select slot="param" v-model="interface_value" :placeholder="lang.select_placeholder" style="width: 100%;">
-                            <el-option
-                                    v-for="item in interface_value_options"
-                                    :label="item.label"
-                                    :key="item.value"
-                                    :value="item.value">
-                            </el-option>
-                        </el-select>
-                    </form_item>
-                </el-row>
+            <el-row>
+                <form_item>
+                    <span slot="param_help" v-html="lang.interface_help"></span>
+                    <span slot="param_name" >{{lang.interface}}</span>
+                    <el-select slot="param" v-model="interface_value" :placeholder="lang.select_placeholder" style="width: 100%;">
+                        <el-option
+                                v-for="item in interface_value_options"
+                                :label="item.label"
+                                :key="item.value"
+                                :value="item.value">
+                        </el-option>
+                    </el-select>
+                </form_item>
+            </el-row>
 
-                <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content">
-                                        Ping
-                                    </div>
-                                    <span>Ping</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-row :gutter="10">
-                                    <el-col :lg="17">
-                                        <el-input v-model="ping_value" type="mini"></el-input>
-                                    </el-col>
-                                    <el-col :lg="7">
-                                        <el-button @click="ping" type="primary" size="small" style="margin-top:1px;float: right;">{{lang.action}}</el-button>
-                                    </el-col>
-                                </el-row>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-
-                <el-row>
-                    <el-col :lg="12">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.traceroute_help"></div>
-                                    <span>{{lang.traceroute}}</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="18">
-                                <el-row :gutter="10">
-                                    <el-col :lg="17">
-                                        <el-input v-model="traceroute_value" type="mini"></el-input>
-                                    </el-col>
-                                    <el-col :lg="7">
-                                        <el-button @click="traceroute" type="primary" size="small" style="margin-top:1px;float: right;">{{lang.action}}</el-button>
-                                    </el-col>
-                                </el-row>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-
-                <el-row v-if="ping_open || traceroute_open">
-                    <el-col :lg="24">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.traceroute_help"></div>
-                                    <span>Ping and Traceroute Result</span>
-                                </el-tooltip>:
-                            </label>
-                            <el-col :lg="24">
-                                <el-card class="box-card" style="padding:0 20px 20px 20px;" shadow="never">
-                                    <div slot="header" class="clearfix">
-<!--                                        <b style="font-size: 15px;">Ping and Traceroute Result</b>-->
-                                        <i style="float: right; padding: 3px 0;margin-top:-10px;font-size: 20px;color:red;cursor: pointer;"
-                                           @click="close_result"
-                                           class="el-icon-close"></i>
-                                    </div>
-
-                                    <el-collapse v-model="activeName">
-                                        <el-collapse-item title="Ping" name="ping" v-if="ping_open">
-                                            <i class="el-icon-loading" v-show="ping_loading" style="font-size: 20px;"></i>
-                                            <pre v-html="ping_result"></pre>
-                                        </el-collapse-item>
-                                        <el-collapse-item title="Traceroute" name="traceroute" v-if="traceroute_open">
-                                            <i class="el-icon-loading" v-show="traceroute_loading" style="font-size: 20px;"></i>
-                                            <pre v-html="traceroute_result"></pre>
-                                        </el-collapse-item>
-                                    </el-collapse>
-                                </el-card>
-                            </el-col>
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-
-                <divider_item><span slot="title">{{lang.channel_recording}}</span></divider_item>
-
-                <el-row>
-                    <form_item>
-                        <span slot="param_help" v-html="lang.interface_help"></span>
-                        <span slot="param_name" >{{lang.interface}}</span>
-                        <el-select slot="param" v-model="tcpdump_interface"
-                                   style="width: 100%;"
-                                   size="small">
-                            <el-option
-                                    v-for="item in tcpdump_interface_value_options"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value"
-                            ></el-option>
-                        </el-select>
-                    </form_item>
-                </el-row>
-
-                <el-row>
-                    <form_item>
-                        <span slot="param_help" v-html="lang.source_host_help"></span>
-                        <span slot="param_name" >{{lang.source_host}}</span>
-                        <el-input slot="param" v-model="source_host" type="textarea"></el-input>
-                    </form_item>
-                </el-row>
-
-                <el-row>
-                    <form_item>
-                        <span slot="param_help" v-html="lang.destination_host_help"></span>
-                        <span slot="param_name" >{{lang.destination_host}}</span>
-                        <el-input slot="param" v-model="destination_host" type="textarea"></el-input>
-                    </form_item>
-                </el-row>
-
-                <el-row>
-                    <form_item>
-                        <span slot="param_help" v-html="lang.port_help"></span>
-                        <span slot="param_name" >{{lang.port}}</span>
-                        <el-input slot="param" v-model="port" size="small"></el-input>
-                    </form_item>
-                </el-row>
-
-                <el-row>
-                    <form_item>
-                        <span slot="param_help" v-html="lang.add_tcpdump_option"></span>
-                        <span slot="param_name" >{{lang.add_tcpdump_option}}</span>
-                        <el-button type="primary"
-                                   slot="param"
-                                   size="small"
-                                   @click="add_tcpdump_option"
-                                   style="width: 100%">{{lang.add_tcpdump_option}}</el-button>
-                    </form_item>
-                </el-row>
-
-                <el-row v-if="tcpdump_options_value.length > 0">
-                    <el-col :lg="12" :xs="24" :sm="24">
-                        <el-form-item>
-                            <label slot="label">
-                                <el-tooltip placement="top" :open-delay=200>
-                                    <div slot="content" v-html="lang.other_options"></div>
-                                    <span>{{lang.other_options}}</span>
-                                </el-tooltip>:
-                            </label>
-
-                            <el-row style="padding-left: 5px;">
-                                <el-row :gutter="10" v-for="(i,ind) in tcpdump_options_value">
-                                    <el-col :lg="9" :xs="18" :sm="18">
-                                        <el-select v-model="i.key"
-                                                   @change="change_tcpdump_options_key(ind)"
-                                                   style="margin-top: 10px;width: 100%;">
-                                            <el-option
-                                                    v-for="item in tcpdump_options"
-                                                    :key="item.value"
-                                                    :label="item.label"
-                                                    :value="item.value"
-                                            ></el-option>
-                                        </el-select>
-                                    </el-col>
-                                    <el-col :lg="9" :xs="18" :sm="18" v-if="i.key == 'host' || i.key == 'sip'">
-                                        <el-input style="margin-top:10px;" v-model="i.value"></el-input>
-                                    </el-col>
-                                    <el-col :lg="2" :xs="3" :sm="3">
-                                        <i class="el-icon-close"
-                                           @click="remove_tcpdump_option(ind)"
-                                           style="font-size: 20px;color: #F56C6C;margin: 15px 0 0 10px;cursor: pointer;"></i>
-                                    </el-col>
-                                </el-row>
+            <el-row>
+                <el-col :lg="12">
+                    <el-form-item>
+                        <label slot="label">
+                            <el-tooltip placement="top" :open-delay=200>
+                                <div slot="content">
+                                    Ping
+                                </div>
+                                <span>Ping</span>
+                            </el-tooltip>:
+                        </label>
+                        <el-col :lg="18">
+                            <el-row :gutter="10">
+                                <el-col :lg="17">
+                                    <el-input v-model="ping_value" type="mini"></el-input>
+                                </el-col>
+                                <el-col :lg="7">
+                                    <el-button @click="ping" type="primary" size="small" style="margin-top:1px;float: right;">{{lang.action}}</el-button>
+                                </el-col>
                             </el-row>
+                        </el-col>
+                    </el-form-item>
+                </el-col>
+            </el-row>
 
-                        </el-form-item>
-                    </el-col>
-                </el-row>
-            </el-form>
+            <el-row>
+                <el-col :lg="12">
+                    <el-form-item>
+                        <label slot="label">
+                            <el-tooltip placement="top" :open-delay=200>
+                                <div slot="content" v-html="lang.traceroute_help"></div>
+                                <span>{{lang.traceroute}}</span>
+                            </el-tooltip>:
+                        </label>
+                        <el-col :lg="18">
+                            <el-row :gutter="10">
+                                <el-col :lg="17">
+                                    <el-input v-model="traceroute_value" type="mini"></el-input>
+                                </el-col>
+                                <el-col :lg="7">
+                                    <el-button @click="traceroute" type="primary" size="small" style="margin-top:1px;float: right;">{{lang.action}}</el-button>
+                                </el-col>
+                            </el-row>
+                        </el-col>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <el-row v-if="ping_open || traceroute_open">
+                <el-col :lg="24">
+                    <el-form-item>
+                        <label slot="label">
+                            <el-tooltip placement="top" :open-delay=200>
+                                <div slot="content" v-html="lang.traceroute_help"></div>
+                                <span>Ping and Traceroute Result</span>
+                            </el-tooltip>:
+                        </label>
+                        <el-col :lg="24">
+                            <el-card class="box-card" style="padding:0 20px 20px 20px;" shadow="never">
+                                <div slot="header" class="clearfix">
+<!--                                        <b style="font-size: 15px;">Ping and Traceroute Result</b>-->
+                                    <i style="float: right; padding: 3px 0;margin-top:-10px;font-size: 20px;color:red;cursor: pointer;"
+                                       @click="close_result"
+                                       class="el-icon-close"></i>
+                                </div>
+
+                                <el-collapse v-model="activeName">
+                                    <el-collapse-item title="Ping" name="ping" v-if="ping_open">
+                                        <i class="el-icon-loading" v-show="ping_loading" style="font-size: 20px;"></i>
+                                        <pre v-html="ping_result"></pre>
+                                    </el-collapse-item>
+                                    <el-collapse-item title="Traceroute" name="traceroute" v-if="traceroute_open">
+                                        <i class="el-icon-loading" v-show="traceroute_loading" style="font-size: 20px;"></i>
+                                        <pre v-html="traceroute_result"></pre>
+                                    </el-collapse-item>
+                                </el-collapse>
+                            </el-card>
+                        </el-col>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+
+            <divider_item><span slot="title">{{lang.channel_recording}}</span></divider_item>
+
+            <el-row>
+                <form_item>
+                    <span slot="param_help" v-html="lang.interface_help"></span>
+                    <span slot="param_name" >{{lang.interface}}</span>
+                    <el-select slot="param" v-model="tcpdump_interface"
+                               style="width: 100%;"
+                               size="small">
+                        <el-option
+                                v-for="item in tcpdump_interface_value_options"
+                                :key="item.value"
+                                :label="item.label"
+                                :value="item.value"
+                        ></el-option>
+                    </el-select>
+                </form_item>
+            </el-row>
+
+            <el-row>
+                <form_item>
+                    <span slot="param_help" v-html="lang.source_host_help"></span>
+                    <span slot="param_name" >{{lang.source_host}}</span>
+                    <el-input slot="param" v-model="source_host" type="textarea"></el-input>
+                </form_item>
+            </el-row>
+
+            <el-row>
+                <form_item>
+                    <span slot="param_help" v-html="lang.destination_host_help"></span>
+                    <span slot="param_name" >{{lang.destination_host}}</span>
+                    <el-input slot="param" v-model="destination_host" type="textarea"></el-input>
+                </form_item>
+            </el-row>
+
+            <el-row>
+                <form_item>
+                    <span slot="param_help" v-html="lang.port_help"></span>
+                    <span slot="param_name" >{{lang.port}}</span>
+                    <el-input slot="param" v-model="port" size="small"></el-input>
+                </form_item>
+            </el-row>
+
+            <el-row>
+                <form_item>
+                    <span slot="param_help" v-html="lang.add_tcpdump_option"></span>
+                    <span slot="param_name" >{{lang.add_tcpdump_option}}</span>
+                    <el-button type="primary"
+                               slot="param"
+                               size="small"
+                               @click="add_tcpdump_option"
+                               style="width: 100%">{{lang.add_tcpdump_option}}</el-button>
+                </form_item>
+            </el-row>
+
+            <el-row v-if="tcpdump_options_value.length > 0">
+                <el-col :lg="12" :xs="24" :sm="24">
+                    <el-form-item>
+                        <label slot="label">
+                            <el-tooltip placement="top" :open-delay=200>
+                                <div slot="content" v-html="lang.other_options"></div>
+                                <span>{{lang.other_options}}</span>
+                            </el-tooltip>:
+                        </label>
+
+                        <el-row style="padding-left: 5px;">
+                            <el-row :gutter="10" v-for="(i,ind) in tcpdump_options_value">
+                                <el-col :lg="9" :xs="18" :sm="18">
+                                    <el-select v-model="i.key"
+                                               @change="change_tcpdump_options_key(ind)"
+                                               style="margin-top: 10px;width: 100%;">
+                                        <el-option
+                                                v-for="item in tcpdump_options"
+                                                :key="item.value"
+                                                :label="item.label"
+                                                :value="item.value"
+                                        ></el-option>
+                                    </el-select>
+                                </el-col>
+                                <el-col :lg="9" :xs="18" :sm="18" v-if="i.key == 'host' || i.key == 'sip'">
+                                    <el-input style="margin-top:10px;" v-model="i.value"></el-input>
+                                </el-col>
+                                <el-col :lg="2" :xs="3" :sm="3">
+                                    <i class="el-icon-close"
+                                       @click="remove_tcpdump_option(ind)"
+                                       style="font-size: 20px;color: #F56C6C;margin: 15px 0 0 10px;cursor: pointer;"></i>
+                                </el-col>
+                            </el-row>
+                        </el-row>
+
+                    </el-form-item>
+                </el-col>
+            </el-row>
         </el-card>
 
         <el-dialog
@@ -234,7 +235,7 @@
                 </form>
             </span>
         </el-dialog>
-    </div>
+    </el-form>
 </template>
 
 <script>

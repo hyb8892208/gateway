@@ -3,7 +3,8 @@
             label-width="250px"
             class="change-label-class"
             size="small">
-        <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;padding-left: 20px;">
+
+        <div class="page_title">
             <h1 style="line-height: 50px;font-size: 18px;">
                 {{lang.dahdi_logs}}
             </h1>

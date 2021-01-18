@@ -222,4 +222,21 @@
   .el-dialog{
       padding:20px;
   }
+  .page_title{
+      height: 50px;
+      background-color: #ffffff;
+      margin-bottom: 20px;
+      padding-left: 20px;
+      position: -webkit-sticky;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      border-bottom: 1px solid #EBEEF5;
+  }
+  .el-form .el-tabs__header{
+      position: -webkit-sticky;
+      position: sticky;
+      top: 50px;
+      z-index: 200;
+  }
 </style>

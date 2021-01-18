@@ -1,15 +1,17 @@
 <template>
-    <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;">
-        <h1 style="line-height: 50px;font-size: 18px;padding-left: 20px;">
-            {{lang.advanced_sip_settings}}
-            <div style="float: right;line-height: 50px;margin-right: 20px;">
-                <el-button
-                        type="primary"
-                        size="small"
-                        @click="Save"
-                >{{lang.save}}</el-button>
-            </div>
-        </h1>
+    <div class="el-form">
+        <div class="page_title" style="border-bottom: 0;margin-bottom: 0;">
+            <h1 style="line-height: 50px;font-size: 18px;padding-left: 20px;">
+                {{lang.advanced_sip_settings}}
+                <div style="float: right;line-height: 50px;margin-right: 20px;">
+                    <el-button
+                            type="primary"
+                            size="small"
+                            @click="Save"
+                    >{{lang.save}}</el-button>
+                </div>
+            </h1>
+        </div>
 
         <el-tabs v-model="activeName">
 
@@ -587,7 +589,6 @@
 
         </el-tabs>
     </div>
-
 </template>
 
 <script>

@@ -7,7 +7,8 @@
             :model="ruleForm"
             ref="ruleForm"
             size="small">
-        <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;padding-left: 20px;">
+
+        <div class="page_title">
             <h1 style="line-height: 50px;font-size: 18px;">
                 {{lang.edit}} {{lang.port}} {{port_type}}-{{$route.params.id}}
                 <div style="float: right;line-height: 50px;margin-right: 20px;">
@@ -1171,9 +1172,9 @@
         },
         created() {
             if(this.$route.params.id == 6){
-                this.debug = debuger('analog-channel-settings-fxs')['default']
-            }else{
                 this.debug = debuger('analog-channel-settings-fxo')['default']
+            }else{
+                this.debug = debuger('analog-channel-settings-fxs')['default']
             }
 
             if(this.debug){

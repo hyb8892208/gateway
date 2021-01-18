@@ -146,6 +146,7 @@
             },
             show_module_list(moduleData){
                 let obj = null
+
                 for(let i=0;i<moduleData.length;i++){
                     let name
                     if(moduleData[i]['_name'] != ''){
@@ -178,8 +179,8 @@
                     }
 
                     this.moduleData.push(obj)
-                    this.loading = false
                 }
+                this.loading = false
 
                 this.get_analog_info()
             },

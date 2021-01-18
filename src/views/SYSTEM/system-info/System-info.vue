@@ -1,8 +1,10 @@
 <template>
-    <div style="height: 50px;background-color: #ffffff;margin-bottom: 20px;">
-        <h1 style="line-height: 50px;font-size: 18px;padding-left: 20px;">
-            {{lang.system_info}}
-        </h1>
+    <el-form>
+        <div class="page_title">
+            <h1 class="page_title" style="line-height: 50px;font-size: 18px;padding-left: 20px;">
+                {{lang.system_info}}
+            </h1>
+        </div>
 
         <el-card shadow="never" style="margin:auto;margin-top:20px;padding: 20px;" :style=$store.state.page.card_width>
             <el-table
@@ -38,7 +40,7 @@
                 </el-table-column>
             </el-table>
         </el-card>
-    </div>
+    </el-form>
 </template>
 
 <script>
