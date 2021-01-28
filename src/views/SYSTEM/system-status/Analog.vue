@@ -63,8 +63,9 @@
                     <span v-if="scope.row.type == 'FXS' && $store.state.CheckFXSCurrSta == 1">
                         <span :style="{color:(scope.row.line_status == 'Connected' ? '#00A030' : '#FF0000')}">{{scope.row.line_status}}</span> / {{scope.row.callerid}}
                     </span>
-                    <span v-else-if="scope.row.type == 'FXS'">{{scope.row.callerid}}</span>
-                    <span v-else-if="scope.row.type == 'FXO'">{{scope.row.line_status}}</span>
+                    <span v-else :style="{color:(scope.row.line_status == 'Connected' ? '#00A030' : '#FF0000')}">
+                        {{scope.row.line_status}}
+                    </span>
                 </template>
             </el-table-column>
 
@@ -76,6 +77,7 @@
                 <template slot-scope="scope">
                     <span v-if="scope.row.port_status == 'OnHook'" style="color: #00A030">{{scope.row.port_status}}</span>
                     <span v-else-if="scope.row.port_status == 'OffHook'" style="color: #FF0000">{{scope.row.port_status}}</span>
+                    <span v-else>{{scope.row.port_status}}</span>
                 </template>
             </el-table-column>
 
@@ -223,7 +225,6 @@
 
                                 this.$set(this.moduleData, n, obj)
                             }
-
                             n++
                         })
 

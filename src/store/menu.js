@@ -142,10 +142,12 @@ export default {
         },{
             name: 'auto_provision',
             index: '/Advanced/Adv-autoprovision'
-        },{
-            name: 'board_update',
-            index: '/Advanced/Adv-boardupdate'
-        }]
+        }
+        // ,{
+        //     name: 'board_update',
+        //     index: '/Advanced/Adv-boardupdate'
+        // }
+        ]
     },{//6
         name: 'logs',
         icon: 'el-icon-notebook-2',

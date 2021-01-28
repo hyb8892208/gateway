@@ -129,13 +129,7 @@
       overflow: hidden;
   }
   .el-container .el-aside{
-      /*display: none;*/
       width: 250px;
-  }
-  @media only screen and (max-width: 768px) {
-      .el-aside{
-          /*display: none;*/
-      }
   }
   .el-submenu>.el-submenu__title .el-submenu__icon-arrow{
       -webkit-transform: rotateZ(-90deg);
@@ -238,5 +232,8 @@
       position: sticky;
       top: 50px;
       z-index: 200;
+  }
+  .el-checkbox__inner{
+      border:1px solid #C0C4CC;
   }
 </style>

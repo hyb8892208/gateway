@@ -60,11 +60,11 @@
                         </div>
                         <div style="padding: 10px">
                             <div class="item_info">
-                                {{'Status:'}}
-                                <span :style="{color: item._online == 1 ? '#67C23A': '#909399',fontWeight: 'bold'}">{{item._online == 1 ? 'Online' : 'Offline'}}</span>
+                                {{lang.status}}:
+                                <span :style="{color: item._online == 1 ? '#67C23A': '#909399',fontWeight: 'bold'}">{{item._online == 1 ? lang.online : lang.offline}}</span>
                             </div>
-                            <div class="item_info">{{'Version:'}} {{item._version}}</div>
-                            <div class="item_info">{{'Build Time:'}} {{item._buildtime}}</div>
+                            <div class="item_info">{{lang.version}}: {{item._version}}</div>
+                            <div class="item_info">{{lang.build_time}}: {{item._buildtime}}</div>
                         </div>
                     </el-card>
                 </el-col>

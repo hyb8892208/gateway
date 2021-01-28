@@ -181,7 +181,7 @@ const routes = [
     }
   },
   {
-    path: '/SIP/Voip-Endpoints/add/',
+    path: '/SIP/Voip-Endpoints/add/:order',
     name: 'Voip-Endpoints-add',
     component: () => import('../views/VOIP/voip-endpoints/add'),
     meta:{
@@ -189,7 +189,7 @@ const routes = [
     }
   },
   {
-    path: '/SIP/Voip-Endpoints/add/:section',
+    path: '/SIP/Voip-Endpoints/add/:order/:section',
     name: 'Voip-Endpoints-add',
     component: () => import('../views/VOIP/voip-endpoints/add'),
     meta:{

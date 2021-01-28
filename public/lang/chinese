@@ -167,6 +167,8 @@ OpenVox Copyright="深圳市开源通信有限公司<br>电话:+86-755-82535461 
 
 Count Down="倒计时"
 Automatic restart system="自动重启系统"
+Success="成功"
+Failed="失败"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -236,6 +238,8 @@ Asterisk File Editor="Asterisk文件编辑"
 Cloud="云管理"
 TR069="TR069"
 SNMP="SNMP"
+Auto Provision="自动配置"
+Board Update="模块板升级"
 
 Log Settings="日志设置"
 System Logs="系统日志"
@@ -272,6 +276,15 @@ Delete confirm="你确定要删除所选择项？"
 Clean Up="清除"
 Clean Up confirm="你确定要删除所有日志吗？"
 Export="导出"
+confirm="确定"
+Successfully Deleted="删除成功"
+Failed to delete="删除失败"
+Please select at least one item="请至少选择一项"
+Created Successfully="创建成功"
+Create Failed="创建失败"
+Clean up successful="清除成功"
+Clean up failed="清除失败"
+Select all parameters="选择所有参数"
 
 Apply="应用"
 Apply Bar help="设置已修改，通话在你应用这些修改时可能会中断，你想现在就应用吗？"
@@ -330,6 +343,7 @@ Subnet Mask="子网掩码"
 RX packets="接收数据包"
 TX packets="发送数据包"
 Routing Information="路由信息"
+P-t-P IP Address="P-t-P IP地址"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -489,6 +503,7 @@ Yakutsk="雅库茨克"
 
 Central and South America="中南美洲"
 Sao Paulo,Brazil="圣保罗,巴西"
+Buenos_Aires,Argentina="阿根廷，布宜诺斯艾利斯"
 Argentina="阿根廷"
 Central America @no DST="美洲中部(没有DST)"
 Venezuela="委内瑞拉"
@@ -528,8 +543,11 @@ web server port help="指定web服务端口"
 Port help@system-login ssh="SSH登陆端口号."
 js webserver http port help="HTTP端口使用范围：1024-65535，默认端口：80，有些端口禁止使用。"
 js webserver https port help="HTTPS端口使用范围：1024-65535，默认端口：443，有些端口禁止使用。"
-
+Language Already exists="此语言包已存在"
 ;Save="Save"
+File upload help="上载文件的格式不正确。"
+password should not be null="密码不能为空"
+confirm password should not be null="确认密码不能为空"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -759,7 +777,9 @@ Factory reset wait="正在恢复出厂设置，系统将会自动重启，请稍
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 [system-info]
 System Info="系统信息"
+System Information="系统信息"
 Model Name="模块名称"
+Serial Number="序列号"
 GSM Modem Description="GSM模块描述"
 Software Version="软件版本"
 Hardware Version="硬件版本"
@@ -781,6 +801,8 @@ Rebooting Counts="重启次数"
 ;System Time="系统时间"
 System Uptime="系统运行时间"
 clean failed="清除失败"
+Clear memory successfully="清除内存成功"
+Failed to clear memory="清除内存失败"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -924,6 +946,8 @@ Unlimit Tip="你确定要解除当前端口的呼叫限制吗？"
 Port Status Unlimit="端口状态：未限制"
 Extension Number="分机号码"
 Extension Number help="分机号码"
+Internal Exten Number="内部分机号码"
+Internal Exten Number help="内部分机号码"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -944,6 +968,8 @@ Immediate Send Cid="\"#\"立即送出"
 Immediate Send Cid help="\"#\"立即送出"
 Callout Min Interval="呼出最小间隔时间"
 Callout Min Interval help="呼出最小间隔时间(范围：400-10000ms，默认：2000ms)"
+Current Threshold="电流阈值"
+Current Threshold help="范围:1-65535"
 
 Use Callerid="使用主叫号码"
 
@@ -1156,17 +1182,20 @@ send CID before ringing="在振铃前发送CID"
 send CID after first ring="在第一声振铃后发送CID"
 send CID after second ring="在第二声振铃后发送CID"
 send CID after third ring="在第三声振铃后发送CID"
+FXS Signaling="FXS信令"
+FXS Signaling help="FXS信令"
+FXS Signaling change="修改FXS Signaling参数，会清空所有通道绑定的SIP，必须重启生效。"
 
 ;Hardware gain
 Hardware gain="硬件增益"
-FXO Rx gain="FXO往终端增益"
-FXO Rx gain help="将FXO设置为终端增益. 范围: 从 -150 到 120.<br/>"
-FXO Tx gain="FXO往IP端增益"
-FXO Tx gain help="将FXO设置为IP增益. 范围: 从 -150 到 120.<br/>"
-FXS Rx gain="FXS往终端增益"
-FXS Rx gain help="将FXS设置为终端增益. 范围:  -35 ,0 or 35.<br/>"
-FXS Tx gain="FXS往IP端增益"
-FXS Tx gain help="将FXS设置为IP增益. 范围:  -35,0 or 35.<br/>"
+FXO Rx gain="FXO往IP端增益"
+FXO Rx gain help="将FXO设置为IP增益. 范围: 从 -150 到 120.<br/>"
+FXO Tx gain="FXO往终端增益"
+FXO Tx gain help="将FXO设置为终端增益. 范围: 从 -150 到 120.<br/>"
+FXS Rx gain="FXS往IP端增益"
+FXS Rx gain help="将FXS设置为IP增益. 范围:  -35,0 or 35.<br/>"
+FXS Tx gain="FXS往终端增益"
+FXS Tx gain help="将FXS设置为终端增益. 范围:  -35 ,0 or 35.<br/>"
 
 ;Busy detect
 Busy detect="忙音检测"
@@ -1190,13 +1219,13 @@ Add More Busy Pattern Fields="添加新的忙音样式"
 Silence detect="静音检测"
 Silence detect help="打开或关闭检测检测功能. <br/>"
 Silence threshold="静音检测阀值"
-Silence threshold help="What we consider silence: the lower, the more sensitive, eg: 250 is 250ms.<br/>Range: 100 to 500(100 to 500ms), default: 250<br/>"
+Silence threshold help="我们认为静音：越低，越敏感，例如：250是250ms。<br/>范围：100到500（100到500ms），默认值：250<br/>"
 Max silence="最大静音分贝"
-Max silence help="How many silencethreshold of silence before hanging up(eg: 16 is 250ms * 16 = 4s).<br/>Range: 2 to 1020(200ms to 512s), default: 80(20s)<br/>"
+Max silence help="挂断前保持的静音值（例如：16是250ms*16=4s）。<br/>范围：2到1020（200ms到512s），默认值：80（20s）<br/>"
 Rx threshold="接收端阀值"
-Rx threshold help="Range: -20 dBm0 to -40 dBm0, default: 20 (-20 dBm0), all values are understood to be negative.<br/>"
+Rx threshold help="范围：-20 dBm0至-40 dBm0，默认值：20（-20 dBm0），所有值均为负值。<br/>"
 Tx threshold="发送端阀值"
-Tx threshold help="Range: -20 dBm0 to -40 dBm0, default: 20 (-20 dBm0), all values are understood to be negative.<br/>"
+Tx threshold help="范围：-20 dBm0至-40 dBm0，默认值：20（-20 dBm0），所有值均为负值。<br/>"
 
 ;Fax="Fax"
 Mode="模式"
@@ -1324,6 +1353,8 @@ Echocancel Range="回声消除信号长度范围：0-500"
 GlbSetting Restart help="您的设置需要重启Dahdi才能生效，确认重启Dahdi吗?"
 Echo Type="回声算法类型"
 Echo Type help="回声算法类型"
+Echo Mode="回声消除模式"
+Echo Mode help="回声消除模式"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -1349,7 +1380,7 @@ AutoPassword="密码递增"
 Batch="批量设置"
 js check username 1="'用户名' 不能为空!"
 js check username 2="'用户名'只允许数字或者英文字符，长度：1-32!"
-sip overwrite confirm="已存在, 是否想覆盖它?"
+sip overwrite confirm="已存在，保存将会被覆盖。"
 sips overwrite confirm="已存在,是否想覆盖它们?"
 port binding overwrite confirm="端口已配置, 你是否想重新配置?"
 ports binding overwrite confirm="端口已配置, 你是否想重新配置它们?"
@@ -1598,6 +1629,14 @@ IP Range="IP 范围"
 Subscribe Network Change Event="订阅网络更改时间"
 Subscribe Network Change Event help="当外部网络地址改变的时候，网关能够通过使用test_stun_monitor模块检测到这种改变<br/>.当安装了stun_monitor并且 <br/>进行了配置, <br/>当监视器检测到任何形式的网络变化时chan_sip 将更新所有出局注册.默认这个选项是使能的, 但是res_stun_monitor只能生效一次<br/>. 如果res_stun_monitor是使能的并且你不希望<br/>网络上的变化产生出局注册,使用下面的选项来禁止此功能."
 
+STUN Settings="STUN设置"
+Reflesh Request Interval="刷新请求间隔"
+Reflesh Request Interval help="刷新请求间隔"
+Server IP Adress/Domain Name="服务器IP地址/域名"
+Server IP Adress/Domain Name help="服务器IP地址/域名"
+STUN Switch="STUN开关"
+STUN Switch help="该功能需要在SIP高级设置页面开启STUN开关才能生效"
+
 Advanced:NAT Settings="高级:NAT 设置"
 Match External Address Locally="本地匹配外部地址"
 Match External Address Locally help="如果匹配成功，仅仅只是替代外部地址或者域名."
@@ -1734,6 +1773,9 @@ TLS Client Method="TLS客户端模式"
 TLS Client Method help="指定Outbound客户端连接协议，模式包括：tlsv1, sslv3, sslv2,默认是sslv2." 
 ;;values include tlsv1, sslv3, sslv2, Specify protocol for outbound client connections, default is sslv2.'
 Tls Keys="Tls 秘钥"
+Check Pem Format="您上传的文件不是pem格式，请重新上传。"
+Check Crt Format="您上传的文件不是crt格式，请重新上传。"
+
 Type="类型"
 Key Name="秘钥名称"
 IP Address="IP地址"
@@ -1755,7 +1797,7 @@ create key failed="创建key失败"
 Create="创建"
 TLS Server Existed help="只能创建一个server。"
 TLS Create Server help="请先创建server。"
-
+TLS key password same as server="请检查服务器密钥是否存在，客户端密码必须与服务器相同！"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -1903,6 +1945,8 @@ Sip Endpoint="SIP中继"
 CallerID="主叫分机号码"
 Fixed="批量设置(复制)"
 Batch@sip_fxo="批量设置(自增)"
+Increment="自增"
+Copy="复制"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
 ;	routing-group.php
@@ -1914,10 +1958,13 @@ Enable Internal SIP Call@Routing="开启SIP内部呼叫"
 Enable Internal SIP Call help@Routing="开启SIP内部呼叫"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
-;	network-lan.php
+;	network-vlan.php
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-[network-lan]
+[network-vlan]
+Basic Settings="基础设置"
+Network Type="网络模式"
+Network Type help="网络模式"
 Lan Settings="Lan设置"
 Wan Settings="Wan设置"
 Disable="无效"
@@ -1931,6 +1978,8 @@ Static="静态"
 DHCP="动态主机配置"
 MAC="物理地址"
 MAC help="网络接口物理地址"
+LAN1 Settings="LAN1设置"
+LAN2 Settings="LAN2设置"
 
 IPv4 Settings="IPv4 设置"
 Address="地址"
@@ -1955,8 +2004,11 @@ DNS Server="域名服务器"
 
 ;Save="保存"
 
+MAC Settings="MAC设置"
 Burn="烧录"
 Mac Tip="请输入12位的字符串，字符要求:0 - 9 或 a - f 或 A - F"
+MAC Address Diff="注意：MAC地址与当前地址不一致。"
+MAC Address Same="MAC地址与当前地址相同。"
 Burn Confirm="点击'烧录'完成之后，设备将自动关机！是否继续？"
 Network Type="网络类型"
 
@@ -1984,6 +2036,7 @@ Your domain help="web服务器所属域。<br/>"
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 [network-openvpn]
+VPN Information="VPN信息"
 VPNType="VPN类型"
 Server="服务器"
 Account="账号"
@@ -1991,6 +2044,8 @@ Account help="账号"
 Password help="密码"
 Domain="域名"
 Use MPPE="使用MPPE"
+IPSec Password="IPSec密码"
+IPSec Password help="IPSec密码"
 OpenVPN="OpenVPN"
 OpenVPN Configuration Files Upload="上传OpenVPN配置文件"
 OpenVPN help="开启/关闭OpenVPN客户端. <br/>"
@@ -2006,6 +2061,7 @@ Switch="开关"
 Switch help="开关"
 Server Port="服务器端口"
 Type help@network-openvpn="VPN的类型。<br/>OpenVPN:OpenVPN。<br/>PPTP VPN:PPTP VPN。<br/>无：无。"
+PPTP VPN Settings="PPTP VPN设置"
 PPTP VPN Configuration help="PPTP VPN服务器IP地址"
 PPTP VPN Account help="PPTP VPN账号"
 PPTP VPN Password help="PPTP VPN密码"
@@ -2016,6 +2072,16 @@ Connected="已连接"
 Failed to connect="连接失败"
 Zerotier VPN Settings="Zerotier VPN设置"
 L2TP VPN Settings="L2TP VPN设置"
+OPENVPN Account help="OPENVPN帐号"
+OPENVPN Password help="OPENVPN密码"
+OPENVPN Server IP help="OPENVPN服务器IP"
+OPENVPN Server Port help="OPENVPN服务器端口"
+PPTPVPN Server help="PPTPVPN服务器"
+PPTPVPN Account help="PPTPVPN帐号"
+PPTPVPN Password help="PPTPVPN密码"
+L2TPVPN Server="L2TPVPN服务器"
+L2TPVPN Username="L2TPVPN用户名"
+L2TPVPN Password="L2TPVPN密码"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -2036,6 +2102,7 @@ Add a Tcpdump paramter option="添加一个Tcpdump选项参数"
 tcpdump start failed="tcpdump开始失败"
 tcpdump stop failed="tcpdump停止失败"
 Other Options="其他选项"
+Clost Dialog Confirm="确实要关闭当前窗口吗？关闭后，数据将会丢失。"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
 ;	network-switch.php
@@ -2163,7 +2230,9 @@ Save file exist="文件已存在!"
 Delete File="删除文件"
 Delete File confirm="确定要删除文件么?"
 reload asterisk tip="你确定要重启Asterisk吗？"
-file delete tip="你确定要删除这个文件吗？" 
+file delete tip="你确定要删除这个文件吗？"
+Restart asterisk successfully="重启Asterisk成功"
+Restart asterisk failed="重启Asterisk失败"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -2192,6 +2261,7 @@ Password error="密码错误"
 User does not exist="用户不存在"
 You have been blacklisted="您已被加入黑名单"
 Custom Server="自定义服务器"
+Connection Timeout="连接超时"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -2258,6 +2328,39 @@ Community="共同体"
 Group Configuration="分组配置"
 View Configuration="视图配置"
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+;	adv-autoprovision.php
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[自动配置]
+Firmware Enable="固件开关"
+Firmware Enable help="固件开关"
+Configuration Enable="配置文件开关"
+Configuration Enable help="配置文件开关"
+Auto Provision Settings="自动配置设置"
+DHCP Option 66="DHCP Option 66"
+DHCP Option 66 help="从选项66 dhcp获得asc服务器地址"
+Auto Config Server URL="自动配置服务器地址"
+Auto Config Server URL help="自动配置服务器域名或IP"
+Upgrade Mode="更新模式"
+Upgrade Mode help="选择升级模式。<br/>重启:重启后升级系统。<br/>立即:保存后将会立即升级系统。"
+Power On="重启"
+Immediately="立即"
+Power On confirm="您的设置需要重启后生效！"
+Immediately confirm="您的系统将会立即升级系统，确定吗？"
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+;	adv-boardupdate.php
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Upload File="上传文件"
+Upload File help="上传文件"
+Upload File Confirm="确定要上传当前文件吗？"
+Version="版本"
+Online="在线"
+Offline="离线"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -2329,6 +2432,8 @@ OFF="关闭"
 Refresh Rate="刷新速率"
 Refresh="刷新"
 ;Clean Up="清除"
+Clean="清除"
+Refresh Successfully="刷新成功"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -2361,6 +2466,7 @@ clean up failed="清除日志失败"
 CDR Logs="CDR日志"
 Callee ID="被叫号码"
 Start Time="开始时间"
+End Time="结束时间"
 Duration="持续时长"
 
 DATABASE BUSY="数据库忙"
@@ -2397,6 +2503,7 @@ js check pppoepwd="请输入有效的密码"
 js check float="请输入浮点数"
 js check integer="请输入整数"
 js check busername="username需要设置一个编号"
+js check callwaiting="不能同时启用呼叫等待和呼叫转移。"
 
 js check smail="必须设置一个邮箱地址。"
 

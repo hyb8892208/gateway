@@ -68,8 +68,8 @@ export default new Vuex.Store({
       if(state.systemtype == 'nrtc' && state.menu[2]['child_menu'][4] != undefined &&  state.menu[2]['child_menu'][4].name == 'sip_accounts_security'){
         state.menu[2]['child_menu'].splice(4, 1)//sip_accounts_security
       }
-      if(state.FlexRoutingSw == 1 && state.menu[2]['child_menu'][2] != undefined && state.menu[2]['child_menu'][2].name == 'batch_create_sip'){
-        state.menu[2]['child_menu'].splice(2, 1)//batch_create_sip
+      if(state.FlexRoutingSw == 1 && state.menu[2]['child_menu'][1] != undefined && state.menu[2]['child_menu'][1].name == 'fxs_batch_binding_sip'){
+        state.menu[2]['child_menu'].splice(1, 1)//Sip-bendpoints
       }
       if(state.type == 2){
         if(state.menu[1]['child_menu'][5] != undefined && state.menu[1]['child_menu'][5].name == 'fxo'){

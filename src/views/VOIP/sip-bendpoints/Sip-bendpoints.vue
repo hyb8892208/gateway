@@ -240,6 +240,7 @@
                 }],
 
                 used_sip_arr: [],
+                already_bind_sip_arr: [],
                 autopassword_checked: false,
                 selected_sip: [],//保存多选框选中的选项
 
@@ -354,6 +355,7 @@
 
                 let _ana = data['_sipbend']['_ana']['_item']
                 this.used_sip_arr = data['_sipbend']['_sections']['_item']
+                this.already_bind_sip_arr = data['_sipbend']['_ana']['_item']
 
                 for(let i=0;i<_ana.length;i++){
                     if(_ana[i]['_signalling'] == 2 || _ana[i]['_signalling'] == 3) continue
@@ -384,6 +386,9 @@
             batch(){
                 let n = 0
 
+                //判断是否覆盖存在的sip
+                let repeat_sip_arr = []
+
                 this.selected_sip.forEach((item,index) => {
                     this.selected_sip[index].username = isNaN(parseInt(this.sipData[0].username) + n)
                         ? '' : (parseInt(this.sipData[0].username) + n)
@@ -402,7 +407,24 @@
                     this.selected_sip[index].codec_priority = this.sipData[0].codec_priority
                     this.selected_sip[index].support_codec = this.sipData[0].support_codec
                     n++
+
+                    for(let i=0;i<this.used_sip_arr.length;i++){
+                        if(this.selected_sip[index].username == this.used_sip_arr[i]._section){
+                            repeat_sip_arr.push(this.selected_sip[index].username)
+                        }
+                    }
                 })
+
+                if(repeat_sip_arr.length > 0) {
+                    let message = "SIP " + repeat_sip_arr.join(',') + " " + this.lang.sip_overwrite_confirm
+
+                    this.$message({
+                        message: message,
+                        type: 'warning',
+                        offset: '80',
+                        duration: 5000
+                    });
+                }
             },
             autopassword(checked){
                 if(checked){
@@ -427,15 +449,6 @@
             Save(){
                 const SipBendArr = new AST_SipBendArr()
                 const SipAnalogArr = new AST_SipAnalogArr()
-
-                let repeat_sip_arr = []
-                this.selected_sip.forEach(item => {
-                    for(let i=0;i<this.used_sip_arr.length;i++){
-                        if(item.username == this.used_sip_arr[i]._section){
-                            repeat_sip_arr.push(item.username)
-                        }
-                    }
-                })
 
                 //遍历选中选项
                 this.selected_sip.forEach(item => {
@@ -480,18 +493,28 @@
                 SipBendSave._sip = SipBendArr
                 SipBendSave._ana = SipAnalogArr
 
-                if(repeat_sip_arr.length > 0){
-                    let message = repeat_sip_arr.join(',')+ " " +this.lang.port_binding_overwrite_confirm
+                //判断是否通道是否绑定了sip
+                let bind_port_arr = []
+                this.selected_sip.forEach(item => {
+                    for(let i=0;i<this.already_bind_sip_arr.length;i++){
+                        if(item.sipnum == this.already_bind_sip_arr[i]._channel && this.already_bind_sip_arr[i]._associatedchnnl != ''){
+                            bind_port_arr.push(item.sipnum)
+                        }
+                    }
+                })
+
+                if(bind_port_arr.length > 0) {
+                    let message = bind_port_arr.join(',') + " " + this.lang.port_binding_overwrite_confirm
 
                     this.$confirm(message)
                         .then(_ => {
                             this.request.AGSipBendpointSave(this.save_succeed_back, this.save_error_back, SipBendSave)
                         })
-                    .catch(_ => {})
+                        .catch(_ => {
+                        })
                 }else{
                     this.request.AGSipBendpointSave(this.save_succeed_back, this.save_error_back, SipBendSave)
                 }
-
             },
             save_succeed_back(data){
                 if(data['_result'] == 0) {

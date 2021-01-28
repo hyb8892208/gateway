@@ -1,7 +1,7 @@
 <template>
     <el-form>
         <div class="page_title" style="margin-bottom: 0;border-bottom: 0;">
-            <h1 style="line-height: 50px;font-size: 18px;padding-left: 20px;">
+            <h1 style="line-height: 50px;font-size: 18px;">
                 {{lang.edit_sip_endpoint}} {{$route.params.section}}
                 <div style="float: right;line-height: 50px;margin-right: 20px;">
                     <el-button
@@ -1305,7 +1305,7 @@
                 }
 
                 this.outboundproxy = _context['_outboundproxy']
-                this.outboundproxy_port = is_add ? 5060 : _context['_outboundproxyport']
+                this.outboundproxy_port = is_add ? 5060 : (_context['_outboundproxyport'] == 0 ? 5060 : _context['_outboundproxyport'])
                 this.registery_enable = _context['_registeryenable'] == 1 ? true : false
                 this.registery_string = _context['_registerystring']
                 this.enableoutboundtohost = _context['_enableoutboundtohost'] == 1 ? true : false
@@ -1317,7 +1317,6 @@
                 }else{
                     this.tlssetup = 0
                 }
-
 
                 if(_context['_tlsprivatekey'] != ''){
                     let temp = _context['_tlsprivatekey'].split('/');
@@ -1341,8 +1340,8 @@
                 this.allowoverlap = parseInt(_context['_allowoverlap'])
                 this.usereqphone = parseInt(_context['_usereqphone'])
                 this.use_q850_reason = parseInt(_context['_useq850reason'])
-                this.honor_sdp_version = _context['_honorsdpversion'] == 0 ? 0 : 1
-                this.allowtransfer = _context['_allowtransfer'] == 0 ? 0 : 1
+                this.honor_sdp_version = is_add ? 1 : parseInt(_context['_honorsdpversion'])
+                this.allowtransfer = is_add ? 1 : parseInt(_context['_allowtransfer'])
                 this.promiscredir = parseInt(_context['_promiscredir'])
                 this.max_forwards = is_add ? 70 : _context['_maxforwards']
                 this.send_trying_on_register = parseInt(_context['_registertrying'])
@@ -1376,7 +1375,6 @@
                 });
             },
             Save(){
-                console.log(this.sync)
                 const sipcontext = new AST_SipContext()
 
                 sipcontext._username = this.anonymous == true ? 'anonymous' : this.ruleForm.username
@@ -1399,7 +1397,7 @@
                 sipcontext._registeruser = this.register_user
                 sipcontext._fromuser = this.from_user
                 sipcontext._fromdomain = this.fromdomain
-                sipcontext._port = this.port
+                sipcontext._port = this.port == '' ? 0 : this.port
                 sipcontext._qualify = this.qualify
                 sipcontext._qualifyfreq = this.qualifyfreq
                 sipcontext._outboundproxy = this.outboundproxy
@@ -1443,11 +1441,15 @@
                 sipcontext._sessionminse = this.session_minse
                 sipcontext._sessionexpires = this.session_expires
                 sipcontext._sessionrefresher = this.session_refresher
-                sipcontext._order = this.order
 
                 let allow = this.sip_codec_val_options.join('')
                 sipcontext._allow = allow
-                sipcontext._order = this.order
+
+                if(this.$route.params.section == undefined){
+                    sipcontext._order = this.$route.params.order
+                }else{
+                    sipcontext._order = this.order
+                }
 
                 sipcontext._md5 = md5(sipcontext._username+'-'+sipcontext._secret)
 
@@ -1939,6 +1941,7 @@
                 let old_endpoint_name = this.$route.params.section
                 old_endpoint_name = old_endpoint_name == undefined ? this.ruleForm.endpoint_name : old_endpoint_name
 
+                console.log(sipcontext)
                 this.request.AGSipEndpointSave(this.save_succeed_back, this.save_error_back, old_endpoint_name, this.ruleForm.endpoint_name, sipcontext, LineArr, SectionArr)
             },
             save_succeed_back(data){

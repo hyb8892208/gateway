@@ -168,6 +168,8 @@ OpenVox Copyright="OpenVox Analog Gateway All Rights Reserved.<br>TEL:+86-755-82
 
 Count Down="Count Down"
 Automatic restart system="Automatic restart system"
+Success="Success"
+Failed="Failed"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -237,6 +239,8 @@ Asterisk File Editor="Asterisk File Editor"
 Cloud="Cloud"
 TR069="TR069"
 SNMP="SNMP"
+Auto Provision="Auto Provision"
+Board Update="Board Update"
 
 Log Settings="Log Settings"
 System Logs="System Logs"
@@ -272,6 +276,15 @@ Delete confirm="Are you sure to delete you selected ?"
 Clean Up="Clean Up"
 Clean Up confirm="Are you sure to delete all logs ?"
 Export="Export"
+confirm="Confirm"
+Successfully Deleted="Successfully Deleted"
+Failed to delete="Failed to delete"
+Please select at least one item="Please select at least one item"
+Created Successfully="Created Successfully"
+Create Failed="Create Failed"
+Clean up successful="Clean up successful"
+Clean up failed="Clean up failed"
+Select all parameters="Select all parameters"
 
 Apply="Apply"
 Apply Bar help="Settings have been changed. Calls may be terminated when you apply these changes. Do you want to apply now ? "
@@ -330,6 +343,7 @@ Subnet Mask="Subnet Mask"
 RX packets="RX packets"
 TX packets="TX packets"
 Routing Information="Routing Information"
+P-t-P IP Address="P-t-P IP Address"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -489,6 +503,7 @@ Yakutsk="Yakutsk"
 
 Central and South America="Central and South America"
 Sao Paulo,Brazil="Sao Paulo,Brazil"
+Buenos_Aires,Argentina="Buenos_Aires,Argentina"
 Argentina="Argentina"
 Central America @no DST="Central America (no DST)"
 Venezuela="Venezuela"
@@ -528,8 +543,11 @@ web server port help="Specify the web server port number."
 Port help@system-login ssh="SSH login port number."
 js webserver http port help="Range: 1024-65535, Default 80. Some ports are forbidding."
 js webserver https port help="Range: 1024-65535, Default 443. Some ports are forbidding."
-
+Language Already exists="The language already exists"
 ;Save="Save"
+File upload help="The format of the uploaded file is incorrect."
+password should not be null="password should not be null"
+confirm password should not be null="confirm password should not be null"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -763,7 +781,9 @@ Factory reset wait="Restoring factory settings, the system will restart automati
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 [system-info]
 System Info="System Info"
+System Information="System Information"
 Model Name="Model Name"
+Serial Number="Serial Number"
 GSM Modem Description="GSM Modem Description"
 Software Version="Software Version"
 Hardware Version="Hardware Version"
@@ -783,6 +803,8 @@ Rebooting Counts="Rebooting Counts"
 ;System Time="System Time"
 System Uptime="System Uptime"
 clean failed="clean failed"
+Clear memory successfully="Clear memory successfully"
+Failed to clear memory="Failed to clear memory"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -917,6 +939,10 @@ Unlimit Tip="Are you sure you want to unlimit it?"
 Port Status Unlimit="Port Status:Unlimit."
 Extension Number="Extension Number"
 Extension Number help="Extension Number"
+
+Internal Exten Number="Internal Exten Number"
+Internal Exten Number help="Internal Exten Number"
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
 ;	alg_fxoparam.php and alg_fxsparam.php
@@ -937,6 +963,8 @@ Immediate Send Cid="\"#\" is sent out immediately"
 Immediate Send Cid help="\"#\" is sent out immediately"
 Callout Min Interval="Callout Min interval"
 Callout Min Interval help="Callout Min interval (range: 400-10000ms, default: 2000ms)"
+Current Threshold="Current threshold"
+Current Threshold help="Range:1-65535"
 
 Use Callerid="Use Callerid"
 
@@ -1148,17 +1176,20 @@ send CID before ringing="send CID before ringing"
 send CID after first ring="send CID after first ring"
 send CID after second ring="send CID after second ring"
 send CID after third ring="send CID after third ring"
+FXS Signaling="FXS Signaling"
+FXS Signaling help="FXS Signaling"
+FXS Signaling change="Modifying the FXS signaling parameter will clear all channel bound sip, which must be restarted to take effect."
 
 ;Hardware gain
 Hardware gain="Hardware gain"
 FXO Rx gain="FXO Rx gain"
-FXO Rx gain help="Set FXO to terminal gain. Range: from -150 to 120, the default is 0. <br/>"
+FXO Rx gain help="Set FXO to IP gain. Range: from -150 to 120, the default is 0. <br/>"
 FXO Tx gain="FXO Tx gain"
-FXO Tx gain help="Set FXO to IP gain. Range: from -150 to 120, the default is 0. <br/>"
+FXO Tx gain help="Set FXO to terminal gain. Range: from -150 to 120, the default is 0. <br/>"
 FXS Rx gain="FXS Rx gain"
-FXS Rx gain help="Set FXS to terminal gain. Range: -35, 0 or 35. the default is 0. <br/>"
+FXS Rx gain help="Set FXS to IP gain. Range: -35, 0 or 35. the default is 0. <br/>"
 FXS Tx gain="FXS Tx gain"
-FXS Tx gain help="Set FXS to IP gain. Range: -35, 0 or 35. the default is 0. <br/>"
+FXS Tx gain help="Set FXS to terminal gain. Range: -35, 0 or 35. the default is 0. <br/>"
 
 ;Busy detect
 Busy detect="Busy detect"
@@ -1315,6 +1346,8 @@ Echocancel Range="echocancel range:0-500"
 GlbSetting Restart help="Your settings need to be restarted dahdi to take effect. Are you sure to restart the dahdi?"
 Echo Type="Echo Type"
 Echo Type help="Echo Type"
+Echo Mode="Echo Mode"
+Echo Mode help="Echo Mode"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -1358,7 +1391,7 @@ Batch="Batch"
 Batch SIP Endpoints="Batch SIP Endpoints"
 js check username 1="'User Name' must not be null!"
 js check username 2="'User Name' only numbers or English characters are allowed,length: 1-32!"
-sip overwrite confirm="It already exists. Do you want to cover it?"
+sip overwrite confirm="already exists, save will be covered."
 sips overwrite confirm="It already exists. Do you want to cover it?"
 port binding overwrite confirm="port already configured, Do you want to reconfigure it?"
 ports binding overwrite confirm="port already configured, Do you want to reconfigure it?"
@@ -1525,7 +1558,6 @@ Batch="Batch"
 Batch SIP Endpoints="Batch SIP Endpoints"
 js check username 1="'User Name' must not be null!"
 js check username 2="'User Name' must be number!"
-sip overwrite confirm="already exists, Do you want to overlap it?"
 sips overwrite confirm="already exist, Do you want to overlap them?"
 port binding overwrite confirm="port already configured, Do you want to reconfigure it?"
 ports binding overwrite confirm="ports already configured, Do you want to reconfigure them?"
@@ -1623,6 +1655,14 @@ IP Range="IP Range"
 ;Action="Action"
 Subscribe Network Change Event="Subscribe Network Change Event"
 Subscribe Network Change Event help="Through the use of the test_stun_monitor module, the gateway has the ability to detect when<br/>the perceived external network address has changed. When the stun_monitor is installed and <br/>configured, chan_sip will renew all outbound registrations when the monitor detects any sort<br/>of network change has occurred. By default this option is enabled, but only takes effect once<br/>res_stun_monitor is configured. If res_stun_monitor is enabled and you wish to not generate all<br/>outbound registrations on a network change,use the option below to disable this feature."
+
+STUN Settings="STUN Settings"
+Reflesh Request Interval="Reflesh Request Interval"
+Reflesh Request Interval help="Reflesh Request Interval"
+Server IP Adress/Domain Name="Server IP Adress/Domain Name"
+Server IP Adress/Domain Name help="Server IP Adress/Domain Name"
+STUN Switch="STUN Switch"
+STUN Switch help="You need to turn on the stun switch on the SIP advanced settings page to take effect"
 
 Advanced:NAT Settings="Advanced:NAT Settings"
 Match External Address Locally="Match External Address Locally"
@@ -1761,6 +1801,8 @@ TLS Client Method="TLS Client Method"
 TLS Client Method help="values include tlsv1, sslv3, sslv2, Specify protocol for outbound client connections, default is sslv2." 
 ;;values include tlsv1, sslv3, sslv2, Specify protocol for outbound client connections, default is sslv2.'
 Tls Keys="Tls Keys"
+Check Pem Format="The file you upload is not pem format, please upload file again."
+Check Crt Format="The file you upload is not crt format, please upload file again."
 Type="Type"
 Key Name="Key Name"
 IP Address="IP Address"
@@ -1782,6 +1824,7 @@ create key failed="create key failed"
 Create="Create"
 TLS Server Existed help="Only one server can be created."
 TLS Create Server help="Please create the server first."
+TLS key password same as server="Please checking the server keys is exist or not and client password must be same with Server!"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -1930,6 +1973,8 @@ Sip Endpoint="Sip Endpoint"
 CallerID="CallerID"
 Fixed="Fixed"
 Batch@sip_fxo="Batch"
+Increment="Increment"
+Copy="Copy"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
 ;	routing-group.php
@@ -1941,10 +1986,13 @@ Enable Internal SIP Call@Routing="Enable Internal SIP Call"
 Enable Internal SIP Call help@Routing="Enable Internal SIP Call"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
-;	network-lan.php
+;	network-vlan.php
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-[network-lan]
+[network-vlan]
+Basic Settings="Basic Settings"
+Network Type="Network Type"
+Network Type help="Network Type"
 Lan Settings="Lan Settings"
 Wan Settings="Wan Settings"
 Disable="Disable"
@@ -1958,6 +2006,8 @@ Static="Static"
 DHCP="DHCP"
 MAC="MAC"
 MAC help="Physical address of your network interface."
+LAN1 Settings="LAN1 Settings"
+LAN2 Settings="LAN2 Settings"
 
 IPv4 Settings="IPv4 Settings"
 Address="Address"
@@ -1982,8 +2032,11 @@ DNS Server="DNS Server"
 
 ;Save="Save"
 
+MAC Settings="MAC Settings"
 Burn="Burn"
 Mac Tip="Please enter a 12-bit string with character requirements of 0-9 or a-f or A-F"
+MAC Address Diff="Note: MAC address is inconsistent with current."
+MAC Address Same="MAC address is the same as the current one."
 Burn Confirm="After clicking 'burning' to complete, the device will automatically shut down! Do you want to continue?"
 Network Type="Network Type"
 
@@ -2012,6 +2065,7 @@ Your domain help="The domain to which your web server will belong.<br/>"
 ;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 [network-openvpn]
+VPN Information="VPN Information"
 VPN Settings="VPN Settings"
 VPNType="VPNType"
 Server="Server"
@@ -2020,6 +2074,8 @@ Account help="Account"
 Password help="Password"
 Domain="Domain"
 Use MPPE="Use MPPE"
+IPSec Password="IPSec Password"
+IPSec Password help="IPSec Password"
 OpenVPN="OpenVPN"
 OpenVPN Configuration Files Upload="OpenVPN Configuration Files Upload"
 OpenVPN help="Enable/Disable OpenVPN Client. <br/>"
@@ -2034,10 +2090,10 @@ Download Samples="Download Samples"
 Switch="Switch"
 Switch help="Switch"
 Server Port="Server Port"
-PPTP VPN Settins="PPTP VPN Settings"
 Server="Server"
 PPTN VPN Configuration help="The pptp's server ip address."
 Account="Account"
+PPTP VPN Settins="PPTP VPN Settings"
 PPTP VPN Account help="pptp vpn account"
 PPTP VPN Password help="pptp vpn password"
 Domain="Domain"
@@ -2050,6 +2106,16 @@ Connected="Connected"
 Failed to connect="Failed to connect"
 Zerotier VPN Settings="Zerotier VPN Settings"
 L2TP VPN Settings="L2TP VPN Settings"
+OPENVPN Account help="OPENVPN Account"
+OPENVPN Password help="OPENVPN Password"
+OPENVPN Server IP help="OPENVPN Server IP"
+OPENVPN Server Port help="OPENVPN Server Port"
+PPTPVPN Server help="PPTPVPN Server"
+PPTPVPN Account help="PPTPVPN Account"
+PPTPVPN Password help="PPTPVPN Password"
+L2TPVPN Server="L2TPVPN Server"
+L2TPVPN Username="L2TPVPN Username"
+L2TPVPN Password="L2TPVPN Password"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -2070,6 +2136,7 @@ Add a Tcpdump paramter option="Add a Tcpdump paramter option"
 tcpdump start failed="tcpdump start failed"
 tcpdump stop failed="tcpdump stop failed"
 Other Options="Other Options"
+Clost Dialog Confirm="Are you sure you want to close the current window? After closing, the data will be lost."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
 ;	network-switch.php
@@ -2201,6 +2268,8 @@ Delete File="Delete File"
 Delete File confirm="Are you sure to delete this file?"
 reload asterisk tip="Are you sure to reload asterisk now?"
 file delete tip="Are you sure to delete this file?"
+Restart asterisk successfully="Restart asterisk successfully"
+Restart asterisk failed="Restart asterisk failed"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -2255,6 +2324,7 @@ Connection request username help="Connection request username"
 Connection request password="Connection request password"
 Connection request password help="Connection request password"
 Second="Second"
+Connection Timeout="Connection Timeout"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -2295,6 +2365,41 @@ Souce="Souce"
 Community="Community"
 Group Configuration="Group Configuration"
 View Configuration="View Configuration"
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+;	adv-autoprovision.php
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+[Auto Provision]
+Firmware Enable="Firmware Enable"
+Firmware Enable help="Firmware Enable"
+Configuration Enable="Configuration Enable"
+Configuration Enable help="Configuration Enable"
+Auto Provision="Auto Provision"
+Auto Provision Settings="Auto Provision Settings"
+DHCP Option 66="DHCP Option 66"
+DHCP Option 66 help="get asc server address from option 66 dhcp"
+Auto Config Server URL="Auto Config Server URL"
+Auto Config Server URL help="Auto Config Server URL"
+Upgrade Mode="Upgrade Mode"
+Upgrade Mode help="Select upgrade mode.<br/>restart: upgrade the system after restart.<br/>now: after saving, the system will be upgraded immediately."
+Power On="Power On"
+Immediately="Immediately"
+Power On confirm="Your Settings need to be rebooted to take effect!"
+Immediately confirm="Your system will be upgraded immediately. Are you sure?"
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;
+;	adv-boardupdate.php
+;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+Upload File="Upload File"
+Upload File help="Upload File"
+Upload File Confirm="Are you sure you want to upload the file?"
+Version="Version"
+Online="Online"
+Offline="Offline"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -2364,6 +2469,8 @@ OFF="OFF"
 Refresh Rate="Refresh Rate"
 Refresh="Refresh"
 ;Clean Up="Clean Up"
+Clean="Clean"
+Refresh Successfully="Refresh Successfully"
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;
@@ -2396,6 +2503,7 @@ clean up failed="clean up failed"
 CDR Logs="CDR Logs"
 Callee ID="Callee ID"
 Start Time="Start Time"
+End Time="End Time"
 Duration="Duration"
 
 DATABASE BUSY="DATABASE BUSY"
@@ -2435,6 +2543,7 @@ js check pppoepwd="Please input valid password"
 js check float="Please input floating number"
 js check integer="Please input integer number"
 js check busername="you need to set a number for username"
+js check callwaiting="Do not enable Call waiting and Call forward at same time."
 
 js check smail="You must set a email address."
 

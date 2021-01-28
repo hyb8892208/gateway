@@ -169,7 +169,6 @@
             batch(){
                 let n = 1
 
-                console.log(this.selected_sip)
                 this.selected_sip.forEach((item,index) => {
                     this.selected_sip[index].username = isNaN (parseInt(this.sipData[0].username) + n)
                         ? '' : (parseInt(this.sipData[0].username) + n - 1)

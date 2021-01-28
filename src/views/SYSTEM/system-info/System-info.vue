@@ -1,7 +1,7 @@
 <template>
     <el-form>
         <div class="page_title">
-            <h1 class="page_title" style="line-height: 50px;font-size: 18px;padding-left: 20px;">
+            <h1 style="line-height: 50px;font-size: 18px;">
                 {{lang.system_info}}
             </h1>
         </div>

@@ -61,7 +61,7 @@
                     <template slot-scope="scope">
                         <el-button
                                 size="mini"
-                                @click="Edit(scope.row.endpoint_name)"
+                                @click="Edit(scope.row.endpoint_name, scope.row.order)"
                         >{{lang.edit}}</el-button>
                         <el-button
                                 size="mini"
@@ -127,10 +127,17 @@
                 })
             },
             Add(){
-                this.$router.push('/SIP/voip-endpoints/add')
+                let order
+                if(this.sipData.length != 0){
+                    order = parseInt(this.sipData[this.sipData.length-1].order) + 1
+                }else{
+                    order = 1
+                }
+
+                this.$router.push('/SIP/voip-endpoints/add/' + order)
             },
-            Edit(section){
-                this.$router.push('/SIP/voip-endpoints/add/'+section)
+            Edit(section, order){
+                this.$router.push('/SIP/voip-endpoints/add/' + order + '/' +section)
             },
             Delete(section){
                 const SectionArr = new AST_SectionArr()
@@ -218,7 +225,8 @@
                     let obj = {
                         endpoint_name: item._section,
                         registration: refistration,
-                        credentials: credentials
+                        credentials: credentials,
+                        order: item._order
                     }
 
                     this.sipData.push(obj)

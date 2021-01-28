@@ -1,7 +1,7 @@
 <template>
     <div class="el-form">
         <div class="page_title" style="border-bottom: 0;margin-bottom: 0;">
-            <h1 style="line-height: 50px;font-size: 18px;padding-left: 20px;">
+            <h1 style="line-height: 50px;font-size: 18px;">
                 {{lang.advanced_sip_settings}}
                 <div style="float: right;line-height: 50px;margin-right: 20px;">
                     <el-button
