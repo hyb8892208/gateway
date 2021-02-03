@@ -134,10 +134,10 @@
                     order = 1
                 }
 
-                this.$router.push('/SIP/voip-endpoints/add/' + order)
+                this.$router.push('/SIP/Voip-endpoints/add/' + order)
             },
             Edit(section, order){
-                this.$router.push('/SIP/voip-endpoints/add/' + order + '/' +section)
+                this.$router.push('/SIP/Voip-endpoints/add/' + order + '/' +section)
             },
             Delete(section){
                 const SectionArr = new AST_SectionArr()

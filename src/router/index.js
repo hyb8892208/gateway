@@ -15,7 +15,7 @@ const routes = [
   {
     path: '/common/404',
     name: '404',
-    component: () => import('../views/common/404'),
+    component: () => import(/* webpackChunkName: "404" */ '../views/common/404'),
     meta:{
       title: '404'
     }
@@ -23,7 +23,7 @@ const routes = [
   {
     path: '/common/error',
     name: 'error',
-    component: () => import('../views/common/error'),
+    component: () => import(/* webpackChunkName: "error" */ '../views/common/error'),
     meta:{
       title: 'error'
     }
@@ -31,7 +31,7 @@ const routes = [
   {
     path: '/System/Status',
     name: 'System-Status',
-    component: () => import('../views/SYSTEM/system-status/System-status.vue'),
+    component: () => import(/* webpackChunkName: "System-status" */ '../views/SYSTEM/system-status/System-status.vue'),
     meta:{
       title: _language['System Status']
     }
@@ -39,7 +39,7 @@ const routes = [
   {
     path: '/System/time',
     name: 'System-time',
-    component: () => import('../views/SYSTEM/system-time/System-time.vue'),
+    component: () => import(/* webpackChunkName: "System-time" */ '../views/SYSTEM/system-time/System-time.vue'),
     meta:{
       title: _language['Time Settings']
     }
@@ -47,7 +47,7 @@ const routes = [
   {
     path: '/System/login',
     name: 'System-login',
-    component: () => import('../views/SYSTEM/system-login/System-login'),
+    component: () => import(/* webpackChunkName: "System-login" */ '../views/SYSTEM/system-login/System-login'),
     meta:{
       title: _language['Login Settings']
     }
@@ -55,7 +55,7 @@ const routes = [
   {
     path: '/System/general',
     name: 'System-general',
-    component: () => import('../views/SYSTEM/system-general/System-general'),
+    component: () => import(/* webpackChunkName: "System-general" */ '../views/SYSTEM/system-general/System-general'),
     meta:{
       title: _language['General']
     }
@@ -63,7 +63,7 @@ const routes = [
   {
     path: '/System/tools',
     name: 'System-tools',
-    component: () => import('../views/SYSTEM/system-tools/System-tools'),
+    component: () => import(/* webpackChunkName: "System-tools" */ '../views/SYSTEM/system-tools/System-tools'),
     meta:{
       title: _language['System Tools']
     }
@@ -71,7 +71,7 @@ const routes = [
   {
     path: '/System/info',
     name: 'System-info',
-    component: () => import('../views/SYSTEM/system-info/System-info'),
+    component: () => import(/* webpackChunkName: "System-info" */ '../views/SYSTEM/system-info/System-info'),
     meta:{
       title: _language['Information']
     }
@@ -79,7 +79,7 @@ const routes = [
   {
     path: '/System/Config-record',
     name: 'Config-record',
-    component: () => import('../views/SYSTEM/config-record/Config-record'),
+    component: () => import(/* webpackChunkName: "System-config-record" */ '../views/SYSTEM/config-record/Config-record'),
     meta:{
       title: _language['Config Record']
     }
@@ -87,7 +87,7 @@ const routes = [
   {
     path: '/System/Config-label',
     name: 'Config-label',
-    component: () => import('../views/SYSTEM/config-label/Config-label'),
+    component: () => import(/* webpackChunkName: "System-config-label" */ '../views/SYSTEM/config-label/Config-label'),
     meta:{
       title: _language['Config Label']
     }
@@ -95,7 +95,7 @@ const routes = [
   {
     path: '/Analog/Channel-Settings',
     name: 'Channel-Settings',
-    component: () => import('../views/ANALOG/channel-settings/Channel-settings'),
+    component: () => import(/* webpackChunkName: "Analog-Channel-settings" */ '../views/ANALOG/channel-settings/Channel-settings'),
     meta:{
       title: _language['Channel Settings']
     }
@@ -103,7 +103,7 @@ const routes = [
   {
     path: '/Analog/Channel-Settings/edit/:id',
     name: 'Channel-Settings-edit',
-    component: () => import('../views/ANALOG/channel-settings/edit'),
+    component: () => import(/* webpackChunkName: "Analog-Channel-settings-edit" */ '../views/ANALOG/channel-settings/edit'),
     meta:{
       title: _language['Channel Settings']
     }
@@ -111,7 +111,7 @@ const routes = [
   {
     path: '/Analog/Channel-Settings/edit',
     name: 'Channel-Settings-edit',
-    component: () => import('../views/ANALOG/channel-settings/edit'),
+    component: () => import(/* webpackChunkName: "Analog-Channel-settings-new" */ '../views/ANALOG/channel-settings/edit'),
     meta:{
       title: _language['Channel Settings']
     }
@@ -119,7 +119,7 @@ const routes = [
   {
     path: '/Analog/Pickup-Settings',
     name: 'Pickup-Settings',
-    component: () => import('../views/ANALOG/pickup-settings/Pickup-settings'),
+    component: () => import(/* webpackChunkName: "Analog-Pickup-settings" */ '../views/ANALOG/pickup-settings/Pickup-settings'),
     meta:{
       title: _language['Pickup']
     }
@@ -127,7 +127,7 @@ const routes = [
   {
     path: '/Analog/Dialtable',
     name: 'Dialtable',
-    component: () => import('../views/ANALOG/dialtable/Dialtable'),
+    component: () => import(/* webpackChunkName: "Analog-dialtable" */ '../views/ANALOG/dialtable/Dialtable'),
     meta:{
       title: _language['Dial Matching Table']
     }
@@ -135,7 +135,7 @@ const routes = [
   {
     path: '/Analog/Advanced',
     name: 'Advanced',
-    component: () => import('../views/ANALOG/advanced/Advanced'),
+    component: () => import(/* webpackChunkName: "Analog-Advanced" */ '../views/ANALOG/advanced/Advanced'),
     meta:{
       title: _language['Advanced']
     }
@@ -143,7 +143,7 @@ const routes = [
   {
     path: '/Analog/Funkeys',
     name: 'Funkeys',
-    component: () => import('../views/ANALOG/funkeys/Funkeys'),
+    component: () => import(/* webpackChunkName: "Analog-Funkeys" */ '../views/ANALOG/funkeys/Funkeys'),
     meta:{
       title: _language['Special Function Keys']
     }
@@ -151,7 +151,7 @@ const routes = [
   {
     path: '/Analog/Fxo',
     name: 'Fxo',
-    component: () => import('../views/ANALOG/fxo/fxo'),
+    component: () => import(/* webpackChunkName: "Analog-fxo" */ '../views/ANALOG/fxo/fxo'),
     meta:{
       title: _language['FXO']
     }
@@ -159,7 +159,7 @@ const routes = [
   {
     path: '/Analog/Fxs',
     name: 'Fxs',
-    component: () => import('../views/ANALOG/fxs/fxs'),
+    component: () => import(/* webpackChunkName: "Analog-fxs" */ '../views/ANALOG/fxs/fxs'),
     meta:{
       title: _language['FXS']
     }
@@ -167,7 +167,7 @@ const routes = [
   {
     path: '/Analog/Driver',
     name: 'Driver',
-    component: () => import('../views/ANALOG/driver/Driver'),
+    component: () => import(/* webpackChunkName: "Analog-Driver" */ '../views/ANALOG/driver/Driver'),
     meta:{
       title: _language['Driver']
     }
@@ -175,7 +175,7 @@ const routes = [
   {
     path: '/SIP/Voip-Endpoints',
     name: 'Voip-Endpoints',
-    component: () => import('../views/VOIP/voip-endpoints/Voip-endpoints'),
+    component: () => import(/* webpackChunkName: "SIP-Voip-endpoints" */ '../views/VOIP/voip-endpoints/Voip-endpoints'),
     meta:{
       title: _language['SIP Endpoints']
     }
@@ -183,7 +183,7 @@ const routes = [
   {
     path: '/SIP/Voip-Endpoints/add/:order',
     name: 'Voip-Endpoints-add',
-    component: () => import('../views/VOIP/voip-endpoints/add'),
+    component: () => import(/* webpackChunkName: "SIP-Voip-endpoints-new" */ '../views/VOIP/voip-endpoints/add'),
     meta:{
       title: _language['SIP Endpoints']
     }
@@ -191,7 +191,7 @@ const routes = [
   {
     path: '/SIP/Voip-Endpoints/add/:order/:section',
     name: 'Voip-Endpoints-add',
-    component: () => import('../views/VOIP/voip-endpoints/add'),
+    component: () => import(/* webpackChunkName: "SIP-Voip-endpoints-edit" */ '../views/VOIP/voip-endpoints/add'),
     meta:{
       title: _language['SIP Endpoints']
     }
@@ -199,7 +199,7 @@ const routes = [
   {
     path: '/SIP/Sip-bendpoints',
     name: 'Sip-bendpoints',
-    component: () => import('../views/VOIP/sip-bendpoints/Sip-bendpoints'),
+    component: () => import(/* webpackChunkName: "SIP-Sip-bendpoints" */ '../views/VOIP/sip-bendpoints/Sip-bendpoints'),
     meta:{
       title: _language['FXS Batch Binding SIP']
     }
@@ -207,7 +207,7 @@ const routes = [
   {
     path: '/SIP/Sip-batch-endpoints',
     name: 'Sip-batch-endpoints',
-    component: () => import('../views/VOIP/sip-batch-endpoints/Sip-batch-endpoints'),
+    component: () => import(/* webpackChunkName: "SIP-Sip-batch-endpoints" */ '../views/VOIP/sip-batch-endpoints/Sip-batch-endpoints'),
     meta:{
       title: _language['Batch Create SIP']
     }
@@ -215,7 +215,7 @@ const routes = [
   {
     path: '/SIP/Sip-adv-settings',
     name: 'Sip-adv-settings',
-    component: () => import('../views/VOIP/sip-adv-settings/Sip-adv-settings'),
+    component: () => import(/* webpackChunkName: "SIP-adv-settings" */ '../views/VOIP/sip-adv-settings/Sip-adv-settings'),
     meta:{
       title: _language['Advanced SIP Settings']
     }
@@ -223,7 +223,7 @@ const routes = [
   {
     path: '/SIP/Sip-Security',
     name: 'Sip-Security',
-    component: () => import('../views/VOIP/sip-security/Sip-security'),
+    component: () => import(/* webpackChunkName: "SIP-security" */ '../views/VOIP/sip-security/Sip-security'),
     meta:{
       title: _language['Sip Account Security']
     }
@@ -231,7 +231,7 @@ const routes = [
   {
     path: '/Routing/Call-Routing-Rules',
     name: 'Call-Routing-Rules',
-    component: () => import('../views/ROUTING/call-routing-rules/Call-routing-rules'),
+    component: () => import(/* webpackChunkName: "Routing-Call-routing-rules" */ '../views/ROUTING/call-routing-rules/Call-routing-rules'),
     meta:{
       title: _language['Call Routing Rules']
     }
@@ -239,7 +239,7 @@ const routes = [
   {
     path: '/Routing/Call-Routing-Rules/add/:order',
     name: 'Call-Routing-Rules-add',
-    component: () => import('../views/ROUTING/call-routing-rules/add'),
+    component: () => import(/* webpackChunkName: "Routing-Call-routing-rules-new" */ '../views/ROUTING/call-routing-rules/add'),
     meta:{
       title: _language['Call Routing Rules']
     }
@@ -247,7 +247,7 @@ const routes = [
   {
     path: '/Routing/Call-Routing-Rules/add/:order/:rule_name',
     name: 'Call-Routing-Rules-add',
-    component: () => import('../views/ROUTING/call-routing-rules/add'),
+    component: () => import(/* webpackChunkName: "Routing-Call-routing-rules-edit" */ '../views/ROUTING/call-routing-rules/add'),
     meta:{
       title: _language['Call Routing Rules']
     }
@@ -255,7 +255,7 @@ const routes = [
   {
     path: '/Routing/Group',
     name: 'Group',
-    component: () => import('../views/ROUTING/group/Group'),
+    component: () => import(/* webpackChunkName: "Routing-Group" */ '../views/ROUTING/group/Group'),
     meta:{
       title: _language['Groups']
     }
@@ -263,7 +263,7 @@ const routes = [
   {
     path: '/Routing/Group/add',
     name: 'Group-add',
-    component: () => import('../views/ROUTING/group/add'),
+    component: () => import(/* webpackChunkName: "Routing-Group-new" */ '../views/ROUTING/group/add'),
     meta:{
       title: _language['Groups']
     }
@@ -271,7 +271,7 @@ const routes = [
   {
     path: '/Routing/Group/add/:group_name',
     name: 'Group-add',
-    component: () => import('../views/ROUTING/group/add'),
+    component: () => import(/* webpackChunkName: "Routing-Group-edit" */ '../views/ROUTING/group/add'),
     meta:{
       title: _language['Groups']
     }
@@ -279,7 +279,7 @@ const routes = [
   {
     path: '/Routing/Batch-create-rules',
     name: 'Batch-create-rules',
-    component: () => import('../views/ROUTING/batch-create-rules/Batch-create-rules'),
+    component: () => import(/* webpackChunkName: "Routing-Batch-create-rules" */ '../views/ROUTING/batch-create-rules/Batch-create-rules'),
     meta:{
       title: _language['Batch Create Rules']
     }
@@ -287,7 +287,7 @@ const routes = [
   {
     path: '/Routing/Routing-advanced',
     name: 'Routing-advanced',
-    component: () => import('../views/ROUTING/routing-advanced/Routing-advanced'),
+    component: () => import(/* webpackChunkName: "Routing-advanced" */ '../views/ROUTING/routing-advanced/Routing-advanced'),
     meta:{
       title: _language['Advanced']
     }
@@ -295,7 +295,7 @@ const routes = [
   {
     path: '/Network/VLan',
     name: 'VLan',
-    component: () => import('../views/NETWORK/vlan/VLan'),
+    component: () => import(/* webpackChunkName: "Network-VLan" */ '../views/NETWORK/vlan/VLan'),
     meta:{
       title: _language['VLan Settings']
     }
@@ -303,7 +303,7 @@ const routes = [
   {
     path: '/Network/Lan',
     name: 'Lan',
-    component: () => import('../views/NETWORK/lan/Lan'),
+    component: () => import(/* webpackChunkName: "Network-Lan" */ '../views/NETWORK/lan/Lan'),
     meta:{
       title: _language['Lan Settings']
     }
@@ -311,7 +311,7 @@ const routes = [
   {
     path: '/Network/Wan',
     name: 'Wan',
-    component: () => import('../views/NETWORK/wan/Wan'),
+    component: () => import(/* webpackChunkName: "Network-Wan" */ '../views/NETWORK/wan/Wan'),
     meta:{
       title: _language['Wan Settings']
     }
@@ -319,7 +319,7 @@ const routes = [
   {
     path: '/Network/Vpn',
     name: 'Vpn',
-    component: () => import('../views/NETWORK/vpn/Vpn'),
+    component: () => import(/* webpackChunkName: "Network-VPN" */ '../views/NETWORK/vpn/Vpn'),
     meta:{
       title: _language['VPN Settings']
     }
@@ -327,7 +327,7 @@ const routes = [
   {
     path: '/Network/Ddns',
     name: 'Ddns',
-    component: () => import('../views/NETWORK/ddns/Ddns'),
+    component: () => import(/* webpackChunkName: "Network-DDNS" */ '../views/NETWORK/ddns/Ddns'),
     meta:{
       title: _language['DDNS Settings']
     }
@@ -335,7 +335,7 @@ const routes = [
   {
     path: '/Network/Toolkit',
     name: 'Toolkit',
-    component: () => import('../views/NETWORK/toolkit/Toolkit'),
+    component: () => import(/* webpackChunkName: "Network-Toolkit" */ '../views/NETWORK/toolkit/Toolkit'),
     meta:{
       title: _language['Network Toolkit']
     }
@@ -343,7 +343,7 @@ const routes = [
   {
     path: '/Network/Security-settings',
     name: 'Security-settings',
-    component: () => import('../views/NETWORK/security-settings/Security-settings'),
+    component: () => import(/* webpackChunkName: "Network-Security-settings" */ '../views/NETWORK/security-settings/Security-settings'),
     meta:{
       title: _language['Security Settings']
     }
@@ -351,7 +351,7 @@ const routes = [
   {
     path: '/Network/Security-rules',
     name: 'Security-rules',
-    component: () => import('../views/NETWORK/security-rules/Security-rules'),
+    component: () => import(/* webpackChunkName: "Network-Security-rules" */ '../views/NETWORK/security-rules/Security-rules'),
     meta:{
       title: _language['Security Rules']
     }
@@ -359,7 +359,7 @@ const routes = [
   {
     path: '/Network/Security-rules/add/',
     name: 'Security-rules-add',
-    component: () => import('../views/NETWORK/security-rules/add'),
+    component: () => import(/* webpackChunkName: "Network-Security-rules-new" */ '../views/NETWORK/security-rules/add'),
     meta:{
       title: _language['Security Rules']
     }
@@ -367,7 +367,7 @@ const routes = [
   {
     path: '/Network/Security-rules/add/:rule_name',
     name: 'Security-rules-add',
-    component: () => import('../views/NETWORK/security-rules/add'),
+    component: () => import(/* webpackChunkName: "Network-Security-rules-edit" */ '../views/NETWORK/security-rules/add'),
     meta:{
       title: _language['Security Rules']
     }
@@ -375,7 +375,7 @@ const routes = [
   {
     path: '/Network/mac',
     name: 'mac',
-    component: () => import('../views/NETWORK/mac/mac'),
+    component: () => import(/* webpackChunkName: "Network-mac" */ '../views/NETWORK/mac/mac'),
     meta:{
       title: 'MAC'
     }
@@ -383,7 +383,7 @@ const routes = [
   {
     path: '/Advanced/Adv-astapi',
     name: 'Adv-astapi',
-    component: () => import('../views/ADVANCED/adv-astapi/Adv-astapi'),
+    component: () => import(/* webpackChunkName: "Adv-astapi" */ '../views/ADVANCED/adv-astapi/Adv-astapi'),
     meta:{
       title: _language['Asterisk API']
     }
@@ -391,7 +391,7 @@ const routes = [
   {
     path: '/Advanced/Adv-astcli',
     name: 'Adv-astcli',
-    component: () => import('../views/ADVANCED/adv-astcli/Adv-astcli'),
+    component: () => import(/* webpackChunkName: "Adv-astcli" */ '../views/ADVANCED/adv-astcli/Adv-astcli'),
     meta:{
       title: _language['Asterisk CLI']
     }
@@ -399,7 +399,7 @@ const routes = [
   {
     path: '/Advanced/Adv-astfileeditor',
     name: 'Adv-astfileeditor',
-    component: () => import('../views/ADVANCED/adv-astfileeditor/Adv-astfileeditor'),
+    component: () => import(/* webpackChunkName: "Adv-astfileeditor" */ '../views/ADVANCED/adv-astfileeditor/Adv-astfileeditor'),
     meta:{
       title: _language['Asterisk File Editor']
     }
@@ -407,7 +407,7 @@ const routes = [
   {
     path: '/Advanced/Adv-astfileeditor/add',
     name: 'Adv-astfileeditor-add',
-    component: () => import('../views/ADVANCED/adv-astfileeditor/add'),
+    component: () => import(/* webpackChunkName: "Adv-astfileeditor-new" */ '../views/ADVANCED/adv-astfileeditor/add'),
     meta:{
       title: _language['Asterisk File Editor']
     }
@@ -415,7 +415,7 @@ const routes = [
   {
     path: '/Advanced/Adv-astfileeditor/add/:filename',
     name: 'Adv-astfileeditor-add',
-    component: () => import('../views/ADVANCED/adv-astfileeditor/add'),
+    component: () => import(/* webpackChunkName: "Adv-astfileeditor-edit" */ '../views/ADVANCED/adv-astfileeditor/add'),
     meta:{
       title: _language['Asterisk File Editor']
     }
@@ -423,7 +423,7 @@ const routes = [
   {
     path: '/Advanced/Adv-cloud',
     name: 'Adv-cloud',
-    component: () => import('../views/ADVANCED/adv-cloud/Adv-cloud'),
+    component: () => import(/* webpackChunkName: "Adv-cloud" */ '../views/ADVANCED/adv-cloud/Adv-cloud'),
     meta:{
       title: _language['Cloud']
     }
@@ -431,7 +431,7 @@ const routes = [
   {
     path: '/Advanced/Adv-tr069',
     name: 'Adv-tr069',
-    component: () => import('../views/ADVANCED/adv-tr069/Adv-tr069'),
+    component: () => import(/* webpackChunkName: "Adv-tr069" */ '../views/ADVANCED/adv-tr069/Adv-tr069'),
     meta:{
       title: 'TR069'
     }
@@ -439,7 +439,7 @@ const routes = [
   {
     path: '/Advanced/Adv-autoprovision',
     name: 'Adv-autoprovision',
-    component: () => import('../views/ADVANCED/adv-autoprovision/Adv-autoprovision'),
+    component: () => import(/* webpackChunkName: "Adv-autoprovision" */ '../views/ADVANCED/adv-autoprovision/Adv-autoprovision'),
     meta:{
         title: 'Auto Provision'
     }
@@ -447,7 +447,7 @@ const routes = [
   {
     path: '/Advanced/Adv-snmp',
     name: 'Adv-snmp',
-    component: () => import('../views/ADVANCED/adv-snmp/Adv-snmp'),
+    component: () => import(/* webpackChunkName: "Adv-snmp" */ '../views/ADVANCED/adv-snmp/Adv-snmp'),
     meta:{
       title: 'SNMP'
     }
@@ -455,7 +455,7 @@ const routes = [
   {
     path: '/Advanced/Adv-boardupdate',
     name: 'Adv-boardupdate',
-    component: () => import('../views/ADVANCED/adv-boardupdate/Adv-boardupdate'),
+    component: () => import(/* webpackChunkName: "Adv-boardupdate" */ '../views/ADVANCED/adv-boardupdate/Adv-boardupdate'),
     meta:{
       title: _language['Board Update']
     }
@@ -463,7 +463,7 @@ const routes = [
   {
     path: '/Log/Log-settings',
     name: 'Adv-Log-settings',
-    component: () => import('../views/LOG/log-settings/Log-settings'),
+    component: () => import(/* webpackChunkName: "Log-settings" */ '../views/LOG/log-settings/Log-settings'),
     meta:{
       title: _language['Log Settings']
     }
@@ -471,7 +471,7 @@ const routes = [
   {
     path: '/Log/System',
     name: 'System',
-    component: () => import('../views/LOG/system/System'),
+    component: () => import(/* webpackChunkName: "Log-System" */ '../views/LOG/system/System'),
     meta:{
       title: _language['System Logs']
     }
@@ -479,7 +479,7 @@ const routes = [
   {
     path: '/Log/Asterisk',
     name: 'Asterisk',
-    component: () => import('../views/LOG/asterisk/Asterisk'),
+    component: () => import(/* webpackChunkName: "Log-Asterisk" */ '../views/LOG/asterisk/Asterisk'),
     meta:{
       title: _language['Asterisk Logs']
     }
@@ -487,7 +487,7 @@ const routes = [
   {
     path: '/Log/SIP',
     name: 'SIP',
-    component: () => import('../views/LOG/sip/SIP'),
+    component: () => import(/* webpackChunkName: "Log-SIP" */ '../views/LOG/sip/SIP'),
     meta:{
       title: _language['SIP Logs']
     }
@@ -495,7 +495,7 @@ const routes = [
   {
     path: '/Log/Dahdi',
     name: 'Dahdi',
-    component: () => import('../views/LOG/dahdi/Dahdi'),
+    component: () => import(/* webpackChunkName: "Log-Dahdi" */ '../views/LOG/dahdi/Dahdi'),
     meta:{
       title: _language['DAHDI Logs']
     }
@@ -503,7 +503,7 @@ const routes = [
   {
     path: '/Log/CDR',
     name: 'CDR',
-    component: () => import('../views/LOG/cdr/CDR'),
+    component: () => import(/* webpackChunkName: "Log-CDR" */ '../views/LOG/cdr/CDR'),
     meta:{
       title: _language['CDR']
     }
@@ -512,7 +512,7 @@ const routes = [
   {
     path: '/call-test',
     name: 'call-test',
-    component: () => import('../views/other/call-test'),
+    component: () => import(/* webpackChunkName: "call-test" */ '../views/other/call-test'),
     meta:{
       title: _language['Call Test']
     }

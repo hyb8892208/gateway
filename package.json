@@ -9,6 +9,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
+    "element-ui": "^2.15.0",
     "js-md5": "^0.7.3",
     "sortable.js": "^0.3.0",
     "vue": "^2.6.11",

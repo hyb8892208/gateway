@@ -9,7 +9,6 @@
         name: "footer_new",
         data(){
             return {
-                copyright: ''
             }
         },
         computed: {

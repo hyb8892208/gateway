@@ -3,7 +3,7 @@
         <el-row class="tac" style="height: 100%;">
             <el-col :span="24" style="height: 100%;">
                 <el-menu
-                        :default-active="$store.state.menuActive"
+                        :default-active="$route.path == '/' ? menuActive : '/'+$route.path.split('/')[1]+'/'+$route.path.split('/')[2]"
                         background-color="#3b5998"
                         text-color="#ffffff"
                         active-text-color="#ffffff"
@@ -45,17 +45,27 @@
             return {
                 menu_name: '',
                 menu: [],
+                menuActive: '/System/Status',
                 lang: this.$store.state.lang
             }
         },
         methods: {
             is_show_menu() {
                 this.$emit('child_mobile_hide_aside')
+                this.menu_name = ''
                 this.reload()
             },
 
             querySearch(queryString, callback) {
-                let results = queryString ? this.menu.filter(this.createFilter(queryString)) : this.menu
+                let menu = []
+
+                this.$store.state.menu.forEach(item => {
+                    item.child_menu.forEach(tmp => {
+                        tmp['value'] = this.lang[item.name]+'->'+this.lang[tmp.name]
+                        menu.push(tmp)
+                    })
+                })
+                let results = queryString ? menu.filter(this.createFilter(queryString)) : menu
 
                 callback(results)
             },
@@ -65,38 +75,38 @@
                 }
             },
             loadAll() {
-
                 let arr = []
                 let menu = this.$store.state.menu
                 for(let i=0;i<menu.length;i++){
                     menu[i].child_menu.forEach(item => {
-                        item['value'] = this.lang[item.name]
+                        item['value'] = this.lang[menu[i].name]+'->'+this.lang[item.name]
                         arr.push(item)
                     })
                 }
 
                 return arr
-              },
-              handleSelect(item) {
-                  this.$router.push(item.index)
-                  this.$store.state.menuActive = item.index
-              }
-          },
-          mounted() {
-              let url = '/' + window.location.href.split("//")[1].split("/")[1]
-                  + '/' + window.location.href.split("//")[1].split("/")[2]
+            },
+            handleSelect(item) {
+                this.$router.push(item.index)
+                this.menuActive = item.index
+            }
+        },
+        mounted() {
+            this.menu = this.loadAll()
+        },
+        created() {
+            let url = '/' + window.location.href.split("//")[1].split("/")[1]
+                + '/' + window.location.href.split("//")[1].split("/")[2]
 
-              if(url == '//undefined')
-                  url = '/System/Status'
+            if(url == '//undefined')
+                url = '/System/Status'
 
-              if(url.indexOf('?') > -1){
-                  url = url.split('?')[0]
-              }
-              this.$store.state.menuActive = url
-
-              this.menu = this.loadAll()
-          }
-      }
+            if(url.indexOf('?') > -1){
+                url = url.split('?')[0]
+            }
+            this.menuActive = url
+        }
+    }
 </script>
 
 <style scoped>

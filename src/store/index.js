@@ -23,10 +23,9 @@ const state = {
   TLS: 0,
   L2TPvpn: 0,
   CheckFXSCurrSta: 0,
-  menuActive: '/System/Status',//导航栏切换
 
   menu_loading: true,
-  menu: menu.menu,
+  menu: [],
 
   page:page_properties.page_properties,
 
@@ -51,6 +50,8 @@ export default new Vuex.Store({
       state.L2TPvpn = common_data['_features']['_L2TPvpn']
       state.CheckFXSCurrSta = common_data['_features']['_CheckFXSCurrSta']
 
+      state.menu = menu.menu
+
       if(state.menu[0]['child_menu'][7] != undefined && state.menu[0]['child_menu'][7].name == 'config_label'){
         state.menu[0]['child_menu'].splice(7, 1)//config_label
       }
@@ -58,10 +59,10 @@ export default new Vuex.Store({
         state.menu[0]['child_menu'].splice(6, 1)//config_record
       }
 
-      if(state.menu[4]['child_menu'][2] != undefined && state.menu[4]['child_menu'][2].name == 'wan_settings'){
+      if (state.menu[4]['child_menu'][2] != undefined && state.menu[4]['child_menu'][2].name == 'wan_settings') {
         state.menu[4]['child_menu'].splice(2, 1)
       }
-      if(state.menu[4]['child_menu'][1] != undefined && state.menu[4]['child_menu'][1].name == 'lan_settings') {
+      if (state.menu[4]['child_menu'][1] != undefined && state.menu[4]['child_menu'][1].name == 'lan_settings') {
         state.menu[4]['child_menu'].splice(1, 1)
       }
 

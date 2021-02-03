@@ -34,7 +34,7 @@
                             <form_item_sync v-bind:param="'endpoint_name'">
                                 <span slot="param_help" v-html="lang.name_help"></span>
                                 <span slot="param_name" >{{lang.name}}</span>
-                                <el-input slot="param" v-model="ruleForm.endpoint_name"></el-input>
+                                <el-input slot="param" v-model.lazy="ruleForm.endpoint_name"></el-input>
                             </form_item_sync>
                         </el-row>
 
@@ -50,7 +50,7 @@
                                                 </el-tooltip>:
                                             </label>
                                             <el-col :lg="15" :sm="22" :xs="22">
-                                                <el-input v-model="anonymous ? '' : ruleForm.username"
+                                                <el-input v-model.lazy="anonymous ? '' : ruleForm.username"
                                                           @change="username_change"
                                                           :disabled="anonymous"></el-input>
                                             </el-col>
@@ -66,7 +66,7 @@
                             <form_item_sync v-bind:param="'password'">
                                 <span slot="param_help" v-html="lang.password_help"></span>
                                 <span slot="param_name" >{{lang.password}}</span>
-                                <el-input slot="param" v-model="anonymous ? '' : ruleForm.password" :disabled="anonymous" show-password></el-input>
+                                <el-input slot="param" v-model.lazy="anonymous ? '' : ruleForm.password" :disabled="anonymous" show-password></el-input>
                             </form_item_sync>
                         </el-row>
 
@@ -87,7 +87,7 @@
                             <form_item_sync v-bind:param="'host'">
                                 <span slot="param_help" v-html="lang.hostname_or_ipaddress_help"></span>
                                 <span slot="param_name" >{{lang.hostname_or_ipaddress}}</span>
-                                <el-input slot="param" v-model="ruleForm.host" @change="host_change"></el-input>
+                                <el-input slot="param" v-model.lazy="ruleForm.host" @change="host_change"></el-input>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.host_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -96,13 +96,13 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.backup_hostname_or_ip_help"></span>
                                 <span slot="param_name" >{{lang.backup_hostname_or_ip}}</span>
-                                <el-input slot="param" v-model="backup_host"></el-input>
+                                <el-input slot="param" v-model.lazy="backup_host"></el-input>
                             </form_item_sync>
 
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.port_help"></span>
                                 <span slot="param_name" >{{lang.port}}</span>
-                                <el-input slot="param" v-model="port"></el-input>
+                                <el-input slot="param" v-model.lazy="port"></el-input>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.port_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -111,26 +111,18 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.transport_help"></span>
                                 <span slot="param_name" >{{lang.transport}}</span>
-                                <el-select slot="param" v-model="transport" style="width: 100%">
-                                    <el-option
-                                            v-for="item in transport_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="transport"
+                                             :options="transport_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.transport_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.nat_traversal_help"></span>
                                 <span slot="param_name" >{{lang.nat_traversal}}</span>
-                                <el-select slot="param" v-model="nat" style="width: 100%">
-                                    <el-option
-                                            v-for="item in nat_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="nat"
+                                             :options="nat_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.nat_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -152,13 +144,9 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.vos_encryption_help"></span>
                                 <span slot="param_name" >{{lang.vos_encryption}}</span>
-                                <el-select slot="param" v-model="vosencrypt" style="width: 100%">
-                                    <el-option
-                                            v-for="item in vosencrypt_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="vosencrypt"
+                                             :options="vosencrypt_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.vosencrypt_sync"></el-checkbox>
                             </form_item_sync>
 
@@ -175,7 +163,7 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.authentication_user_help"></span>
                                 <span slot="param_name" >{{lang.authentication_user}}</span>
-                                <el-input slot="param" v-model="authentication_user" :disabled="!(this.registration == 1)"></el-input>
+                                <el-input slot="param" v-model.lazy="authentication_user" :disabled="!(this.registration == 1)"></el-input>
                             </form_item_sync>
 
                             <el-col :lg="12">
@@ -189,7 +177,7 @@
                                                 </el-tooltip>:
                                             </label>
                                             <el-col :lg="15" :sm="22" :xs="22">
-                                                <el-input v-model="register_extension" :disabled="!(this.registration == 1)" :readonly="register_extension_readonly"></el-input>
+                                                <el-input v-model.lazy="register_extension" :disabled="!(this.registration == 1)" :readonly="register_extension_readonly"></el-input>
                                             </el-col>
                                             <el-col :lg="7" style="margin-left: 20px;">
                                                 <el-checkbox v-model="register_extension_readonly">{{lang.readonly}}</el-checkbox>
@@ -215,7 +203,7 @@
                                                 </el-tooltip>:
                                             </label>
                                             <el-col :lg="15" :sm="22" :xs="22">
-                                                <el-input v-model="register_user" :readonly="register_user_readonly"></el-input>
+                                                <el-input v-model.lazy="register_user" :readonly="register_user_readonly"></el-input>
                                             </el-col>
                                             <el-col :lg="7" style="margin-left: 20px;">
                                                 <el-checkbox v-model="register_user_readonly">{{lang.readonly}}</el-checkbox>
@@ -241,7 +229,7 @@
                                                 </el-tooltip>:
                                             </label>
                                             <el-col :lg="15" :sm="22" :xs="22">
-                                                <el-input v-model="from_user" :readonly="from_user_readonly"></el-input>
+                                                <el-input v-model.lazy="from_user" :readonly="from_user_readonly"></el-input>
                                             </el-col>
                                             <el-col :lg="7" style="margin-left: 20px;">
                                                 <el-checkbox v-model="from_user_readonly">{{lang.readonly}}</el-checkbox>
@@ -261,20 +249,16 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.from_domain_help"></span>
                                 <span slot="param_name" >{{lang.from_domain}}</span>
-                                <el-input slot="param" v-model="fromdomain"></el-input>
+                                <el-input slot="param" v-model.lazy="fromdomain"></el-input>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.fromdomain_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.qualify_help"></span>
                                 <span slot="param_name" >{{lang.qualify}}</span>
-                                <el-select slot="param" v-model="qualify" style="width: 100%">
-                                    <el-option
-                                            v-for="item in qualify_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="qualify"
+                                             :options="qualify_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.qualify_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -283,7 +267,7 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.qualify_frequency_help"></span>
                                 <span slot="param_name" >{{lang.qualify_frequency}}</span>
-                                <el-input slot="param" v-model="qualifyfreq"></el-input>
+                                <el-input slot="param" v-model.lazy="qualifyfreq"></el-input>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.qualify_frequency_sync"></el-checkbox>
                             </form_item_sync>
 
@@ -300,10 +284,10 @@
                                             <el-col :span="22">
                                                 <el-row :gutter="20">
                                                     <el-col :span="18">
-                                                        <el-input v-model="outboundproxy"></el-input>
+                                                        <el-input v-model.lazy="outboundproxy"></el-input>
                                                     </el-col>
                                                     <el-col :span="6">
-                                                        <el-input v-model="outboundproxy_port"></el-input>
+                                                        <el-input v-model.lazy="outboundproxy_port"></el-input>
                                                     </el-col>
                                                 </el-row>
                                             </el-col>
@@ -330,7 +314,7 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.registery_string_help"></span>
                                 <span slot="param_name" >{{lang.registery_string}}</span>
-                                <el-input slot="param" v-model="registery_string" :disabled="!registery_enable"></el-input>
+                                <el-input slot="param" v-model.lazy="registery_string" :disabled="!registery_enable"></el-input>
                             </form_item_sync>
                         </el-row>
 
@@ -345,13 +329,9 @@
                             <form_item_sync v-if="transport == 2">
                                 <span slot="param_help" v-html="lang.tlsverify_help"></span>
                                 <span slot="param_name" >{{lang.tlsverify}}</span>
-                                <el-select slot="param" v-model="tlsverify" style="width: 100%">
-                                    <el-option
-                                            v-for="item in tlsverify_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="tlsverify"
+                                             :options="tlsverify_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.tlsverify_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -360,20 +340,16 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.tlssetup_help"></span>
                                 <span slot="param_name" >{{lang.tlssetup}}</span>
-                                <el-select slot="param" v-model="tlssetup" style="width: 100%">
-                                    <el-option
-                                            v-for="item in tlssetup_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="tlssetup"
+                                             :options="tlssetup_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.tlssetup_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.tlsprivatekey_help"></span>
                                 <span slot="param_name" >{{lang.tlsprivatekey}}</span>
-                                <el-input slot="param" v-model="tlsprivatekey"></el-input>
+                                <el-input slot="param" v-model.lazy="tlsprivatekey"></el-input>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.tlsprivatekey_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -382,13 +358,9 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.encryption_help"></span>
                                 <span slot="param_name" >{{lang.encryption}}</span>
-                                <el-select slot="param" v-model="encryption" style="width: 100%">
-                                    <el-option
-                                            v-for="item in encryption_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="encryption"
+                                             :options="encryption_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.encryption_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -413,13 +385,9 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.dtmf_mode_help"></span>
                                 <span slot="param_name" >{{lang.dtmf_mode}}</span>
-                                <el-select slot="param" v-model="dtmfmode" style="width: 100%">
-                                    <el-option
-                                            v-for="item in dtmfmode_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="dtmfmode"
+                                             :options="dtmfmode_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.dtmfmode_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -430,7 +398,7 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.call_limit_help"></span>
                                 <span slot="param_name" >{{lang.call_limit}}</span>
-                                <el-input slot="param" v-model="call_limit"></el-input>
+                                <el-input slot="param" v-model.lazy="call_limit"></el-input>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.call_limit_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -441,26 +409,18 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.trust_id_help"></span>
                                 <span slot="param_name" >{{lang.trust_id}}</span>
-                                <el-select slot="param" v-model="trustrpid" style="width: 100%">
-                                    <el-option
-                                            v-for="item in trustrpid_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="trustrpid"
+                                             :options="trustrpid_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.trustrpid_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.send_remote_party_id_help"></span>
                                 <span slot="param_name" >{{lang.send_remote_party_id}}</span>
-                                <el-select slot="param" v-model="sendrpid" style="width: 100%">
-                                    <el-option
-                                            v-for="item in sendrpid_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="sendrpid"
+                                             :options="sendrpid_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.sendrpid_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -469,26 +429,18 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.remote_party_id_format_help"></span>
                                 <span slot="param_name" >{{lang.remote_party_id_format}}</span>
-                                <el-select slot="param" v-model="rpid_format" style="width: 100%">
-                                    <el-option
-                                            v-for="item in rpid_format_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="rpid_format"
+                                             :options="rpid_format_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.rpid_format_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.caller_id_presentation_help"></span>
                                 <span slot="param_name" >{{lang.caller_id_presentation}}</span>
-                                <el-select slot="param" v-model="callingpres" style="width: 100%">
-                                    <el-option
-                                            v-for="item in callingpres_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="callingpres"
+                                             :options="callingpres_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.callingpres_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -499,26 +451,18 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.progress_inband_help"></span>
                                 <span slot="param_name" >{{lang.progress_inband}}</span>
-                                <el-select slot="param" v-model="progressinband" style="width: 100%">
-                                    <el-option
-                                            v-for="item in progressinband_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="progressinband"
+                                             :options="progressinband_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.progressinband_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.allow_overlap_dialing_help"></span>
                                 <span slot="param_name" >{{lang.allow_overlap_dialing}}</span>
-                                <el-select slot="param" v-model="allowoverlap" style="width: 100%">
-                                    <el-option
-                                            v-for="item in allowoverlap_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="allowoverlap"
+                                             :options="allowoverlap_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.allowoverlap_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -527,26 +471,18 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.append_user"></span>
                                 <span slot="param_name" >{{lang.append_user}}</span>
-                                <el-select slot="param" v-model="usereqphone" style="width: 100%">
-                                    <el-option
-                                            v-for="item in usereqphone_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="usereqphone"
+                                             :options="usereqphone_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.usereqphone_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.add_reason_header_help"></span>
                                 <span slot="param_name" >{{lang.add_reason_header}}</span>
-                                <el-select slot="param" v-model="use_q850_reason" style="width: 100%">
-                                    <el-option
-                                            v-for="item in use_q850_reason_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="use_q850_reason"
+                                             :options="use_q850_reason_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.use_q850_reason_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -555,26 +491,18 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.honor_sdp_version_help"></span>
                                 <span slot="param_name" >{{lang.honor_sdp_version}}</span>
-                                <el-select slot="param" v-model="honor_sdp_version" style="width: 100%">
-                                    <el-option
-                                            v-for="item in honor_sdp_version_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="honor_sdp_version"
+                                             :options="honor_sdp_version_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.honor_sdp_version_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.allow_transfers_help"></span>
                                 <span slot="param_name" >{{lang.allow_transfers}}</span>
-                                <el-select slot="param" v-model="allowtransfer" style="width: 100%">
-                                    <el-option
-                                            v-for="item in allowtransfer_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="allowtransfer"
+                                             :options="allowtransfer_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.allowtransfer_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -583,20 +511,16 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.allow_promiscuous_redirects_help"></span>
                                 <span slot="param_name" >{{lang.allow_promiscuous_redirects}}</span>
-                                <el-select slot="param" v-model="promiscredir" style="width: 100%">
-                                    <el-option
-                                            v-for="item in promiscredir_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="promiscredir"
+                                             :options="promiscredir_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.promiscredir_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.max_forwards_help"></span>
                                 <span slot="param_name" >{{lang.max_forwards}}</span>
-                                <el-input slot="param" v-model="max_forwards"></el-input>
+                                <el-input slot="param" v-model.lazy="max_forwards"></el-input>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.max_forwards_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -605,13 +529,9 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.send_trying_on_register_help"></span>
                                 <span slot="param_name" >{{lang.send_trying_on_register}}</span>
-                                <el-select slot="param" v-model="send_trying_on_register" style="width: 100%">
-                                    <el-option
-                                            v-for="item in send_trying_on_register_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="send_trying_on_register"
+                                             :options="send_trying_on_register_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.send_trying_on_register_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -622,14 +542,14 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.default_t1_timer_help"></span>
                                 <span slot="param_name" >{{lang.default_t1_timer}}</span>
-                                <el-input slot="param" v-model="timert1"></el-input>
+                                <el-input slot="param" v-model.lazy="timert1"></el-input>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.timert1_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.call_setup_timer_help"></span>
                                 <span slot="param_name" >{{lang.call_setup_timer}}</span>
-                                <el-input slot="param" v-model="timerb"></el-input>
+                                <el-input slot="param" v-model.lazy="timerb"></el-input>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.timerb_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -638,20 +558,16 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.session_timers_help"></span>
                                 <span slot="param_name" >{{lang.session_timers}}</span>
-                                <el-select slot="param" v-model="session_timers" style="width: 100%">
-                                    <el-option
-                                            v-for="item in session_timers_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="session_timers"
+                                             :options="session_timers_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.session_timers_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.minimun_session_refresh_interval_help"></span>
                                 <span slot="param_name" >{{lang.minimun_session_refresh_interval}}</span>
-                                <el-input slot="param" v-model="session_minse"></el-input>
+                                <el-input slot="param" v-model.lazy="session_minse"></el-input>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.session_minse_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -660,20 +576,16 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.maximun_session_refresh_interval_help"></span>
                                 <span slot="param_name" >{{lang.maximun_session_refresh_interval}}</span>
-                                <el-input slot="param" v-model="session_expires"></el-input>
+                                <el-input slot="param" v-model.lazy="session_expires"></el-input>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.session_expires_sync"></el-checkbox>
                             </form_item_sync>
 
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.session_refresher_help"></span>
                                 <span slot="param_name" >{{lang.session_refresher}}</span>
-                                <el-select slot="param" v-model="session_refresher" style="width: 100%">
-                                    <el-option
-                                            v-for="item in session_refresher_options"
-                                            :label="item.label"
-                                            :key="item.value"
-                                            :value="item.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="session_refresher"
+                                             :options="session_refresher_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.session_refresher_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -697,13 +609,9 @@
                             <form_item_sync>
                                 <span slot="param_help" v-html="lang.codec_priority"></span>
                                 <span slot="param_name" >{{lang.codec_priority}} {{index+1}}</span>
-                                <el-select slot="param" v-model="sip_codec_val_options[index]" style="width: 100%">
-                                    <el-option
-                                            v-for="i in sip_codec_priority_options"
-                                            :label="i.label"
-                                            :key="i.value"
-                                            :value="i.value"></el-option>
-                                </el-select>
+                                <select_item slot="param" :bind_val="sip_codec_val_options[index]"
+                                             :options="sip_codec_priority_options"
+                                ></select_item>
                                 <el-checkbox slot="param_sync" v-show="show_sync_params" v-model="sync.sip_codec_priority_sync"></el-checkbox>
                             </form_item_sync>
                         </el-row>
@@ -752,9 +660,13 @@
 <script>
     import {MENU} from "../../../store/mutations-types";
     import {debuger} from "../../../debug/debug";
+    import select_item from "../../../components/select_item";
 
     export default {
         name: "add",
+        components:{
+            select_item
+        },
         data() {
             var validateEndpointname = (rule, value, callback) => {
                 var rex = /^[0-9a-zA-Z`~\+!@#$%^*()_{}:|?\=.]{1,32}$/i;

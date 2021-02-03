@@ -1,6 +1,6 @@
 <template>
     <div style="line-height: 54px;">
-        <a href="/System/Status"><img src="../../../src/assets/logo_openvox.png" style="display: inline-block;vertical-align: middle;margin-left:10px;" /></a>
+        <a href="/System/Status"><img src="../../assets/images/logo_openvox.png" style="display: inline-block;vertical-align: middle;margin-left:10px;" /></a>
 
         <ul class="header-operations">
             <li>
