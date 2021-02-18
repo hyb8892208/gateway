@@ -163,7 +163,7 @@
                 this.$message({
                     message: this.lang.upload_successful,
                     type: 'success',
-                    offset: '80'
+                    offset: 80
                 })
             },
             selection_change(val){
@@ -197,7 +197,7 @@
                 this.$message({
                     message: '测试成功',
                     type: 'success',
-                    offset: '80'
+                    offset: 80
                 })
 
                 //show result.......
@@ -206,7 +206,7 @@
                 this.$message({
                     message: '测试失败',
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
             Save(){
@@ -221,14 +221,14 @@
                 this.$message({
                     message: this.lang.save_successfully,
                     type: 'success',
-                    offset: '80'
+                    offset: 80
                 })
             },
             save_error_back(){
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'success',
-                    offset: '80'
+                    offset: 80
                 })
             }
         },

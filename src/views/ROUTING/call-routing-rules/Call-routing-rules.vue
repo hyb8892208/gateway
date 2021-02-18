@@ -162,7 +162,7 @@
                         this.$message({
                             message: this.lang.select_item_help,
                             type: 'error',
-                            offset: '80'
+                            offset: 80
                         })
 
                         return false
@@ -190,7 +190,7 @@
                     this.$message({
                         message: this.lang.successfully_deleted,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
 
                     this.reload()
@@ -198,7 +198,7 @@
                     this.$message({
                         message: this.lang.failed_to_delete,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -206,7 +206,7 @@
                 this.$message({
                     message: this.lang.failed_to_delete,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
             SaveOrder(){
@@ -224,7 +224,7 @@
                     this.$message({
                         message: this.lang.save_successfully,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
 
                     this.reload()
@@ -232,7 +232,7 @@
                     this.$message({
                         message: this.lang.save_failed,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -240,7 +240,7 @@
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
             show_succeed_back(data){

@@ -218,13 +218,13 @@
                     this.$message({
                         message: this.lang.save_successfully,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
                 }else{
                     this.$message({
                         message: this.lang.save_failed,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -234,7 +234,7 @@
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             }
         },

@@ -62,13 +62,13 @@
                         dangerouslyUseHTMLString: true,
                         message: this.lang.select_file_alert,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
 
                     return false
                 }
 
-                this.$confirm(this.lang.file_upload_confirm)
+                this.$confirm(this.lang.file_upload_confirm, {dangerouslyUseHTMLString: true})
                     .then(_ => {
                         this.$refs.upload.submit()
                 })
@@ -79,7 +79,7 @@
                         dangerouslyUseHTMLString: true,
                         message: this.lang.select_file_alert,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
 
                     return false
@@ -89,7 +89,7 @@
                 this.$message({
                     message: this.lang.upload_successful,
                     type: 'success',
-                    offset: '80'
+                    offset: 80
                 })
 
                 this.request.AGSystemWsapiReload(this.reload_succeed_back, this.reload_error_back)
@@ -103,7 +103,7 @@
                         dangerouslyUseHTMLString: true,
                         message: this.lang.fire_upload_help,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
 
                     this.$refs.upload.clearFiles()

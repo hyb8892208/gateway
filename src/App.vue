@@ -178,7 +178,8 @@
   }
   .el-tooltip__popper.is-dark{
       background:rgba(64,64,64,.85) !important;
-      max-width: 250px;
+      min-width: 250px;
+      max-width: 800px;
       line-height: 17px;
   }
   .el-tooltip__popper[x-placement^=top] .popper__arrow{

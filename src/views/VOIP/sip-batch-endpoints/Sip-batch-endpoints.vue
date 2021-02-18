@@ -167,17 +167,25 @@
                 this.$router.push('/common/error')
             },
             batch(){
-                let n = 1
+                let username = this.sipData[0].username
+                let username_arr = username.match(/\d+/g)
+                let username_str = username_arr[username_arr.length - 1]
+                let new_username = Number(username_str)
+
+                let password = this.sipData[0].password
+                let password_arr = password.match(/\d+/g)
+                let password_str = password_arr[password_arr.length - 1]
+                let new_password = Number(password_str)
 
                 this.selected_sip.forEach((item,index) => {
-                    this.selected_sip[index].username = isNaN (parseInt(this.sipData[0].username) + n)
-                        ? '' : (parseInt(this.sipData[0].username) + n - 1)
+                    this.selected_sip[index].username = username.replace(username_str,new_username+'')
+                    new_username += 1
 
                     if(this.autopassword_checked){
-                        this.selected_sip[index].password = isNaN (parseInt(this.sipData[0].password) + n)
-                            ? '' : (parseInt(this.sipData[0].password) + n - 1)
+                        this.selected_sip[index].password = password.replace(password_str,new_password+'')
+                        new_password += 1
                     }else{
-                        this.selected_sip[index].password = parseInt(this.sipData[0].password)
+                        this.selected_sip[index].password = password
                     }
 
                     if(this.sipData[0].register == 1){
@@ -188,30 +196,28 @@
 
                     this.selected_sip[index].port = this.sipData[0].port
                     this.selected_sip[index].register = this.sipData[0].register
-
-                    n++
                 })
             },
             autopassword(checked){
-                if(checked){
-                    let n = 1
-                    this.selected_sip.forEach((item,index) => {
-                        this.selected_sip[index].password = isNaN (parseInt(this.sipData[0].password) + n)
-                            ? '' : (parseInt(this.sipData[0].password) + n - 1)
+                let password = this.sipData[0].password
+                let password_arr = password.match(/\d+/g)
+                let password_str = password_arr[password_arr.length - 1]
+                let new_password = Number(password_str)
 
-                        n++
+                if(checked){
+                    this.selected_sip.forEach((item,index) => {
+                        this.selected_sip[index].password = password.replace(password_str,new_password+'')
+                        new_password += 1
                     })
 
                     this.autopassword_checked = true
                 }else{
                     this.selected_sip.forEach((item,index) => {
-                        this.selected_sip[index].password = isNaN(parseInt(this.sipData[0].password))
-                            ? '' : (parseInt(this.sipData[0].password))
+                        this.selected_sip[index].password = password
                     })
 
                     this.autopassword_checked = false
                 }
-
             },
 
             Save(){
@@ -268,7 +274,7 @@
                     this.$message({
                         message: this.lang.save_successfully,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
 
                     this.reload()
@@ -276,7 +282,7 @@
                     this.$message({
                         message: this.lang.save_failed,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -284,7 +290,7 @@
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             }
         },

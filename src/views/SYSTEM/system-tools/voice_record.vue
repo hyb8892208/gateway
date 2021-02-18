@@ -87,7 +87,7 @@
                     this.$message({
                         message: this.lang.please_select_channel,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }else{
                     this.voice_record_dialogVisible = true
@@ -103,7 +103,7 @@
                 this.$message({
                     message: 'Error',
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
             timer(){
@@ -136,7 +136,7 @@
                 this.$message({
                     message: this.lang.voice_file_download_failed,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
             recordClose(){

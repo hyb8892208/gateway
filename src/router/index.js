@@ -492,14 +492,14 @@ const routes = [
       title: _language['SIP Logs']
     }
   },
-  {
-    path: '/Log/Dahdi',
-    name: 'Dahdi',
-    component: () => import(/* webpackChunkName: "Log-Dahdi" */ '../views/LOG/dahdi/Dahdi'),
-    meta:{
-      title: _language['DAHDI Logs']
-    }
-  },
+  // {
+  //   path: '/Log/Dahdi',
+  //   name: 'Dahdi',
+  //   component: () => import(/* webpackChunkName: "Log-Dahdi" */ '../views/LOG/dahdi/Dahdi'),
+  //   meta:{
+  //     title: _language['DAHDI Logs']
+  //   }
+  // },
   {
     path: '/Log/CDR',
     name: 'CDR',

@@ -386,13 +386,13 @@
                     this.$message({
                         message: this.lang.save_successfully,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
                 }else{
                     this.$message({
                         message: this.lang.save_failed,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -400,7 +400,7 @@
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
 
@@ -410,7 +410,7 @@
                     this.$message({
                         message: this.lang.check_keyname,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                     this.$refs.keyname.focus()
                     return false
@@ -422,7 +422,7 @@
                     this.$message({
                         message: this.lang.check_domain,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                     this.$refs.host.focus()
                     return false
@@ -432,7 +432,7 @@
                     this.$message({
                         message: this.lang.check_organization,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                     this.$refs.organization.focus()
                     return false
@@ -443,7 +443,7 @@
                     this.$message({
                         message: this.lang.check_diypwd,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                     this.$refs.password.focus()
                     return false
@@ -457,7 +457,7 @@
                         this.$message({
                             message: this.lang.TLS_server_existed_help,
                             type: 'error',
-                            offset: '80'
+                            offset: 80
                         })
 
                         return false
@@ -474,7 +474,7 @@
                     this.$message({
                         message: this.lang.TLS_create_server_help,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
 
                     return false
@@ -485,7 +485,7 @@
                     this.$message({
                         message: this.lang.TLS_key_password_same_as_server,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                     this.$refs.password.focus()
                     return false
@@ -517,7 +517,7 @@
                     this.$message({
                         message: this.lang.created_successfully,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
 
                     this.reload()
@@ -525,7 +525,7 @@
                     this.$message({
                         message: this.lang.created_failed,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -533,7 +533,7 @@
                 this.$message({
                     message: this.lang.created_failed,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
 
                 this.create_loading = false
@@ -550,7 +550,7 @@
                 this.$message({
                     message: this.lang.successfully_deleted,
                     type: 'success',
-                    offset: '80'
+                    offset: 80
                 })
 
                 this.reload()
@@ -559,7 +559,7 @@
                 this.$message({
                     message: this.lang.failed_to_delete,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
             upload_check_pem(file, fileList){
@@ -567,7 +567,7 @@
                     this.$message({
                         message: this.lang.upload_pem_help,
                         type: "error",
-                        offset: '80'
+                        offset: 80
                     })
                     return false
                 }
@@ -577,7 +577,7 @@
                     this.$message({
                         message: this.lang.upload_crt_help,
                         type: "error",
-                        offset: '80'
+                        offset: 80
                     })
                     return false
                 }
@@ -593,7 +593,7 @@
                 this.$message({
                     message: this.lang.successfully_deleted,
                     type: 'success',
-                    offset: '80'
+                    offset: 80
                 })
 
                 this.reload()
@@ -602,14 +602,14 @@
                 this.$message({
                     message: this.lang.failed_to_delete,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
             upload_file_success(){
                 this.$message({
                     message: this.lang.upload_successful,
                     type: 'success',
-                    offset: '80'
+                    offset: 80
                 })
 
                 this.reload()

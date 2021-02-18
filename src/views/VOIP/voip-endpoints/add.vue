@@ -1861,7 +1861,7 @@
                     this.$message({
                         message: this.lang.save_successfully,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
 
                     this.$router.push('/SIP/voip-endpoints')
@@ -1869,7 +1869,7 @@
                     this.$message({
                         message: this.lang.save_failed,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -1877,7 +1877,7 @@
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             }
         },

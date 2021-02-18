@@ -276,6 +276,7 @@
                 </el-col>
             </el-row>
 
+            <!--
             <divider_item><span slot="title">{{lang.dahdi_logs}}</span></divider_item>
 
             <el-row>
@@ -333,6 +334,7 @@
                     </el-form-item>
                 </el-col>
             </el-row>
+            -->
 
             <divider_item><span slot="title">{{lang.cdr}}</span></divider_item>
 
@@ -812,13 +814,13 @@
                     this.$message({
                         message: this.lang.save_successfully,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
                 }else{
                     this.$message({
                         message: this.lang.save_failed,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -827,7 +829,7 @@
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             }
         },

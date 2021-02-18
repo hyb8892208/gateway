@@ -209,14 +209,14 @@
                 this.$message({
                     message: this.lang.save_successfully,
                     type: 'success',
-                    offset: '80'
+                    offset: 80
                 })
             },
             save_error_back(){
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
             get_connection_status(action){

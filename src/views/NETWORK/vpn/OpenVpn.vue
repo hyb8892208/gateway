@@ -128,7 +128,7 @@
                     this.$message({
                         message: 'The format of the upload file should be like this "xxxx.tar.gz" or "xxxx.ovpn"',
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
 
                     return false
@@ -136,7 +136,7 @@
                     this.$message({
                         message: "Uploaded max file is 40M!",
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
 
                     return false
@@ -149,7 +149,7 @@
                 this.$message({
                     message: this.lang.upload_successful,
                     type: 'success',
-                    offset: '80'
+                    offset: 80
                 })
             }
         },

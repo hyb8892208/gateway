@@ -105,7 +105,7 @@
                 this.$message({
                     message: this.lang.refresh_successfully,
                     type: 'success',
-                    offset: '80'
+                    offset: 80
                 })
                 this.reload()
             },
@@ -126,13 +126,13 @@
                     this.$message({
                         message: this.lang.clean_up_successful,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
                 }else{
                     this.$message({
                         message: this.lang.clean_up_failed,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -140,7 +140,7 @@
                 this.$message({
                     message: this.lang.clean_up_failed,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             }
         },

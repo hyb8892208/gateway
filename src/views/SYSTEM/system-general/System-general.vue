@@ -376,7 +376,7 @@
                     this.$message({
                         message: this.lang.save_successfully,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
 
                     setTimeout(function (){window.location.reload()},200)
@@ -384,7 +384,7 @@
                     this.$message({
                         message: this.lang.save_failed,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -394,18 +394,18 @@
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
 
             Delete_language(){
                 console.log(this.language_value)
-                if(this.language_value == 'english'){
+                if(this.language_value == 'english' || this.language_value == 'chinese'){
                     this.$message({
                         dangerouslyUseHTMLString: true,
                         message: this.lang.delete_language_alert,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
 
                     return false
@@ -423,7 +423,7 @@
                     this.$message({
                         message: this.lang.successfully_deleted,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
 
                     this.reload()
@@ -431,7 +431,7 @@
                     this.$message({
                         message: this.lang.failed_to_delete,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -439,7 +439,7 @@
                 this.$message({
                     message: this.lang.failed_to_delete,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
 
                 this.reload()
@@ -450,7 +450,7 @@
                         dangerouslyUseHTMLString: true,
                         message: this.lang.fire_upload_help,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
 
                     return false
@@ -462,7 +462,7 @@
                             dangerouslyUseHTMLString: true,
                             message: this.lang.already_exists,
                             type: 'error',
-                            offset: '80'
+                            offset: 80
                         })
 
                         return false
@@ -473,7 +473,7 @@
                 this.$message({
                     message: this.lang.upload_successful,
                     type: 'success',
-                    offset: '80'
+                    offset: 80
                 })
 
                 this.reload()

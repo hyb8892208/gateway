@@ -152,7 +152,7 @@
                     this.$message({
                         message: this.lang.successfully_deleted,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
 
                     this.reload()
@@ -160,7 +160,7 @@
                     this.$message({
                         message: this.lang.failed_to_delete,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -168,7 +168,7 @@
                 this.$message({
                     message: this.lang.failed_to_delete,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
 
@@ -185,14 +185,14 @@
                 this.$message({
                     message: this.lang.restart_asterisk_successfully,
                     type: 'success',
-                    offset: '80'
+                    offset: 80
                 })
             },
             reload_error_back(){
                 this.$message({
                     message: this.lang.restart_asterisk_failed,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
             SizeChange(val){

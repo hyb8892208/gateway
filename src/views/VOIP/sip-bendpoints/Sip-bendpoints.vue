@@ -255,7 +255,7 @@
                         dangerouslyUseHTMLString: true,
                         message: this.lang.browser_warning,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
 
                     return false
@@ -266,7 +266,7 @@
                         dangerouslyUseHTMLString: true,
                         message: this.lang.fire_upload_help,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
 
                     this.$refs.file_upload.clearFiles()
@@ -384,20 +384,29 @@
                 this.selected_sip = val
             },
             batch(){
-                let n = 0
-
                 //判断是否覆盖存在的sip
                 let repeat_sip_arr = []
 
+                let username = this.sipData[0].username
+                let username_arr = username.match(/\d+/g)
+                let username_str = username_arr[username_arr.length - 1]
+                let new_username = Number(username_str)
+
+                let password = this.sipData[0].password
+                let password_arr = password.match(/\d+/g)
+                let password_str = password_arr[password_arr.length - 1]
+                let new_password = Number(password_str)
+
                 this.selected_sip.forEach((item,index) => {
-                    this.selected_sip[index].username = isNaN(parseInt(this.sipData[0].username) + n)
-                        ? '' : (parseInt(this.sipData[0].username) + n)
+                    this.selected_sip[index].username = username.replace(username_str,new_username+'')
+                    new_username += 1
+
 
                     if(this.autopassword_checked) {
-                        this.selected_sip[index].password = isNaN(parseInt(this.sipData[0].password) + n)
-                            ? '' : (parseInt(this.sipData[0].password) + n)
+                        this.selected_sip[index].password = password.replace(password_str,new_password+'')
+                        new_password += 1
                     }else{
-                        this.selected_sip[index].password = parseInt(this.sipData[0].password)
+                        this.selected_sip[index].password = password
                     }
 
                     this.selected_sip[index].host = this.sipData[0].host
@@ -406,7 +415,6 @@
                     this.selected_sip[index].vos = this.sipData[0].vos
                     this.selected_sip[index].codec_priority = this.sipData[0].codec_priority
                     this.selected_sip[index].support_codec = this.sipData[0].support_codec
-                    n++
 
                     for(let i=0;i<this.used_sip_arr.length;i++){
                         if(this.selected_sip[index].username == this.used_sip_arr[i]._section){
@@ -421,26 +429,27 @@
                     this.$message({
                         message: message,
                         type: 'warning',
-                        offset: '80',
+                        offset: 80,
                         duration: 5000
                     });
                 }
             },
             autopassword(checked){
-                if(checked){
-                    let n=0
-                    this.selected_sip.forEach((item,index) => {
-                        this.selected_sip[index].password = isNaN(parseInt(this.sipData[0].password) + n)
-                            ? '' : (parseInt(this.sipData[0].password) + n)
+                let password = this.sipData[0].password
+                let password_arr = password.match(/\d+/g)
+                let password_str = password_arr[password_arr.length - 1]
+                let new_password = Number(password_str)
 
-                        n++
+                if(checked){
+                    this.selected_sip.forEach((item,index) => {
+                        this.selected_sip[index].password = password.replace(password_str,new_password+'')
+                        new_password += 1
                     })
 
                     this.autopassword_checked = true
                 }else{
                     this.selected_sip.forEach((item,index) => {
-                        this.selected_sip[index].password = isNaN(parseInt(this.sipData[0].password))
-                            ? '' : (parseInt(this.sipData[0].password))
+                        this.selected_sip[index].password = password
                     })
 
                     this.autopassword_checked = false
@@ -521,7 +530,7 @@
                     this.$message({
                         message: this.lang.save_successfully,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
 
                     this.reload()
@@ -529,7 +538,7 @@
                     this.$message({
                         message: this.lang.save_failed,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -537,7 +546,7 @@
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             }
         },

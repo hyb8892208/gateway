@@ -101,7 +101,7 @@
                         dangerouslyUseHTMLString: true,
                         message: this.lang.fire_upload_help,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
 
                     this.$refs.system_upload.clearFiles()
@@ -114,7 +114,7 @@
                         dangerouslyUseHTMLString: true,
                         message: this.lang.select_file_alert,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
 
                     return false
@@ -166,7 +166,7 @@
                     dangerouslyUseHTMLString: true,
                     message: this.lang.upload_successful,
                     type: 'success',
-                    offset: '80'
+                    offset: 80
                 })
 
                 this.request.AGSystemToolsUpdatefireware(this.fileware_succeed_back, this.fileware_error_back)

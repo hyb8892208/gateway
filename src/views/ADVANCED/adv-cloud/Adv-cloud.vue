@@ -204,7 +204,7 @@
                 this.$message({
                     message: 'Get State Error',
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
             save_connect_succeed_back(data){
@@ -243,7 +243,7 @@
                 this.$message({
                     message: 'Get State Error',
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
 
                 clearTimeout(this.timeoutID)
@@ -271,13 +271,13 @@
                     this.$message({
                         message: this.lang.save_successfully,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
                 }else {
                     this.$message({
                         message: this.lang.save_failed,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -285,7 +285,7 @@
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             }
         },

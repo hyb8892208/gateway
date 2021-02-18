@@ -142,7 +142,7 @@
                     this.$message({
                         message: this.lang.successfully_deleted,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
 
                     this.reload()
@@ -150,7 +150,7 @@
                     this.$message({
                         message: this.lang.failed_to_delete,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -158,7 +158,7 @@
                 this.$message({
                     message: this.lang.failed_to_delete,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
 

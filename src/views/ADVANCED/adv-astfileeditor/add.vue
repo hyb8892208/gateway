@@ -35,7 +35,7 @@
                             </el-tooltip>:
                         </label>
                         <el-col :lg="18">
-                            <el-input v-model="ruleForm.filename"></el-input>.conf
+                            <el-input v-model="ruleForm.filename" style="width: 80%;"></el-input>.conf
                         </el-col>
                     </el-form-item>
                 </el-col>
@@ -63,7 +63,6 @@
         name: "add",
         data() {
             var validateFilename = (rule, value, callback) => {
-                console.log(value)
                 if(value == ''){
                     callback(new Error('Filename can not be null'))
                 }else{
@@ -115,19 +114,17 @@
                     section = '/etc/asterisk/'+this.ruleForm.filename+'.conf'
                 }
 
-                console.log('content', this.content)
                 if(this.content == '' || this.content == null){
                     this.$message({
                         message: this.lang.check_content_empty,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
 
                     this.$refs.content_ref.focus()
                     return false
                 }
 
-                console.log(section)
                 this.request.AGAdvAstfileeditorEditSave(this.save_succeed_back, this.save_error_back, section, this.content)
             },
             save_succeed_back(data){
@@ -135,7 +132,7 @@
                     this.$message({
                         message: this.lang.save_successfully,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
 
                     this.$router.push('/Advanced/Adv-astfileeditor')
@@ -143,7 +140,7 @@
                     this.$message({
                         message: this.lang.save_failed,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -151,7 +148,7 @@
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             }
         },

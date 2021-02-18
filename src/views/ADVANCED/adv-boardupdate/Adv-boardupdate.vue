@@ -123,7 +123,7 @@
                 this.$message({
                     message: this.lang.save_successfully,
                     type: 'success',
-                    offset: '80'
+                    offset: 80
                 })
 
                 this.reload()
@@ -132,7 +132,7 @@
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
             before_system_file() {
@@ -141,7 +141,7 @@
                         dangerouslyUseHTMLString: true,
                         message: this.lang.select_file_alert,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
 
                     return false
@@ -160,7 +160,7 @@
                         dangerouslyUseHTMLString: true,
                         message: this.lang.fire_upload_help,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
 
                     this.$refs.file_upload.clearFiles()
@@ -172,7 +172,7 @@
                     dangerouslyUseHTMLString: true,
                     message: this.lang.upload_successful,
                     type: 'success',
-                    offset: '80'
+                    offset: 80
                 })
 
                 this.Save()

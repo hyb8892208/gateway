@@ -462,7 +462,7 @@
                 this.$message({
                     message: 'Stop failed',
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             }
         },

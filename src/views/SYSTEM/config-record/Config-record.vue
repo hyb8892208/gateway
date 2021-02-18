@@ -124,7 +124,7 @@
                 this.$message({
                     message: message,
                     type: 'success',
-                    offset: '80'
+                    offset: 80
                 })
             },
             commit_error_back(){
@@ -137,7 +137,7 @@
                 this.$message({
                     message: message,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
             paginationSizeChange(){

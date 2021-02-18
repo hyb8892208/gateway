@@ -195,7 +195,7 @@
                 this.$message({
                     message: this.lang.clear_memory_successfully,
                     type: 'success',
-                    offset: '80'
+                    offset: 80
                 })
 
                 this.reload()
@@ -204,7 +204,7 @@
                 this.$message({
                     message: this.lang.failed_to_clear_memory,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             }
         },

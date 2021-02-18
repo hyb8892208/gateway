@@ -177,7 +177,7 @@
                     this.$message({
                         message: 'Burn successfully',
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
 
                     setTimeout(this.checkNetwork, 10000)
@@ -185,7 +185,7 @@
                     this.$message({
                         message: 'Burn failed',
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -193,7 +193,7 @@
                 this.$message({
                     message: 'Burn failed',
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
             checkNetwork(){

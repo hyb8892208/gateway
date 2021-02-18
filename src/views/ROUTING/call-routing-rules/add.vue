@@ -460,8 +460,8 @@
             <el-card class="box-card" style="padding: 10px;margin-top: 20px;">
                 <div slot="header" class="clearfix">
                     <el-tooltip placement="top" :open-delay=200>
-                        <div slot="content" v-html="lang.time_patterns_help"></div>
-                        <span>{{lang.time_patterns}}</span>
+                        <div slot="content" v-html="lang.failover_call_through_number_help"></div>
+                        <span>{{lang.failover_call_through_number}}</span>
                     </el-tooltip>
                 </div>
 
@@ -1003,7 +1003,7 @@
                     this.$message({
                         message: this.lang.save_successfully,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
 
                     this.$router.push('/Routing/Call-routing-rules')
@@ -1011,7 +1011,7 @@
                     this.$message({
                         message: this.lang.save_failed,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -1021,7 +1021,7 @@
                 this.$message({
                     message: this.lang.save_failed,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             }
         },

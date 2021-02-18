@@ -366,7 +366,7 @@
                             this.sort_sql = 'order by "todd" asc'
                         }
                         break
-                    case 'starttime':
+                    case 'start_time':
                         if(col.order == 'descending'){
                             this.sort_sql = 'order by "starttime" desc'
                         }else {
@@ -434,6 +434,7 @@
                    }
                })
 
+                console.log(this.get_sql())
                this.request.AGLogCdrGet(this.show_succeed_back, this.show_error_back, this.get_sql(), 'cdr', this.page, this.each_page_num)
             },
             format_data_time(value, type){
@@ -550,7 +551,7 @@
                             this.$message({
                                 message: this.lang.select_item_help,
                                 type: 'error',
-                                offset: '80'
+                                offset: 80
                             })
                         }
                     })
@@ -561,14 +562,14 @@
                     this.$message({
                         message: this.lang.successfully_deleted,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
                     this.reload()
                 }else{
                     this.$message({
                         message: this.lang.failed_to_delete,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -576,7 +577,7 @@
                 this.$message({
                     message: this.lang.failed_to_delete,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
             Clean_up(){
@@ -593,7 +594,7 @@
                     this.$message({
                         message: this.lang.clean_up_successful,
                         type: 'success',
-                        offset: '80'
+                        offset: 80
                     })
 
                     this.reload()
@@ -601,7 +602,7 @@
                     this.$message({
                         message: this.lang.clean_up_failed,
                         type: 'error',
-                        offset: '80'
+                        offset: 80
                     })
                 }
             },
@@ -609,7 +610,7 @@
                 this.$message({
                     message: this.lang.clean_up_failed,
                     type: 'error',
-                    offset: '80'
+                    offset: 80
                 })
             },
             Export(){

@@ -163,10 +163,12 @@ export default {
         },{
             name: 'sip_logs',
             index: '/Log/SIP'
-        },{
-            name: 'dahdi_logs',
-            index: '/Log/DAHDI'
-        },{
+        },
+        // {
+        //     name: 'dahdi_logs',
+        //     index: '/Log/DAHDI'
+        // },
+        {
             name: 'cdr',
             index: '/Log/CDR'
         }]

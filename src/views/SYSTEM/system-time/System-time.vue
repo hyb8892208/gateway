@@ -99,9 +99,6 @@
         </div>
         <div style="font-size: 20px;font-weight: bold;line-height: 35px;" v-html="sync_result_flag ? lang.success : lang.failed"></div>
         <div style="line-height: 35px;">{{sync_result}}</div>
-        <span slot="footer" class="dialog-footer">
-            <el-button type="primary" size="mini" @click="Close_report">{{lang.confirm}}</el-button>
-        </span>
     </el-dialog>
 
   </el-form>

@@ -61,7 +61,7 @@
                     min-width="200"
                     v-if="sipcol[3].istrue">
                 <template slot-scope="scope">
-                    <span :style="{color: ((scope.row.sip_status == 'Registered' || scope.row.sip_status.toLowerCase().indexOf('ok') > -1) ? '#00A030' : '#FF0000')}">{{scope.row.sip_status}}</span>
+                    <span :style="{color: (((scope.row.sip_status.toLowerCase().indexOf('registered') > -1) || scope.row.sip_status.toLowerCase().indexOf('ok') > -1) ? '#00A030' : '#FF0000')}">{{scope.row.sip_status}}</span>
                 </template>
             </el-table-column>
 
