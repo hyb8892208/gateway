@@ -325,7 +325,7 @@
                 factory_gw: '172.16.0.1',
 
                 rswitch: '',
-                reserved_ip: '192.168.99.',
+                reserved_ip: '',
                 reserved_mask: '255.255.255.0',
 
                 network_type_options:[{
@@ -405,7 +405,11 @@
                 this.ruleForm.dns4 = dns_data['_dns4']
 
                 this.rswitch = lan_data['_rswitch'] == 1 ? true : false
-                this.reserved_ip += stacknum
+                if(lan_data['_ripaddr'] != ''){
+                    this.reserved_ip = lan_data['_ripaddr'].replace(/X/, stacknum)
+                }else{
+                    this.reserved_ip = '192.168.99.'+stacknum
+                }
 
                 this.factory_ipaddr += stacknum
 
@@ -450,6 +454,7 @@
                 NetworkLan._gateway = this.ruleForm.lan_gateway
                 NetworkLan._type = this.lan_type
                 NetworkLan._portname = this.lan_interface
+                NetworkLan._ripaddr = '';
 
                 const NetworkWan = new AST_NetworkWan()
                 NetworkWan._mac = this.wan_mac

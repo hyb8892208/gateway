@@ -11,7 +11,7 @@
                              @change="moduleCheckAllChange">{{lang.all}}</el-checkbox>
                 <div style="margin: 5px 0;"></div>
                 <el-checkbox-group v-model="moduleCheckedTitles" @change="moduleCheckedTitlesChange" v-for="col in modulecol">
-                    <el-checkbox class="select_menu_title" :label="col.name" :key="col.name">{{lang[col.name]}}</el-checkbox>
+                    <el-checkbox class="select_menu_title" v-if="col.name != 'callerid'" :label="col.name" :key="col.name">{{lang[col.name]}}</el-checkbox>
                 </el-checkbox-group>
 
                 <el-button slot="reference" style="float:right;" type="info" plain size="mini" icon="el-icon-s-grid"></el-button>
@@ -73,7 +73,7 @@
                     :label="lang.port_status"
                     prop="port_status"
                     min-width="200"
-                    v-if="modulecol[3].istrue">
+                    v-if="modulecol[4].istrue">
                 <template slot-scope="scope">
                     <span v-if="scope.row.port_status == 'OnHook'" style="color: #00A030">{{scope.row.port_status}}</span>
                     <span v-else-if="scope.row.port_status == 'OffHook'" style="color: #FF0000">{{scope.row.port_status}}</span>
@@ -85,7 +85,7 @@
                     :label="lang.voltage"
                     prop="voltage"
                     min-width="80"
-                    v-if="modulecol[4].istrue">
+                    v-if="modulecol[5].istrue">
             </el-table-column>
         </el-table>
     </el-card>

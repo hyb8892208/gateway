@@ -637,11 +637,13 @@
                                             </el-col>
                                         </el-row>
                                         <el-row>
-                                            <span v-for="(item, index) in used_sip_arr">
+                                            <span v-for="(item,index) in used_sip_arr">
                                                 <el-col :span="6" >
-                                                    <el-checkbox v-model="sync_port_arr[item._section]"
-                                                                 :disabled="$route.params.section == item._section"
-                                                    >SIP-{{item._section}}</el-checkbox>
+
+                                                    <el-checkbox v-model="sync_port_arr[index][1]"
+                                                                 :disabled="$route.params.section == sync_port_arr[index][0]"
+                                                    >SIP-{{sync_port_arr[index][0]}}</el-checkbox>
+
                                                 </el-col>
                                             </span>
                                         </el-row>
@@ -1130,15 +1132,15 @@
         },
         methods:{
             Select_all_port(checked){
-                for(let item in this.sync_port_arr){
-                    if(item != this.$route.params.section){
+                this.sync_port_arr.forEach((item,index) => {
+                    if(item[0] != this.$route.params.section){
                         if(checked){
-                            this.$set(this.sync_port_arr, item, true)
+                            this.$set(this.sync_port_arr[index], 1, true)
                         }else{
-                            this.$set(this.sync_port_arr, item, false)
+                            this.$set(this.sync_port_arr[index], 1, false)
                         }
                     }
-                }
+                })
             },
             Select_all_sync_params(checked){
                 for(let key in this.sync){
@@ -1178,7 +1180,7 @@
                 this.$store.commit(MENU, common_data)
                 this.used_sip_arr = data['_get']['_siparr']['_item']
                 this.used_sip_arr.forEach(item => {
-                    this.sync_port_arr[item._section] = false
+                    this.sync_port_arr.push([item._section, false])
                 })
 
                 let is_add = this.$route.params.section == undefined ? true : false
@@ -1371,10 +1373,10 @@
                 const LineArr = new AST_LineArr()
                 const SectionArr = new AST_SectionArr()
 
-                this.sync_port_arr.forEach((item,index) => {
+                this.sync_port_arr.forEach(item => {
                     if(item){
                         let ast_section = new AST_Section()
-                        ast_section._section = index
+                        ast_section._section = item[0]
                         SectionArr._item.push(ast_section)
 
                         port_sync = true
@@ -1884,7 +1886,7 @@
         watch:{
             sync_port_arr: {
                 handler(newval){
-                    let tmp = newval.filter(item => item == true)
+                    let tmp = newval.filter(item => item[1] == true)
                     if(tmp.length > 0){
                         this.show_sync_params = true
                     }else{

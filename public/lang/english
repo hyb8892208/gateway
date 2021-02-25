@@ -1919,6 +1919,7 @@ save order failed="save order failed"
 
 Force Answer="Force Answer"
 Force Answer help="Force Answer"
+T.38 Gateway Mode="T.38 Gateway Mode"
 
 Any Time="Any Time"
 

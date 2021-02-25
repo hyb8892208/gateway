@@ -4902,196 +4902,6 @@ function AST_NetworkDdnsSave_deserialize (cxfjsutils, element) {
 }
 
 //
-// Constructor for XML Schema item {urn:ast}ModuleBoardInfo
-//
-function AST_ModuleBoardInfo () {
-    this.typeMarker = 'AST_ModuleBoardInfo';
-    this._online = '';
-    this._boardstacknum = '';
-    this._version = null;
-    this._buildtime = null;
-}
-
-//
-// accessor is AST_ModuleBoardInfo.prototype.getOnline
-// element get for online
-// - element type is {http://www.w3.org/2001/XMLSchema}unsignedByte
-// - required element
-//
-// element set for online
-// setter function is is AST_ModuleBoardInfo.prototype.setOnline
-//
-function AST_ModuleBoardInfo_getOnline() { return this._online;}
-
-AST_ModuleBoardInfo.prototype.getOnline = AST_ModuleBoardInfo_getOnline;
-
-function AST_ModuleBoardInfo_setOnline(value) { this._online = value;}
-
-AST_ModuleBoardInfo.prototype.setOnline = AST_ModuleBoardInfo_setOnline;
-//
-// accessor is AST_ModuleBoardInfo.prototype.getBoardstacknum
-// element get for boardstacknum
-// - element type is {http://www.w3.org/2001/XMLSchema}unsignedByte
-// - required element
-//
-// element set for boardstacknum
-// setter function is is AST_ModuleBoardInfo.prototype.setBoardstacknum
-//
-function AST_ModuleBoardInfo_getBoardstacknum() { return this._boardstacknum;}
-
-AST_ModuleBoardInfo.prototype.getBoardstacknum = AST_ModuleBoardInfo_getBoardstacknum;
-
-function AST_ModuleBoardInfo_setBoardstacknum(value) { this._boardstacknum = value;}
-
-AST_ModuleBoardInfo.prototype.setBoardstacknum = AST_ModuleBoardInfo_setBoardstacknum;
-//
-// accessor is AST_ModuleBoardInfo.prototype.getVersion
-// element get for version
-// - element type is {http://www.w3.org/2001/XMLSchema}string
-// - required element
-// - nillable
-//
-// element set for version
-// setter function is is AST_ModuleBoardInfo.prototype.setVersion
-//
-function AST_ModuleBoardInfo_getVersion() { return this._version;}
-
-AST_ModuleBoardInfo.prototype.getVersion = AST_ModuleBoardInfo_getVersion;
-
-function AST_ModuleBoardInfo_setVersion(value) { this._version = value;}
-
-AST_ModuleBoardInfo.prototype.setVersion = AST_ModuleBoardInfo_setVersion;
-//
-// accessor is AST_ModuleBoardInfo.prototype.getBuildtime
-// element get for buildtime
-// - element type is {http://www.w3.org/2001/XMLSchema}string
-// - required element
-// - nillable
-//
-// element set for buildtime
-// setter function is is AST_ModuleBoardInfo.prototype.setBuildtime
-//
-function AST_ModuleBoardInfo_getBuildtime() { return this._buildtime;}
-
-AST_ModuleBoardInfo.prototype.getBuildtime = AST_ModuleBoardInfo_getBuildtime;
-
-function AST_ModuleBoardInfo_setBuildtime(value) { this._buildtime = value;}
-
-AST_ModuleBoardInfo.prototype.setBuildtime = AST_ModuleBoardInfo_setBuildtime;
-//
-// Serialize {urn:ast}ModuleBoardInfo
-//
-function AST_ModuleBoardInfo_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName !== null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     xml = xml + ' ';
-     xml = xml + 'xmlns:jns0=\'urn:ast\' ';
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<jns0:online>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._online);
-     xml = xml + '</jns0:online>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<jns0:boardstacknum>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._boardstacknum);
-     xml = xml + '</jns0:boardstacknum>';
-    }
-    // block for local variables
-    {
-     if (this._version == null) {
-      xml = xml + '<jns0:version xsi:nil=\'true\'/>';
-     } else {
-      xml = xml + '<jns0:version>';
-      xml = xml + cxfjsutils.escapeXmlEntities(this._version);
-      xml = xml + '</jns0:version>';
-     }
-    }
-    // block for local variables
-    {
-     if (this._buildtime == null) {
-      xml = xml + '<jns0:buildtime xsi:nil=\'true\'/>';
-     } else {
-      xml = xml + '<jns0:buildtime>';
-      xml = xml + cxfjsutils.escapeXmlEntities(this._buildtime);
-      xml = xml + '</jns0:buildtime>';
-     }
-    }
-    if (elementName !== null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-AST_ModuleBoardInfo.prototype.serialize = AST_ModuleBoardInfo_serialize;
-
-function AST_ModuleBoardInfo_deserialize (cxfjsutils, element) {
-    var newobject = new AST_ModuleBoardInfo();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing online');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = value;
-    }
-    newobject.setOnline(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing boardstacknum');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = value;
-    }
-    newobject.setBoardstacknum(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing version');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = value;
-    }
-    newobject.setVersion(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing buildtime');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = value;
-    }
-    newobject.setBuildtime(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {urn:ast}AnaArr
 //
 function AST_AnaArr () {
@@ -6985,153 +6795,6 @@ function AST_SipBendSave_deserialize (cxfjsutils, element) {
 }
 
 //
-// Constructor for XML Schema item {urn:ast}ClientAdd
-//
-function AST_ClientAdd () {
-    this.typeMarker = 'AST_ClientAdd';
-    this._clientchannelstart = '';
-    this._clientchannelnum = '';
-    this._sigtype = null;
-}
-
-//
-// accessor is AST_ClientAdd.prototype.getClientchannelstart
-// element get for clientchannelstart
-// - element type is {http://www.w3.org/2001/XMLSchema}unsignedShort
-// - required element
-//
-// element set for clientchannelstart
-// setter function is is AST_ClientAdd.prototype.setClientchannelstart
-//
-function AST_ClientAdd_getClientchannelstart() { return this._clientchannelstart;}
-
-AST_ClientAdd.prototype.getClientchannelstart = AST_ClientAdd_getClientchannelstart;
-
-function AST_ClientAdd_setClientchannelstart(value) { this._clientchannelstart = value;}
-
-AST_ClientAdd.prototype.setClientchannelstart = AST_ClientAdd_setClientchannelstart;
-//
-// accessor is AST_ClientAdd.prototype.getClientchannelnum
-// element get for clientchannelnum
-// - element type is {http://www.w3.org/2001/XMLSchema}unsignedShort
-// - required element
-//
-// element set for clientchannelnum
-// setter function is is AST_ClientAdd.prototype.setClientchannelnum
-//
-function AST_ClientAdd_getClientchannelnum() { return this._clientchannelnum;}
-
-AST_ClientAdd.prototype.getClientchannelnum = AST_ClientAdd_getClientchannelnum;
-
-function AST_ClientAdd_setClientchannelnum(value) { this._clientchannelnum = value;}
-
-AST_ClientAdd.prototype.setClientchannelnum = AST_ClientAdd_setClientchannelnum;
-//
-// accessor is AST_ClientAdd.prototype.getSigtype
-// element get for sigtype
-// - element type is {urn:ast}Array16OfunsignedByte
-// - required element
-// - nillable
-//
-// element set for sigtype
-// setter function is is AST_ClientAdd.prototype.setSigtype
-//
-function AST_ClientAdd_getSigtype() { return this._sigtype;}
-
-AST_ClientAdd.prototype.getSigtype = AST_ClientAdd_getSigtype;
-
-function AST_ClientAdd_setSigtype(value) { this._sigtype = value;}
-
-AST_ClientAdd.prototype.setSigtype = AST_ClientAdd_setSigtype;
-//
-// Serialize {urn:ast}ClientAdd
-//
-function AST_ClientAdd_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName !== null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     xml = xml + ' ';
-     xml = xml + 'xmlns:jns0=\'urn:ast\' ';
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<jns0:clientchannelstart>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._clientchannelstart);
-     xml = xml + '</jns0:clientchannelstart>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<jns0:clientchannelnum>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._clientchannelnum);
-     xml = xml + '</jns0:clientchannelnum>';
-    }
-    // block for local variables
-    {
-     if (this._sigtype == null) {
-      xml = xml + '<jns0:sigtype xsi:nil=\'true\'/>';
-     } else {
-      xml = xml + this._sigtype.serialize(cxfjsutils, 'jns0:sigtype', null);
-     }
-    }
-    if (elementName !== null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-AST_ClientAdd.prototype.serialize = AST_ClientAdd_serialize;
-
-function AST_ClientAdd_deserialize (cxfjsutils, element) {
-    var newobject = new AST_ClientAdd();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing clientchannelstart');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = value;
-    }
-    newobject.setClientchannelstart(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing clientchannelnum');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = value;
-    }
-    newobject.setClientchannelnum(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing sigtype');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     item = AST_Array16OfunsignedByte_deserialize(cxfjsutils, curElement);
-    }
-    newobject.setSigtype(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {urn:ast}AnaChn
 //
 function AST_AnaChn () {
@@ -7811,110 +7474,6 @@ function AST_AnaFxsAll_deserialize (cxfjsutils, element) {
        while(curElement != null && cxfjsutils.isNodeNamedNS(curElement, 'urn:ast', 'item'));
      newobject.setItem(item);
      var item = null;
-    }
-    return newobject;
-}
-
-//
-// Constructor for XML Schema item {urn:ast}ModuleBoardGet
-//
-function AST_ModuleBoardGet () {
-    this.typeMarker = 'AST_ModuleBoardGet';
-    this._combuf = null;
-    this._boardinfos = null;
-}
-
-//
-// accessor is AST_ModuleBoardGet.prototype.getCombuf
-// element get for combuf
-// - element type is {urn:ast}common
-// - required element
-//
-// element set for combuf
-// setter function is is AST_ModuleBoardGet.prototype.setCombuf
-//
-function AST_ModuleBoardGet_getCombuf() { return this._combuf;}
-
-AST_ModuleBoardGet.prototype.getCombuf = AST_ModuleBoardGet_getCombuf;
-
-function AST_ModuleBoardGet_setCombuf(value) { this._combuf = value;}
-
-AST_ModuleBoardGet.prototype.setCombuf = AST_ModuleBoardGet_setCombuf;
-//
-// accessor is AST_ModuleBoardGet.prototype.getBoardinfos
-// element get for boardinfos
-// - element type is {urn:ast}ModuleBoardInfoArr
-// - required element
-//
-// element set for boardinfos
-// setter function is is AST_ModuleBoardGet.prototype.setBoardinfos
-//
-function AST_ModuleBoardGet_getBoardinfos() { return this._boardinfos;}
-
-AST_ModuleBoardGet.prototype.getBoardinfos = AST_ModuleBoardGet_getBoardinfos;
-
-function AST_ModuleBoardGet_setBoardinfos(value) { this._boardinfos = value;}
-
-AST_ModuleBoardGet.prototype.setBoardinfos = AST_ModuleBoardGet_setBoardinfos;
-//
-// Serialize {urn:ast}ModuleBoardGet
-//
-function AST_ModuleBoardGet_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName !== null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     xml = xml + ' ';
-     xml = xml + 'xmlns:jns0=\'urn:ast\' ';
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     xml = xml + this._combuf.serialize(cxfjsutils, 'jns0:combuf', null);
-    }
-    // block for local variables
-    {
-     xml = xml + this._boardinfos.serialize(cxfjsutils, 'jns0:boardinfos', null);
-    }
-    if (elementName !== null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-AST_ModuleBoardGet.prototype.serialize = AST_ModuleBoardGet_serialize;
-
-function AST_ModuleBoardGet_deserialize (cxfjsutils, element) {
-    var newobject = new AST_ModuleBoardGet();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing combuf');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     item = AST_common_deserialize(cxfjsutils, curElement);
-    }
-    newobject.setCombuf(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing boardinfos');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     item = AST_ModuleBoardInfoArr_deserialize(cxfjsutils, curElement);
-    }
-    newobject.setBoardinfos(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
     }
     return newobject;
 }
@@ -8655,116 +8214,6 @@ function AST_SysInfo_deserialize (cxfjsutils, element) {
      item = AST_SysCompyInfo_deserialize(cxfjsutils, curElement);
     }
     newobject.setCompyinfo(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    return newobject;
-}
-
-//
-// Constructor for XML Schema item {urn:ast}ClientRemove
-//
-function AST_ClientRemove () {
-    this.typeMarker = 'AST_ClientRemove';
-    this._clientchannelstart = '';
-    this._clientchannelnum = '';
-}
-
-//
-// accessor is AST_ClientRemove.prototype.getClientchannelstart
-// element get for clientchannelstart
-// - element type is {http://www.w3.org/2001/XMLSchema}unsignedShort
-// - required element
-//
-// element set for clientchannelstart
-// setter function is is AST_ClientRemove.prototype.setClientchannelstart
-//
-function AST_ClientRemove_getClientchannelstart() { return this._clientchannelstart;}
-
-AST_ClientRemove.prototype.getClientchannelstart = AST_ClientRemove_getClientchannelstart;
-
-function AST_ClientRemove_setClientchannelstart(value) { this._clientchannelstart = value;}
-
-AST_ClientRemove.prototype.setClientchannelstart = AST_ClientRemove_setClientchannelstart;
-//
-// accessor is AST_ClientRemove.prototype.getClientchannelnum
-// element get for clientchannelnum
-// - element type is {http://www.w3.org/2001/XMLSchema}unsignedShort
-// - required element
-//
-// element set for clientchannelnum
-// setter function is is AST_ClientRemove.prototype.setClientchannelnum
-//
-function AST_ClientRemove_getClientchannelnum() { return this._clientchannelnum;}
-
-AST_ClientRemove.prototype.getClientchannelnum = AST_ClientRemove_getClientchannelnum;
-
-function AST_ClientRemove_setClientchannelnum(value) { this._clientchannelnum = value;}
-
-AST_ClientRemove.prototype.setClientchannelnum = AST_ClientRemove_setClientchannelnum;
-//
-// Serialize {urn:ast}ClientRemove
-//
-function AST_ClientRemove_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName !== null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     xml = xml + ' ';
-     xml = xml + 'xmlns:jns0=\'urn:ast\' ';
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<jns0:clientchannelstart>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._clientchannelstart);
-     xml = xml + '</jns0:clientchannelstart>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<jns0:clientchannelnum>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._clientchannelnum);
-     xml = xml + '</jns0:clientchannelnum>';
-    }
-    if (elementName !== null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-AST_ClientRemove.prototype.serialize = AST_ClientRemove_serialize;
-
-function AST_ClientRemove_deserialize (cxfjsutils, element) {
-    var newobject = new AST_ClientRemove();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing clientchannelstart');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = value;
-    }
-    newobject.setClientchannelstart(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing clientchannelnum');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = value;
-    }
-    newobject.setClientchannelnum(item);
     var item = null;
     if (curElement != null) {
      curElement = cxfjsutils.getNextElementSibling(curElement);
@@ -10575,46 +10024,6 @@ function AST_RegisterParaGet_deserialize (cxfjsutils, element) {
     if (curElement != null) {
      curElement = cxfjsutils.getNextElementSibling(curElement);
     }
-    return newobject;
-}
-
-//
-// Constructor for XML Schema item {urn:ast}Array16OfunsignedByte
-//
-function AST_Array16OfunsignedByte () {
-    this.typeMarker = 'AST_Array16OfunsignedByte';
-}
-
-//
-// Serialize {urn:ast}Array16OfunsignedByte
-//
-function AST_Array16OfunsignedByte_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName !== null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     xml = xml + ' ';
-     xml = xml + 'xmlns:jns0=\'urn:ast\' ';
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    if (elementName !== null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-AST_Array16OfunsignedByte.prototype.serialize = AST_Array16OfunsignedByte_serialize;
-
-function AST_Array16OfunsignedByte_deserialize (cxfjsutils, element) {
-    var newobject = new AST_Array16OfunsignedByte();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
     return newobject;
 }
 
@@ -25025,6 +24434,7 @@ function AST_UcpAlgGlobal () {
     this._mode = null;
     this._rate = null;
     this._echocancel = 0;
+    this._echomode = '';
     this._echotype = '';
     this._ecm = '';
     this._sigfxs = '';
@@ -25130,6 +24540,22 @@ AST_UcpAlgGlobal.prototype.getEchocancel = AST_UcpAlgGlobal_getEchocancel;
 function AST_UcpAlgGlobal_setEchocancel(value) { this._echocancel = value;}
 
 AST_UcpAlgGlobal.prototype.setEchocancel = AST_UcpAlgGlobal_setEchocancel;
+//
+// accessor is AST_UcpAlgGlobal.prototype.getEchomode
+// element get for echomode
+// - element type is {http://www.w3.org/2001/XMLSchema}unsignedByte
+// - required element
+//
+// element set for echomode
+// setter function is is AST_UcpAlgGlobal.prototype.setEchomode
+//
+function AST_UcpAlgGlobal_getEchomode() { return this._echomode;}
+
+AST_UcpAlgGlobal.prototype.getEchomode = AST_UcpAlgGlobal_getEchomode;
+
+function AST_UcpAlgGlobal_setEchomode(value) { this._echomode = value;}
+
+AST_UcpAlgGlobal.prototype.setEchomode = AST_UcpAlgGlobal_setEchomode;
 //
 // accessor is AST_UcpAlgGlobal.prototype.getEchotype
 // element get for echotype
@@ -25247,6 +24673,12 @@ function AST_UcpAlgGlobal_serialize(cxfjsutils, elementName, extraNamespaces) {
     }
     // block for local variables
     {
+     xml = xml + '<jns0:echomode>';
+     xml = xml + cxfjsutils.escapeXmlEntities(this._echomode);
+     xml = xml + '</jns0:echomode>';
+    }
+    // block for local variables
+    {
      xml = xml + '<jns0:echotype>';
      xml = xml + cxfjsutils.escapeXmlEntities(this._echotype);
      xml = xml + '</jns0:echotype>';
@@ -25346,6 +24778,18 @@ function AST_UcpAlgGlobal_deserialize (cxfjsutils, element) {
      item = parseInt(value);
     }
     newobject.setEchocancel(item);
+    var item = null;
+    if (curElement != null) {
+     curElement = cxfjsutils.getNextElementSibling(curElement);
+    }
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing echomode');
+    var value = null;
+    if (!cxfjsutils.isElementNil(curElement)) {
+     value = cxfjsutils.getNodeText(curElement);
+     item = value;
+    }
+    newobject.setEchomode(item);
     var item = null;
     if (curElement != null) {
      curElement = cxfjsutils.getNextElementSibling(curElement);
@@ -27927,6 +27371,7 @@ function AST_RoutingContex () {
     this._timepattern = null;
     this._forwardnumber = null;
     this._forceanswer = '';
+    this._t38enable = '';
 }
 
 //
@@ -28144,6 +27589,22 @@ function AST_RoutingContex_setForceanswer(value) { this._forceanswer = value;}
 
 AST_RoutingContex.prototype.setForceanswer = AST_RoutingContex_setForceanswer;
 //
+// accessor is AST_RoutingContex.prototype.getT38enable
+// element get for t38enable
+// - element type is {http://www.w3.org/2001/XMLSchema}unsignedByte
+// - required element
+//
+// element set for t38enable
+// setter function is is AST_RoutingContex.prototype.setT38enable
+//
+function AST_RoutingContex_getT38enable() { return this._t38enable;}
+
+AST_RoutingContex.prototype.getT38enable = AST_RoutingContex_getT38enable;
+
+function AST_RoutingContex_setT38enable(value) { this._t38enable = value;}
+
+AST_RoutingContex.prototype.setT38enable = AST_RoutingContex_setT38enable;
+//
 // Serialize {urn:ast}RoutingContex
 //
 function AST_RoutingContex_serialize(cxfjsutils, elementName, extraNamespaces) {
@@ -28267,6 +27728,12 @@ function AST_RoutingContex_serialize(cxfjsutils, elementName, extraNamespaces) {
      xml = xml + '<jns0:forceanswer>';
      xml = xml + cxfjsutils.escapeXmlEntities(this._forceanswer);
      xml = xml + '</jns0:forceanswer>';
+    }
+    // block for local variables
+    {
+     xml = xml + '<jns0:t38enable>';
+     xml = xml + cxfjsutils.escapeXmlEntities(this._t38enable);
+     xml = xml + '</jns0:t38enable>';
     }
     if (elementName !== null) {
      xml = xml + '</';
@@ -28443,6 +27910,18 @@ function AST_RoutingContex_deserialize (cxfjsutils, element) {
      item = value;
     }
     newobject.setForceanswer(item);
+    var item = null;
+    if (curElement != null) {
+     curElement = cxfjsutils.getNextElementSibling(curElement);
+    }
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing t38enable');
+    var value = null;
+    if (!cxfjsutils.isElementNil(curElement)) {
+     value = cxfjsutils.getNodeText(curElement);
+     item = value;
+    }
+    newobject.setT38enable(item);
     var item = null;
     if (curElement != null) {
      curElement = cxfjsutils.getNextElementSibling(curElement);
@@ -40518,94 +39997,6 @@ function AST_SipRtp_deserialize (cxfjsutils, element) {
 }
 
 //
-// Constructor for XML Schema item {urn:ast}ModuleBoardInfoArr
-//
-function AST_ModuleBoardInfoArr () {
-    this.typeMarker = 'AST_ModuleBoardInfoArr';
-    this._item = [];
-}
-
-//
-// accessor is AST_ModuleBoardInfoArr.prototype.getItem
-// element get for item
-// - element type is {urn:ast}ModuleBoardInfo
-// - required element
-// - array
-// - nillable
-//
-// element set for item
-// setter function is is AST_ModuleBoardInfoArr.prototype.setItem
-//
-function AST_ModuleBoardInfoArr_getItem() { return this._item;}
-
-AST_ModuleBoardInfoArr.prototype.getItem = AST_ModuleBoardInfoArr_getItem;
-
-function AST_ModuleBoardInfoArr_setItem(value) { this._item = value;}
-
-AST_ModuleBoardInfoArr.prototype.setItem = AST_ModuleBoardInfoArr_setItem;
-//
-// Serialize {urn:ast}ModuleBoardInfoArr
-//
-function AST_ModuleBoardInfoArr_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName !== null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     xml = xml + ' ';
-     xml = xml + 'xmlns:jns0=\'urn:ast\' ';
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     if (this._item != null) {
-      for (var ax = 0;ax < this._item.length;ax ++) {
-       if (this._item[ax] == null) {
-        xml = xml + '<jns0:item xsi:nil=\'true\'/>';
-       } else {
-        xml = xml + this._item[ax].serialize(cxfjsutils, 'jns0:item', null);
-       }
-      }
-     }
-    }
-    if (elementName !== null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-AST_ModuleBoardInfoArr.prototype.serialize = AST_ModuleBoardInfoArr_serialize;
-
-function AST_ModuleBoardInfoArr_deserialize (cxfjsutils, element) {
-    var newobject = new AST_ModuleBoardInfoArr();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing item');
-    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, 'urn:ast', 'item')) {
-     item = [];
-     do  {
-      var arrayItem = null;
-      var value = null;
-      if (!cxfjsutils.isElementNil(curElement)) {
-       arrayItem = AST_ModuleBoardInfo_deserialize(cxfjsutils, curElement);
-      }
-      item.push(arrayItem);
-      curElement = cxfjsutils.getNextElementSibling(curElement);
-     }
-       while(curElement != null && cxfjsutils.isNodeNamedNS(curElement, 'urn:ast', 'item'));
-     newobject.setItem(item);
-     var item = null;
-    }
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {urn:ast}SystemFuncFlag
 //
 function AST_SystemFuncFlag () {
@@ -41528,6 +40919,7 @@ function AST_NetworkLan () {
     this._netmask = null;
     this._gateway = null;
     this._portname = null;
+    this._ripaddr = null;
     this._type = '';
     this._rswitch = '';
 }
@@ -41617,6 +41009,23 @@ AST_NetworkLan.prototype.getPortname = AST_NetworkLan_getPortname;
 function AST_NetworkLan_setPortname(value) { this._portname = value;}
 
 AST_NetworkLan.prototype.setPortname = AST_NetworkLan_setPortname;
+//
+// accessor is AST_NetworkLan.prototype.getRipaddr
+// element get for ripaddr
+// - element type is {http://www.w3.org/2001/XMLSchema}string
+// - required element
+// - nillable
+//
+// element set for ripaddr
+// setter function is is AST_NetworkLan.prototype.setRipaddr
+//
+function AST_NetworkLan_getRipaddr() { return this._ripaddr;}
+
+AST_NetworkLan.prototype.getRipaddr = AST_NetworkLan_getRipaddr;
+
+function AST_NetworkLan_setRipaddr(value) { this._ripaddr = value;}
+
+AST_NetworkLan.prototype.setRipaddr = AST_NetworkLan_setRipaddr;
 //
 // accessor is AST_NetworkLan.prototype.getType
 // element get for type
@@ -41716,6 +41125,16 @@ function AST_NetworkLan_serialize(cxfjsutils, elementName, extraNamespaces) {
     }
     // block for local variables
     {
+     if (this._ripaddr == null) {
+      xml = xml + '<jns0:ripaddr xsi:nil=\'true\'/>';
+     } else {
+      xml = xml + '<jns0:ripaddr>';
+      xml = xml + cxfjsutils.escapeXmlEntities(this._ripaddr);
+      xml = xml + '</jns0:ripaddr>';
+     }
+    }
+    // block for local variables
+    {
      xml = xml + '<jns0:type>';
      xml = xml + cxfjsutils.escapeXmlEntities(this._type);
      xml = xml + '</jns0:type>';
@@ -41797,6 +41216,18 @@ function AST_NetworkLan_deserialize (cxfjsutils, element) {
      item = value;
     }
     newobject.setPortname(item);
+    var item = null;
+    if (curElement != null) {
+     curElement = cxfjsutils.getNextElementSibling(curElement);
+    }
+    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
+    cxfjsutils.trace('processing ripaddr');
+    var value = null;
+    if (!cxfjsutils.isElementNil(curElement)) {
+     value = cxfjsutils.getNodeText(curElement);
+     item = value;
+    }
+    newobject.setRipaddr(item);
     var item = null;
     if (curElement != null) {
      curElement = cxfjsutils.getNextElementSibling(curElement);
@@ -47998,87 +47429,6 @@ function AST_SipGeneralSave_deserialize (cxfjsutils, element) {
 }
 
 //
-// Constructor for XML Schema item {urn:ast}AGAlgChannelRemoveClient
-//
-function AST_AGAlgChannelRemoveClient () {
-    this.typeMarker = 'AST_AGAlgChannelRemoveClient';
-    this._clientInfo = null;
-}
-
-//
-// accessor is AST_AGAlgChannelRemoveClient.prototype.getClientInfo
-// element get for clientInfo
-// - element type is {urn:ast}ClientRemove
-// - optional element
-// - nillable
-//
-// element set for clientInfo
-// setter function is is AST_AGAlgChannelRemoveClient.prototype.setClientInfo
-//
-function AST_AGAlgChannelRemoveClient_getClientInfo() { return this._clientInfo;}
-
-AST_AGAlgChannelRemoveClient.prototype.getClientInfo = AST_AGAlgChannelRemoveClient_getClientInfo;
-
-function AST_AGAlgChannelRemoveClient_setClientInfo(value) { this._clientInfo = value;}
-
-AST_AGAlgChannelRemoveClient.prototype.setClientInfo = AST_AGAlgChannelRemoveClient_setClientInfo;
-//
-// Serialize {urn:ast}AGAlgChannelRemoveClient
-//
-function AST_AGAlgChannelRemoveClient_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName !== null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     xml = xml + ' ';
-     xml = xml + 'xmlns:jns0=\'urn:ast\' ';
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     if (this._clientInfo != null) {
-      if (this._clientInfo == null) {
-       xml = xml + '<jns0:clientInfo xsi:nil=\'true\'/>';
-      } else {
-       xml = xml + this._clientInfo.serialize(cxfjsutils, 'jns0:clientInfo', null);
-      }
-     }
-    }
-    if (elementName !== null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-AST_AGAlgChannelRemoveClient.prototype.serialize = AST_AGAlgChannelRemoveClient_serialize;
-
-function AST_AGAlgChannelRemoveClient_deserialize (cxfjsutils, element) {
-    var newobject = new AST_AGAlgChannelRemoveClient();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing clientInfo');
-    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, 'urn:ast', 'clientInfo')) {
-     var value = null;
-     if (!cxfjsutils.isElementNil(curElement)) {
-      item = AST_ClientRemove_deserialize(cxfjsutils, curElement);
-     }
-     newobject.setClientInfo(item);
-     var item = null;
-     if (curElement != null) {
-      curElement = cxfjsutils.getNextElementSibling(curElement);
-     }
-    }
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {urn:ast}AGAlgChannelGetOneResponse
 //
 function AST_AGAlgChannelGetOneResponse () {
@@ -48311,81 +47661,6 @@ function AST_AGUcpAlgFxsparamGetResponse_deserialize (cxfjsutils, element) {
      if (curElement != null) {
       curElement = cxfjsutils.getNextElementSibling(curElement);
      }
-    }
-    return newobject;
-}
-
-//
-// Constructor for XML Schema item {urn:ast}AGAlgChannelRemoveClientResponse
-//
-function AST_AGAlgChannelRemoveClientResponse () {
-    this.typeMarker = 'AST_AGAlgChannelRemoveClientResponse';
-    this._result = 0;
-}
-
-//
-// accessor is AST_AGAlgChannelRemoveClientResponse.prototype.getResult
-// element get for result
-// - element type is {http://www.w3.org/2001/XMLSchema}int
-// - required element
-//
-// element set for result
-// setter function is is AST_AGAlgChannelRemoveClientResponse.prototype.setResult
-//
-function AST_AGAlgChannelRemoveClientResponse_getResult() { return this._result;}
-
-AST_AGAlgChannelRemoveClientResponse.prototype.getResult = AST_AGAlgChannelRemoveClientResponse_getResult;
-
-function AST_AGAlgChannelRemoveClientResponse_setResult(value) { this._result = value;}
-
-AST_AGAlgChannelRemoveClientResponse.prototype.setResult = AST_AGAlgChannelRemoveClientResponse_setResult;
-//
-// Serialize {urn:ast}AGAlgChannelRemoveClientResponse
-//
-function AST_AGAlgChannelRemoveClientResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName !== null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     xml = xml + ' ';
-     xml = xml + 'xmlns:jns0=\'urn:ast\' ';
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<jns0:result>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._result);
-     xml = xml + '</jns0:result>';
-    }
-    if (elementName !== null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-AST_AGAlgChannelRemoveClientResponse.prototype.serialize = AST_AGAlgChannelRemoveClientResponse_serialize;
-
-function AST_AGAlgChannelRemoveClientResponse_deserialize (cxfjsutils, element) {
-    var newobject = new AST_AGAlgChannelRemoveClientResponse();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing result');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = parseInt(value);
-    }
-    newobject.setResult(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
     }
     return newobject;
 }
@@ -52551,81 +51826,6 @@ function AST_AGNetworkWanGetResponse_deserialize (cxfjsutils, element) {
 }
 
 //
-// Constructor for XML Schema item {urn:ast}AGAlgChannelAddClientResponse
-//
-function AST_AGAlgChannelAddClientResponse () {
-    this.typeMarker = 'AST_AGAlgChannelAddClientResponse';
-    this._result = 0;
-}
-
-//
-// accessor is AST_AGAlgChannelAddClientResponse.prototype.getResult
-// element get for result
-// - element type is {http://www.w3.org/2001/XMLSchema}int
-// - required element
-//
-// element set for result
-// setter function is is AST_AGAlgChannelAddClientResponse.prototype.setResult
-//
-function AST_AGAlgChannelAddClientResponse_getResult() { return this._result;}
-
-AST_AGAlgChannelAddClientResponse.prototype.getResult = AST_AGAlgChannelAddClientResponse_getResult;
-
-function AST_AGAlgChannelAddClientResponse_setResult(value) { this._result = value;}
-
-AST_AGAlgChannelAddClientResponse.prototype.setResult = AST_AGAlgChannelAddClientResponse_setResult;
-//
-// Serialize {urn:ast}AGAlgChannelAddClientResponse
-//
-function AST_AGAlgChannelAddClientResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName !== null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     xml = xml + ' ';
-     xml = xml + 'xmlns:jns0=\'urn:ast\' ';
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<jns0:result>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._result);
-     xml = xml + '</jns0:result>';
-    }
-    if (elementName !== null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-AST_AGAlgChannelAddClientResponse.prototype.serialize = AST_AGAlgChannelAddClientResponse_serialize;
-
-function AST_AGAlgChannelAddClientResponse_deserialize (cxfjsutils, element) {
-    var newobject = new AST_AGAlgChannelAddClientResponse();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing result');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = parseInt(value);
-    }
-    newobject.setResult(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {urn:ast}AGLogGetAll
 //
 function AST_AGLogGetAll () {
@@ -53017,46 +52217,6 @@ function AST_AGUcpAlgGlbSettingSaveResponse_deserialize (cxfjsutils, element) {
     if (curElement != null) {
      curElement = cxfjsutils.getNextElementSibling(curElement);
     }
-    return newobject;
-}
-
-//
-// Constructor for XML Schema item {urn:ast}AGSystemModuleBoardInfoGet
-//
-function AST_AGSystemModuleBoardInfoGet () {
-    this.typeMarker = 'AST_AGSystemModuleBoardInfoGet';
-}
-
-//
-// Serialize {urn:ast}AGSystemModuleBoardInfoGet
-//
-function AST_AGSystemModuleBoardInfoGet_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName !== null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     xml = xml + ' ';
-     xml = xml + 'xmlns:jns0=\'urn:ast\' ';
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    if (elementName !== null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-AST_AGSystemModuleBoardInfoGet.prototype.serialize = AST_AGSystemModuleBoardInfoGet_serialize;
-
-function AST_AGSystemModuleBoardInfoGet_deserialize (cxfjsutils, element) {
-    var newobject = new AST_AGSystemModuleBoardInfoGet();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
     return newobject;
 }
 
@@ -55818,87 +54978,6 @@ function AST_AGSipBatchEndpointsGet_deserialize (cxfjsutils, element) {
 }
 
 //
-// Constructor for XML Schema item {urn:ast}AGSystemModuleBoardInfoGetResponse
-//
-function AST_AGSystemModuleBoardInfoGetResponse () {
-    this.typeMarker = 'AST_AGSystemModuleBoardInfoGetResponse';
-    this._get = null;
-}
-
-//
-// accessor is AST_AGSystemModuleBoardInfoGetResponse.prototype.getGet
-// element get for get
-// - element type is {urn:ast}ModuleBoardGet
-// - optional element
-// - nillable
-//
-// element set for get
-// setter function is is AST_AGSystemModuleBoardInfoGetResponse.prototype.setGet
-//
-function AST_AGSystemModuleBoardInfoGetResponse_getGet() { return this._get;}
-
-AST_AGSystemModuleBoardInfoGetResponse.prototype.getGet = AST_AGSystemModuleBoardInfoGetResponse_getGet;
-
-function AST_AGSystemModuleBoardInfoGetResponse_setGet(value) { this._get = value;}
-
-AST_AGSystemModuleBoardInfoGetResponse.prototype.setGet = AST_AGSystemModuleBoardInfoGetResponse_setGet;
-//
-// Serialize {urn:ast}AGSystemModuleBoardInfoGetResponse
-//
-function AST_AGSystemModuleBoardInfoGetResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName !== null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     xml = xml + ' ';
-     xml = xml + 'xmlns:jns0=\'urn:ast\' ';
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     if (this._get != null) {
-      if (this._get == null) {
-       xml = xml + '<jns0:get xsi:nil=\'true\'/>';
-      } else {
-       xml = xml + this._get.serialize(cxfjsutils, 'jns0:get', null);
-      }
-     }
-    }
-    if (elementName !== null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-AST_AGSystemModuleBoardInfoGetResponse.prototype.serialize = AST_AGSystemModuleBoardInfoGetResponse_serialize;
-
-function AST_AGSystemModuleBoardInfoGetResponse_deserialize (cxfjsutils, element) {
-    var newobject = new AST_AGSystemModuleBoardInfoGetResponse();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing get');
-    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, 'urn:ast', 'get')) {
-     var value = null;
-     if (!cxfjsutils.isElementNil(curElement)) {
-      item = AST_ModuleBoardGet_deserialize(cxfjsutils, curElement);
-     }
-     newobject.setGet(item);
-     var item = null;
-     if (curElement != null) {
-      curElement = cxfjsutils.getNextElementSibling(curElement);
-     }
-    }
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {urn:ast}AGSystemCloseAllserviceResponse
 //
 function AST_AGSystemCloseAllserviceResponse () {
@@ -57644,46 +56723,6 @@ function AST_AGUcpSystemToolsSndRecordStart_deserialize (cxfjsutils, element) {
 }
 
 //
-// Constructor for XML Schema item {urn:ast}AGSystemModuleUpdateTftp
-//
-function AST_AGSystemModuleUpdateTftp () {
-    this.typeMarker = 'AST_AGSystemModuleUpdateTftp';
-}
-
-//
-// Serialize {urn:ast}AGSystemModuleUpdateTftp
-//
-function AST_AGSystemModuleUpdateTftp_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName !== null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     xml = xml + ' ';
-     xml = xml + 'xmlns:jns0=\'urn:ast\' ';
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    if (elementName !== null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-AST_AGSystemModuleUpdateTftp.prototype.serialize = AST_AGSystemModuleUpdateTftp_serialize;
-
-function AST_AGSystemModuleUpdateTftp_deserialize (cxfjsutils, element) {
-    var newobject = new AST_AGSystemModuleUpdateTftp();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {urn:ast}AGRoutingGroupGetAll
 //
 function AST_AGRoutingGroupGetAll () {
@@ -58917,81 +57956,6 @@ function AST_AGAlgAutoCallSave_deserialize (cxfjsutils, element) {
      if (curElement != null) {
       curElement = cxfjsutils.getNextElementSibling(curElement);
      }
-    }
-    return newobject;
-}
-
-//
-// Constructor for XML Schema item {urn:ast}AGAlgChannelAddOneResponse
-//
-function AST_AGAlgChannelAddOneResponse () {
-    this.typeMarker = 'AST_AGAlgChannelAddOneResponse';
-    this._result = 0;
-}
-
-//
-// accessor is AST_AGAlgChannelAddOneResponse.prototype.getResult
-// element get for result
-// - element type is {http://www.w3.org/2001/XMLSchema}int
-// - required element
-//
-// element set for result
-// setter function is is AST_AGAlgChannelAddOneResponse.prototype.setResult
-//
-function AST_AGAlgChannelAddOneResponse_getResult() { return this._result;}
-
-AST_AGAlgChannelAddOneResponse.prototype.getResult = AST_AGAlgChannelAddOneResponse_getResult;
-
-function AST_AGAlgChannelAddOneResponse_setResult(value) { this._result = value;}
-
-AST_AGAlgChannelAddOneResponse.prototype.setResult = AST_AGAlgChannelAddOneResponse_setResult;
-//
-// Serialize {urn:ast}AGAlgChannelAddOneResponse
-//
-function AST_AGAlgChannelAddOneResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName !== null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     xml = xml + ' ';
-     xml = xml + 'xmlns:jns0=\'urn:ast\' ';
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<jns0:result>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._result);
-     xml = xml + '</jns0:result>';
-    }
-    if (elementName !== null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-AST_AGAlgChannelAddOneResponse.prototype.serialize = AST_AGAlgChannelAddOneResponse_serialize;
-
-function AST_AGAlgChannelAddOneResponse_deserialize (cxfjsutils, element) {
-    var newobject = new AST_AGAlgChannelAddOneResponse();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing result');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = parseInt(value);
-    }
-    newobject.setResult(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
     }
     return newobject;
 }
@@ -60628,116 +59592,6 @@ function AST_AGAlgGlbSettingSave_deserialize (cxfjsutils, element) {
 }
 
 //
-// Constructor for XML Schema item {urn:ast}AGAlgChannelAddOne
-//
-function AST_AGAlgChannelAddOne () {
-    this.typeMarker = 'AST_AGAlgChannelAddOne';
-    this._channel = '';
-    this._signal = '';
-}
-
-//
-// accessor is AST_AGAlgChannelAddOne.prototype.getChannel
-// element get for channel
-// - element type is {http://www.w3.org/2001/XMLSchema}unsignedShort
-// - required element
-//
-// element set for channel
-// setter function is is AST_AGAlgChannelAddOne.prototype.setChannel
-//
-function AST_AGAlgChannelAddOne_getChannel() { return this._channel;}
-
-AST_AGAlgChannelAddOne.prototype.getChannel = AST_AGAlgChannelAddOne_getChannel;
-
-function AST_AGAlgChannelAddOne_setChannel(value) { this._channel = value;}
-
-AST_AGAlgChannelAddOne.prototype.setChannel = AST_AGAlgChannelAddOne_setChannel;
-//
-// accessor is AST_AGAlgChannelAddOne.prototype.getSignal
-// element get for signal
-// - element type is {http://www.w3.org/2001/XMLSchema}unsignedByte
-// - required element
-//
-// element set for signal
-// setter function is is AST_AGAlgChannelAddOne.prototype.setSignal
-//
-function AST_AGAlgChannelAddOne_getSignal() { return this._signal;}
-
-AST_AGAlgChannelAddOne.prototype.getSignal = AST_AGAlgChannelAddOne_getSignal;
-
-function AST_AGAlgChannelAddOne_setSignal(value) { this._signal = value;}
-
-AST_AGAlgChannelAddOne.prototype.setSignal = AST_AGAlgChannelAddOne_setSignal;
-//
-// Serialize {urn:ast}AGAlgChannelAddOne
-//
-function AST_AGAlgChannelAddOne_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName !== null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     xml = xml + ' ';
-     xml = xml + 'xmlns:jns0=\'urn:ast\' ';
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<jns0:channel>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._channel);
-     xml = xml + '</jns0:channel>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<jns0:signal>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._signal);
-     xml = xml + '</jns0:signal>';
-    }
-    if (elementName !== null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-AST_AGAlgChannelAddOne.prototype.serialize = AST_AGAlgChannelAddOne_serialize;
-
-function AST_AGAlgChannelAddOne_deserialize (cxfjsutils, element) {
-    var newobject = new AST_AGAlgChannelAddOne();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing channel');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = value;
-    }
-    newobject.setChannel(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing signal');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = value;
-    }
-    newobject.setSignal(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {urn:ast}AGSysGeneralDebugResponse
 //
 function AST_AGSysGeneralDebugResponse () {
@@ -62163,87 +61017,6 @@ function AST_AGSystemCloseAllservice_deserialize (cxfjsutils, element) {
 }
 
 //
-// Constructor for XML Schema item {urn:ast}AGAlgChannelAddClient
-//
-function AST_AGAlgChannelAddClient () {
-    this.typeMarker = 'AST_AGAlgChannelAddClient';
-    this._clientInfo = null;
-}
-
-//
-// accessor is AST_AGAlgChannelAddClient.prototype.getClientInfo
-// element get for clientInfo
-// - element type is {urn:ast}ClientAdd
-// - optional element
-// - nillable
-//
-// element set for clientInfo
-// setter function is is AST_AGAlgChannelAddClient.prototype.setClientInfo
-//
-function AST_AGAlgChannelAddClient_getClientInfo() { return this._clientInfo;}
-
-AST_AGAlgChannelAddClient.prototype.getClientInfo = AST_AGAlgChannelAddClient_getClientInfo;
-
-function AST_AGAlgChannelAddClient_setClientInfo(value) { this._clientInfo = value;}
-
-AST_AGAlgChannelAddClient.prototype.setClientInfo = AST_AGAlgChannelAddClient_setClientInfo;
-//
-// Serialize {urn:ast}AGAlgChannelAddClient
-//
-function AST_AGAlgChannelAddClient_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName !== null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     xml = xml + ' ';
-     xml = xml + 'xmlns:jns0=\'urn:ast\' ';
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     if (this._clientInfo != null) {
-      if (this._clientInfo == null) {
-       xml = xml + '<jns0:clientInfo xsi:nil=\'true\'/>';
-      } else {
-       xml = xml + this._clientInfo.serialize(cxfjsutils, 'jns0:clientInfo', null);
-      }
-     }
-    }
-    if (elementName !== null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-AST_AGAlgChannelAddClient.prototype.serialize = AST_AGAlgChannelAddClient_serialize;
-
-function AST_AGAlgChannelAddClient_deserialize (cxfjsutils, element) {
-    var newobject = new AST_AGAlgChannelAddClient();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing clientInfo');
-    if (curElement != null && cxfjsutils.isNodeNamedNS(curElement, 'urn:ast', 'clientInfo')) {
-     var value = null;
-     if (!cxfjsutils.isElementNil(curElement)) {
-      item = AST_ClientAdd_deserialize(cxfjsutils, curElement);
-     }
-     newobject.setClientInfo(item);
-     var item = null;
-     if (curElement != null) {
-      curElement = cxfjsutils.getNextElementSibling(curElement);
-     }
-    }
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {urn:ast}AGOEMSettingInfoGet
 //
 function AST_AGOEMSettingInfoGet () {
@@ -63333,81 +62106,6 @@ function AST_AGNetworkFirewallGetResponse_deserialize (cxfjsutils, element) {
      if (curElement != null) {
       curElement = cxfjsutils.getNextElementSibling(curElement);
      }
-    }
-    return newobject;
-}
-
-//
-// Constructor for XML Schema item {urn:ast}AGAlgChannelRemoveOneResponse
-//
-function AST_AGAlgChannelRemoveOneResponse () {
-    this.typeMarker = 'AST_AGAlgChannelRemoveOneResponse';
-    this._result = 0;
-}
-
-//
-// accessor is AST_AGAlgChannelRemoveOneResponse.prototype.getResult
-// element get for result
-// - element type is {http://www.w3.org/2001/XMLSchema}int
-// - required element
-//
-// element set for result
-// setter function is is AST_AGAlgChannelRemoveOneResponse.prototype.setResult
-//
-function AST_AGAlgChannelRemoveOneResponse_getResult() { return this._result;}
-
-AST_AGAlgChannelRemoveOneResponse.prototype.getResult = AST_AGAlgChannelRemoveOneResponse_getResult;
-
-function AST_AGAlgChannelRemoveOneResponse_setResult(value) { this._result = value;}
-
-AST_AGAlgChannelRemoveOneResponse.prototype.setResult = AST_AGAlgChannelRemoveOneResponse_setResult;
-//
-// Serialize {urn:ast}AGAlgChannelRemoveOneResponse
-//
-function AST_AGAlgChannelRemoveOneResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName !== null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     xml = xml + ' ';
-     xml = xml + 'xmlns:jns0=\'urn:ast\' ';
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<jns0:result>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._result);
-     xml = xml + '</jns0:result>';
-    }
-    if (elementName !== null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-AST_AGAlgChannelRemoveOneResponse.prototype.serialize = AST_AGAlgChannelRemoveOneResponse_serialize;
-
-function AST_AGAlgChannelRemoveOneResponse_deserialize (cxfjsutils, element) {
-    var newobject = new AST_AGAlgChannelRemoveOneResponse();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing result');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = parseInt(value);
-    }
-    newobject.setResult(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
     }
     return newobject;
 }
@@ -65650,81 +64348,6 @@ function AST_AGSysGeneralDebug_deserialize (cxfjsutils, element) {
      item = parseInt(value);
     }
     newobject.setDebug(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    return newobject;
-}
-
-//
-// Constructor for XML Schema item {urn:ast}AGSystemModuleUpdateTftpResponse
-//
-function AST_AGSystemModuleUpdateTftpResponse () {
-    this.typeMarker = 'AST_AGSystemModuleUpdateTftpResponse';
-    this._result = 0;
-}
-
-//
-// accessor is AST_AGSystemModuleUpdateTftpResponse.prototype.getResult
-// element get for result
-// - element type is {http://www.w3.org/2001/XMLSchema}int
-// - required element
-//
-// element set for result
-// setter function is is AST_AGSystemModuleUpdateTftpResponse.prototype.setResult
-//
-function AST_AGSystemModuleUpdateTftpResponse_getResult() { return this._result;}
-
-AST_AGSystemModuleUpdateTftpResponse.prototype.getResult = AST_AGSystemModuleUpdateTftpResponse_getResult;
-
-function AST_AGSystemModuleUpdateTftpResponse_setResult(value) { this._result = value;}
-
-AST_AGSystemModuleUpdateTftpResponse.prototype.setResult = AST_AGSystemModuleUpdateTftpResponse_setResult;
-//
-// Serialize {urn:ast}AGSystemModuleUpdateTftpResponse
-//
-function AST_AGSystemModuleUpdateTftpResponse_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName !== null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     xml = xml + ' ';
-     xml = xml + 'xmlns:jns0=\'urn:ast\' ';
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<jns0:result>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._result);
-     xml = xml + '</jns0:result>';
-    }
-    if (elementName !== null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-AST_AGSystemModuleUpdateTftpResponse.prototype.serialize = AST_AGSystemModuleUpdateTftpResponse_serialize;
-
-function AST_AGSystemModuleUpdateTftpResponse_deserialize (cxfjsutils, element) {
-    var newobject = new AST_AGSystemModuleUpdateTftpResponse();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing result');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = parseInt(value);
-    }
-    newobject.setResult(item);
     var item = null;
     if (curElement != null) {
      curElement = cxfjsutils.getNextElementSibling(curElement);
@@ -70913,81 +69536,6 @@ function AST_AGjConConfigKeyboardMap_deserialize (cxfjsutils, element) {
 }
 
 //
-// Constructor for XML Schema item {urn:ast}AGAlgChannelRemoveOne
-//
-function AST_AGAlgChannelRemoveOne () {
-    this.typeMarker = 'AST_AGAlgChannelRemoveOne';
-    this._channel = '';
-}
-
-//
-// accessor is AST_AGAlgChannelRemoveOne.prototype.getChannel
-// element get for channel
-// - element type is {http://www.w3.org/2001/XMLSchema}unsignedShort
-// - required element
-//
-// element set for channel
-// setter function is is AST_AGAlgChannelRemoveOne.prototype.setChannel
-//
-function AST_AGAlgChannelRemoveOne_getChannel() { return this._channel;}
-
-AST_AGAlgChannelRemoveOne.prototype.getChannel = AST_AGAlgChannelRemoveOne_getChannel;
-
-function AST_AGAlgChannelRemoveOne_setChannel(value) { this._channel = value;}
-
-AST_AGAlgChannelRemoveOne.prototype.setChannel = AST_AGAlgChannelRemoveOne_setChannel;
-//
-// Serialize {urn:ast}AGAlgChannelRemoveOne
-//
-function AST_AGAlgChannelRemoveOne_serialize(cxfjsutils, elementName, extraNamespaces) {
-    var xml = '';
-    if (elementName !== null) {
-     xml = xml + '<';
-     xml = xml + elementName;
-     xml = xml + ' ';
-     xml = xml + 'xmlns:jns0=\'urn:ast\' ';
-     if (extraNamespaces) {
-      xml = xml + ' ' + extraNamespaces;
-     }
-     xml = xml + '>';
-    }
-    // block for local variables
-    {
-     xml = xml + '<jns0:channel>';
-     xml = xml + cxfjsutils.escapeXmlEntities(this._channel);
-     xml = xml + '</jns0:channel>';
-    }
-    if (elementName !== null) {
-     xml = xml + '</';
-     xml = xml + elementName;
-     xml = xml + '>';
-    }
-    return xml;
-}
-
-AST_AGAlgChannelRemoveOne.prototype.serialize = AST_AGAlgChannelRemoveOne_serialize;
-
-function AST_AGAlgChannelRemoveOne_deserialize (cxfjsutils, element) {
-    var newobject = new AST_AGAlgChannelRemoveOne();
-    cxfjsutils.trace('element: ' + cxfjsutils.traceElementName(element));
-    var curElement = cxfjsutils.getFirstElementChild(element);
-    var item;
-    cxfjsutils.trace('curElement: ' + cxfjsutils.traceElementName(curElement));
-    cxfjsutils.trace('processing channel');
-    var value = null;
-    if (!cxfjsutils.isElementNil(curElement)) {
-     value = cxfjsutils.getNodeText(curElement);
-     item = value;
-    }
-    newobject.setChannel(item);
-    var item = null;
-    if (curElement != null) {
-     curElement = cxfjsutils.getNextElementSibling(curElement);
-    }
-    return newobject;
-}
-
-//
 // Constructor for XML Schema item {urn:ast}AGAlgAutoCallGetResponse
 //
 function AST_AGAlgAutoCallGetResponse () {
@@ -73292,16 +71840,12 @@ function urn_ast_AST_wsdl_ASTPortType () {
     this.globalElementDeserializers['{urn:ast}AGUcpAlgFxoparamGetAllResponse'] = AST_AGUcpAlgFxoparamGetAllResponse_deserialize;
     this.globalElementSerializers['{urn:ast}SipGeneralSave'] = AST_SipGeneralSave_serialize;
     this.globalElementDeserializers['{urn:ast}SipGeneralSave'] = AST_SipGeneralSave_deserialize;
-    this.globalElementSerializers['{urn:ast}AGAlgChannelRemoveClient'] = AST_AGAlgChannelRemoveClient_serialize;
-    this.globalElementDeserializers['{urn:ast}AGAlgChannelRemoveClient'] = AST_AGAlgChannelRemoveClient_deserialize;
     this.globalElementSerializers['{urn:ast}AGAlgChannelGetOneResponse'] = AST_AGAlgChannelGetOneResponse_serialize;
     this.globalElementDeserializers['{urn:ast}AGAlgChannelGetOneResponse'] = AST_AGAlgChannelGetOneResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGSipEndpointSaveResponse'] = AST_AGSipEndpointSaveResponse_serialize;
     this.globalElementDeserializers['{urn:ast}AGSipEndpointSaveResponse'] = AST_AGSipEndpointSaveResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGUcpAlgFxsparamGetResponse'] = AST_AGUcpAlgFxsparamGetResponse_serialize;
     this.globalElementDeserializers['{urn:ast}AGUcpAlgFxsparamGetResponse'] = AST_AGUcpAlgFxsparamGetResponse_deserialize;
-    this.globalElementSerializers['{urn:ast}AGAlgChannelRemoveClientResponse'] = AST_AGAlgChannelRemoveClientResponse_serialize;
-    this.globalElementDeserializers['{urn:ast}AGAlgChannelRemoveClientResponse'] = AST_AGAlgChannelRemoveClientResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGSystemToolsSystemRebootResponse'] = AST_AGSystemToolsSystemRebootResponse_serialize;
     this.globalElementDeserializers['{urn:ast}AGSystemToolsSystemRebootResponse'] = AST_AGSystemToolsSystemRebootResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGSipBendpointSaveResponse'] = AST_AGSipBendpointSaveResponse_serialize;
@@ -73404,8 +71948,6 @@ function urn_ast_AST_wsdl_ASTPortType () {
     this.globalElementDeserializers['{urn:ast}AGNetworkOpenvpnSaveResponse'] = AST_AGNetworkOpenvpnSaveResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGNetworkWanGetResponse'] = AST_AGNetworkWanGetResponse_serialize;
     this.globalElementDeserializers['{urn:ast}AGNetworkWanGetResponse'] = AST_AGNetworkWanGetResponse_deserialize;
-    this.globalElementSerializers['{urn:ast}AGAlgChannelAddClientResponse'] = AST_AGAlgChannelAddClientResponse_serialize;
-    this.globalElementDeserializers['{urn:ast}AGAlgChannelAddClientResponse'] = AST_AGAlgChannelAddClientResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGLogGetAll'] = AST_AGLogGetAll_serialize;
     this.globalElementDeserializers['{urn:ast}AGLogGetAll'] = AST_AGLogGetAll_deserialize;
     this.globalElementSerializers['{urn:ast}AGLogDelAll'] = AST_AGLogDelAll_serialize;
@@ -73418,8 +71960,6 @@ function urn_ast_AST_wsdl_ASTPortType () {
     this.globalElementDeserializers['{urn:ast}AGAdvTr069SaveResponse'] = AST_AGAdvTr069SaveResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGUcpAlgGlbSettingSaveResponse'] = AST_AGUcpAlgGlbSettingSaveResponse_serialize;
     this.globalElementDeserializers['{urn:ast}AGUcpAlgGlbSettingSaveResponse'] = AST_AGUcpAlgGlbSettingSaveResponse_deserialize;
-    this.globalElementSerializers['{urn:ast}AGSystemModuleBoardInfoGet'] = AST_AGSystemModuleBoardInfoGet_serialize;
-    this.globalElementDeserializers['{urn:ast}AGSystemModuleBoardInfoGet'] = AST_AGSystemModuleBoardInfoGet_deserialize;
     this.globalElementSerializers['{urn:ast}AGLogSettingsSave'] = AST_AGLogSettingsSave_serialize;
     this.globalElementDeserializers['{urn:ast}AGLogSettingsSave'] = AST_AGLogSettingsSave_deserialize;
     this.globalElementSerializers['{urn:ast}AGUcpAlgGlbSettingSave'] = AST_AGUcpAlgGlbSettingSave_serialize;
@@ -73492,8 +72032,6 @@ function urn_ast_AST_wsdl_ASTPortType () {
     this.globalElementDeserializers['{urn:ast}AGRegisterParaSaveResponse'] = AST_AGRegisterParaSaveResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGSipBatchEndpointsGet'] = AST_AGSipBatchEndpointsGet_serialize;
     this.globalElementDeserializers['{urn:ast}AGSipBatchEndpointsGet'] = AST_AGSipBatchEndpointsGet_deserialize;
-    this.globalElementSerializers['{urn:ast}AGSystemModuleBoardInfoGetResponse'] = AST_AGSystemModuleBoardInfoGetResponse_serialize;
-    this.globalElementDeserializers['{urn:ast}AGSystemModuleBoardInfoGetResponse'] = AST_AGSystemModuleBoardInfoGetResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGSystemCloseAllserviceResponse'] = AST_AGSystemCloseAllserviceResponse_serialize;
     this.globalElementDeserializers['{urn:ast}AGSystemCloseAllserviceResponse'] = AST_AGSystemCloseAllserviceResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGAlgGlbSettingSaveResponse'] = AST_AGAlgGlbSettingSaveResponse_serialize;
@@ -73540,8 +72078,6 @@ function urn_ast_AST_wsdl_ASTPortType () {
     this.globalElementDeserializers['{urn:ast}AGNetworkRulesDel'] = AST_AGNetworkRulesDel_deserialize;
     this.globalElementSerializers['{urn:ast}AGUcpSystemToolsSndRecordStart'] = AST_AGUcpSystemToolsSndRecordStart_serialize;
     this.globalElementDeserializers['{urn:ast}AGUcpSystemToolsSndRecordStart'] = AST_AGUcpSystemToolsSndRecordStart_deserialize;
-    this.globalElementSerializers['{urn:ast}AGSystemModuleUpdateTftp'] = AST_AGSystemModuleUpdateTftp_serialize;
-    this.globalElementDeserializers['{urn:ast}AGSystemModuleUpdateTftp'] = AST_AGSystemModuleUpdateTftp_deserialize;
     this.globalElementSerializers['{urn:ast}AGRoutingGroupGetAll'] = AST_AGRoutingGroupGetAll_serialize;
     this.globalElementDeserializers['{urn:ast}AGRoutingGroupGetAll'] = AST_AGRoutingGroupGetAll_deserialize;
     this.globalElementSerializers['{urn:ast}AGRoutingGroupGetNew'] = AST_AGRoutingGroupGetNew_serialize;
@@ -73576,8 +72112,6 @@ function urn_ast_AST_wsdl_ASTPortType () {
     this.globalElementDeserializers['{urn:ast}AGSystemToolsAsteriskReboot'] = AST_AGSystemToolsAsteriskReboot_deserialize;
     this.globalElementSerializers['{urn:ast}AGAlgAutoCallSave'] = AST_AGAlgAutoCallSave_serialize;
     this.globalElementDeserializers['{urn:ast}AGAlgAutoCallSave'] = AST_AGAlgAutoCallSave_deserialize;
-    this.globalElementSerializers['{urn:ast}AGAlgChannelAddOneResponse'] = AST_AGAlgChannelAddOneResponse_serialize;
-    this.globalElementDeserializers['{urn:ast}AGAlgChannelAddOneResponse'] = AST_AGAlgChannelAddOneResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGRoutingGroupsDel'] = AST_AGRoutingGroupsDel_serialize;
     this.globalElementDeserializers['{urn:ast}AGRoutingGroupsDel'] = AST_AGRoutingGroupsDel_deserialize;
     this.globalElementSerializers['{urn:ast}AGUcpSystemToolsSndRecordStartResponse'] = AST_AGUcpSystemToolsSndRecordStartResponse_serialize;
@@ -73618,8 +72152,6 @@ function urn_ast_AST_wsdl_ASTPortType () {
     this.globalElementDeserializers['{urn:ast}AGNetworkBurnMacGetResponse'] = AST_AGNetworkBurnMacGetResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGAlgGlbSettingSave'] = AST_AGAlgGlbSettingSave_serialize;
     this.globalElementDeserializers['{urn:ast}AGAlgGlbSettingSave'] = AST_AGAlgGlbSettingSave_deserialize;
-    this.globalElementSerializers['{urn:ast}AGAlgChannelAddOne'] = AST_AGAlgChannelAddOne_serialize;
-    this.globalElementDeserializers['{urn:ast}AGAlgChannelAddOne'] = AST_AGAlgChannelAddOne_deserialize;
     this.globalElementSerializers['{urn:ast}AGSysGeneralDebugResponse'] = AST_AGSysGeneralDebugResponse_serialize;
     this.globalElementDeserializers['{urn:ast}AGSysGeneralDebugResponse'] = AST_AGSysGeneralDebugResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGCommitSwitch'] = AST_AGCommitSwitch_serialize;
@@ -73650,8 +72182,6 @@ function urn_ast_AST_wsdl_ASTPortType () {
     this.globalElementDeserializers['{urn:ast}AGSysGeneralDelLang'] = AST_AGSysGeneralDelLang_deserialize;
     this.globalElementSerializers['{urn:ast}AGSystemCloseAllservice'] = AST_AGSystemCloseAllservice_serialize;
     this.globalElementDeserializers['{urn:ast}AGSystemCloseAllservice'] = AST_AGSystemCloseAllservice_deserialize;
-    this.globalElementSerializers['{urn:ast}AGAlgChannelAddClient'] = AST_AGAlgChannelAddClient_serialize;
-    this.globalElementDeserializers['{urn:ast}AGAlgChannelAddClient'] = AST_AGAlgChannelAddClient_deserialize;
     this.globalElementSerializers['{urn:ast}AGOEMSettingInfoGet'] = AST_AGOEMSettingInfoGet_serialize;
     this.globalElementDeserializers['{urn:ast}AGOEMSettingInfoGet'] = AST_AGOEMSettingInfoGet_deserialize;
     this.globalElementSerializers['{urn:ast}AGRegisterParaRead'] = AST_AGRegisterParaRead_serialize;
@@ -73678,8 +72208,6 @@ function urn_ast_AST_wsdl_ASTPortType () {
     this.globalElementDeserializers['{urn:ast}AGAdvCloudGetResponse'] = AST_AGAdvCloudGetResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGNetworkFirewallGetResponse'] = AST_AGNetworkFirewallGetResponse_serialize;
     this.globalElementDeserializers['{urn:ast}AGNetworkFirewallGetResponse'] = AST_AGNetworkFirewallGetResponse_deserialize;
-    this.globalElementSerializers['{urn:ast}AGAlgChannelRemoveOneResponse'] = AST_AGAlgChannelRemoveOneResponse_serialize;
-    this.globalElementDeserializers['{urn:ast}AGAlgChannelRemoveOneResponse'] = AST_AGAlgChannelRemoveOneResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGSipFxoBindingSave'] = AST_AGSipFxoBindingSave_serialize;
     this.globalElementDeserializers['{urn:ast}AGSipFxoBindingSave'] = AST_AGSipFxoBindingSave_deserialize;
     this.globalElementSerializers['{urn:ast}AGCommitAll'] = AST_AGCommitAll_serialize;
@@ -73744,8 +72272,6 @@ function urn_ast_AST_wsdl_ASTPortType () {
     this.globalElementDeserializers['{urn:ast}AGSetRemoteProvisionAddressResponse'] = AST_AGSetRemoteProvisionAddressResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGSysGeneralDebug'] = AST_AGSysGeneralDebug_serialize;
     this.globalElementDeserializers['{urn:ast}AGSysGeneralDebug'] = AST_AGSysGeneralDebug_deserialize;
-    this.globalElementSerializers['{urn:ast}AGSystemModuleUpdateTftpResponse'] = AST_AGSystemModuleUpdateTftpResponse_serialize;
-    this.globalElementDeserializers['{urn:ast}AGSystemModuleUpdateTftpResponse'] = AST_AGSystemModuleUpdateTftpResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGLogSettingsGetResponse'] = AST_AGLogSettingsGetResponse_serialize;
     this.globalElementDeserializers['{urn:ast}AGLogSettingsGetResponse'] = AST_AGLogSettingsGetResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGAlgSecSettingDeleteKey'] = AST_AGAlgSecSettingDeleteKey_serialize;
@@ -73870,8 +72396,6 @@ function urn_ast_AST_wsdl_ASTPortType () {
     this.globalElementDeserializers['{urn:ast}AGSetFXSPortsGain'] = AST_AGSetFXSPortsGain_deserialize;
     this.globalElementSerializers['{urn:ast}AGjConConfigKeyboardMap'] = AST_AGjConConfigKeyboardMap_serialize;
     this.globalElementDeserializers['{urn:ast}AGjConConfigKeyboardMap'] = AST_AGjConConfigKeyboardMap_deserialize;
-    this.globalElementSerializers['{urn:ast}AGAlgChannelRemoveOne'] = AST_AGAlgChannelRemoveOne_serialize;
-    this.globalElementDeserializers['{urn:ast}AGAlgChannelRemoveOne'] = AST_AGAlgChannelRemoveOne_deserialize;
     this.globalElementSerializers['{urn:ast}AGAlgAutoCallGetResponse'] = AST_AGAlgAutoCallGetResponse_serialize;
     this.globalElementDeserializers['{urn:ast}AGAlgAutoCallGetResponse'] = AST_AGAlgAutoCallGetResponse_deserialize;
     this.globalElementSerializers['{urn:ast}AGCommitAllResponse'] = AST_AGCommitAllResponse_serialize;
@@ -73968,8 +72492,6 @@ function urn_ast_AST_wsdl_ASTPortType () {
     this.globalElementDeserializers['{urn:ast}SysInfoGet'] = AST_SysInfoGet_deserialize;
     this.globalElementSerializers['{urn:ast}NetworkDdnsSave'] = AST_NetworkDdnsSave_serialize;
     this.globalElementDeserializers['{urn:ast}NetworkDdnsSave'] = AST_NetworkDdnsSave_deserialize;
-    this.globalElementSerializers['{urn:ast}ModuleBoardInfo'] = AST_ModuleBoardInfo_serialize;
-    this.globalElementDeserializers['{urn:ast}ModuleBoardInfo'] = AST_ModuleBoardInfo_deserialize;
     this.globalElementSerializers['{urn:ast}AnaArr'] = AST_AnaArr_serialize;
     this.globalElementDeserializers['{urn:ast}AnaArr'] = AST_AnaArr_deserialize;
     this.globalElementSerializers['{urn:ast}LogCdrArr'] = AST_LogCdrArr_serialize;
@@ -73994,8 +72516,6 @@ function urn_ast_AST_wsdl_ASTPortType () {
     this.globalElementDeserializers['{urn:ast}UcpAlgCalllimit'] = AST_UcpAlgCalllimit_deserialize;
     this.globalElementSerializers['{urn:ast}SipBendSave'] = AST_SipBendSave_serialize;
     this.globalElementDeserializers['{urn:ast}SipBendSave'] = AST_SipBendSave_deserialize;
-    this.globalElementSerializers['{urn:ast}ClientAdd'] = AST_ClientAdd_serialize;
-    this.globalElementDeserializers['{urn:ast}ClientAdd'] = AST_ClientAdd_deserialize;
     this.globalElementSerializers['{urn:ast}AnaChn'] = AST_AnaChn_serialize;
     this.globalElementDeserializers['{urn:ast}AnaChn'] = AST_AnaChn_deserialize;
     this.globalElementSerializers['{urn:ast}NetworkWanGet'] = AST_NetworkWanGet_serialize;
@@ -74006,8 +72526,6 @@ function urn_ast_AST_wsdl_ASTPortType () {
     this.globalElementDeserializers['{urn:ast}AnaGetAll'] = AST_AnaGetAll_deserialize;
     this.globalElementSerializers['{urn:ast}AnaFxsAll'] = AST_AnaFxsAll_serialize;
     this.globalElementDeserializers['{urn:ast}AnaFxsAll'] = AST_AnaFxsAll_deserialize;
-    this.globalElementSerializers['{urn:ast}ModuleBoardGet'] = AST_ModuleBoardGet_serialize;
-    this.globalElementDeserializers['{urn:ast}ModuleBoardGet'] = AST_ModuleBoardGet_deserialize;
     this.globalElementSerializers['{urn:ast}FileArr'] = AST_FileArr_serialize;
     this.globalElementDeserializers['{urn:ast}FileArr'] = AST_FileArr_deserialize;
     this.globalElementSerializers['{urn:ast}AdvAstSave'] = AST_AdvAstSave_serialize;
@@ -74016,8 +72534,6 @@ function urn_ast_AST_wsdl_ASTPortType () {
     this.globalElementDeserializers['{urn:ast}LogSettingSave'] = AST_LogSettingSave_deserialize;
     this.globalElementSerializers['{urn:ast}SysInfo'] = AST_SysInfo_serialize;
     this.globalElementDeserializers['{urn:ast}SysInfo'] = AST_SysInfo_deserialize;
-    this.globalElementSerializers['{urn:ast}ClientRemove'] = AST_ClientRemove_serialize;
-    this.globalElementDeserializers['{urn:ast}ClientRemove'] = AST_ClientRemove_deserialize;
     this.globalElementSerializers['{urn:ast}LogCdr'] = AST_LogCdr_serialize;
     this.globalElementDeserializers['{urn:ast}LogCdr'] = AST_LogCdr_deserialize;
     this.globalElementSerializers['{urn:ast}SnmpGet'] = AST_SnmpGet_serialize;
@@ -74036,8 +72552,6 @@ function urn_ast_AST_wsdl_ASTPortType () {
     this.globalElementDeserializers['{urn:ast}SipBatchGet'] = AST_SipBatchGet_deserialize;
     this.globalElementSerializers['{urn:ast}RegisterParaGet'] = AST_RegisterParaGet_serialize;
     this.globalElementDeserializers['{urn:ast}RegisterParaGet'] = AST_RegisterParaGet_deserialize;
-    this.globalElementSerializers['{urn:ast}Array16OfunsignedByte'] = AST_Array16OfunsignedByte_serialize;
-    this.globalElementDeserializers['{urn:ast}Array16OfunsignedByte'] = AST_Array16OfunsignedByte_deserialize;
     this.globalElementSerializers['{urn:ast}AdvAstFileGet'] = AST_AdvAstFileGet_serialize;
     this.globalElementDeserializers['{urn:ast}AdvAstFileGet'] = AST_AdvAstFileGet_deserialize;
     this.globalElementSerializers['{urn:ast}Result'] = AST_Result_serialize;
@@ -74344,8 +72858,6 @@ function urn_ast_AST_wsdl_ASTPortType () {
     this.globalElementDeserializers['{urn:ast}SysCompyInfo'] = AST_SysCompyInfo_deserialize;
     this.globalElementSerializers['{urn:ast}SipRtp'] = AST_SipRtp_serialize;
     this.globalElementDeserializers['{urn:ast}SipRtp'] = AST_SipRtp_deserialize;
-    this.globalElementSerializers['{urn:ast}ModuleBoardInfoArr'] = AST_ModuleBoardInfoArr_serialize;
-    this.globalElementDeserializers['{urn:ast}ModuleBoardInfoArr'] = AST_ModuleBoardInfoArr_deserialize;
     this.globalElementSerializers['{urn:ast}SystemFuncFlag'] = AST_SystemFuncFlag_serialize;
     this.globalElementDeserializers['{urn:ast}SystemFuncFlag'] = AST_SystemFuncFlag_deserialize;
     this.globalElementSerializers['{urn:ast}UcpAlgCalllimitStatus'] = AST_UcpAlgCalllimitStatus_serialize;
@@ -76337,94 +74849,6 @@ urn_ast_AST_wsdl_ASTPortType.prototype.AGRoutingGroupSaveRequest_serializeInput 
 
 function urn_ast_AST_wsdl_AGRoutingGroupSaveResponse_deserializeResponse(cxfjsutils, partElement) {
     var returnObject = AST_AGRoutingGroupSaveResponse_deserialize (cxfjsutils, partElement);
-
-    return returnObject;
-}
-function urn_ast_AST_wsdl_AGAlgChannelRemoveOne_op_onsuccess(client, responseXml) {
-    if (client.user_onsuccess) {
-     var responseObject = null;
-     var element = responseXml.documentElement;
-     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
-     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
-      element = this.jsutils.getNextElementSibling(element);
-      if (element == null) {
-       throw 'No env:Body in message.'
-      }
-     }
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
-     this.jsutils.trace('calling urn_ast_AST_wsdl_AGAlgChannelRemoveOneResponse_deserializeResponse');
-     responseObject = urn_ast_AST_wsdl_AGAlgChannelRemoveOneResponse_deserializeResponse(this.jsutils, element);
-     client.user_onsuccess(responseObject);
-    }
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGAlgChannelRemoveOne_onsuccess = urn_ast_AST_wsdl_AGAlgChannelRemoveOne_op_onsuccess;
-
-function urn_ast_AST_wsdl_AGAlgChannelRemoveOne_op_onerror(client) {
-    if (client.user_onerror) {
-     var httpStatus;
-     var httpStatusText;
-     try {
-      httpStatus = client.req.status;
-      httpStatusText = client.req.statusText;
-     } catch(e) {
-      httpStatus = -1;
-      httpStatusText = 'Error opening connection to server';
-     }
-     if (client.parseErrorDetails) {
-      client.user_onerror(httpStatus, httpStatusText, client.parseErrorDetails(this));
-     } else {
-      client.user_onerror(httpStatus, httpStatusText);
-     }
-    }
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGAlgChannelRemoveOne_onerror = urn_ast_AST_wsdl_AGAlgChannelRemoveOne_op_onerror;
-
-//
-// Operation {urn:ast/AST.wsdl}AGAlgChannelRemoveOne
-// Wrapped operation.
-// parameter channel
-// - simple type {http://www.w3.org/2001/XMLSchema}unsignedShort//
-function urn_ast_AST_wsdl_AGAlgChannelRemoveOne_op(successCallback, errorCallback, channel) {
-    this.client = new CxfApacheOrgClient(this.jsutils);
-    var xml = null;
-    var args = new Array(1);
-    args[0] = channel;
-    xml = this.AGAlgChannelRemoveOneRequest_serializeInput(this.jsutils, args);
-    this.client.user_onsuccess = successCallback;
-    this.client.user_onerror = errorCallback;
-    var closureThis = this;
-    this.client.onsuccess = function(client, responseXml) { closureThis.AGAlgChannelRemoveOne_onsuccess(client, responseXml); };
-    this.client.onerror = function(client) { closureThis.AGAlgChannelRemoveOne_onerror(client); };
-    var requestHeaders = [];
-    requestHeaders['SOAPAction'] = '';
-    this.jsutils.trace('synchronous = ' + this.synchronous);
-    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGAlgChannelRemoveOne = urn_ast_AST_wsdl_AGAlgChannelRemoveOne_op;
-
-function urn_ast_AST_wsdl_AGAlgChannelRemoveOneRequest_serializeInput(cxfjsutils, args) {
-    var wrapperObj = new AST_AGAlgChannelRemoveOne();
-    wrapperObj.setChannel(args[0]);
-    var xml;
-    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='urn:ast' ");
-    // block for local variables
-    {
-     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:AGAlgChannelRemoveOne', null);
-    }
-    xml = xml + cxfjsutils.endSoap11Message();
-    return xml;
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGAlgChannelRemoveOneRequest_serializeInput = urn_ast_AST_wsdl_AGAlgChannelRemoveOneRequest_serializeInput;
-
-function urn_ast_AST_wsdl_AGAlgChannelRemoveOneResponse_deserializeResponse(cxfjsutils, partElement) {
-    var returnObject = AST_AGAlgChannelRemoveOneResponse_deserialize (cxfjsutils, partElement);
 
     return returnObject;
 }
@@ -79068,91 +77492,6 @@ urn_ast_AST_wsdl_ASTPortType.prototype.AGUcpAlgFxoparamGetAllRequest_serializeIn
 
 function urn_ast_AST_wsdl_AGUcpAlgFxoparamGetAllResponse_deserializeResponse(cxfjsutils, partElement) {
     var returnObject = AST_AGUcpAlgFxoparamGetAllResponse_deserialize (cxfjsutils, partElement);
-
-    return returnObject;
-}
-function urn_ast_AST_wsdl_AGSystemModuleBoardInfoGet_op_onsuccess(client, responseXml) {
-    if (client.user_onsuccess) {
-     var responseObject = null;
-     var element = responseXml.documentElement;
-     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
-     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
-      element = this.jsutils.getNextElementSibling(element);
-      if (element == null) {
-       throw 'No env:Body in message.'
-      }
-     }
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
-     this.jsutils.trace('calling urn_ast_AST_wsdl_AGSystemModuleBoardInfoGetResponse_deserializeResponse');
-     responseObject = urn_ast_AST_wsdl_AGSystemModuleBoardInfoGetResponse_deserializeResponse(this.jsutils, element);
-     client.user_onsuccess(responseObject);
-    }
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGSystemModuleBoardInfoGet_onsuccess = urn_ast_AST_wsdl_AGSystemModuleBoardInfoGet_op_onsuccess;
-
-function urn_ast_AST_wsdl_AGSystemModuleBoardInfoGet_op_onerror(client) {
-    if (client.user_onerror) {
-     var httpStatus;
-     var httpStatusText;
-     try {
-      httpStatus = client.req.status;
-      httpStatusText = client.req.statusText;
-     } catch(e) {
-      httpStatus = -1;
-      httpStatusText = 'Error opening connection to server';
-     }
-     if (client.parseErrorDetails) {
-      client.user_onerror(httpStatus, httpStatusText, client.parseErrorDetails(this));
-     } else {
-      client.user_onerror(httpStatus, httpStatusText);
-     }
-    }
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGSystemModuleBoardInfoGet_onerror = urn_ast_AST_wsdl_AGSystemModuleBoardInfoGet_op_onerror;
-
-//
-// Operation {urn:ast/AST.wsdl}AGSystemModuleBoardInfoGet
-// Wrapped operation.
-//
-function urn_ast_AST_wsdl_AGSystemModuleBoardInfoGet_op(successCallback, errorCallback) {
-    this.client = new CxfApacheOrgClient(this.jsutils);
-    var xml = null;
-    var args = new Array(0);
-    xml = this.AGSystemModuleBoardInfoGetRequest_serializeInput(this.jsutils, args);
-    this.client.user_onsuccess = successCallback;
-    this.client.user_onerror = errorCallback;
-    var closureThis = this;
-    this.client.onsuccess = function(client, responseXml) { closureThis.AGSystemModuleBoardInfoGet_onsuccess(client, responseXml); };
-    this.client.onerror = function(client) { closureThis.AGSystemModuleBoardInfoGet_onerror(client); };
-    var requestHeaders = [];
-    requestHeaders['SOAPAction'] = '';
-    this.jsutils.trace('synchronous = ' + this.synchronous);
-    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGSystemModuleBoardInfoGet = urn_ast_AST_wsdl_AGSystemModuleBoardInfoGet_op;
-
-function urn_ast_AST_wsdl_AGSystemModuleBoardInfoGetRequest_serializeInput(cxfjsutils, args) {
-    var wrapperObj = new AST_AGSystemModuleBoardInfoGet();
-    var xml;
-    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='urn:ast' ");
-    // block for local variables
-    {
-     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:AGSystemModuleBoardInfoGet', null);
-    }
-    xml = xml + cxfjsutils.endSoap11Message();
-    return xml;
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGSystemModuleBoardInfoGetRequest_serializeInput = urn_ast_AST_wsdl_AGSystemModuleBoardInfoGetRequest_serializeInput;
-
-function urn_ast_AST_wsdl_AGSystemModuleBoardInfoGetResponse_deserializeResponse(cxfjsutils, partElement) {
-    var returnObject = AST_AGSystemModuleBoardInfoGetResponse_deserialize (cxfjsutils, partElement);
 
     return returnObject;
 }
@@ -84281,95 +82620,6 @@ function urn_ast_AST_wsdl_AGSysGeneralDelLangResponse_deserializeResponse(cxfjsu
 
     return returnObject;
 }
-function urn_ast_AST_wsdl_AGAlgChannelAddClient_op_onsuccess(client, responseXml) {
-    if (client.user_onsuccess) {
-     var responseObject = null;
-     var element = responseXml.documentElement;
-     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
-     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
-      element = this.jsutils.getNextElementSibling(element);
-      if (element == null) {
-       throw 'No env:Body in message.'
-      }
-     }
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
-     this.jsutils.trace('calling urn_ast_AST_wsdl_AGAlgChannelAddClientResponse_deserializeResponse');
-     responseObject = urn_ast_AST_wsdl_AGAlgChannelAddClientResponse_deserializeResponse(this.jsutils, element);
-     client.user_onsuccess(responseObject);
-    }
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGAlgChannelAddClient_onsuccess = urn_ast_AST_wsdl_AGAlgChannelAddClient_op_onsuccess;
-
-function urn_ast_AST_wsdl_AGAlgChannelAddClient_op_onerror(client) {
-    if (client.user_onerror) {
-     var httpStatus;
-     var httpStatusText;
-     try {
-      httpStatus = client.req.status;
-      httpStatusText = client.req.statusText;
-     } catch(e) {
-      httpStatus = -1;
-      httpStatusText = 'Error opening connection to server';
-     }
-     if (client.parseErrorDetails) {
-      client.user_onerror(httpStatus, httpStatusText, client.parseErrorDetails(this));
-     } else {
-      client.user_onerror(httpStatus, httpStatusText);
-     }
-    }
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGAlgChannelAddClient_onerror = urn_ast_AST_wsdl_AGAlgChannelAddClient_op_onerror;
-
-//
-// Operation {urn:ast/AST.wsdl}AGAlgChannelAddClient
-// Wrapped operation.
-// parameter clientInfo
-// - Object constructor is AST_ClientAdd
-//
-function urn_ast_AST_wsdl_AGAlgChannelAddClient_op(successCallback, errorCallback, clientInfo) {
-    this.client = new CxfApacheOrgClient(this.jsutils);
-    var xml = null;
-    var args = new Array(1);
-    args[0] = clientInfo;
-    xml = this.AGAlgChannelAddClientRequest_serializeInput(this.jsutils, args);
-    this.client.user_onsuccess = successCallback;
-    this.client.user_onerror = errorCallback;
-    var closureThis = this;
-    this.client.onsuccess = function(client, responseXml) { closureThis.AGAlgChannelAddClient_onsuccess(client, responseXml); };
-    this.client.onerror = function(client) { closureThis.AGAlgChannelAddClient_onerror(client); };
-    var requestHeaders = [];
-    requestHeaders['SOAPAction'] = '';
-    this.jsutils.trace('synchronous = ' + this.synchronous);
-    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGAlgChannelAddClient = urn_ast_AST_wsdl_AGAlgChannelAddClient_op;
-
-function urn_ast_AST_wsdl_AGAlgChannelAddClientRequest_serializeInput(cxfjsutils, args) {
-    var wrapperObj = new AST_AGAlgChannelAddClient();
-    wrapperObj.setClientInfo(args[0]);
-    var xml;
-    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='urn:ast' ");
-    // block for local variables
-    {
-     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:AGAlgChannelAddClient', null);
-    }
-    xml = xml + cxfjsutils.endSoap11Message();
-    return xml;
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGAlgChannelAddClientRequest_serializeInput = urn_ast_AST_wsdl_AGAlgChannelAddClientRequest_serializeInput;
-
-function urn_ast_AST_wsdl_AGAlgChannelAddClientResponse_deserializeResponse(cxfjsutils, partElement) {
-    var returnObject = AST_AGAlgChannelAddClientResponse_deserialize (cxfjsutils, partElement);
-
-    return returnObject;
-}
 function urn_ast_AST_wsdl_AGAdvAstfileeditorEditSave_op_onsuccess(client, responseXml) {
     if (client.user_onsuccess) {
      var responseObject = null;
@@ -85267,95 +83517,6 @@ function urn_ast_AST_wsdl_SipGeneralSaveResponse_deserializeResponse(cxfjsutils,
 
     return returnObject;
 }
-function urn_ast_AST_wsdl_AGAlgChannelRemoveClient_op_onsuccess(client, responseXml) {
-    if (client.user_onsuccess) {
-     var responseObject = null;
-     var element = responseXml.documentElement;
-     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
-     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
-      element = this.jsutils.getNextElementSibling(element);
-      if (element == null) {
-       throw 'No env:Body in message.'
-      }
-     }
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
-     this.jsutils.trace('calling urn_ast_AST_wsdl_AGAlgChannelRemoveClientResponse_deserializeResponse');
-     responseObject = urn_ast_AST_wsdl_AGAlgChannelRemoveClientResponse_deserializeResponse(this.jsutils, element);
-     client.user_onsuccess(responseObject);
-    }
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGAlgChannelRemoveClient_onsuccess = urn_ast_AST_wsdl_AGAlgChannelRemoveClient_op_onsuccess;
-
-function urn_ast_AST_wsdl_AGAlgChannelRemoveClient_op_onerror(client) {
-    if (client.user_onerror) {
-     var httpStatus;
-     var httpStatusText;
-     try {
-      httpStatus = client.req.status;
-      httpStatusText = client.req.statusText;
-     } catch(e) {
-      httpStatus = -1;
-      httpStatusText = 'Error opening connection to server';
-     }
-     if (client.parseErrorDetails) {
-      client.user_onerror(httpStatus, httpStatusText, client.parseErrorDetails(this));
-     } else {
-      client.user_onerror(httpStatus, httpStatusText);
-     }
-    }
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGAlgChannelRemoveClient_onerror = urn_ast_AST_wsdl_AGAlgChannelRemoveClient_op_onerror;
-
-//
-// Operation {urn:ast/AST.wsdl}AGAlgChannelRemoveClient
-// Wrapped operation.
-// parameter clientInfo
-// - Object constructor is AST_ClientRemove
-//
-function urn_ast_AST_wsdl_AGAlgChannelRemoveClient_op(successCallback, errorCallback, clientInfo) {
-    this.client = new CxfApacheOrgClient(this.jsutils);
-    var xml = null;
-    var args = new Array(1);
-    args[0] = clientInfo;
-    xml = this.AGAlgChannelRemoveClientRequest_serializeInput(this.jsutils, args);
-    this.client.user_onsuccess = successCallback;
-    this.client.user_onerror = errorCallback;
-    var closureThis = this;
-    this.client.onsuccess = function(client, responseXml) { closureThis.AGAlgChannelRemoveClient_onsuccess(client, responseXml); };
-    this.client.onerror = function(client) { closureThis.AGAlgChannelRemoveClient_onerror(client); };
-    var requestHeaders = [];
-    requestHeaders['SOAPAction'] = '';
-    this.jsutils.trace('synchronous = ' + this.synchronous);
-    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGAlgChannelRemoveClient = urn_ast_AST_wsdl_AGAlgChannelRemoveClient_op;
-
-function urn_ast_AST_wsdl_AGAlgChannelRemoveClientRequest_serializeInput(cxfjsutils, args) {
-    var wrapperObj = new AST_AGAlgChannelRemoveClient();
-    wrapperObj.setClientInfo(args[0]);
-    var xml;
-    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='urn:ast' ");
-    // block for local variables
-    {
-     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:AGAlgChannelRemoveClient', null);
-    }
-    xml = xml + cxfjsutils.endSoap11Message();
-    return xml;
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGAlgChannelRemoveClientRequest_serializeInput = urn_ast_AST_wsdl_AGAlgChannelRemoveClientRequest_serializeInput;
-
-function urn_ast_AST_wsdl_AGAlgChannelRemoveClientResponse_deserializeResponse(cxfjsutils, partElement) {
-    var returnObject = AST_AGAlgChannelRemoveClientResponse_deserialize (cxfjsutils, partElement);
-
-    return returnObject;
-}
 function urn_ast_AST_wsdl_AGjConSetKeyClib_op_onsuccess(client, responseXml) {
     if (client.user_onsuccess) {
      var responseObject = null;
@@ -86167,97 +84328,6 @@ urn_ast_AST_wsdl_ASTPortType.prototype.AGAlgGlbSettingSaveRequest_serializeInput
 
 function urn_ast_AST_wsdl_AGAlgGlbSettingSaveResponse_deserializeResponse(cxfjsutils, partElement) {
     var returnObject = AST_AGAlgGlbSettingSaveResponse_deserialize (cxfjsutils, partElement);
-
-    return returnObject;
-}
-function urn_ast_AST_wsdl_AGAlgChannelAddOne_op_onsuccess(client, responseXml) {
-    if (client.user_onsuccess) {
-     var responseObject = null;
-     var element = responseXml.documentElement;
-     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
-     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
-      element = this.jsutils.getNextElementSibling(element);
-      if (element == null) {
-       throw 'No env:Body in message.'
-      }
-     }
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
-     this.jsutils.trace('calling urn_ast_AST_wsdl_AGAlgChannelAddOneResponse_deserializeResponse');
-     responseObject = urn_ast_AST_wsdl_AGAlgChannelAddOneResponse_deserializeResponse(this.jsutils, element);
-     client.user_onsuccess(responseObject);
-    }
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGAlgChannelAddOne_onsuccess = urn_ast_AST_wsdl_AGAlgChannelAddOne_op_onsuccess;
-
-function urn_ast_AST_wsdl_AGAlgChannelAddOne_op_onerror(client) {
-    if (client.user_onerror) {
-     var httpStatus;
-     var httpStatusText;
-     try {
-      httpStatus = client.req.status;
-      httpStatusText = client.req.statusText;
-     } catch(e) {
-      httpStatus = -1;
-      httpStatusText = 'Error opening connection to server';
-     }
-     if (client.parseErrorDetails) {
-      client.user_onerror(httpStatus, httpStatusText, client.parseErrorDetails(this));
-     } else {
-      client.user_onerror(httpStatus, httpStatusText);
-     }
-    }
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGAlgChannelAddOne_onerror = urn_ast_AST_wsdl_AGAlgChannelAddOne_op_onerror;
-
-//
-// Operation {urn:ast/AST.wsdl}AGAlgChannelAddOne
-// Wrapped operation.
-// parameter channel
-// - simple type {http://www.w3.org/2001/XMLSchema}unsignedShort// parameter signal
-// - simple type {http://www.w3.org/2001/XMLSchema}unsignedByte//
-function urn_ast_AST_wsdl_AGAlgChannelAddOne_op(successCallback, errorCallback, channel, signal) {
-    this.client = new CxfApacheOrgClient(this.jsutils);
-    var xml = null;
-    var args = new Array(2);
-    args[0] = channel;
-    args[1] = signal;
-    xml = this.AGAlgChannelAddOneRequest_serializeInput(this.jsutils, args);
-    this.client.user_onsuccess = successCallback;
-    this.client.user_onerror = errorCallback;
-    var closureThis = this;
-    this.client.onsuccess = function(client, responseXml) { closureThis.AGAlgChannelAddOne_onsuccess(client, responseXml); };
-    this.client.onerror = function(client) { closureThis.AGAlgChannelAddOne_onerror(client); };
-    var requestHeaders = [];
-    requestHeaders['SOAPAction'] = '';
-    this.jsutils.trace('synchronous = ' + this.synchronous);
-    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGAlgChannelAddOne = urn_ast_AST_wsdl_AGAlgChannelAddOne_op;
-
-function urn_ast_AST_wsdl_AGAlgChannelAddOneRequest_serializeInput(cxfjsutils, args) {
-    var wrapperObj = new AST_AGAlgChannelAddOne();
-    wrapperObj.setChannel(args[0]);
-    wrapperObj.setSignal(args[1]);
-    var xml;
-    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='urn:ast' ");
-    // block for local variables
-    {
-     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:AGAlgChannelAddOne', null);
-    }
-    xml = xml + cxfjsutils.endSoap11Message();
-    return xml;
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGAlgChannelAddOneRequest_serializeInput = urn_ast_AST_wsdl_AGAlgChannelAddOneRequest_serializeInput;
-
-function urn_ast_AST_wsdl_AGAlgChannelAddOneResponse_deserializeResponse(cxfjsutils, partElement) {
-    var returnObject = AST_AGAlgChannelAddOneResponse_deserialize (cxfjsutils, partElement);
 
     return returnObject;
 }
@@ -88883,94 +86953,6 @@ function urn_ast_AST_wsdl_AGAdvAstcliGetResponse_deserializeResponse(cxfjsutils,
 
     return returnObject;
 }
-function urn_ast_AST_wsdl_AGSystemDemoFlagSave_op_onsuccess(client, responseXml) {
-    if (client.user_onsuccess) {
-     var responseObject = null;
-     var element = responseXml.documentElement;
-     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
-     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
-      element = this.jsutils.getNextElementSibling(element);
-      if (element == null) {
-       throw 'No env:Body in message.'
-      }
-     }
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
-     this.jsutils.trace('calling urn_ast_AST_wsdl_AGSystemDemoFlagSaveResponse_deserializeResponse');
-     responseObject = urn_ast_AST_wsdl_AGSystemDemoFlagSaveResponse_deserializeResponse(this.jsutils, element);
-     client.user_onsuccess(responseObject);
-    }
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGSystemDemoFlagSave_onsuccess = urn_ast_AST_wsdl_AGSystemDemoFlagSave_op_onsuccess;
-
-function urn_ast_AST_wsdl_AGSystemDemoFlagSave_op_onerror(client) {
-    if (client.user_onerror) {
-     var httpStatus;
-     var httpStatusText;
-     try {
-      httpStatus = client.req.status;
-      httpStatusText = client.req.statusText;
-     } catch(e) {
-      httpStatus = -1;
-      httpStatusText = 'Error opening connection to server';
-     }
-     if (client.parseErrorDetails) {
-      client.user_onerror(httpStatus, httpStatusText, client.parseErrorDetails(this));
-     } else {
-      client.user_onerror(httpStatus, httpStatusText);
-     }
-    }
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGSystemDemoFlagSave_onerror = urn_ast_AST_wsdl_AGSystemDemoFlagSave_op_onerror;
-
-//
-// Operation {urn:ast/AST.wsdl}AGSystemDemoFlagSave
-// Wrapped operation.
-// parameter demoflag
-// - simple type {http://www.w3.org/2001/XMLSchema}unsignedByte//
-function urn_ast_AST_wsdl_AGSystemDemoFlagSave_op(successCallback, errorCallback, demoflag) {
-    this.client = new CxfApacheOrgClient(this.jsutils);
-    var xml = null;
-    var args = new Array(1);
-    args[0] = demoflag;
-    xml = this.AGSystemDemoFlagSaveRequest_serializeInput(this.jsutils, args);
-    this.client.user_onsuccess = successCallback;
-    this.client.user_onerror = errorCallback;
-    var closureThis = this;
-    this.client.onsuccess = function(client, responseXml) { closureThis.AGSystemDemoFlagSave_onsuccess(client, responseXml); };
-    this.client.onerror = function(client) { closureThis.AGSystemDemoFlagSave_onerror(client); };
-    var requestHeaders = [];
-    requestHeaders['SOAPAction'] = '';
-    this.jsutils.trace('synchronous = ' + this.synchronous);
-    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGSystemDemoFlagSave = urn_ast_AST_wsdl_AGSystemDemoFlagSave_op;
-
-function urn_ast_AST_wsdl_AGSystemDemoFlagSaveRequest_serializeInput(cxfjsutils, args) {
-    var wrapperObj = new AST_AGSystemDemoFlagSave();
-    wrapperObj.setDemoflag(args[0]);
-    var xml;
-    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='urn:ast' ");
-    // block for local variables
-    {
-     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:AGSystemDemoFlagSave', null);
-    }
-    xml = xml + cxfjsutils.endSoap11Message();
-    return xml;
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGSystemDemoFlagSaveRequest_serializeInput = urn_ast_AST_wsdl_AGSystemDemoFlagSaveRequest_serializeInput;
-
-function urn_ast_AST_wsdl_AGSystemDemoFlagSaveResponse_deserializeResponse(cxfjsutils, partElement) {
-    var returnObject = AST_AGSystemDemoFlagSaveResponse_deserialize (cxfjsutils, partElement);
-
-    return returnObject;
-}
 function urn_ast_AST_wsdl_AGSysLoginSave_op_onsuccess(client, responseXml) {
     if (client.user_onsuccess) {
      var responseObject = null;
@@ -89057,6 +87039,94 @@ urn_ast_AST_wsdl_ASTPortType.prototype.AGSysLoginSaveRequest_serializeInput = ur
 
 function urn_ast_AST_wsdl_AGSysLoginSaveResponse_deserializeResponse(cxfjsutils, partElement) {
     var returnObject = AST_AGSysLoginSaveResponse_deserialize (cxfjsutils, partElement);
+
+    return returnObject;
+}
+function urn_ast_AST_wsdl_AGSystemDemoFlagSave_op_onsuccess(client, responseXml) {
+    if (client.user_onsuccess) {
+     var responseObject = null;
+     var element = responseXml.documentElement;
+     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
+     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
+      element = this.jsutils.getNextElementSibling(element);
+      if (element == null) {
+       throw 'No env:Body in message.'
+      }
+     }
+     element = this.jsutils.getFirstElementChild(element);
+     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
+     this.jsutils.trace('calling urn_ast_AST_wsdl_AGSystemDemoFlagSaveResponse_deserializeResponse');
+     responseObject = urn_ast_AST_wsdl_AGSystemDemoFlagSaveResponse_deserializeResponse(this.jsutils, element);
+     client.user_onsuccess(responseObject);
+    }
+}
+
+urn_ast_AST_wsdl_ASTPortType.prototype.AGSystemDemoFlagSave_onsuccess = urn_ast_AST_wsdl_AGSystemDemoFlagSave_op_onsuccess;
+
+function urn_ast_AST_wsdl_AGSystemDemoFlagSave_op_onerror(client) {
+    if (client.user_onerror) {
+     var httpStatus;
+     var httpStatusText;
+     try {
+      httpStatus = client.req.status;
+      httpStatusText = client.req.statusText;
+     } catch(e) {
+      httpStatus = -1;
+      httpStatusText = 'Error opening connection to server';
+     }
+     if (client.parseErrorDetails) {
+      client.user_onerror(httpStatus, httpStatusText, client.parseErrorDetails(this));
+     } else {
+      client.user_onerror(httpStatus, httpStatusText);
+     }
+    }
+}
+
+urn_ast_AST_wsdl_ASTPortType.prototype.AGSystemDemoFlagSave_onerror = urn_ast_AST_wsdl_AGSystemDemoFlagSave_op_onerror;
+
+//
+// Operation {urn:ast/AST.wsdl}AGSystemDemoFlagSave
+// Wrapped operation.
+// parameter demoflag
+// - simple type {http://www.w3.org/2001/XMLSchema}unsignedByte//
+function urn_ast_AST_wsdl_AGSystemDemoFlagSave_op(successCallback, errorCallback, demoflag) {
+    this.client = new CxfApacheOrgClient(this.jsutils);
+    var xml = null;
+    var args = new Array(1);
+    args[0] = demoflag;
+    xml = this.AGSystemDemoFlagSaveRequest_serializeInput(this.jsutils, args);
+    this.client.user_onsuccess = successCallback;
+    this.client.user_onerror = errorCallback;
+    var closureThis = this;
+    this.client.onsuccess = function(client, responseXml) { closureThis.AGSystemDemoFlagSave_onsuccess(client, responseXml); };
+    this.client.onerror = function(client) { closureThis.AGSystemDemoFlagSave_onerror(client); };
+    var requestHeaders = [];
+    requestHeaders['SOAPAction'] = '';
+    this.jsutils.trace('synchronous = ' + this.synchronous);
+    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
+}
+
+urn_ast_AST_wsdl_ASTPortType.prototype.AGSystemDemoFlagSave = urn_ast_AST_wsdl_AGSystemDemoFlagSave_op;
+
+function urn_ast_AST_wsdl_AGSystemDemoFlagSaveRequest_serializeInput(cxfjsutils, args) {
+    var wrapperObj = new AST_AGSystemDemoFlagSave();
+    wrapperObj.setDemoflag(args[0]);
+    var xml;
+    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='urn:ast' ");
+    // block for local variables
+    {
+     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:AGSystemDemoFlagSave', null);
+    }
+    xml = xml + cxfjsutils.endSoap11Message();
+    return xml;
+}
+
+urn_ast_AST_wsdl_ASTPortType.prototype.AGSystemDemoFlagSaveRequest_serializeInput = urn_ast_AST_wsdl_AGSystemDemoFlagSaveRequest_serializeInput;
+
+function urn_ast_AST_wsdl_AGSystemDemoFlagSaveResponse_deserializeResponse(cxfjsutils, partElement) {
+    var returnObject = AST_AGSystemDemoFlagSaveResponse_deserialize (cxfjsutils, partElement);
 
     return returnObject;
 }
@@ -90008,91 +88078,6 @@ urn_ast_AST_wsdl_ASTPortType.prototype.IaxDelEndpointRequest_serializeInput = ur
 
 function urn_ast_AST_wsdl_IaxDelEndpointResponse_deserializeResponse(cxfjsutils, partElement) {
     var returnObject = AST_IaxDelEndpointResponse_deserialize (cxfjsutils, partElement);
-
-    return returnObject;
-}
-function urn_ast_AST_wsdl_AGSystemModuleUpdateTftp_op_onsuccess(client, responseXml) {
-    if (client.user_onsuccess) {
-     var responseObject = null;
-     var element = responseXml.documentElement;
-     this.jsutils.trace('responseXml: ' + this.jsutils.traceElementName(element));
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('first element child: ' + this.jsutils.traceElementName(element));
-     while (!this.jsutils.isNodeNamedNS(element, 'http://schemas.xmlsoap.org/soap/envelope/', 'Body')) {
-      element = this.jsutils.getNextElementSibling(element);
-      if (element == null) {
-       throw 'No env:Body in message.'
-      }
-     }
-     element = this.jsutils.getFirstElementChild(element);
-     this.jsutils.trace('part element: ' + this.jsutils.traceElementName(element));
-     this.jsutils.trace('calling urn_ast_AST_wsdl_AGSystemModuleUpdateTftpResponse_deserializeResponse');
-     responseObject = urn_ast_AST_wsdl_AGSystemModuleUpdateTftpResponse_deserializeResponse(this.jsutils, element);
-     client.user_onsuccess(responseObject);
-    }
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGSystemModuleUpdateTftp_onsuccess = urn_ast_AST_wsdl_AGSystemModuleUpdateTftp_op_onsuccess;
-
-function urn_ast_AST_wsdl_AGSystemModuleUpdateTftp_op_onerror(client) {
-    if (client.user_onerror) {
-     var httpStatus;
-     var httpStatusText;
-     try {
-      httpStatus = client.req.status;
-      httpStatusText = client.req.statusText;
-     } catch(e) {
-      httpStatus = -1;
-      httpStatusText = 'Error opening connection to server';
-     }
-     if (client.parseErrorDetails) {
-      client.user_onerror(httpStatus, httpStatusText, client.parseErrorDetails(this));
-     } else {
-      client.user_onerror(httpStatus, httpStatusText);
-     }
-    }
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGSystemModuleUpdateTftp_onerror = urn_ast_AST_wsdl_AGSystemModuleUpdateTftp_op_onerror;
-
-//
-// Operation {urn:ast/AST.wsdl}AGSystemModuleUpdateTftp
-// Wrapped operation.
-//
-function urn_ast_AST_wsdl_AGSystemModuleUpdateTftp_op(successCallback, errorCallback) {
-    this.client = new CxfApacheOrgClient(this.jsutils);
-    var xml = null;
-    var args = new Array(0);
-    xml = this.AGSystemModuleUpdateTftpRequest_serializeInput(this.jsutils, args);
-    this.client.user_onsuccess = successCallback;
-    this.client.user_onerror = errorCallback;
-    var closureThis = this;
-    this.client.onsuccess = function(client, responseXml) { closureThis.AGSystemModuleUpdateTftp_onsuccess(client, responseXml); };
-    this.client.onerror = function(client) { closureThis.AGSystemModuleUpdateTftp_onerror(client); };
-    var requestHeaders = [];
-    requestHeaders['SOAPAction'] = '';
-    this.jsutils.trace('synchronous = ' + this.synchronous);
-    this.client.request(this.url, xml, null, this.synchronous, requestHeaders);
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGSystemModuleUpdateTftp = urn_ast_AST_wsdl_AGSystemModuleUpdateTftp_op;
-
-function urn_ast_AST_wsdl_AGSystemModuleUpdateTftpRequest_serializeInput(cxfjsutils, args) {
-    var wrapperObj = new AST_AGSystemModuleUpdateTftp();
-    var xml;
-    xml = cxfjsutils.beginSoap11Message("xmlns:jns0='urn:ast' ");
-    // block for local variables
-    {
-     xml = xml + wrapperObj.serialize(cxfjsutils, 'jns0:AGSystemModuleUpdateTftp', null);
-    }
-    xml = xml + cxfjsutils.endSoap11Message();
-    return xml;
-}
-
-urn_ast_AST_wsdl_ASTPortType.prototype.AGSystemModuleUpdateTftpRequest_serializeInput = urn_ast_AST_wsdl_AGSystemModuleUpdateTftpRequest_serializeInput;
-
-function urn_ast_AST_wsdl_AGSystemModuleUpdateTftpResponse_deserializeResponse(cxfjsutils, partElement) {
-    var returnObject = AST_AGSystemModuleUpdateTftpResponse_deserialize (cxfjsutils, partElement);
 
     return returnObject;
 }

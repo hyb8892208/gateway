@@ -1,7 +1,7 @@
 <template>
     <el-form
             label-position="right"
-            label-width="250px"
+            label-width="30px"
             class="change-label-class"
             :rules="rules"
             :model="ruleForm"

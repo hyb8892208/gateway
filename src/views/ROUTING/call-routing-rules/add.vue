@@ -455,6 +455,14 @@
                         <el-input slot="param" v-model="ruleForm.dialing_delay"></el-input>
                     </form_item>
                 </el-row>
+
+                <el-row>
+                    <form_item v-bind:param="'t38_gateway_mode'">
+                        <span slot="param_help" v-html="lang.t38_gateway_mode_help"></span>
+                        <span slot="param_name" >{{lang.t38_gateway_mode}}</span>
+                        <el-checkbox slot="param" v-model="t38_gateway_mode"></el-checkbox>
+                    </form_item>
+                </el-row>
             </el-card>
 
             <el-card class="box-card" style="padding: 10px;margin-top: 20px;">
@@ -602,6 +610,7 @@
                 forwardnumber: '',
                 dialing_delay: '',
                 cidNumber: '',
+                t38_gateway_mode: false,
 
                 selective_end: [
                     {
@@ -742,6 +751,7 @@
                 this.ruleForm.dialing_delay = routing_data['_dialingdelay'].toFixed(2)
                 this.revc_secret = data_temp['_revcsecret']
                 this.cidNumber = data_temp['_cidnumber']
+                this.t38_gateway_mode = routing_data['_t38enable'] == 0 ? false : true
 
                 if(routing_data['_calleedialpattern'] != '' && routing_data['_calleedialpattern'] != null){
                     this.callee_pattern = routing_data['_calleedialpattern']
@@ -945,6 +955,7 @@
                 RoutingContex._timeout = this.disa_timeout
                 RoutingContex._dialingdelay = parseFloat(this.ruleForm.dialing_delay).toFixed(2)
                 RoutingContex._maxpasswddigits = this.disa_password_digits
+                RoutingContex._t38enable = this.t38_gateway_mode ? 1 : 0
 
                 const pattern_obj = {callee:[],caller:[]}
                 this.dial_pattren.forEach(item => {

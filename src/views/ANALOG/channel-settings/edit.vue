@@ -380,15 +380,15 @@
                             <el-row>
                                 <span v-for="(item, index) in all_analog_info">
                                     <el-col :span="6" >
-                                        <el-checkbox v-model="sync_port_arr[index+1]"
+                                        <el-checkbox v-model="sync_port_arr[index][1]"
                                                      v-if="port_type == 'FXS' && item._signalling == 1"
-                                                     :disabled="$route.params.id == item._channel"
-                                        >FXS-{{item._channel}}</el-checkbox>
+                                                     :disabled="$route.params.id == sync_port_arr[index][0]"
+                                        >FXS-{{sync_port_arr[index][0]}}</el-checkbox>
 
-                                        <el-checkbox v-model="sync_port_arr[index+1]"
+                                        <el-checkbox v-model="sync_port_arr[index][1]"
                                                      v-if="port_type == 'FXO' && item._signalling == 2"
-                                                     :disabled="$route.params.id == item._channel"
-                                        >FXO-{{item._channel}}</el-checkbox>
+                                                     :disabled="$route.params.id == sync_port_arr[index][0]"
+                                        >FXO-{{sync_port_arr[index][0]}}</el-checkbox>
                                     </el-col>
                                 </span>
                             </el-row>
@@ -648,11 +648,11 @@
         methods:{
             Select_all_port(checked){
                 this.sync_port_arr.forEach((item, index) => {
-                    if(index != this.$route.params.id) {
+                    if(item[0] != this.$route.params.id) {
                         if (checked) {
-                            this.$set(this.sync_port_arr, index, true)
+                            this.$set(this.sync_port_arr[index], 1, true)
                         } else {
-                            this.$set(this.sync_port_arr, index, false)
+                            this.$set(this.sync_port_arr[index], 1, false)
                         }
                     }
                 })
@@ -698,9 +698,9 @@
                     }
 
                     if(this.port_type == 'FXS' && item._signalling == 1){
-                        this.sync_port_arr[item._channel] = false
+                        this.sync_port_arr.push([item._channel, false])
                     }else if(this.port_type == 'FXO' && item._signalling == 2){
-                        this.sync_port_arr[item._channel] = false
+                        this.sync_port_arr.push([item._channel, false])
                     }
                 })
 
@@ -857,7 +857,7 @@
                 this.sync_port_arr.forEach((item,index) => {
                     if(item){
                         let ast_section = new AST_Section()
-                        ast_section._section = index
+                        ast_section._section = item[0]
                         SectionArr._item.push(ast_section)
 
                         port_sync = true
@@ -1160,7 +1160,7 @@
         watch:{
             sync_port_arr: {
                 handler(newval){
-                    let tmp = newval.filter(item => item == true)
+                    let tmp = newval.filter(item => item[1] == true)
                     if(tmp.length > 0){
                         this.show_sync_params = true
                     }else{

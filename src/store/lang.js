@@ -1,5 +1,4 @@
 import {language} from "../components/language";
-import lang from "../../../back/system-time/src/store/lang";
 
 export default {
     //menu
@@ -1170,6 +1169,8 @@ export default {
     November: language('November'),
     December: language('December'),
     any_time: language('Any Time'),
+    t38_gateway_mode: language('T.38 Gateway Mode'),
+    t38_gateway_mode_help: language('T.38 Gateway Mode'),
 
     //Group
     group_name: language('Group Name'),

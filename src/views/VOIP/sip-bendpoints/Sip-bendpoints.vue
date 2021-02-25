@@ -285,7 +285,7 @@
                     for(let i=0;i<info_arr.length-1;i++){
                         that.selected_sip.forEach((item,index) => {
                             let each = info_arr[i].split(",")
-                            if(each[0] == index+1){
+                            if(each[0] == item['sipnum']){
                                 for(let j=0;j<each.length;j++){
                                     each[j] = each[j].replace(/[\r\n]/g,"")
                                     switch(j<each.length){
@@ -307,23 +307,23 @@
                                         case j==6:
                                             each[j] = each[j].toLowerCase()
                                             if(each[j] == 'no'){
-                                                that.selected_sip[index].vos = each[j]
+                                                that.selected_sip[index].vos = 0
                                             }else if(each[j] == 'yes'){
-                                                that.selected_sip[index].vos = each[j]
+                                                that.selected_sip[index].vos = 2
                                             }
                                             break
                                         case j==7:
                                             each[j] = each[j].toLowerCase()
                                             if(each[j]=='g.711 u-law' || each[j]=='u-law' || each[j]=='ulaw' || each[j]=='g.711u-law'){
-                                                that.selected_sip[index].codec_priority = 'ulaw'
+                                                that.selected_sip[index].codec_priority = 1
                                             }else if(each[j]=='g.711 a-law' || each[j]=='a-law' || each[j]=='alaw' || each[j]=='g.711a-law'){
-                                                that.selected_sip[index].codec_priority = 'alaw'
+                                                that.selected_sip[index].codec_priority = 2
                                             }else if(each[j]=='g.729' || each[j]=='g729'){
-                                                that.selected_sip[index].codec_priority = 'g729'
+                                                that.selected_sip[index].codec_priority = 3
                                             }else if(each[j]=='g.722' || each[j]=='g722'){
-                                                that.selected_sip[index].codec_priority = 'g722'
+                                                that.selected_sip[index].codec_priority = 4
                                             }else{
-                                                that.selected_sip[index].codec_priority = each[j]
+                                                that.selected_sip[index].codec_priority = 6
                                             }
                                             break
                                         case j==8:

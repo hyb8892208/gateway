@@ -1,5 +1,5 @@
 <template>
-    <el-select slot="param" v-model="bind_val" style="width: 100%">
+    <el-select v-model="bind_val" style="width: 100%">
         <el-option
                 v-for="item in options"
                 :label="item.label"

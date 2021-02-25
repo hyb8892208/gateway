@@ -1892,6 +1892,7 @@ save order failed="保存排序失败"
 
 Force Answer="拒接时强制接听"
 Force Answer help="拒接时强制接听"
+T.38 Gateway Mode="T.38网关模式"
 
 Any Time="任意时间点"
 
